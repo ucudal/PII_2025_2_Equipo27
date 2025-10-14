@@ -1,1 +1,2 @@
-"# PII_2025_2_Equipo27" 
+## TRELLO
+https://trello.com/b/XM5W749V/entrega-p2
