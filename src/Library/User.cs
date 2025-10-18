@@ -1,3 +1,5 @@
+using System;
+
 namespace Library
 {
     public class User
@@ -26,8 +28,9 @@ namespace Library
         }
 
 
-        public void GetPanel()
+        public void GetPanel(RepoClients repo)
         {
+            Console.WriteLine($"Clientes totales: {repo.Clients.Count}");
 
         }
 
