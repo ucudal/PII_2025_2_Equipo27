@@ -1,39 +1,27 @@
+using System;
+using System.Collections.Generic;
+
 namespace Library
 {
-    public class Seller
+    public class Seller : User
     {
-        public string UserName { get; set; }
-        public bool Active { get; set; }
+        private List<Client> thisClients = new List<Client>();
 
-        public User(string username)
+        public Seller(string username) : base(username)
         {
-            this.UserName = username;
-            this.Active = true;
+            
         }
 
-        public enum Tags
+        public void AsignClient(Seller other, Client client)
         {
-            Vip,
-            Regular,
-            Bajo,
-            Nuevo,
-            Comprador
-        
-        }
-        public void AddTag(Client client, Tags tag)
-        {
-            client.Tag = tag;
-        }
-
-
-        public void GetPanel()
-        {
-
-        }
-
-        public double GetTotalSales()
-        {
-            return 0;
+            if (!other.thisClients.Contains(client))
+            {
+                other.thisClients.Add(client);
+            }
+            else
+            {
+                Console.WriteLine("El vendedor ya tiene asignado ese cliente");
+            }
         }
     }
 }
