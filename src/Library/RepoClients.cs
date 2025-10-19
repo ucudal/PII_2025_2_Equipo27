@@ -4,7 +4,7 @@ namespace Library
 {
     public class RepoClients
     {
-        private List<Client> Clients { get; } = new List<Client>();
+        public List<Client> Clients { get; } = new List<Client>();
         
         public void AddClient(Client client)
         {
@@ -52,7 +52,6 @@ namespace Library
                     result.Add(client);
                 }
             }
-
             return result;
         }
         
