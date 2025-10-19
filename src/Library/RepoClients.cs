@@ -16,48 +16,57 @@ namespace Library
             Clients.Remove(client);
         }
 
-        public Client SearchClientByName(string name)
+        public List<Client> SearchClientByName(string name)
         {
+            List<Client> result = new List<Client>();
             foreach (var client in Clients)
             {
                 if (client.Name == name)
                 {
-                    return client;
+                    result.Add(client);
                 }
             }
+            return result;
         }
         
-        public Client SearchClientByLastName(string lastname)
+        public List<Client> SearchClientByLastName(string lastname)
         {
+            List<Client> result = new List<Client>();
             foreach (var client in Clients)
             {
                 if (client.LastName == lastname)
                 {
-                    return client;
+                    result.Add(client);
                 }
             }
+            return result;
         }
         
-        public Client SearchClientByEmail(string email)
+        public List<Client> SearchClientByEmail(string email)
         {
+            List<Client> result = new List<Client>();
             foreach (var client in Clients)
             {
                 if (client.Email == email)
                 {
-                    return client;
+                    result.Add(client);
                 }
             }
+
+            return result;
         }
         
-        public Client SearchClientByNumber(string number)
+        public List<Client> SearchClientByNumber(string number)
         {
+            List<Client> result = new List<Client>();
             foreach (var client in Clients)
             {
                 if (client.Number == number)
                 {
-                    return client;
+                    result.Add(client);
                 }
             }
+            return result;
         }
 
         public List<Client> InactiveClients()
