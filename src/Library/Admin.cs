@@ -48,7 +48,7 @@ namespace Library
             user.Active = false;
         }
 
-        public void RemoveUser(User user)
+        public void DeleteUser(User user)
         {
             users.Remove(user);
         }

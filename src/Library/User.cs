@@ -31,6 +31,7 @@ namespace Library
         public void GetPanel(RepoClients repo)
         {
             Console.WriteLine($"Clientes totales: {repo.Clients.Count}");
+            // Falta mostrar reuniones próximas e interacciones anteriores.
 
         }
 

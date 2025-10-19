@@ -6,4 +6,7 @@ public class SellerTest
     public void Setup()
     {
     }
+    
+    [Test]
+    public void AsignClient() 
 }
