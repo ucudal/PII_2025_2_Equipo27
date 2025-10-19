@@ -8,8 +8,5 @@
         public string Number { get; set; }
         public bool Inactive { get; set; }
         public bool Waiting { get; set; }
-        
-        
-        
     }
 }
