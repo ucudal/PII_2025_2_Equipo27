@@ -12,11 +12,17 @@ namespace Library
             
         }
 
-        public void AsignClient(Seller other, Client client)
+        public void AsignClient(Seller other, Client client, Repoclients repo)
         {
+            if (!client.Waiting)
+            {
+                Console.WriteLine("El cliente no está en espera");
+            }
             if (!other.thisClients.Contains(client))
             {
                 other.thisClients.Add(client);
+                client.Waiting = false;
+                repo.WaitingClients.Remove(client);
             }
             else
             {
