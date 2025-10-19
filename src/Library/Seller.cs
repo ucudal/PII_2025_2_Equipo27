@@ -12,7 +12,7 @@ namespace Library
             
         }
 
-        public void AsignClient(Seller other, Client client, Repoclients repo)
+        public void AsignClient(Seller other, Client client)
         {
             if (!client.Waiting)
             {
@@ -22,7 +22,6 @@ namespace Library
             {
                 other.thisClients.Add(client);
                 client.Waiting = false;
-                repo.WaitingClients.Remove(client);
             }
             else
             {
