@@ -5,7 +5,7 @@ using Library.interactions;
 
 namespace Library
 {
-    public class Facade
+    public class MainFacade
     {
         private RepoClients repoClients = new RepoClients();
 
@@ -60,7 +60,7 @@ namespace Library
             client.ModifyClient(modified,modification);
         }
 
-        public void CreateOportunity(string Product, DateTime Date, int price, Oportunity.State state, Client client)
+        public void CreateOportunity(string Product, DateTime Date, int price, Opportunity.State state, Client client)
         {
             client.CreateOportunity(Product,Date,price,state,client);
         }
