@@ -6,9 +6,9 @@ namespace Library
 {
     public class Client
     {
-        public List<Oportunitie> Oportunities = new List<Oportunitie>();
-        public List<Interaction> Interactions = new List<Interaction>();
-        public Client(string id, string name, string lastName, string email, string phone, gender gender, string birthDate)
+        public List<Oportunity> Oportunities = new List<Oportunity>();
+        public List<ClientInteraction> Interactions = new List<ClientInteraction>();
+        public Client(string id, string name, string lastName, string email, string phone, gender gender, string birthDate, Seller seller)
         {
             this.Id = id;
             this.Name = name;
@@ -19,7 +19,9 @@ namespace Library
             this.Waiting = true;
             this.Gender = gender;
             this.BirthDate = birthDate;
+            this.AsignedSeller = seller;
         }
+        public Seller AsignedSeller { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -60,7 +62,7 @@ namespace Library
             }
         }
 
-        public void AddInteraction(Interaction interaction)
+        public void AddInteraction(ClientInteraction interaction)
         {
             Interactions.Add(interaction);
         }
