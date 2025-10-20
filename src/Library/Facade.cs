@@ -1,7 +1,5 @@
 using Microsoft.VisualBasic;
-
 using System.Collections.Generic;
-
 
 namespace Library
 {
@@ -43,11 +41,6 @@ namespace Library
             return result;
         }
         
-        public void ModifyClient(Client client, Client.TypeOfData modified, string modification)
-        {
-            client.ModifyClient(modified,modification);
-        }
-        
         public List<Client> InactiveClients()
         {
             List<Client> result = repoClients.InactiveClients();
@@ -59,6 +52,11 @@ namespace Library
             List<Client> result = repoClients.WaitingClients();
             return result;
         }
+        
+        public void ModifyClient(Client client, Client.TypeOfData modified, string modification)
+        {
+            client.ModifyClient(modified,modification);
+        }
 
         public void CreateOportunity(string Product, DateAndTime Date, int price, Oportunity.State state, Client client)
         {
@@ -69,6 +67,5 @@ namespace Library
         {
             client.AddTag(tag);
         }
-        
     }
 }

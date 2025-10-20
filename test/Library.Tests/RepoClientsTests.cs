@@ -6,9 +6,10 @@ public class RepoClientsTests
     public void TestGetClients()
     {
         // Arrange
+        Seller jose = new Seller();
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client("Mario", "Dias", "abcdefg", "123456789");
-        Client mariano = new Client("Mariano", "Dominguez", "gfedcba", "987654321");
+        Client mario = new Client("1","Mario", "Dias", "abcdefg", "123456789", Client.gender.male, "19/03/2000", jose);
+        Client mariano = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.gender.male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -24,8 +25,9 @@ public class RepoClientsTests
     public void TestAddClient()
     {
         // Arrange
+        Seller jose = new Seller();
         RepoClients repoClients = new RepoClients();
-        Client mariano = new Client("Mariano", "Dominguez", "gfedcba", "987654321");
+        Client mariano = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.gender.male, "02/12/1990", jose);
         List<Client> expected = new List<Client>();
         expected.Add(mariano);
         // Act
@@ -38,8 +40,9 @@ public class RepoClientsTests
     public void TestDeleteClient()
     {
         // Arrange
+        Seller jose = new Seller();
         RepoClients repoClients = new RepoClients();
-        Client mariano = new Client("Mariano", "Dominguez", "gfedcba", "987654321");
+        Client mariano = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.gender.male, "02/12/1990", jose);
         List<Client> expected = new List<Client>();
         repoClients.AddClient(mariano);
         // Act
@@ -52,9 +55,10 @@ public class RepoClientsTests
     public void TestSerchClientByName()
     {
         // Arrange
+        Seller jose = new Seller();
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client("Mario", "Dias", "abcdefg", "123456789");
-        Client mariano = new Client("Mariano", "Dominguez", "gfedcba", "987654321");
+        Client mario = new Client("1","Mario", "Dias", "abcdefg", "123456789", Client.gender.male, "19/03/2000", jose);
+        Client mariano = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.gender.male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -69,9 +73,10 @@ public class RepoClientsTests
     public void TestSerchClientByLastName()
     {
         // Arrange
+        Seller jose = new Seller();
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client("Mario", "Dias", "abcdefg", "123456789");
-        Client mariano = new Client("Mariano", "Dominguez", "gfedcba", "987654321");
+        Client mario = new Client("1","Mario", "Dias", "abcdefg", "123456789", Client.gender.male, "19/03/2000", jose);
+        Client mariano = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.gender.male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -86,9 +91,10 @@ public class RepoClientsTests
     public void TestSerchClientByEmail()
     {
         // Arrange
+        Seller jose = new Seller();
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client("Mario", "Dias", "abcdefg", "123456789");
-        Client mariano = new Client("Mariano", "Dominguez", "gfedcba", "987654321");
+        Client mario = new Client("1","Mario", "Dias", "abcdefg", "123456789", Client.gender.male, "19/03/2000", jose);
+        Client mariano = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.gender.male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -103,9 +109,10 @@ public class RepoClientsTests
     public void TestSerchClientByPhone()
     {
         // Arrange
+        Seller jose = new Seller();
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client("Mario", "Dias", "abcdefg", "123456789");
-        Client mariano = new Client("Mariano", "Dominguez", "gfedcba", "987654321");
+        Client mario = new Client("1","Mario", "Dias", "abcdefg", "123456789", Client.gender.male, "19/03/2000", jose);
+        Client mariano = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.gender.male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
