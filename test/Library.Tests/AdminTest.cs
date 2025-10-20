@@ -7,16 +7,6 @@ public class AdminTest
     {
     }
 
-    [Test]
-    public void CreateUser()
-    {
-        Admin admin = new Admin("Ezequiel");
-        string name = "Lucas";
-
-        User user = admin.CreateUser(name);
-
-        Assert.That(user.UserName, Is.EqualTo(name));
-    }
 
     [Test]
     public void CreateSeller()
@@ -33,9 +23,9 @@ public class AdminTest
     public void SuspendUser()
     {
         Admin admin = new Admin("Ezequiel");
-        User user = admin.CreateUser("Lucas");
+        Seller user = admin.CreateSeller("Lucas");
         
-        admin.SuspendUser(user);
+        admin.SuspendSeller(user);
         
         Assert.That(user.Active, Is.False);
     }

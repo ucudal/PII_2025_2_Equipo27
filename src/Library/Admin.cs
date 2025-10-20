@@ -5,52 +5,40 @@ namespace Library
 {
     public class Admin : User
     {
-        private List<User> users = new List<User>();
+        private List<Seller> sellers = new List<Seller>();
 
         public Admin(string username) : base(username)
         {
         }
 
-        public User CreateUser(string name)
+      
+
+        public Seller CreateSeller(string username)
         {
             foreach (User u in users)
             {
-                if (u.UserName == name)
-                {
-                    Console.WriteLine("Ya hay un usuario con ese nombre de usuario");
-                    return null;
-                }
-            }
-
-            User user = new User(name);
-            users.Add(user);
-            return user;
-        }
-
-        public Seller CreateSeller(string name)
-        {
-            foreach (User u in users)
-            {
-                if (u.UserName == name)
+                if (u.UserName == username)
                 {
                     Console.WriteLine("Ya hay un vendedor con ese nombre de usuario");
                     return null;
                 }
             }
 
-            Seller seller = new Seller(name);
-            users.Add(seller);
+            Seller seller = new Seller(username);
+            sellers.Add(seller);
             return seller;
         }
 
-        public void SuspendUser(User user)
+        
+
+        public void SuspendSeller(Seller seller)
         {
-            user.Active = false;
+            seller.Active = false;
         }
 
-        public void DeleteUser(User user)
+        public void DeleteSeller(Seller seller)
         {
-            users.Remove(user);
-        }
+            sellers.Remove(seller);
+    }
     }
 }

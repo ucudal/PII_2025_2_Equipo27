@@ -14,19 +14,7 @@ namespace Library
 
         public void AsignClient(Seller other, Client client)
         {
-            if (!client.Waiting)
-            {
-                Console.WriteLine("El cliente no está en espera");
-            }
-            if (!other.thisClients.Contains(client))
-            {
-                other.thisClients.Add(client);
-                client.Waiting = false;
-            }
-            else
-            {
-                Console.WriteLine("El vendedor ya tiene asignado ese cliente");
-            }
+            other.thisClients.Add(client);
         }
     }
 }
