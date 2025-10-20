@@ -55,12 +55,12 @@ namespace Library
             return result;
         }
         
-        public List<Client> SearchClientByNumber(string number)
+        public List<Client> SearchClientByPhone(string phone)
         {
             List<Client> result = new List<Client>();
             foreach (var client in Clients)
             {
-                if (client.Phone == number)
+                if (client.Phone == phone)
                 {
                     result.Add(client);
                 }
