@@ -14,15 +14,18 @@ namespace Library
         }
 
     
-        public void CreateTag(string tagname, RepoTag repo)
+        public Tag CreateTag(string tagname)
         {
+            RepoTag repo = new RepoTag();
             Tag tag = new Tag(tagname);
             repo.tagList.Add(tag);
+            return tag;
         }
 
 
-        public void GetPanel(RepoClients repo)
+        public void GetPanel()
         {
+            RepoClients repo = new RepoClients();
             Console.WriteLine($"Clientes totales: {repo.Clients.Count}");
 
             DateTime now = DateTime.Now;
@@ -43,9 +46,24 @@ namespace Library
             }
 
             Console.WriteLine($"Interacciones en este último mes: {recentInteractions}");
-        }
 
-        public double GetTotalSales()
+            int FutureMeetings = 0;
+            foreach (var client in repo.Clients)
+            {
+                foreach (var interaction in client.Interactions)
+                {
+                    if (DateTime.Now <= interaction.Date)
+                    {
+                        FutureMeetings++;
+                    }
+                }
+            }
+            
+            Console.WriteLine($"Reuniones próximas {FutureMeetings}");
+        }
+        
+
+        public void GetTotalSales(DateTime startdate, DateTime finishdate)
         {
             return 0;
         }

@@ -5,7 +5,7 @@ namespace Library
 {
     public class Seller : User
     {
-        private List<Client> thisClients = new List<Client>();
+        public List<Client> thisClients = new List<Client>();
 
         public Seller(string username) : base(username)
         {
@@ -14,7 +14,14 @@ namespace Library
 
         public void AsignClient(Seller other, Client client)
         {
-            other.thisClients.Add(client);
+            if (other.Active)
+            {
+                other.thisClients.Add(client);
+            }
+            else
+            {
+                Console.WriteLine("No se le puede asignar un cliente debido a que el vendedor está suspendido");
+            }
         }
     }
 }

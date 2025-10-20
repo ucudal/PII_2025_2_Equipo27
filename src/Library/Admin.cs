@@ -11,11 +11,22 @@ namespace Library
         {
         }
 
-      
+        public Seller ScreachSeller(string username)
+        {
+            foreach (var seller in sellers)
+            {
+                if (seller.UserName == username)
+                {
+                    return seller;
+                }
+            }
+
+            return null;
+        }
 
         public Seller CreateSeller(string username)
         {
-            foreach (User u in users)
+            foreach (User u in sellers)
             {
                 if (u.UserName == username)
                 {
@@ -26,6 +37,7 @@ namespace Library
 
             Seller seller = new Seller(username);
             sellers.Add(seller);
+            Console.WriteLine("Vendedor creado");
             return seller;
         }
 
@@ -33,12 +45,27 @@ namespace Library
 
         public void SuspendSeller(Seller seller)
         {
-            seller.Active = false;
+            if (!seller.Active)
+            {
+                seller.Active = false;
+                Console.WriteLine("Usuario suspendido");
+            }
+            else
+            {
+                Console.WriteLine("El usuario ya está suspendido");
+            }
         }
 
         public void DeleteSeller(Seller seller)
         {
-            sellers.Remove(seller);
-    }
+            if (sellers.Contains(seller))
+            {
+                sellers.Remove(seller);
+            }
+            else
+            {
+                Console.WriteLine("Ese vendedor no existe");
+            }
+        }
     }
 }
