@@ -78,7 +78,7 @@ namespace Library
         //////////////////////////////
         ///     Oportunity         ///
         //////////////////////////////
-        public void CreateOportunity(string Product, DateAndTime Date, int price, Oportunity.State state, Client client)
+        public void CreateOportunity(string Product, DateTime Date, int price, Oportunity.State state, Client client)
         {
             Oportunity oportunity = new Oportunity(Product, Date, price, state, client);
             Oportunities.Add(oportunity);
