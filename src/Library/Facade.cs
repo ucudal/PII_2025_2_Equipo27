@@ -60,7 +60,7 @@ namespace Library
             client.ModifyClient(modified,modification);
         }
 
-        public void CreateOportunity(string Product, DateAndTime Date, int price, Oportunity.State state, Client client)
+        public void CreateOportunity(string Product, DateTime Date, int price, Oportunity.State state, Client client)
         {
             client.CreateOportunity(Product,Date,price,state,client);
         }

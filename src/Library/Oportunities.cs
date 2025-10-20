@@ -7,7 +7,7 @@ namespace Library
     public class Oportunity 
     {
         public string Product { get; set; }
-        public DateAndTime Date { get; set; }
+        public DateTime Date { get; set; }
         public int Price { get; set; }
         public enum State
         {
@@ -16,7 +16,7 @@ namespace Library
         public State OportunityState { get; set; }
 
         public Client Client { get; set; }
-        public Oportunity(string Product, DateAndTime Date, int price, State state, Client client)
+        public Oportunity(string Product, DateTime Date, int price, State state, Client client)
         {
             this.Product = Product;
             this.Date = Date;
@@ -25,7 +25,7 @@ namespace Library
             this.Client = client;
 
         }
-        public void sell(string Product, DateAndTime Date, int Price, State State, Client client)
+        public void sell(string Product, DateTime Date, int Price, State State, Client client)
         {
             Oportunity sale = new Oportunity(Product, Date, Price, State, client);
         }
