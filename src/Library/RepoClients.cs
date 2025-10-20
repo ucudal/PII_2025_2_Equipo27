@@ -60,7 +60,7 @@ namespace Library
             List<Client> result = new List<Client>();
             foreach (var client in Clients)
             {
-                if (client.Number == number)
+                if (client.Phone == number)
                 {
                     result.Add(client);
                 }

@@ -8,6 +8,7 @@ namespace Library
     {
         public List<Oportunity> Oportunities = new List<Oportunity>();
         public List<ClientInteraction> Interactions = new List<ClientInteraction>();
+        public List<Tag> Tags = new List<Tag>();
         public Client(string id, string name, string lastName, string email, string phone, gender gender, string birthDate, Seller seller)
         {
             this.Id = id;
@@ -20,7 +21,7 @@ namespace Library
             this.Gender = gender;
             this.BirthDate = birthDate;
             this.AsignedSeller = seller;
-        }
+        } 
         public Seller AsignedSeller { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
@@ -65,6 +66,17 @@ namespace Library
         public void AddInteraction(ClientInteraction interaction)
         {
             Interactions.Add(interaction);
+        }
+
+        public void AddTag(Tag tag)
+        {
+            Tags.Add(tag);
+        }
+
+        public void CreateOportunity(string Product, DateAndTime Date, int price, Oportunity.State state, Client client)
+        {
+            Oportunity oportunity = new Oportunity(Product, Date, price, state, client);
+            Oportunities.Add(oportunity);
         }
     }
 }
