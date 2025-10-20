@@ -5,6 +5,11 @@ namespace Library
     public class Facade
     {
         private RepoClients repoClients = new RepoClients();
+
+        public List<Client> GetClients()
+        {
+            return repoClients.Clients;
+        }
         
         public void DeleteClient(Client client)
         {
@@ -29,9 +34,9 @@ namespace Library
             return result;
         }
         
-        public List<Client> SearchClientByNumber(string number)
+        public List<Client> SearchClientByPhone(string phone)
         {
-            List<Client> result = repoClients.SearchClientByNumber(number);
+            List<Client> result = repoClients.SearchClientByPhone(phone);
             return result;
         }
 
