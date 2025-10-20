@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-namespace Library
-{
-    public class Seller
-    {
-        
-=======
+
 using System;
 using System.Collections.Generic;
 
@@ -30,6 +24,5 @@ namespace Library
                 Console.WriteLine("No se le puede asignar un cliente debido a que el vendedor está suspendido");
             }
         }
->>>>>>> EzeBranch
     }
 }
