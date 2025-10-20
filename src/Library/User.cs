@@ -14,52 +14,41 @@ namespace Library
         }
 
     
-        public Tag CreateTag(string tagname)
+        public Tag CreateTag(string tagname, RepoTag repo)
         {
-            RepoTag repo = new RepoTag();
             Tag tag = new Tag(tagname);
             repo.tagList.Add(tag);
             return tag;
         }
 
 
-        public void GetPanel()
+        public void GetPanel(RepoClients repo)
         {
-            RepoClients repo = new RepoClients();
-            Console.WriteLine($"Clientes totales: {repo.Clients.Count}");
-
             DateTime now = DateTime.Now;
             int month = now.Month;
             int year = now.Year;
 
             int recentInteractions = 0;
+            int futureMeetings = 0;
 
             foreach (var client in repo.Clients)
             {
                 foreach (var interaction in client.Interactions)
                 {
-                    if (interaction.Date.Month == month && interaction.Date.Year == year && interaction.Date <= DateTime.Now)
+                    if (interaction.InteractionDate.Month == month && interaction.InteractionDate.Year == year && interaction.InteractionDate <= DateTime.Now)
                     {
                         recentInteractions++;
                     }
-                }
-            }
-
-            Console.WriteLine($"Interacciones en este último mes: {recentInteractions}");
-
-            int FutureMeetings = 0;
-            foreach (var client in repo.Clients)
-            {
-                foreach (var interaction in client.Interactions)
-                {
                     if (DateTime.Now <= interaction.Date)
                     {
-                        FutureMeetings++;
+                        futureMeetings++;
                     }
+                
                 }
             }
-            
-            Console.WriteLine($"Reuniones próximas {FutureMeetings}");
+            Console.WriteLine($"Clientes totales: {repo.Clients.Count}");
+            Console.WriteLine($"Interacciones en este último mes: {recentInteractions}");
+            Console.WriteLine($"Reuniones próximas {futureMeetings}");
         }
         
 

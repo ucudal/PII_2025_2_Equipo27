@@ -13,7 +13,7 @@ public class RepoTagTest
     {
         Admin admin = new Admin("Ezequiel");
         RepoTag repo = new RepoTag();
-        Tag tag = admin.CreateTag("VIP");
+        Tag tag = admin.CreateTag("VIP",repo);
 
         List<Tag> screach = repo.Screach("VIP");
 

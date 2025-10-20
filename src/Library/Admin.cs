@@ -5,7 +5,7 @@ namespace Library
 {
     public class Admin : User
     {
-        private List<Seller> sellers = new List<Seller>();
+        public List<Seller> sellers = new List<Seller>();
 
         public Admin(string username) : base(username)
         {
@@ -26,9 +26,9 @@ namespace Library
 
         public Seller CreateSeller(string username)
         {
-            foreach (User u in sellers)
+            foreach (Seller s in sellers)
             {
-                if (u.UserName == username)
+                if (s.UserName == username)
                 {
                     Console.WriteLine("Ya hay un vendedor con ese nombre de usuario");
                     return null;
