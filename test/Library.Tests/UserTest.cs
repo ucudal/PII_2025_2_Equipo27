@@ -19,5 +19,12 @@ public class UserTest
         Assert.That(repo.tagList.Count, Is.EqualTo(1));
         Assert.That(repo.tagList[0].TagName, Is.EqualTo("VIP"));
     }
+
+    [Test]
+    public void GetTotalSales()
+    {
+        RepoClients repo = new RepoClients();
+        Client client = new Client("1", "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.Gender.male, "12/12/12", null);
+    }
     
 }

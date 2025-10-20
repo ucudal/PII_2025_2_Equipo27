@@ -13,7 +13,7 @@ public class SellerTest
         Admin admin = new Admin("Famapez");
         Seller seller1 = admin.CreateSeller("Peter");
         Seller seller2 = admin.CreateSeller("Matteo");
-        Client client = new Client("1", "Hugo", "López", "hugolopez@", "555555555", Gender.male, "10/10/01");
+        Client client = new Client("1", "Hugo", "López", "hugolopez@", "555555555", Client.Gender.male, "10/10/01",null);
         
         seller1.AsignClient(seller2,client);
         

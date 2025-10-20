@@ -11,17 +11,31 @@ namespace Library
             admin.CreateSeller(username);
         }
 
-        public void SuspendSeller(string username)
+        public string SuspendSeller(string username)
         {
             Seller seller = admin.ScreachSeller(username);
-            admin.SuspendSeller(seller);
+            if (seller != null)
+            {
+                return admin.SuspendSeller(seller);
+            }
+            else
+            {
+                return "El nombre de usuario ingresado no existe";
+            }
 
         }
 
-        public void DeleteSeller(string username)
+        public string DeleteSeller(string username)
         {
             Seller seller = admin.ScreachSeller(username);
-            admin.DeleteSeller(seller);
+            if (seller != null)
+            {
+                return admin.DeleteSeller(seller);
+            }
+            else
+            {
+                return "El nombre de usuario ingresado no existe";
+            }
         }
    
     }

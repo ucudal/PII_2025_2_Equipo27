@@ -52,9 +52,21 @@ namespace Library
         }
         
 
-        public void GetTotalSales(DateTime startdate, DateTime finishdate)
+        public void GetTotalSales(RepoClients repo, DateTime startdate, DateTime finishdate)
         {
-            return 0;
+            int totalSales = 0;
+            foreach (var client in repo.Clients)
+            {
+                foreach (var sales in client.Oportunities)
+                {
+                    if (sales.Date.Date >= startdate && sales.Date.Date <= finishdate)
+                    {
+                        totalSales++;
+                    }
+                        
+                }
+            }
+            Console.WriteLine($"Cantidad de ventas dentro del período {totalSales}");
         }
     }
 }

@@ -20,7 +20,6 @@ namespace Library
                     return seller;
                 }
             }
-
             return null;
         }
 
@@ -41,30 +40,42 @@ namespace Library
             return seller;
         }
 
-        
-
-        public void SuspendSeller(Seller seller)
+        public string ActiveSeller(Seller seller)
         {
             if (!seller.Active)
             {
-                seller.Active = false;
-                Console.WriteLine("Usuario suspendido");
+                seller.Active = true;
+                return "El vendedor dejó de estar suspendido";
             }
             else
             {
-                Console.WriteLine("El usuario ya está suspendido");
+                return "El vendedor ya estaba activado";
             }
         }
 
-        public void DeleteSeller(Seller seller)
+        public string SuspendSeller(Seller seller)
+        {
+            if (seller.Active)
+            {
+                seller.Active = false;
+                return "Vendedor suspendido";
+            }
+            else
+            {
+                return "El vendedor ya estaba suspendido";
+            }
+        }
+
+        public string DeleteSeller(Seller seller)
         {
             if (sellers.Contains(seller))
             {
                 sellers.Remove(seller);
+                return "Vendedor eliminado";
             }
             else
             {
-                Console.WriteLine("Ese vendedor no existe");
+                return "Ese vendedor no existe";
             }
         }
     }

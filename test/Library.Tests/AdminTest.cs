@@ -33,6 +33,33 @@ public class AdminTest
         Assert.That(seller2, Is.Null);
         Assert.That(admin.sellers.Count, Is.EqualTo(1));
     }
+
+    [Test]
+    public void ActiveSeller_IfItIsNotActive()
+    {
+        Admin admin = new Admin("Julieta");
+        Seller seller = admin.CreateSeller("Juliana");
+        seller.Active = false;
+
+        string example = admin.ActiveSeller(seller);
+        
+        Assert.That(seller.Active, Is.True);
+        Assert.That(example,Is.EqualTo("El vendedor dejó de estar suspendido"));
+    }
+
+    [Test]
+    public void ActiveSeller_IfItWasAlredyActive()
+    {
+        Admin admin = new Admin("Silvia");
+        Seller seller = admin.CreateSeller("Nahuel");
+        seller.Active = true;
+
+        string example = admin.ActiveSeller(seller);
+        
+        Assert.That(seller.Active, Is.True);
+        Assert.That(example,Is.EqualTo("El vendedor ya estaba activado"));
+
+    }
     
 
     [Test]
@@ -41,9 +68,11 @@ public class AdminTest
         Admin admin = new Admin("Ámbar");
         Seller seller = admin.CreateSeller("Lucía");
         
-        admin.SuspendSeller(seller);
+        string example = admin.SuspendSeller(seller);
         
         Assert.That(seller.Active, Is.False);
+        Assert.That(example, Is.EqualTo("Vendedor suspendido"));
+        
     }
 
     [Test]
@@ -53,20 +82,32 @@ public class AdminTest
         Seller seller = admin.CreateSeller("Pablo");
         seller.Active = false;
 
-        admin.SuspendSeller(seller);
+        string example = admin.SuspendSeller(seller);
 
         Assert.That(seller.Active, Is.False);
+        Assert.That(example, Is.EqualTo("El vendedor ya estaba suspendido"));
     }
 
     [Test]
-
     public void DeleteSeller_Existing()
     {
         Admin admin = new Admin("Juan");
         Seller seller = admin.CreateSeller("Antonella");
         
-        admin.DeleteSeller(seller);
+        string example = admin.DeleteSeller(seller);
         
         Assert.That(admin.sellers.Count, Is.EqualTo(0));
+        Assert.That(example, Is.EqualTo("Vendedor eliminado"));
+    }
+
+    [Test]
+    public void DeleteSeller_IfNotExist()
+    {
+        Admin admin = new Admin("Luca");
+        Seller seller = new Seller("Matías");
+
+        string example = admin.DeleteSeller(seller);
+        
+        Assert.That(example, Is.EqualTo("Ese vendedor no existe"));
     }
 }
