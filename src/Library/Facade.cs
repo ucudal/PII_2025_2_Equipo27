@@ -1,5 +1,7 @@
+using System;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
+using Library.interactions;
 
 namespace Library
 {
@@ -66,6 +68,32 @@ namespace Library
         public void AddTag(Client client, Tag tag)
         {
             client.AddTag(tag);
+        }
+        
+        
+        //////////////////////////////
+        ///     Interactions       ///
+        //////////////////////////////
+        public void RegisterCall(string content, string notes, Client client,DateTime? interactionDate = null)
+        {
+        client.RegisterCall(content, notes, interactionDate);
+            
+        }
+        
+        public void RegisterEmail(string content, Email.MailType sender, string notes, Client client,DateTime? interactionDate = null)
+        {
+        client.RegisterEmail(content, sender,notes, interactionDate);
+            
+        }
+        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type, Client client,DateTime? interactionDate = null)
+        {
+        client.RegisterMeeting( content,notes, location, type, interactionDate);
+            
+        }
+        public void RegisterMessage(string content, string notes, Message.MessageType type, string channel, Client client,DateTime? interactionDate = null)
+        {
+        client.RegisterMessage( content,notes, type, channel,interactionDate);
+            
         }
     }
 }

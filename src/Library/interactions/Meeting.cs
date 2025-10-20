@@ -2,7 +2,7 @@ using System;
 
 namespace Library.interactions
 {
-        public class Meeting : Interaction
+        public class Meeting : ClientInteraction
         {
             public enum MeetingState
             {
