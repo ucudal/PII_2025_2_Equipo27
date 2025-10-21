@@ -7,7 +7,7 @@ namespace Library
     {
         public string Product { get; set; }
         public DateTime Date { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
         public enum State
         {
             Open, Close, Canceled
@@ -16,7 +16,7 @@ namespace Library
 
         public Client Client { get; set; }
 
-        public Opportunity(string Product, int price, State state, Client client,DateTime? Date = null)
+        public Opportunity(string Product, double price, State state, Client client,DateTime? Date = null)
         {
             this.Product = Product;
             this.Date = Date ?? DateTime.Now;
@@ -28,9 +28,9 @@ namespace Library
 
        
 
-        public void Sell(string Product, int Price, State State, Client client, DateTime? Date = null)
+        public void Sell()
         {
-            Opportunity sale = new Opportunity(Product, Price, State, client, Date);
+            this.OportunityState = State.Close;
 
         }
     }
