@@ -1,20 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Library
 {
     public class SellerFacade
     {
         
-        private Admin admin = new Admin("Luciano");
-        private RepoClients repo = new RepoClients();
-        public void AssignClient(string sellernameMy, string sellernameOther, Client client)
+        public Admin admin = new Admin("Luciano");
+        public RepoClients repo = new RepoClients();
+        public string AssignClient(string sellernameMy, string sellernameOther, Client client)
         {
             Seller seller1  = admin.ScreachSeller(sellernameMy);
             Seller seller2 = admin.ScreachSeller(sellernameOther);
 
-            seller1.AsignClient(seller2,client);
-            
+            if (seller1 != null && seller2 != null)
+            {
+                return seller1.AsignClient(seller2, client);
+            }
+            else
+            {
+                return "Hay al menos un usuario no encontrado";
+            }
         }
     }
 }
