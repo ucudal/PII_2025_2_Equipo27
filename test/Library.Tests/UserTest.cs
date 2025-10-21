@@ -28,8 +28,8 @@ public class UserTest
     public void GetPanel()
     {
         RepoClients repo = new RepoClients();
-        Client client1 = new Client("1", "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
-        Client client2 = new Client("2", "Lucía", "García", "lucia@example.com", "098888888", Client.GenderType.Female, "1995-05-05", null);
+        Client client1 = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
+        Client client2 = new Client(2, "Lucía", "García", "lucia@example.com", "098888888", Client.GenderType.Female, "1995-05-05", null);
         client1.Interactions.Add(new Call("Llamada 1", "Notas 1", DateTime.Now.AddDays(-3)));
         client1.Interactions.Add(new Meeting("Reunión 1", "Notas 2", "Sala A", Meeting.MeetingState.Programmed, DateTime.Now.AddDays(2))); 
         client2.Interactions.Add(new Email("Email 1", InteractionOrigin.Origin.Sent, "Notas", DateTime.Now.AddDays(-1)));
@@ -54,7 +54,7 @@ public class UserTest
     public void GetTotalSales()
     {
         RepoClients repo = new RepoClients();
-        Client client = new Client("1", "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
+        Client client = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
         
         client.Oportunities.Add(new Opportunity("Azúcar",60,Opportunity.State.Open,client,new DateTime(2025,10,20)));
         client.Oportunities.Add(new Opportunity("Arroz",60,Opportunity.State.Open,client, new DateTime(2025,10,20)));
