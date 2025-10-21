@@ -39,7 +39,7 @@ namespace Library
                     {
                         recentInteractions++;
                     }
-                    if (DateTime.Now <= interaction.Date)
+                    if (DateTime.Now <= interaction.InteractionDate)
                     {
                         futureMeetings++;
                     }

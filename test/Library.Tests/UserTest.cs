@@ -24,7 +24,7 @@ public class UserTest
     public void GetTotalSales()
     {
         RepoClients repo = new RepoClients();
-        Client client = new Client("1", "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.Gender.male, "12/12/12", null);
+        Client client = new Client("1", "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
     }
     
 }
