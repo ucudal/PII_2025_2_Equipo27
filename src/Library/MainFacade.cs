@@ -80,7 +80,7 @@ namespace Library
             
         }
         
-        public void RegisterEmail(string content, Email.MailType sender, string notes, Client client,DateTime? interactionDate = null)
+        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,DateTime? interactionDate = null)
         {
         client.RegisterEmail(content, sender,notes, interactionDate);
             
@@ -90,9 +90,9 @@ namespace Library
         client.RegisterMeeting( content,notes, location, type, interactionDate);
             
         }
-        public void RegisterMessage(string content, string notes, Message.MessageType type, string channel, Client client,DateTime? interactionDate = null)
+        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel, Client client,DateTime? interactionDate = null)
         {
-        client.RegisterMessage( content,notes, type, channel,interactionDate);
+        client.RegisterMessage( content,notes, sender, channel,interactionDate);
             
         }
     }
