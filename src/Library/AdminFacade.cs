@@ -25,6 +25,19 @@ namespace Library
             }
 
         }
+        public string ActiveSeller(string username)
+        {
+            Seller seller = admin.ScreachSeller(username);
+            if (seller != null)
+            {
+                return admin.ActiveSeller(seller);
+            }
+            else
+            {
+                return "El nombre de usuario ingresado no existe";
+            }
+
+        }
 
         public string DeleteSeller(string username)
         {

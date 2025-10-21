@@ -23,7 +23,7 @@ namespace Library
             this.Email = email;
             this.Phone = phone;
             this.Inactive = false;
-            this.Waiting = true;
+            this.Waiting = false;
             this.Gender = gender;
             this.BirthDate = birthDate;
             this.AsignedSeller = seller;
