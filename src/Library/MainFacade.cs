@@ -81,7 +81,9 @@ namespace Library
 
         }
         
-        public void RegisterEmail(string content, Email.MailType sender, string notes, Client client,DateTime? interactionDate = null)
+
+        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,DateTime? interactionDate = null)
+
         {
             Email email = new Email(content,sender, notes,DateTime.Now);
             client.AddInteraction(email);
@@ -93,9 +95,11 @@ namespace Library
             client.AddInteraction(meeting);
             
         }
-        public void RegisterMessage(string content, string notes, Message.MessageType type, string channel, Client client,DateTime? interactionDate = null)
+        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel, Client client,DateTime? interactionDate = null)
         {
-            Message message = new Message(content,notes,type,channel,DateTime.Now);
+
+            Message message = new Message(content,notes,sender,channel,DateTime.Now);
+
             client.AddInteraction(message);
             
         }
