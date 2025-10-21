@@ -9,6 +9,12 @@ namespace Library
     {
         private RepoClients repoClients = new RepoClients();
 
+        public void CreateClient(string id, string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        {
+            Client client = new Client(id, name, lastName, email, phone, gender, birthDate, seller);
+            repoClients.AddClient(client);
+        }
+
         public List<Client> GetClients()
         {
             return repoClients.Clients;
@@ -78,30 +84,23 @@ namespace Library
         {
             Call call = new Call(content,notes,DateTime.Now);
             client.AddInteraction(call);
-
         }
         
 
         public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,DateTime? interactionDate = null)
-
         {
             Email email = new Email(content,sender, notes,DateTime.Now);
             client.AddInteraction(email);
-            
         }
         public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type, Client client,DateTime? interactionDate = null)
         {
             Meeting meeting = new Meeting(content,notes,location,type,DateTime.Now);
             client.AddInteraction(meeting);
-            
         }
         public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel, Client client,DateTime? interactionDate = null)
         {
-
             Message message = new Message(content,notes,sender,channel,DateTime.Now);
-
             client.AddInteraction(message);
-            
         }
     }
 }

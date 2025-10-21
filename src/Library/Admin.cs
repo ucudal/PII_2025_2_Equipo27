@@ -49,7 +49,7 @@ namespace Library
             }
             else
             {
-                return "El vendedor ya estaba activado";
+                return "El vendedor ya estaba activo";
             }
         }
 
