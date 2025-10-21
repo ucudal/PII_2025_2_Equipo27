@@ -57,7 +57,7 @@ public class AdminTest
         string example = admin.ActiveSeller(seller);
         
         Assert.That(seller.Active, Is.True);
-        Assert.That(example,Is.EqualTo("El vendedor ya estaba activado"));
+        Assert.That(example,Is.EqualTo("El vendedor ya estaba activo"));
 
     }
     
