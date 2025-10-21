@@ -60,9 +60,9 @@ namespace Library
             client.ModifyClient(modified,modification);
         }
 
-        public void CreateOportunity(string Product, DateTime Date, int price, Opportunity.State state, Client client)
+        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client)
         {
-            client.CreateOportunity(Product,Date,price,state,client);
+            client.CreateOportunity(Product,price,state,client,DateTime.Now);
         }
 
         public void AddTag(Client client, Tag tag)
@@ -76,23 +76,27 @@ namespace Library
         //////////////////////////////
         public void RegisterCall(string content, string notes, Client client,DateTime? interactionDate = null)
         {
-        client.RegisterCall(content, notes, interactionDate);
-            
+            Call call = new Call(content,notes,DateTime.Now);
+            client.AddInteraction(call);
+
         }
         
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,DateTime? interactionDate = null)
+        public void RegisterEmail(string content, Email.MailType sender, string notes, Client client,DateTime? interactionDate = null)
         {
-        client.RegisterEmail(content, sender,notes, interactionDate);
+            Email email = new Email(content,sender, notes,DateTime.Now);
+            client.AddInteraction(email);
             
         }
         public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type, Client client,DateTime? interactionDate = null)
         {
-        client.RegisterMeeting( content,notes, location, type, interactionDate);
+            Meeting meeting = new Meeting(content,notes,location,type,DateTime.Now);
+            client.AddInteraction(meeting);
             
         }
-        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel, Client client,DateTime? interactionDate = null)
+        public void RegisterMessage(string content, string notes, Message.MessageType type, string channel, Client client,DateTime? interactionDate = null)
         {
-        client.RegisterMessage( content,notes, sender, channel,interactionDate);
+            Message message = new Message(content,notes,type,channel,DateTime.Now);
+            client.AddInteraction(message);
             
         }
     }

@@ -15,6 +15,5 @@ namespace Library
             this.Notes = notes;
             this.InteractionDate = interactionDate ?? DateTime.Now; 
         }
-        
     }
 }

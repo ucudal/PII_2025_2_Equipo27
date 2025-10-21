@@ -15,18 +15,23 @@ namespace Library
         public State OportunityState { get; set; }
 
         public Client Client { get; set; }
-        public Opportunity(string product, DateTime date, int price, State state, Client client)
+
+        public Opportunity(string Product, int price, State state, Client client,DateTime? Date = null)
         {
-            this.Product = product;
-            this.Date = date;
+            this.Product = Product;
+            this.Date = Date ?? DateTime.Now;
             this.Price = price;
             this.OportunityState = state;
             this.Client = client;
 
         }
-        public void Sell(string product, DateTime date, int price, State state, Client client)
+
+       
+
+        public void Sell(string Product, int Price, State State, Client client, DateTime? Date = null)
         {
-            Opportunity sale = new Opportunity(product, date, price, state, client);
+            Opportunity sale = new Opportunity(Product, Price, State, client, Date);
+
         }
     }
 }

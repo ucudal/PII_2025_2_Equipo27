@@ -8,10 +8,14 @@ namespace Library
 {
     public class Client
     {
+
         public readonly List<Opportunity> Oportunities = new List<Opportunity>();
         public readonly List<ClientInteraction> Interactions = new List<ClientInteraction>();
         public readonly List<Tag> Tags = new List<Tag>();
-        public Client(string id, string name, string lastName, string email, string phone, gender gender, string birthDate, Seller seller)
+
+        public Client(string id, string name, string lastName, string email, string phone, GenderType gender,
+            string birthDate, Seller seller)
+
         {
             this.Id = id;
             this.Name = name;
@@ -23,26 +27,31 @@ namespace Library
             this.Gender = gender;
             this.BirthDate = birthDate;
             this.AsignedSeller = seller;
-        } 
+        }
+
         public Seller AsignedSeller { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Tag { get; set; }
         public string Phone { get; set; }
         public bool Inactive { get; set; }
         public bool Waiting { get; set; }
-        public gender Gender { get; set; }
+        public GenderType Gender { get; set; }
         public string BirthDate { get; set; }
 
-        public enum gender
+        public enum GenderType
         {
-            male,Female
+            male,
+            Female
         }
+
         public enum TypeOfData
         {
-            Name,LastName,Email,Phone
+            Name,
+            LastName,
+            Email,
+            Phone
         }
 
         public void ModifyClient(TypeOfData modified, string modification)
@@ -65,7 +74,7 @@ namespace Library
             }
         }
 
-        
+
         //////////////////////////////
         ///     Tag                ///
         //////////////////////////////
@@ -75,40 +84,21 @@ namespace Library
             Tags.Add(tag);
         }
 
-        //////////////////////////////
-        ///     Oportunity         ///
-        //////////////////////////////
-        public void CreateOportunity(string product, DateTime date, int price, Opportunity.State state, Client client)
+
+        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client,
+            DateTime? Date = null)
         {
-            Opportunity opportunity = new Opportunity(product, date, price, state, client);
-            Oportunities.Add(opportunity);
+            Opportunity oportunity = new Opportunity(Product, price, state, client, Date);
+            Oportunities.Add(oportunity);
+
         }
-        
+
         //////////////////////////////
         ///     Interactions       ///
         //////////////////////////////
-        public void RegisterCall(string content, string notes, DateTime? interactionDate = null)
+        public void AddInteraction(ClientInteraction interaction)
         {
-            Call call = new Call(content, notes, interactionDate);
-            this.Interactions.Add(call);
+            this.Interactions.Add(interaction);
         }
-        
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, DateTime? interactionDate = null)
-        {
-            Email eMail = new Email(content, sender,notes, interactionDate);
-            this.Interactions.Add(eMail);
-        }
-        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type, DateTime? interactionDate = null)
-        {
-            Meeting meeting = new Meeting( content,notes, location, type, interactionDate);
-            this.Interactions.Add(meeting);
-        }
-         public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel, DateTime? interactionDate = null)
-        {
-            Message message = new Message( content,notes, sender, channel,interactionDate);
-            this.Interactions.Add(message);
-        }
-
-
     }
 }
