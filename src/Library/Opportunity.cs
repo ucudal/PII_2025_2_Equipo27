@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    public class Oportunity 
+    public class Opportunity 
     {
         public string Product { get; set; }
         public DateTime Date { get; set; }
@@ -15,18 +15,18 @@ namespace Library
         public State OportunityState { get; set; }
 
         public Client Client { get; set; }
-        public Oportunity(string Product, DateTime Date, int price, State state, Client client)
+        public Opportunity(string product, DateTime date, int price, State state, Client client)
         {
-            this.Product = Product;
-            this.Date = Date;
+            this.Product = product;
+            this.Date = date;
             this.Price = price;
             this.OportunityState = state;
             this.Client = client;
 
         }
-        public void sell(string Product, DateTime Date, int Price, State State, Client client)
+        public void Sell(string product, DateTime date, int price, State state, Client client)
         {
-            Oportunity sale = new Oportunity(Product, Date, Price, State, client);
+            Opportunity sale = new Opportunity(product, date, price, state, client);
         }
     }
 }

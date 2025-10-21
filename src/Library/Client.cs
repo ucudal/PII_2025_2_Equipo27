@@ -8,7 +8,7 @@ namespace Library
 {
     public class Client
     {
-        public readonly List<Oportunity> Oportunities = new List<Oportunity>();
+        public readonly List<Opportunity> Oportunities = new List<Opportunity>();
         public readonly List<ClientInteraction> Interactions = new List<ClientInteraction>();
         public readonly List<Tag> Tags = new List<Tag>();
         public Client(string id, string name, string lastName, string email, string phone, gender gender, string birthDate, Seller seller)
@@ -38,7 +38,7 @@ namespace Library
 
         public enum gender
         {
-            male,female
+            male,Female
         }
         public enum TypeOfData
         {
@@ -78,10 +78,10 @@ namespace Library
         //////////////////////////////
         ///     Oportunity         ///
         //////////////////////////////
-        public void CreateOportunity(string Product, DateTime Date, int price, Oportunity.State state, Client client)
+        public void CreateOportunity(string product, DateTime date, int price, Opportunity.State state, Client client)
         {
-            Oportunity oportunity = new Oportunity(Product, Date, price, state, client);
-            Oportunities.Add(oportunity);
+            Opportunity opportunity = new Opportunity(product, date, price, state, client);
+            Oportunities.Add(opportunity);
         }
         
         //////////////////////////////
