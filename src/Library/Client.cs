@@ -8,7 +8,6 @@ namespace Library
 {
     public class Client
     {
-
         public readonly List<Opportunity> Oportunities = new List<Opportunity>();
         public readonly List<ClientInteraction> Interactions = new List<ClientInteraction>();
         public readonly List<Tag> Tags = new List<Tag>();
@@ -23,7 +22,7 @@ namespace Library
             this.Email = email;
             this.Phone = phone;
             this.Inactive = false;
-            this.Waiting = true;
+            this.Waiting = false;
             this.Gender = gender;
             this.BirthDate = birthDate;
             this.AsignedSeller = seller;
