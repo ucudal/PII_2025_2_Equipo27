@@ -8,11 +8,12 @@ namespace Library
 {
     public class Client
     {
-
         public readonly List<Opportunity> Oportunities = new List<Opportunity>();
         public readonly List<ClientInteraction> Interactions = new List<ClientInteraction>();
         public readonly List<Tag> Tags = new List<Tag>();
-        public Client(string id, string name, string lastName, string email, string phone, GenderType gender, string birthDate, Seller seller)
+
+        public Client(string id, string name, string lastName, string email, string phone, GenderType gender,
+            string birthDate, Seller seller)
 
         {
             this.Id = id;
@@ -21,11 +22,12 @@ namespace Library
             this.Email = email;
             this.Phone = phone;
             this.Inactive = false;
-            this.Waiting = true;
+            this.Waiting = false;
             this.Gender = gender;
             this.BirthDate = birthDate;
             this.AsignedSeller = seller;
-        } 
+        }
+
         public Seller AsignedSeller { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
@@ -39,11 +41,16 @@ namespace Library
 
         public enum GenderType
         {
-            male,Female
+            male,
+            Female
         }
+
         public enum TypeOfData
         {
-            Name,LastName,Email,Phone
+            Name,
+            LastName,
+            Email,
+            Phone
         }
 
         public void ModifyClient(TypeOfData modified, string modification)
@@ -66,7 +73,7 @@ namespace Library
             }
         }
 
-        
+
         //////////////////////////////
         ///     Tag                ///
         //////////////////////////////
@@ -77,13 +84,14 @@ namespace Library
         }
 
 
-        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client, DateTime? Date = null)
+        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client,
+            DateTime? Date = null)
         {
             Opportunity oportunity = new Opportunity(Product, price, state, client, Date);
             Oportunities.Add(oportunity);
 
         }
-        
+
         //////////////////////////////
         ///     Interactions       ///
         //////////////////////////////

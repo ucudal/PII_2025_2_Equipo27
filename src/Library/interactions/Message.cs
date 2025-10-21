@@ -4,18 +4,14 @@ namespace Library.interactions
 {
     public class Message : ClientInteraction
     {
-        public enum MessageType
-        {
-            Sent,
-            Received
-        }
-        public MessageType Type { get; set; }
+       
+        public InteractionOrigin.Origin Sender { get; set; }
         public string Channel { get; set; }
         
-        public Message(string content, string notes, MessageType type, string channel, DateTime? interactionDate = null)
+        public Message(string content, string notes, InteractionOrigin.Origin sender, string channel, DateTime? interactionDate = null)
             : base(content, notes, interactionDate)
         {
-            this.Type = type;
+            this.Sender = sender;
             this.Channel = channel;
         }
     }

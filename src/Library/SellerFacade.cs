@@ -15,19 +15,8 @@ namespace Library
 
             seller1.AsignClient(seller2,client);
 
-            List<Client> clients = repo.SearchClientByName(clientname);
-
             
-            if (clients.Count > 0)
-            {
-                Client client = clients[0];
-                seller1.AsignClient(seller2, client);
-            }
-            else
-            {
-                Console.WriteLine("No se encontró ningún cliente con ese nombre");
-            }
-
+            
         }
     }
 }
