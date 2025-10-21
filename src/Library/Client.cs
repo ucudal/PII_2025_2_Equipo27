@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.JavaScript;
 using Microsoft.VisualBasic;
@@ -9,7 +10,7 @@ namespace Library
         public List<Oportunity> Oportunities = new List<Oportunity>();
         public List<ClientInteraction> Interactions = new List<ClientInteraction>();
         public List<Tag> Tags = new List<Tag>();
-        public Client(string id, string name, string lastName, string email, string phone, gender gender, string birthDate, Seller seller)
+        public Client(string id, string name, string lastName, string email, string phone, GenderType gender, string birthDate, Seller seller)
         {
             this.Id = id;
             this.Name = name;
@@ -27,14 +28,13 @@ namespace Library
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Tag { get; set; }
         public string Phone { get; set; }
         public bool Inactive { get; set; }
         public bool Waiting { get; set; }
-        public gender Gender { get; set; }
+        public GenderType Gender { get; set; }
         public string BirthDate { get; set; }
 
-        public enum gender
+        public enum GenderType
         {
             male,female
         }
@@ -73,9 +73,9 @@ namespace Library
             Tags.Add(tag);
         }
 
-        public void CreateOportunity(string Product, DateAndTime Date, int price, Oportunity.State state, Client client)
+        public void CreateOportunity(string Product, int price, Oportunity.State state, Client client, DateTime? Date = null)
         {
-            Oportunity oportunity = new Oportunity(Product, Date, price, state, client);
+            Oportunity oportunity = new Oportunity(Product, price, state, client, Date);
             Oportunities.Add(oportunity);
         }
     }

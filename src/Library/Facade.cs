@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using System;
+using Microsoft.VisualBasic;
 
 namespace Library
 {
@@ -9,9 +10,9 @@ namespace Library
             client.ModifyClient(modified,modification);
         }
 
-        public void CreateOportunity(string Product, DateAndTime Date, int price, Oportunity.State state, Client client)
+        public void CreateOportunity(string Product, int price, Oportunity.State state, Client client, DateTime? Date = null)
         {
-            client.CreateOportunity(Product,Date,price,state,client);
+            client.CreateOportunity(Product,price,state,client,Date);
         }
 
         public void AddTag(Client client, Tag tag)
