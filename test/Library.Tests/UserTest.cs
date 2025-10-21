@@ -56,8 +56,8 @@ public class UserTest
         RepoClients repo = new RepoClients();
         Client client = new Client("1", "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
 
-        client.Oportunities.Add(new Opportunity("Azúcar",new DateTime(2025,10,20),60,Opportunity.State.Open,client));
-        client.Oportunities.Add(new Opportunity("Arroz",new DateTime(2025,10,20),60,Opportunity.State.Open,client));
+        client.Oportunities.Add(new Opportunity("Azúcar",60,Opportunity.State.Open,client,new DateTime(2025,10,20)));
+        client.Oportunities.Add(new Opportunity("Arroz",60,Opportunity.State.Open,client, new DateTime(2025,10,20)));
         repo.AddClient(client);
         Admin admin = new Admin("Gabriel");
         DateTime startdate = new DateTime(2025, 10, 18);
@@ -67,7 +67,7 @@ public class UserTest
 
         string panel = admin.GetTotalSales(repo, startdate, finishdate);
         
-        Assert.That(exepted, Is.EqualTo(panel));
+        Assert.That(panel, Is.EqualTo(exepted));
         
         
 

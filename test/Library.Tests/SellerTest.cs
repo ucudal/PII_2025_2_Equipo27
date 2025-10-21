@@ -16,7 +16,7 @@ public class SellerTest
 
         Client client = new Client("1", "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.male, "10/10/01",null);
 
-        Client client = new Client("1", "Hugo", "López", "hugolopez@", "555555555", Client.gender.male, "10/10/01",null);
+     
 
         
         seller1.AsignClient(seller2,client);
