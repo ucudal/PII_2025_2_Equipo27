@@ -13,15 +13,16 @@ namespace Library
             
         }
 
-        public void AsignClient(Seller other, Client client)
+        public string AsignClient(Seller other, Client client)
         {
             if (other.Active)
             {
                 other.thisClients.Add(client);
+                return "Cliente agregado";
             }
             else
             {
-                Console.WriteLine("No se le puede asignar un cliente debido a que el vendedor está suspendido");
+                return "No se le puede asignar un cliente al vendedor porque está suspendido";
             }
         }
     }
