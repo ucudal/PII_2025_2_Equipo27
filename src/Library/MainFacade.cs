@@ -9,6 +9,12 @@ namespace Library
     {
         private RepoClients repoClients = new RepoClients();
 
+        public void CreateClient(string id, string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        {
+            Client client = new Client(id, name, lastName, email, phone, gender, birthDate, seller);
+            repoClients.AddClient(client);
+        }
+
         public List<Client> GetClients()
         {
             return repoClients.Clients;

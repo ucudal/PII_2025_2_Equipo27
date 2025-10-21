@@ -1,4 +1,4 @@
-using Library.interactions;
+using Library.interactions; 
 namespace Library.Tests;
 
 public class MainFacadeTests
@@ -12,6 +12,7 @@ public class MainFacadeTests
         mainFacade.ModifyClient(client, Client.TypeOfData.LastName, "Gutierrez");
         Assert.That(client.LastName,Is.EqualTo("Gutierrez"));
     }
+    
     [Test]
     public void CreateOportunityWorksCorrectly()
     {
@@ -22,6 +23,7 @@ public class MainFacadeTests
         mainFacade.CreateOportunity("Product", 100 , Opportunity.State.Open, client);
         Assert.That(client.Oportunities.Count,Is.EqualTo(1));
     }
+    
     [Test]
     public void AddTagAddsATag()
     {
@@ -44,6 +46,7 @@ public class MainFacadeTests
         mainFacade.RegisterCall("contenido","llamada a juan", client, DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
+    
     [Test]
     public void RegisterEmailRegistersAnEmail()
     {
@@ -53,6 +56,7 @@ public class MainFacadeTests
         mainFacade.RegisterEmail("contenido",InteractionOrigin.Origin.Sent, "Email a juan",client, DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
+    
     [Test]
     public void RegisterMeetingRegistersAMeeting()
     {
@@ -62,6 +66,7 @@ public class MainFacadeTests
         mainFacade.RegisterMeeting("Expulsion de juan","Rechazada","Edificio de la empresa",Meeting.MeetingState.Done,client,DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
+    
     [Test]
     public void RegisterMessageRegistersAMessage()
     {
@@ -71,6 +76,41 @@ public class MainFacadeTests
         mainFacade.RegisterMessage("contenido", "Email a juan", InteractionOrigin.Origin.Received,"Whatsapp",client,DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
-}
+    
+    public void CreateClientTest()
+    {
+        // Arrange
+        MainFacade mainFacade = new MainFacade();
+        Seller jose = new Seller("Jose");
+        // Act
+        mainFacade.CreateClient("1","Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
+        // Assert 
+        Assert.That(mainFacade.GetClients(), Is.Not.Empty);
+    }
 
+    [Test]
+    public void GetClientTest()
+    {
+        // Arrange
+        MainFacade mainFacade = new MainFacade();
+        Seller jose = new Seller("Jose");
+        mainFacade.CreateClient("1","Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
+        mainFacade.CreateClient("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        List<Client> expected = new List<Client>();
+        Client client1 = new Client("1", "Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
+        expected.Add(client1);
+        Client client2 = new Client("2", "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        expected.Add(client2);
+        // Act
+        List<Client> actual = mainFacade.GetClients();
+        // Assert
+        Assert.That(actual.Count, Is.EqualTo(expected.Count));
+    }
+
+    [Test]
+    public void DeleteClientTest()
+    {
+        
+    }
+}
 
