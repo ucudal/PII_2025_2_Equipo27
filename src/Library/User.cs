@@ -63,7 +63,7 @@ namespace Library
                     }
                 }
             }
-            return $"Cantidad de ventas dentro del período {totalSales}";
+            return $"Cantidad de ventas dentro del período: {totalSales}";
         }
     }
 }

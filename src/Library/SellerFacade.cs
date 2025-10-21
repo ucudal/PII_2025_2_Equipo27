@@ -16,7 +16,7 @@ namespace Library
             
             if (clients.Count > 0)
             {
-                Client client = clients[0]; // tomo el primero
+                Client client = clients[0];
                 seller1.AsignClient(seller2, client);
             }
             else
