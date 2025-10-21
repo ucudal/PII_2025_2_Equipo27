@@ -2,7 +2,7 @@ using System;
 
 namespace Library
 {
-    public class AdminFacade
+    public class AdminFacade : MainFacade
     {
         
         public Admin admin = new Admin("Famapez");
@@ -11,13 +11,26 @@ namespace Library
         {
             admin.CreateSeller(username);
         }
-
+        
         public string SuspendSeller(string username)
         {
             Seller seller = admin.ScreachSeller(username);
             if (seller != null)
             {
                 return admin.SuspendSeller(seller);
+            }
+            else
+            {
+                return "El nombre de usuario ingresado no existe";
+            }
+
+        }
+        public string ActiveSeller(string username)
+        {
+            Seller seller = admin.ScreachSeller(username);
+            if (seller != null)
+            {
+                return admin.ActiveSeller(seller);
             }
             else
             {

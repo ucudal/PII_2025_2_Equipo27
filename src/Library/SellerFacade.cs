@@ -14,7 +14,7 @@ namespace Library
             Seller seller2 = admin.ScreachSeller(sellernameOther);
 
             seller1.AsignClient(seller2,client);
-
+            
             
             
         }
