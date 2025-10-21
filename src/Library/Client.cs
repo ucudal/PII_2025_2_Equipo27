@@ -93,7 +93,7 @@ namespace Library
             this.Interactions.Add(call);
         }
         
-        public void RegisterEmail(string content, Email.MailType sender, string notes, DateTime? interactionDate = null)
+        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, DateTime? interactionDate = null)
         {
             Email eMail = new Email(content, sender,notes, interactionDate);
             this.Interactions.Add(eMail);
@@ -103,9 +103,9 @@ namespace Library
             Meeting meeting = new Meeting( content,notes, location, type, interactionDate);
             this.Interactions.Add(meeting);
         }
-         public void RegisterMessage(string content, string notes, Message.MessageType type, string channel, DateTime? interactionDate = null)
+         public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel, DateTime? interactionDate = null)
         {
-            Message message = new Message( content,notes, type, channel,interactionDate);
+            Message message = new Message( content,notes, sender, channel,interactionDate);
             this.Interactions.Add(message);
         }
 
