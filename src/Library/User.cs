@@ -22,7 +22,7 @@ namespace Library
         }
 
 
-        public void GetPanel(RepoClients repo)
+        public string GetPanel(RepoClients repo)
         {
             DateTime now = DateTime.Now;
             int month = now.Month;
@@ -39,20 +39,18 @@ namespace Library
                     {
                         recentInteractions++;
                     }
-                    if (DateTime.Now <= interaction.Date)
+                    if (DateTime.Now <= interaction.InteractionDate)
                     {
                         futureMeetings++;
                     }
                 
                 }
             }
-            Console.WriteLine($"Clientes totales: {repo.Clients.Count}");
-            Console.WriteLine($"Interacciones en este último mes: {recentInteractions}");
-            Console.WriteLine($"Reuniones próximas {futureMeetings}");
+            return ($"Clientes totales: {repo.Clients.Count}\n" + $"Interacciones en este último mes: {recentInteractions}\n" + $"Reuniones próximas {futureMeetings}");
         }
         
 
-        public void GetTotalSales(RepoClients repo, DateTime startdate, DateTime finishdate)
+        public string GetTotalSales(RepoClients repo, DateTime startdate, DateTime finishdate)
         {
             int totalSales = 0;
             foreach (var client in repo.Clients)
@@ -63,10 +61,9 @@ namespace Library
                     {
                         totalSales++;
                     }
-                        
                 }
             }
-            Console.WriteLine($"Cantidad de ventas dentro del período {totalSales}");
+            return $"Cantidad de ventas dentro del período {totalSales}";
         }
     }
 }

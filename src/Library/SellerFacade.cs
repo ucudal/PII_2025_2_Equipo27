@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Library
 {
     public class SellerFacade
@@ -9,10 +12,18 @@ namespace Library
         {
             Seller seller1  = admin.ScreachSeller(sellernameMy);
             Seller seller2 = admin.ScreachSeller(sellernameOther);
-            Client client = repo.SearchClientByName(clientname);
+            List<Client> clients = repo.SearchClientByName(clientname);
             
-            seller1.AsignClient(seller2,client);
-            
+            if (clients.Count > 0)
+            {
+                Client client = clients[0]; // tomo el primero
+                seller1.AsignClient(seller2, client);
+            }
+            else
+            {
+                Console.WriteLine("No se encontró ningún cliente con ese nombre");
+            }
+
         }
     }
 }
