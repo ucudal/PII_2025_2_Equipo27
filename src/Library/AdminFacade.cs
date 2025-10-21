@@ -5,7 +5,7 @@ namespace Library
     public class AdminFacade
     {
         
-        private Admin admin = new Admin("Famapez");
+        public Admin admin = new Admin("Famapez");
 
         public void CreateSeller(string username)
         {
