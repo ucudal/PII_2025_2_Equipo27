@@ -24,9 +24,9 @@ namespace Library
             return repoClients.Clients;
         }
         
-        public void DeleteClient(Client client)
+        public void DeleteClient(int id)
         {
-            repoClients.DeleteClient(client);
+            repoClients.DeleteClient(id);
         }
 
         public List<Client> SearchClientByName(string name)
