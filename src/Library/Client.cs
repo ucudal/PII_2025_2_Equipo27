@@ -12,8 +12,7 @@ namespace Library
         public readonly List<ClientInteraction> Interactions = new List<ClientInteraction>();
         public readonly List<Tag> Tags = new List<Tag>();
 
-        public Client(string id, string name, string lastName, string email, string phone, GenderType gender,
-            string birthDate, Seller seller)
+        public Client(string id, string name, string lastName, string email, string phone, GenderType gender, string birthDate, Seller seller)
 
         {
             this.Id = id;
