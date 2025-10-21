@@ -15,8 +15,6 @@ namespace Library
 
             seller1.AsignClient(seller2,client);
             
-            
-            
         }
     }
 }
