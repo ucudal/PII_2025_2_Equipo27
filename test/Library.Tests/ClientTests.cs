@@ -57,7 +57,7 @@ public class ClientTests
         Seller seller = new Seller("Seller");
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.male,"09/10/08", seller);
         client.CreateOportunity("Product", 100 , Opportunity.State.Open, client, DateTime.Now);
-        Assert.That(client.Oportunities.Count,Is.EqualTo(1));
+        Assert.That(client.Opportunities.Count,Is.EqualTo(1));
     }
 }
 

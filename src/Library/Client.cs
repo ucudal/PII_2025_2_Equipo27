@@ -8,10 +8,34 @@ namespace Library
 {
     public class Client
     {
-        public readonly List<Opportunity> Oportunities = new List<Opportunity>();
-        public readonly List<ClientInteraction> Interactions = new List<ClientInteraction>();
-        public readonly List<Tag> Tags = new List<Tag>();
+        public IReadOnlyList<Opportunity> Opportunities 
+        {
+            get
+            {
+                return opportunities;
+            } 
+        }
 
+        public IReadOnlyList<ClientInteraction> Interactions
+        {
+            get
+            {
+                return interactions;
+            }
+        }
+
+        private List<ClientInteraction> interactions = new List<ClientInteraction>();
+
+        public IReadOnlyList<Tag> Tags
+        {
+            get
+            {
+                return tags;
+            }
+        }
+
+        private List<Tag> tags = new List<Tag>();
+        private List<Opportunity> opportunities = new List<Opportunity>();
         public Client(int id, string name, string lastName, string email, string phone, GenderType gender, string birthDate, Seller seller)
 
         {
@@ -27,7 +51,17 @@ namespace Library
             this.AsignedSeller = seller;
         }
 
-        public Seller AsignedSeller { get; set; }
+        public Seller AsignedSeller 
+        {
+            get
+            {
+                return AsignedSeller;
+            }
+            set
+            {
+                
+            }
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -79,7 +113,7 @@ namespace Library
 
         public void AddTag(Tag tag)
         {
-            Tags.Add(tag);
+            tags.Add(tag);
         }
 
 
@@ -87,7 +121,7 @@ namespace Library
             DateTime? Date = null)
         {
             Opportunity oportunity = new Opportunity(Product, price, state, client, Date);
-            Oportunities.Add(oportunity);
+            opportunities.Add(oportunity);
 
         }
 
@@ -96,7 +130,7 @@ namespace Library
         //////////////////////////////
         public void AddInteraction(ClientInteraction interaction)
         {
-            this.Interactions.Add(interaction);
+            this.interactions.Add(interaction);
         }
     }
 }

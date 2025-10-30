@@ -57,7 +57,7 @@ namespace Library
             int totalSales = 0;
             foreach (var client in repo.Clients)
             {
-                foreach (var sales in client.Oportunities)
+                foreach (var sales in client.Opportunities)
                 {
                     if (sales.Date.Date >= startdate && sales.Date.Date <= finishdate)
                     {

@@ -21,7 +21,7 @@ public class MainFacadeTests
         MainFacade mainFacade = new MainFacade();
         mainFacade.ModifyClient(client, Client.TypeOfData.LastName, "Gutierrez");
         mainFacade.CreateOportunity("Product", 100 , Opportunity.State.Open, client);
-        Assert.That(client.Oportunities.Count,Is.EqualTo(1));
+        Assert.That(client.Opportunities.Count,Is.EqualTo(1));
     }
     
     [Test]

@@ -31,7 +31,6 @@ namespace Library
         public void Sell()
         {
             this.OportunityState = State.Close;
-
         }
     }
 }
