@@ -57,6 +57,7 @@ public class UserTest
         Client client = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
         
         client.Oportunities.Add(new Opportunity("Azúcar",60,Opportunity.State.Open,client,new DateTime(2025,10,20)));
+
         client.Oportunities.Add(new Opportunity("Arroz",60,Opportunity.State.Open,client, new DateTime(2025,10,20)));
         repo.AddClient(client);
         Admin admin = new Admin("Gabriel");
@@ -68,9 +69,17 @@ public class UserTest
         string panel = admin.GetTotalSales(repo, startdate, finishdate);
         
         Assert.That(panel, Is.EqualTo(exepted));
-        
-        
-
     }
-    
+
+    [Test]
+    public void CloseOpportunityClosesAnOpportunityAndAddsToTheList()
+    {
+        Seller seller = new Seller("Juanito");
+        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.male,
+            "04/11/1999", seller);
+        Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.State.Open,client,DateTime.Now);
+        seller.CloseOpportunity(opportunity);
+        Assert.That(opportunity.OportunityState,Is.EqualTo(Opportunity.State.Close));
+        Assert.That(seller.ClosedOpportunities.Count,Is.EqualTo(1));
+    }
 }
