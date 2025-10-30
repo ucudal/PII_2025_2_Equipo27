@@ -43,12 +43,11 @@ public class RepoClientsTests
         Seller jose = new Seller("Facundo");
         RepoClients repoClients = new RepoClients();
         Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
-        List<Client> expected = new List<Client>();
         repoClients.AddClient(mariano);
         // Act
-        repoClients.DeleteClient(mariano);
+        repoClients.DeleteClient(2);
         // Assert
-        Assert.That(repoClients.Clients, Is.EqualTo(expected));
+        Assert.That(repoClients.Clients.Count, Is.EqualTo(0));
     }
     
     [Test]

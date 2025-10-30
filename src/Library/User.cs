@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Library
 {
@@ -6,6 +7,7 @@ namespace Library
     {
         public string UserName { get; set; }
         public bool Active { get; set; }
+        public List<Opportunity> ClosedOpportunities = new List<Opportunity>();
 
         public User(string username)
         {
@@ -64,6 +66,12 @@ namespace Library
                 }
             }
             return $"Cantidad de ventas dentro del período: {totalSales}";
+        }
+
+        public void CloseOpportunity(Opportunity opportunity)
+        {
+            opportunity.Sell();
+            ClosedOpportunities.Add(opportunity);
         }
     }
 }

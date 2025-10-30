@@ -11,9 +11,15 @@ namespace Library
             Clients.Add(client);
         }
             
-        public void DeleteClient(Client client)
+        public void DeleteClient(int id)
         {
-            Clients.Remove(client);
+            for (int i=0;i<Clients.Count;i++)
+            {
+                if (Clients[i].Id == id)
+                {
+                    Clients.Remove(Clients[i]);
+                }
+            }
         }
 
         public List<Client> SearchClientByName(string name)

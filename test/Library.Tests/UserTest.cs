@@ -68,4 +68,16 @@ public class UserTest
         
         Assert.That(panel, Is.EqualTo(exepted));
     }
+
+    [Test]
+    public void CloseOpportunityClosesAnOpportunityAndAddsToTheList()
+    {
+        Seller seller = new Seller("Juanito");
+        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.male,
+            "04/11/1999", seller);
+        Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.State.Open,client,DateTime.Now);
+        seller.CloseOpportunity(opportunity);
+        Assert.That(opportunity.OportunityState,Is.EqualTo(Opportunity.State.Close));
+        Assert.That(seller.ClosedOpportunities.Count,Is.EqualTo(1));
+    }
 }
