@@ -10,7 +10,7 @@ namespace Library
 
         public Seller(string username) : base(username)
         {
-            
+            // Intencionalmente en blanco
         }
 
         public string AsignClient(Seller other, Client client)

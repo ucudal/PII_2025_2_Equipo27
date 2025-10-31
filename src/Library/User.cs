@@ -5,25 +5,31 @@ namespace Library
 {
     public abstract class User
     {
-        public string UserName { get; set; }
+        private string userName;
+        public string UserName {
+            get
+            {
+                return this.userName;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("El usuario debe tener un nombre", nameof(value));
+                }
+
+                userName = value;
+            } 
+        }
         public bool Active { get; set; }
         public List<Opportunity> ClosedOpportunities = new List<Opportunity>();
 
         public User(string username)
         {
-            this.UserName = username;
+            this.userName = username;
             this.Active = true;
         }
-
-    
-        public Tag CreateTag(string tagname, RepoTag repo)
-        {
-            Tag tag = new Tag(tagname);
-            repo.tagList.Add(tag);
-            return tag;
-        }
-
-
+        
         public string GetPanel(RepoClients repo)
         {
             DateTime now = DateTime.Now;

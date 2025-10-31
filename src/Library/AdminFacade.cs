@@ -14,7 +14,7 @@ namespace Library
         
         public string SuspendSeller(string username)
         {
-            Seller seller = admin.ScreachSeller(username);
+            Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
                 return admin.SuspendSeller(seller);
@@ -27,7 +27,7 @@ namespace Library
         }
         public string ActiveSeller(string username)
         {
-            Seller seller = admin.ScreachSeller(username);
+            Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
                 return admin.ActiveSeller(seller);
@@ -41,7 +41,7 @@ namespace Library
 
         public string DeleteSeller(string username)
         {
-            Seller seller = admin.ScreachSeller(username);
+            Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
                 return admin.DeleteSeller(seller);

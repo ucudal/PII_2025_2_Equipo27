@@ -13,10 +13,10 @@ public class RepoTagTest
     {
         Admin admin = new Admin("Ezequiel");
         RepoTag repo = new RepoTag();
-        Tag tag = admin.CreateTag("VIP",repo);
+        Tag tag = repo.CreateTag("VIP",repo);
 
-        List<Tag> screach = repo.Screach("VIP");
+        List<Tag> search = repo.Search("VIP");
 
-        Assert.That(screach[0].TagName, Is.EqualTo("VIP"));
+        Assert.That(search[0].TagName, Is.EqualTo("VIP"));
     }
 }

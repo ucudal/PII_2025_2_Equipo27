@@ -7,7 +7,14 @@ namespace Library
     {
         public List<Tag> tagList = new List<Tag>();
         
-        public List<Tag> Screach(string tagname)
+        public Tag CreateTag(string tagname, RepoTag repo)
+        {
+            Tag tag = new Tag(tagname);
+            repo.tagList.Add(tag);
+            return tag;
+        }
+        
+        public List<Tag> Search(string tagname)
         {
             List<Tag> result = new List<Tag>();
             foreach (var tag in tagList)
