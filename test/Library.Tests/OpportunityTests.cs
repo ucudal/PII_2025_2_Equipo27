@@ -26,4 +26,17 @@ public class OpportunityTests
         opportunity.Sell();
         Assert.That(opportunity.OportunityState,Is.EqualTo(Opportunity.State.Close));
     }
+
+
+    [Test]
+    public void SellThrowsIfAlreadyClosed()
+    {
+        Seller seller = new Seller("Juanito");
+        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.male,
+            "04/11/1999", seller);
+        Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.State.Close, client, DateTime.Today);
+
+        Assert.Throws<InvalidOperationException>(() => opportunity.Sell());
+    }
+
 }
