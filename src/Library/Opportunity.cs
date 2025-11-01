@@ -3,20 +3,24 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    public class Opportunity 
+    public class Opportunity
     {
         public string Product { get; set; }
         public DateTime Date { get; set; }
         public double Price { get; set; }
+
         public enum State
         {
-            Open, Close, Canceled
+            Open,
+            Close,
+            Canceled
         }
+
         public State OportunityState { get; set; }
 
         public Client Client { get; set; }
 
-        public Opportunity(string Product, double price, State state, Client client,DateTime? Date = null)
+        public Opportunity(string Product, double price, State state, Client client, DateTime? Date = null)
         {
             this.Product = Product;
             this.Date = Date ?? DateTime.Now;
@@ -26,12 +30,15 @@ namespace Library
 
         }
 
-       
 
+        /// <summary>
+        /// La funcion Sell cambia el estado de la oportunidad y la pasa a cerrada
+        /// </summary>
         public void Sell()
         {
+            if (this.OportunityState == State.Close)
+                throw new InvalidOperationException("La oportunidad ya está cerrada.");
             this.OportunityState = State.Close;
-
         }
     }
 }
