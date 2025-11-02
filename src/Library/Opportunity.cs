@@ -32,8 +32,11 @@ namespace Library
 
 
         /// <summary>
-        /// La funcion Sell cambia el estado de la oportunidad y la pasa a cerrada
+        /// Cambia el estado de la oportunidad a cerrada.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Se lanza si la oportunidad ya está cerrada.
+        /// </exception>
         public void Sell()
         {
             if (this.State == States.Close)
