@@ -8,11 +8,11 @@ namespace Library
         public List<Tag> tagList = new List<Tag>();
         
         /// <summary>
-        /// Crea la tag que luego se le asignara a los clientes
+        /// Crea una nueva etiqueta y la agrega al repositorio especificado.
         /// </summary>
-        /// <param name="tagname"></param>
-        /// <param name="repo"></param>
-        /// <returns></returns>
+        /// <param name="tagname">El nombre de la nueva etiqueta.</param>
+        /// <param name="repo">El repositorio al que se agregará la etiqueta.</param>
+        /// <returns>La etiqueta creada.</returns>
         public Tag CreateTag(string tagname, RepoTag repo)
         {
             Tag tag = new Tag(tagname);
@@ -21,10 +21,11 @@ namespace Library
         }
         
         /// <summary>
-        /// Busca las tags existentes con el nombre del parametro
+        /// Busca y devuelve las etiquetas cuyo nombre coincide con el especificado.
         /// </summary>
-        /// <param name="tagname"></param>
-        /// <returns></returns>
+        /// <param name="tagname">El nombre de la etiqueta por el que buscar.</param>
+        /// <returns>Una lista de etiquetas cuyo nombre coincide con <paramref name="tagname"/>.</returns>
+
         public List<Tag> Search(string tagname)
         {
             List<Tag> result = new List<Tag>();
