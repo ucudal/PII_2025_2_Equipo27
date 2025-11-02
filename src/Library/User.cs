@@ -5,6 +5,10 @@ namespace Library
 {
     public abstract class User
     {
+        public IReadOnlyList<Opportunity> ClosedOpportunities
+        {
+            get { return closedOpportunities; }
+        }
         private string userName;
         public string UserName {
             get
@@ -22,7 +26,8 @@ namespace Library
             } 
         }
         public bool Active { get; set; }
-        public List<Opportunity> ClosedOpportunities = new List<Opportunity>();
+        
+        private List<Opportunity> closedOpportunities = new List<Opportunity>();
 
         public User(string username)
         {
@@ -77,7 +82,7 @@ namespace Library
         public void CloseOpportunity(Opportunity opportunity)
         {
             opportunity.Sell();
-            ClosedOpportunities.Add(opportunity);
+            closedOpportunities.Add(opportunity);
         }
     }
 }

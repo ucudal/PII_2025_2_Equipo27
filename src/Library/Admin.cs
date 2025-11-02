@@ -14,10 +14,6 @@ namespace Library
 
         public Seller SearchSeller(string username)
         {
-            if (string.IsNullOrEmpty(username))
-            {
-                throw new ArgumentException("El usuario no tiene nombre", nameof(username));
-            }
             foreach (var seller in sellers)
             {
                 if (seller.UserName == username)
@@ -26,8 +22,6 @@ namespace Library
                 }
             }
             return null;
-           
-                
         }
 
         public Seller CreateSeller(string username)
@@ -41,15 +35,23 @@ namespace Library
                 }
             }
 
-            Seller seller = new Seller(username);
-            sellers.Add(seller);
-            Console.WriteLine("Vendedor creado");
-            return seller;
+            try
+            {
+                Seller seller = new Seller(username);
+                sellers.Add(seller);
+                Console.WriteLine("Vendedor creado");
+                return seller;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("No se pudo crear el vendedor");
+                return null;
+            }
         }
 
         public string ActiveSeller(Seller seller)
         {
-            if (!seller.Active)
+            if (seller.Active)
             {
                 seller.Active = true;
                 return "El vendedor dejó de estar suspendido";
