@@ -15,14 +15,6 @@ namespace Library
             this.Active = true;
         }
 
-    
-        public Tag CreateTag(string tagname, RepoTag repo)
-        {
-            Tag tag = new Tag(tagname);
-            repo.tagList.Add(tag);
-            return tag;
-        }
-
 
         public string GetPanel(RepoClients repo)
         {
