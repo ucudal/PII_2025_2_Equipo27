@@ -32,7 +32,7 @@ public class RepoTagTest
         RepoTag repo = new RepoTag();
         Tag tag = repo.CreateTag("VIP",repo);
 
-        List<Tag> screach = repo.Search("VIP");
+        List<Tag> search = repo.Search("VIP");
 
 
         Assert.That(search[0].TagName, Is.EqualTo("VIP"));
