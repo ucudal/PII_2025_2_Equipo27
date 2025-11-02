@@ -9,23 +9,23 @@ namespace Library
         public DateTime Date { get; set; }
         public double Price { get; set; }
 
-        public enum State
+        public enum States
         {
             Open,
             Close,
             Canceled
         }
 
-        public State OportunityState { get; set; }
+        public States State { get; private set; }
 
         public Client Client { get; set; }
 
-        public Opportunity(string Product, double price, State state, Client client, DateTime? Date = null)
+        public Opportunity(string Product, double price, States state, Client client, DateTime? Date = null)
         {
             this.Product = Product;
             this.Date = Date ?? DateTime.Now;
             this.Price = price;
-            this.OportunityState = state;
+            this.State = state;
             this.Client = client;
 
         }
@@ -36,9 +36,9 @@ namespace Library
         /// </summary>
         public void Sell()
         {
-            if (this.OportunityState == State.Close)
+            if (this.State == States.Close)
                 throw new InvalidOperationException("La oportunidad ya está cerrada.");
-            this.OportunityState = State.Close;
+            this.State = States.Close;
         }
     }
 }

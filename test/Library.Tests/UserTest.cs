@@ -42,8 +42,8 @@ public class UserTest
     {
         RepoClients repo = new RepoClients();
         Client client = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
-        client.CreateOportunity("Azúcar",60,Opportunity.State.Open,client, new DateTime(2025,10,20));
-        client.CreateOportunity("Arroz",60,Opportunity.State.Open,client, new DateTime(2025,10,20));
+        client.CreateOportunity("Azúcar",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
+        client.CreateOportunity("Arroz",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
         repo.AddClient(client);
         Admin admin = new Admin("Gabriel");
         DateTime startdate = new DateTime(2025, 10, 18);
@@ -62,9 +62,9 @@ public class UserTest
         Seller seller = new Seller("Juanito");
         Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.male,
             "04/11/1999", seller);
-        Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.State.Open,client,DateTime.Now);
+        Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Open,client,DateTime.Now);
         seller.CloseOpportunity(opportunity);
-        Assert.That(opportunity.OportunityState,Is.EqualTo(Opportunity.State.Close));
+        Assert.That(opportunity.State,Is.EqualTo(Opportunity.States.Close));
         Assert.That(seller.ClosedOpportunities.Count,Is.EqualTo(1));
     }
 }

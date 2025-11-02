@@ -117,10 +117,10 @@ namespace Library
         }
 
 
-        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client,
+        public void CreateOportunity(string Product, int price, Opportunity.States states, Client client,
             DateTime? Date = null)
         {
-            Opportunity oportunity = new Opportunity(Product, price, state, client, Date);
+            Opportunity oportunity = new Opportunity(Product, price, states, client, Date);
             opportunities.Add(oportunity);
 
         }
