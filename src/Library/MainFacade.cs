@@ -70,9 +70,9 @@ namespace Library
             client.ModifyClient(modified,modification);
         }
 
-        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client)
+        public void CreateOportunity(string Product, int price, Opportunity.States states, Client client)
         {
-            client.CreateOportunity(Product,price,state,client,DateTime.Now);
+            client.CreateOportunity(Product,price,states,client,DateTime.Now);
         }
 
         public void AddTag(Client client, Tag tag)

@@ -34,7 +34,7 @@ namespace Library
             this.userName = username;
             this.Active = true;
         }
-        
+
         public string GetPanel(RepoClients repo)
         {
             DateTime now = DateTime.Now;
@@ -68,7 +68,7 @@ namespace Library
             int totalSales = 0;
             foreach (var client in repo.Clients)
             {
-                foreach (var sales in client.Oportunities)
+                foreach (var sales in client.Opportunities)
                 {
                     if (sales.Date.Date >= startdate && sales.Date.Date <= finishdate)
                     {
