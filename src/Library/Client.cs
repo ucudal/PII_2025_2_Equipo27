@@ -16,7 +16,7 @@ namespace Library
             } 
         }
 
-        public IReadOnlyList<ClientInteraction> Interactions
+        public IReadOnlyList<Interaction> Interactions
         {
             get
             {
@@ -24,7 +24,7 @@ namespace Library
             }
         }
 
-        private List<ClientInteraction> interactions = new List<ClientInteraction>();
+        private List<Interaction> interactions = new List<Interaction>();
 
         public IReadOnlyList<Tag> Tags
         {
@@ -51,15 +51,16 @@ namespace Library
             this.AsignedSeller = seller;
         }
 
+        private Seller _asignedSeller;
         public Seller AsignedSeller 
         {
             get
             {
-                return AsignedSeller;
+                return _asignedSeller;
             }
             set
             {
-                
+                _asignedSeller = value;
             }
         }
         public int Id { get; set; }
@@ -86,6 +87,11 @@ namespace Library
             Phone
         }
 
+        /// <summary>
+        /// Permite modificar los datos del cliente
+        /// </summary>
+        /// <param name="modified"></param>
+        /// <param name="modification"></param>
         public void ModifyClient(TypeOfData modified, string modification)
         {
             if (modified == TypeOfData.Name)
@@ -107,9 +113,10 @@ namespace Library
         }
 
 
-        //////////////////////////////
-        ///     Tag                ///
-        //////////////////////////////
+        /// <summary>
+        /// Agrega la etiqueta al cliente, solamente permitiendo las que se encuentran creadas dentro del repoTags
+        /// </summary>
+        /// <param name="tag"></param>
 
         public void AddTag(Tag tag)
         {
@@ -117,6 +124,14 @@ namespace Library
         }
 
 
+        /// <summary>
+        ///  Crea una nueva oportunidad, pudiendo ser una venta o una potencial venta
+        /// </summary>
+        /// <param name="Product"></param>
+        /// <param name="price"></param>
+        /// <param name="states"></param>
+        /// <param name="client"></param>
+        /// <param name="Date"></param>
         public void CreateOportunity(string Product, int price, Opportunity.States states, Client client,
             DateTime? Date = null)
         {
@@ -125,10 +140,11 @@ namespace Library
 
         }
 
-        //////////////////////////////
-        ///     Interactions       ///
-        //////////////////////////////
-        public void AddInteraction(ClientInteraction interaction)
+        /// <summary>
+        /// Agrega una nueva interaccion, pudiendo ser mensaje, EMail, llamada o reunion
+        /// </summary>
+        /// <param name="interaction"></param>
+        public void AddInteraction(Interaction interaction)
         {
             this.interactions.Add(interaction);
         }

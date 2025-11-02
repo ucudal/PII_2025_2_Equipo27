@@ -2,7 +2,7 @@ using System;
 
 namespace Library.interactions
 {
-    public class Message : ClientInteraction
+    public class Message : Interaction
     {
        
         public InteractionOrigin.Origin Sender { get; set; }
