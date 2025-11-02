@@ -51,7 +51,11 @@ namespace Library
 
         public string ActiveSeller(Seller seller)
         {
-            if (seller.Active)
+            if (seller == null)
+            {
+                throw new ArgumentNullException(nameof(seller), "El vendedor no puede ser nulo.");
+            }
+            if (!seller.Active)
             {
                 seller.Active = true;
                 return "El vendedor dejó de estar suspendido";
@@ -64,6 +68,10 @@ namespace Library
 
         public string SuspendSeller(Seller seller)
         {
+            if (seller == null)
+            {
+                throw new ArgumentNullException(nameof(seller), "El vendedor no puede ser nulo.");
+            }
             if (seller.Active)
             {
                 seller.Active = false;
@@ -77,6 +85,11 @@ namespace Library
 
         public string DeleteSeller(Seller seller)
         {
+            if (seller == null)
+            {
+                throw new ArgumentNullException(nameof(seller), "El vendedor no puede ser nulo.");
+            }
+
             if (sellers.Contains(seller))
             {
                 sellers.Remove(seller);

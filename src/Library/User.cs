@@ -19,7 +19,7 @@ namespace Library
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("El usuario debe tener un nombre", nameof(value));
+                    throw new ArgumentException(nameof(value));
                 }
 
                 userName = value;
@@ -31,6 +31,10 @@ namespace Library
 
         public User(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentException("El usuario debe tener un nombre", nameof(username));
+            }
             this.userName = username;
             this.Active = true;
         }
