@@ -51,15 +51,16 @@ namespace Library
             this.AsignedSeller = seller;
         }
 
+        private Seller _asignedSeller;
         public Seller AsignedSeller 
         {
             get
             {
-                return AsignedSeller;
+                return _asignedSeller;
             }
             set
             {
-                
+                _asignedSeller = value;
             }
         }
         public int Id { get; set; }
