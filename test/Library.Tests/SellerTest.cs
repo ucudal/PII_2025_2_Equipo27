@@ -19,8 +19,8 @@ public class SellerTest
         string experiment = seller1.AsignClient(seller2,client);
         
 
-        Assert.That(seller2.thisClients.Count,Is.EqualTo(1));
-        Assert.That(seller2.thisClients[0], Is.EqualTo(client));
+        Assert.That(seller2.Clients.Count,Is.EqualTo(1));
+        Assert.That(seller2.Clients[0], Is.EqualTo(client));
         Assert.That(experiment, Is.EqualTo("Cliente agregado"));
     }
 }
