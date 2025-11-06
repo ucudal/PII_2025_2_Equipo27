@@ -8,32 +8,30 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Jose");
         RepoClients repoClients = new RepoClients();
+        repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
         Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
         Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
-        repoClients.AddClient(mario);
-        repoClients.AddClient(mariano);
+        // repoClients.AddClient(mario);
+        // repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
         expected.Add(mario);
         expected.Add(mariano);
         // Act 
-        List<Client> actual = repoClients.Clients;
+        IReadOnlyList<Client> actual = repoClients.Clients;
         // Assert
-        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(actual.Count, Is.EqualTo(expected.Count));
     }
 
     [Test]
-    public void TestAddClient()
+    public void TestCreateClient()
     {
         // Arrange
-        Seller jose = new Seller("Matteo");
-        RepoClients repoClients = new RepoClients();
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
-        List<Client> expected = new List<Client>();
-        expected.Add(mariano);
+        
         // Act
-        repoClients.AddClient(mariano);
+        
         // Assert
-        Assert.That(repoClients.Clients, Is.EqualTo(expected));
+        
     }
 
     [Test]

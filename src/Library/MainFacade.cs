@@ -8,18 +8,13 @@ namespace Library
     public class MainFacade
     {
         private RepoClients repoClients = new RepoClients();
-        private int NextId = 0;
 
-        public Client CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        public void CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
         {
-            int id = this.NextId;
-            Client client = new Client(id, name, lastName, email, phone, gender, birthDate, seller);
-            repoClients.AddClient(client);
-            this.NextId += 1;
-            return client;
+            repoClients.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
         }
 
-        public List<Client> GetClients()
+        public IReadOnlyList<Client> GetClients()
         {
             return repoClients.Clients;
         }

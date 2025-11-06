@@ -4,20 +4,38 @@ namespace Library
 {
     public class RepoClients
     {
-        public List<Client> Clients { get; } = new List<Client>();
+        public IReadOnlyList<Client> Clients
+        {
+            get
+            {
+                return clients;
+            }
+            
+        }
+
+        private List<Client> clients = new List<Client>();
+        private int NextId = 0;
         
+        public void CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        {
+            int id = this.NextId;
+            Client client = new Client(id, name, lastName, email, phone, gender, birthDate, seller);
+            clients.Add(client);
+            this.NextId += 1;
+        }
+
         public void AddClient(Client client)
         {
-            Clients.Add(client);
+            clients.Add(client);
         }
-            
+        
         public void DeleteClient(int id)
         {
-            for (int i=0;i<Clients.Count;i++)
+            for (int i=0;i<clients.Count;i++)
             {
-                if (Clients[i].Id == id)
+                if (clients[i].Id == id)
                 {
-                    Clients.Remove(Clients[i]);
+                    clients.Remove(clients[i]);
                 }
             }
         }
@@ -25,7 +43,7 @@ namespace Library
         public List<Client> SearchClientByName(string name)
         {
             List<Client> result = new List<Client>();
-            foreach (var client in Clients)
+            foreach (var client in clients)
             {
                 if (client.Name == name)
                 {
@@ -38,7 +56,7 @@ namespace Library
         public List<Client> SearchClientByLastName(string lastname)
         {
             List<Client> result = new List<Client>();
-            foreach (var client in Clients)
+            foreach (var client in clients)
             {
                 if (client.LastName == lastname)
                 {
@@ -51,7 +69,7 @@ namespace Library
         public List<Client> SearchClientByEmail(string email)
         {
             List<Client> result = new List<Client>();
-            foreach (var client in Clients)
+            foreach (var client in clients)
             {
                 if (client.Email == email)
                 {
@@ -64,7 +82,7 @@ namespace Library
         public List<Client> SearchClientByPhone(string phone)
         {
             List<Client> result = new List<Client>();
-            foreach (var client in Clients)
+            foreach (var client in clients)
             {
                 if (client.Phone == phone)
                 {
@@ -77,7 +95,7 @@ namespace Library
         public List<Client> InactiveClients()
         {
             List<Client> inactiveClients = new List<Client>();
-            foreach (var client in Clients)
+            foreach (var client in clients)
             {
                 if (client.Inactive)
                 {
@@ -91,7 +109,7 @@ namespace Library
         public List<Client> WaitingClients()
         {
             List<Client> waitingClients = new List<Client>();
-            foreach (var client in Clients)
+            foreach (var client in clients)
             {
                 if (client.Waiting)
                 {
