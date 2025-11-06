@@ -11,9 +11,11 @@ public class UserTest
     {
     }
 
+    /// <summary>
+    /// Verifica que se cree correctamente una etiqueta
+    /// </summary>
 
     [Test]
-
     public void CreateTag()
     {
         Admin admin = new Admin("Ezequiel");
@@ -24,6 +26,10 @@ public class UserTest
         Assert.That(repo.tagList.Count, Is.EqualTo(1));
         Assert.That(repo.tagList[0].TagName, Is.EqualTo("VIP"));
     }
+    
+    /// <summary>
+    /// Verifica que se cierre una oportunidad y que sea añadida a la lista de oportunidades cerradas
+    /// </summary>
     [Test]
     public void CloseOpportunityClosesAnOpportunityAndAddsToTheList()
     {

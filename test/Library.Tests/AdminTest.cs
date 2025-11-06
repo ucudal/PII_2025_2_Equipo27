@@ -8,6 +8,10 @@ public class AdminTest
     }
 
 
+    /// <summary>
+    /// Verifica que se cree un usuario correctamente si este no existe
+    /// </summary>
+    
     [Test]
     public void CreateSeller_NotExistUsername()
     {
@@ -21,8 +25,10 @@ public class AdminTest
         Assert.That(admin.sellers[0],Is.EqualTo(seller));
     }
 
+    /// <summary>
+    /// Verifica que no se pueda crear un vendedor porque ya se habia creado uno antes
+    /// </summary>
     [Test]
-
     public void CreateSeller_Existing()
     {
         Admin admin = new Admin("Rodrigo");
@@ -34,6 +40,10 @@ public class AdminTest
         Assert.That(admin.sellers.Count, Is.EqualTo(1));
     }
 
+    /// <summary>
+    /// Verifica que se pueda activar un vendedor que estaba suspendido
+    /// </summary>
+    
     [Test]
     public void ActiveSeller_IfItIsNotActive()
     {
@@ -46,7 +56,11 @@ public class AdminTest
         Assert.That(seller.Active, Is.True);
         Assert.That(example,Is.EqualTo("El vendedor dejó de estar suspendido"));
     }
-
+    
+    /// <summary>
+    /// Verifica que no se pueda activar un vendedor porque ya estaba en estado activo
+    /// </summary>
+    
     [Test]
     public void ActiveSeller_IfItWasAlredyActive()
     {
@@ -61,6 +75,9 @@ public class AdminTest
 
     }
     
+    /// <summary>
+    /// Verifica que un vendedor sea suspendido que estaba en estado activo
+    /// </summary>
 
     [Test]
     public void SuspendSeller_IfItIsNotSuspended()
@@ -74,7 +91,10 @@ public class AdminTest
         Assert.That(example, Is.EqualTo("Vendedor suspendido"));
         
     }
-
+    
+    /// <summary>
+    /// Verifica que no se pueda suspender un vendedor porque ya estaba suspendido
+    /// </summary>
     [Test]
     public void SuspendSeller_IfItWasAlredySusspend()
     {
@@ -88,6 +108,10 @@ public class AdminTest
         Assert.That(example, Is.EqualTo("El vendedor ya estaba suspendido"));
     }
 
+    /// <summary>
+    /// Verifica que un vendedor sea eliminado
+    /// </summary>
+    
     [Test]
     public void DeleteSeller_Existing()
     {
@@ -99,7 +123,11 @@ public class AdminTest
         Assert.That(admin.sellers.Count, Is.EqualTo(0));
         Assert.That(example, Is.EqualTo("Vendedor eliminado"));
     }
-
+    
+    /// <summary>
+    /// Verifica que el vendedor no pueda ser eliminado porque no existe
+    /// </summary>
+    
     [Test]
     public void DeleteSeller_IfNotExist()
     {
