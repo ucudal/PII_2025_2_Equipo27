@@ -117,7 +117,7 @@ namespace Library
         }
 
 
-        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client,
+        public void CreateOportunity(string Product, int price, Opportunity.States state, Client client,
             DateTime? Date = null)
         {
             Opportunity oportunity = new Opportunity(Product, price, state, client, Date);

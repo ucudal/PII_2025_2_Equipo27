@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Library
@@ -100,6 +101,47 @@ namespace Library
             }
             return waitingClients;
         }
-        
+        public string GetPanel()
+        {
+            DateTime now = DateTime.Now;
+            int month = now.Month;
+            int year = now.Year;
+
+            int recentInteractions = 0;
+            int futureMeetings = 0;
+
+            foreach (var client in this.Clients)
+            {
+                foreach (var interaction in client.Interactions)
+                {
+                    if (interaction.InteractionDate.Month == month && interaction.InteractionDate.Year == year && interaction.InteractionDate <= DateTime.Now)
+                    {
+                        recentInteractions++;
+                    }
+                    if (DateTime.Now <= interaction.InteractionDate)
+                    {
+                        futureMeetings++;
+                    }
+                
+                }
+            }
+            return ($"Clientes totales: {this.Clients.Count}\n" + $"Interacciones en este último mes: {recentInteractions}\n" + $"Reuniones próximas {futureMeetings}");
+        }
+
+        public string GetTotalSales( DateTime startdate, DateTime finishdate)
+        {
+            int totalSales = 0;
+            foreach (var client in this.Clients)
+            {
+                foreach (var sales in client.Opportunities)
+                {
+                    if (sales.Date.Date >= startdate && sales.Date.Date <= finishdate)
+                    {
+                        totalSales++;
+                    }
+                }
+            }
+            return $"Cantidad de ventas dentro del período: {totalSales}";
+        }
     }
 }
