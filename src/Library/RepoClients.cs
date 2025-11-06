@@ -147,6 +147,7 @@ namespace Library
         /// </summary>
         /// <returns>Un mensaje con la cantidad de clientes, interacciones recientes y reuniones futuras.</returns>
 
+
         public string GetPanel()
         {
             DateTime now = DateTime.Now;
@@ -181,6 +182,7 @@ namespace Library
         /// <param name="finishdate">Fecha final del período.</param>
         /// <returns>Un mensaje con la cantidad de ventas</returns>
 
+
         public string GetTotalSales(DateTime startdate, DateTime finishdate)
         {
             int totalSales = 0;
@@ -196,7 +198,5 @@ namespace Library
             }
             return $"Cantidad de ventas dentro del período: {totalSales}";
         }
-
-        
     }
 }

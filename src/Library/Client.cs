@@ -123,7 +123,7 @@ namespace Library
             tags.Add(tag);
         }
 
-
+        
         /// <summary>
         ///  Crea una nueva oportunidad, pudiendo ser una venta o una potencial venta
         /// </summary>
@@ -137,7 +137,6 @@ namespace Library
         {
             Opportunity oportunity = new Opportunity(Product, price, states, client, Date);
             opportunities.Add(oportunity);
-
         }
 
         /// <summary>
