@@ -132,10 +132,11 @@ namespace Library
         /// <param name="states"></param>
         /// <param name="client"></param>
         /// <param name="Date"></param>
-        public void CreateOportunity(string Product, int price, Opportunity.States states, Client client,
-            DateTime? Date = null)
-        {
-            Opportunity oportunity = new Opportunity(Product, price, states, client, Date);
+        public void CreateOportunity(string product, int price, Opportunity.States states, Client client,
+            DateTime date)
+        { 
+            Opportunity oportunity = new Opportunity(product, price, states, client, date);
+            opportunities.Add(oportunity);
             opportunities.Add(oportunity);
         }
 
