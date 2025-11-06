@@ -10,7 +10,6 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Jose");
         RepoClients repoClients = new RepoClients();
-
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
@@ -25,7 +24,6 @@ public class RepoClientsTests
         // Assert
         Assert.That(actual.Count, Is.EqualTo(expected.Count));
     }
-
     [Test]
     public void TestCreateClient()
     {
