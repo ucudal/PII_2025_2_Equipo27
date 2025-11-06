@@ -10,8 +10,8 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Jose");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -29,7 +29,7 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Matteo");
         RepoClients repoClients = new RepoClients();
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         List<Client> expected = new List<Client>();
         expected.Add(mariano);
         // Act
@@ -44,7 +44,7 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Facundo");
         RepoClients repoClients = new RepoClients();
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         repoClients.AddClient(mariano);
         // Act
         repoClients.DeleteClient(2);
@@ -58,8 +58,8 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Lucas");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -76,8 +76,8 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Peter");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -94,8 +94,8 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Thomas");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -112,8 +112,8 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Ezequiel");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
+        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         List<Client> expected = new List<Client>();
@@ -130,10 +130,10 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Ezequiel");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
-        Client josue = new Client(3, "Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.male, "07/04/1950", jose);
-        Client oscar = new Client(4, "Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.male, "31/10/2024", jose);
+        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        Client josue = new Client(3, "Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.Male, "07/04/1950", jose);
+        Client oscar = new Client(4, "Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.Male, "31/10/2024", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         repoClients.AddClient(josue);
@@ -154,10 +154,10 @@ public class RepoClientsTests
     {
         Seller jose = new Seller("Ezequiel");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.male, "02/12/1990", jose);
-        Client josue = new Client(3, "Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.male, "07/04/1950", jose);
-        Client oscar = new Client(4, "Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.male, "31/10/2024", jose);
+        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        Client josue = new Client(3, "Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.Male, "07/04/1950", jose);
+        Client oscar = new Client(4, "Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.Male, "31/10/2024", jose);
         repoClients.AddClient(mario);
         repoClients.AddClient(mariano);
         repoClients.AddClient(josue);
@@ -178,7 +178,7 @@ public class RepoClientsTests
     public void GetPanel()
     {
         RepoClients repo = new RepoClients();
-        Client client1 = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
+        Client client1 = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.Male, "12/12/12", null);
         Client client2 = new Client(2, "Lucía", "García", "lucia@example.com", "098888888", Client.GenderType.Female, "1995-05-05", null);
         client1.AddInteraction(new Call("Llamada 1", "Notas 1", DateTime.Now.AddDays(-1)));
         client1.AddInteraction(new Meeting("Reunión 1", "Notas 2", "Sala A", Meeting.MeetingState.Programmed, DateTime.Now.AddDays(2))); 
@@ -204,7 +204,7 @@ public class RepoClientsTests
     public void GetTotalSales()
     {
         RepoClients repo = new RepoClients();
-        Client client = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
+        Client client = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.Male, "12/12/12", null);
 
         client.CreateOportunity("Azúcar",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
         client.CreateOportunity("Arroz",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
