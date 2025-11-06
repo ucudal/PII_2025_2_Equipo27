@@ -137,7 +137,6 @@ namespace Library
         { 
             Opportunity oportunity = new Opportunity(product, price, states, client, date);
             opportunities.Add(oportunity);
-            opportunities.Add(oportunity);
         }
 
         /// <summary>

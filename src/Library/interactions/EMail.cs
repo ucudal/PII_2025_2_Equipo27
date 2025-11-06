@@ -7,8 +7,8 @@ namespace Library.interactions
      
         public InteractionOrigin.Origin Sender { get; set; }
         
-        public Email(string content, InteractionOrigin.Origin sender, string notes, DateTime? interactionDate = null)
-            : base(content, notes, interactionDate) 
+        public Email(string content, InteractionOrigin.Origin sender, string notes, DateTime date)
+            : base(content, notes, date) 
         {
             this.Sender = sender;
         }

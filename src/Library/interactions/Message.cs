@@ -8,8 +8,8 @@ namespace Library.interactions
         public InteractionOrigin.Origin Sender { get; set; }
         public string Channel { get; set; }
         
-        public Message(string content, string notes, InteractionOrigin.Origin sender, string channel, DateTime? interactionDate = null)
-            : base(content, notes, interactionDate)
+        public Message(string content, string notes, InteractionOrigin.Origin sender, string channel, DateTime date)
+            : base(content, notes, date)
         {
             this.Sender = sender;
             this.Channel = channel;
