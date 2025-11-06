@@ -18,10 +18,14 @@ namespace Library
 
         public States State { get; private set; }
         public Client Client { get; set; }
-        public Opportunity(string Product, double price, States state, Client client,DateTime? Date = null)
+        public Opportunity(string product, double price, States state, Client client,DateTime date)
         {
-            this.Product = Product;
-            this.Date = Date ?? DateTime.Now;
+            this.Product = product;
+            if (date == null)
+            {
+                date = DateTime.Now;
+            }
+            this.Date = date;
             this.Price = price;
             this.State = state;
             this.Client = client;

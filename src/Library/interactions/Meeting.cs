@@ -14,8 +14,8 @@ namespace Library.interactions
             public MeetingState Type { get; set; }
             
             
-            public Meeting(string content, string notes, string location, MeetingState type, DateTime? interactionDate = null) 
-                : base(content, notes, interactionDate)
+            public Meeting(string content, string notes, string location, MeetingState type, DateTime date) 
+                : base(content, notes, date)
             {
                 this.Location = location;
                 this.Type = type;

@@ -9,11 +9,15 @@ namespace Library
         public string Content { get; set; }
         public string Notes { get; set; }
 
-        protected Interaction(String content, String notes, DateTime? interactionDate = null)
+        protected Interaction(String content, String notes, DateTime date)
         {
+            if (date == null)
+            {
+                date = DateTime.Now;
+            }
             this.Content = content;
             this.Notes = notes;
-            this.InteractionDate = interactionDate ?? DateTime.Now; 
+            this.InteractionDate = date; 
         }
     }
 }
