@@ -62,7 +62,22 @@ namespace Library
         
         public void ModifyClient(Client client, Client.TypeOfData modified, string modification)
         {
-            client.ModifyClient(modified,modification);
+            if (modified == Client.TypeOfData.Email)
+            {
+                client.Email = modification;
+            }
+            else if (modified == Client.TypeOfData.LastName)
+            {
+                client.LastName = modification;
+            }
+            else if (modified == Client.TypeOfData.Name)
+            {
+                client.Name = modification;
+            }
+            else if (modified == Client.TypeOfData.Phone)
+            {
+                client.Phone = modification;
+            }
         }
 
 
