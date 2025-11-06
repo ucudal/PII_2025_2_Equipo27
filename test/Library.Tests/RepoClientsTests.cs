@@ -1,3 +1,5 @@
+using Library.interactions;
+
 namespace Library.Tests;
 
 public class RepoClientsTests
@@ -203,10 +205,6 @@ public class RepoClientsTests
     {
         RepoClients repo = new RepoClients();
         Client client = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.male, "12/12/12", null);
-
-        
-        client.Opportunities.Add(new Opportunity("Azúcar",60,Opportunity.State.Open,client,new DateTime(2025,10,20)));
-        client.Opportunities.Add(new Opportunity("Arroz",60,Opportunity.State.Open,client, new DateTime(2025,10,20)));
 
         client.CreateOportunity("Azúcar",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
         client.CreateOportunity("Arroz",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
