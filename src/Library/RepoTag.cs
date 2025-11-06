@@ -7,7 +7,28 @@ namespace Library
     {
         public List<Tag> tagList = new List<Tag>();
         
-        public List<Tag> Screach(string tagname)
+
+        /// <summary>
+        /// Crea una nueva etiqueta y la agrega al repositorio especificado.
+        /// </summary>
+        /// <param name="tagname">El nombre de la nueva etiqueta.</param>
+        /// <param name="repo">El repositorio al que se agregará la etiqueta.</param>
+        /// <returns>La etiqueta creada.</returns>
+        public Tag CreateTag(string tagname, RepoTag repo)
+        {
+            Tag tag = new Tag(tagname);
+            repo.tagList.Add(tag);
+            return tag;
+        }
+        
+
+        /// <summary>
+        /// Busca y devuelve las etiquetas cuyo nombre coincide con el especificado.
+        /// </summary>
+        /// <param name="tagname">El nombre de la etiqueta por el que buscar.</param>
+        /// <returns>Una lista de etiquetas cuyo nombre coincide con <paramref name="tagname"/>.</returns>
+
+        public List<Tag> Search(string tagname)
         {
             List<Tag> result = new List<Tag>();
             foreach (var tag in tagList)

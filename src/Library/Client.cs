@@ -8,10 +8,34 @@ namespace Library
 {
     public class Client
     {
-        public readonly List<Opportunity> Oportunities = new List<Opportunity>();
-        public readonly List<ClientInteraction> Interactions = new List<ClientInteraction>();
-        public readonly List<Tag> Tags = new List<Tag>();
+        public IReadOnlyList<Opportunity> Opportunities 
+        {
+            get
+            {
+                return opportunities;
+            } 
+        }
 
+        public IReadOnlyList<Interaction> Interactions
+        {
+            get
+            {
+                return interactions;
+            }
+        }
+
+        private List<Interaction> interactions = new List<Interaction>();
+
+        public IReadOnlyList<Tag> Tags
+        {
+            get
+            {
+                return tags;
+            }
+        }
+
+        private List<Tag> tags = new List<Tag>();
+        private List<Opportunity> opportunities = new List<Opportunity>();
         public Client(int id, string name, string lastName, string email, string phone, GenderType gender, string birthDate, Seller seller)
 
         {
@@ -27,7 +51,18 @@ namespace Library
             this.AsignedSeller = seller;
         }
 
-        public Seller AsignedSeller { get; set; }
+        private Seller _asignedSeller;
+        public Seller AsignedSeller 
+        {
+            get
+            {
+                return _asignedSeller;
+            }
+            set
+            {
+                _asignedSeller = value;
+            }
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -52,6 +87,11 @@ namespace Library
             Phone
         }
 
+        /// <summary>
+        /// Permite modificar los datos del cliente
+        /// </summary>
+        /// <param name="modified"></param>
+        /// <param name="modification"></param>
         public void ModifyClient(TypeOfData modified, string modification)
         {
             if (modified == TypeOfData.Name)
@@ -73,30 +113,39 @@ namespace Library
         }
 
 
-        //////////////////////////////
-        ///     Tag                ///
-        //////////////////////////////
+        /// <summary>
+        /// Agrega la etiqueta al cliente, solamente permitiendo las que se encuentran creadas dentro del repoTags
+        /// </summary>
+        /// <param name="tag"></param>
 
         public void AddTag(Tag tag)
         {
-            Tags.Add(tag);
+            tags.Add(tag);
         }
 
-
-        public void CreateOportunity(string Product, int price, Opportunity.State state, Client client,
+        
+        /// <summary>
+        ///  Crea una nueva oportunidad, pudiendo ser una venta o una potencial venta
+        /// </summary>
+        /// <param name="Product"></param>
+        /// <param name="price"></param>
+        /// <param name="states"></param>
+        /// <param name="client"></param>
+        /// <param name="Date"></param>
+        public void CreateOportunity(string Product, int price, Opportunity.States states, Client client,
             DateTime? Date = null)
         {
-            Opportunity oportunity = new Opportunity(Product, price, state, client, Date);
-            Oportunities.Add(oportunity);
-
+            Opportunity oportunity = new Opportunity(Product, price, states, client, Date);
+            opportunities.Add(oportunity);
         }
 
-        //////////////////////////////
-        ///     Interactions       ///
-        //////////////////////////////
-        public void AddInteraction(ClientInteraction interaction)
+        /// <summary>
+        /// Agrega una nueva interaccion, pudiendo ser mensaje, EMail, llamada o reunion
+        /// </summary>
+        /// <param name="interaction"></param>
+        public void AddInteraction(Interaction interaction)
         {
-            this.Interactions.Add(interaction);
+            this.interactions.Add(interaction);
         }
     }
 }

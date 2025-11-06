@@ -34,7 +34,7 @@ public class ClientTests
     {
         Seller seller = new Seller("Seller");
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.male,"09/10/08", seller);
-        ClientInteraction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
+        Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
         //string content, string notes, InteractionOrigin sender, string channel, DateTime? interactionDate = null
         client.AddInteraction(message);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
@@ -56,8 +56,8 @@ public class ClientTests
     {
         Seller seller = new Seller("Seller");
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.male,"09/10/08", seller);
-        client.CreateOportunity("Product", 100 , Opportunity.State.Open, client, DateTime.Now);
-        Assert.That(client.Oportunities.Count,Is.EqualTo(1));
+        client.CreateOportunity("Product", 100 , Opportunity.States.Open, client, DateTime.Now);
+        Assert.That(client.Opportunities.Count,Is.EqualTo(1));
     }
 }
 

@@ -6,17 +6,35 @@ public class RepoTagTest
     public void Setup()
     {
     }
-
+    
     [Test]
 
-    public void Screach()
+    public void CreateTag()
     {
         Admin admin = new Admin("Ezequiel");
         RepoTag repo = new RepoTag();
-        Tag tag = admin.CreateTag("VIP",repo);
 
-        List<Tag> screach = repo.Screach("VIP");
+        Tag tag = repo.CreateTag("VIP",repo);
 
-        Assert.That(screach[0].TagName, Is.EqualTo("VIP"));
+        List<Tag> search = repo.Search("VIP");
+
+  
+        
+        Assert.That(repo.tagList.Count, Is.EqualTo(1));
+        Assert.That(repo.tagList[0].TagName, Is.EqualTo("VIP"));
+    }
+
+    [Test]
+
+    public void Search()
+    {
+        Admin admin = new Admin("Ezequiel");
+        RepoTag repo = new RepoTag();
+        Tag tag = repo.CreateTag("VIP",repo);
+
+        List<Tag> search = repo.Search("VIP");
+
+
+        Assert.That(search[0].TagName, Is.EqualTo("VIP"));
     }
 }

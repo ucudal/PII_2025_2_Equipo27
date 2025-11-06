@@ -6,18 +6,36 @@ namespace Library
 {
     public class Seller : User
     {
-        public List<Client> thisClients = new List<Client>();
+        private List<Client> _clients = new List<Client>();
+        public IReadOnlyList<Client> Clients => _clients.AsReadOnly();
 
         public Seller(string username) : base(username)
         {
-            
+            // Intencionalmente en blanco
         }
 
-        public string AsignClient(Seller other, Client client)
+        /// <summary>
+        /// Asigna un cliente a otro vendedor.
+        /// </summary>
+        /// <param name="newSeller">El vendedor al que se asignará un cliente</param>
+        /// <param name="client">Cliente que se asignará al vendedor</param>
+        /// <returns>Un mensaje de que se agregó el cliente o que no se pudo porque el vendedor está suspendido</returns>
+        /// <exception cref="ArgumentNullException">El vendedor o el cliente no pueden ser nulos</exception>
+        
+        public string AsignClient(Seller newSeller, Client client)
         {
-            if (other.Active)
+            if (newSeller == null)
             {
-                other.thisClients.Add(client);
+                throw new ArgumentNullException(nameof(newSeller), "El vendedor no puede ser nulo");
+            }
+
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client), "El cliente no puede ser nulo");
+            }
+            if (newSeller.Active)
+            {
+                newSeller._clients.Add(client);
                 return "Cliente agregado";
             }
             else
@@ -25,5 +43,6 @@ namespace Library
                 return "No se le puede asignar un cliente al vendedor porque está suspendido";
             }
         }
+
     }
 }
