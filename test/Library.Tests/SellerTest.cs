@@ -7,6 +7,10 @@ public class SellerTest
     {
     }
 
+    /// <summary>
+    /// Verifica que sea asignado un cliente a un vendedor correctamente
+    /// </summary>
+    
     [Test]
     public void AsignNewClient()
     {
