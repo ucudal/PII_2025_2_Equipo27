@@ -4,6 +4,7 @@ namespace Library.Tests;
 
 public class RepoClientsTests
 {
+    
     [Test]
     public void TestGetClients()
     {

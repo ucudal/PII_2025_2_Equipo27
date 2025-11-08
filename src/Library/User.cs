@@ -15,7 +15,7 @@ namespace Library
             {
                 return this.userName;
             }
-            set
+            setgit branc
             {
                 if (string.IsNullOrEmpty(value))
                 {
@@ -38,17 +38,7 @@ namespace Library
             this.userName = username;
             this.Active = true;
         }
-        /// <summary>
-        /// Cierra una oportunidad y la agrega a una lista de oportunidades que fueron cerradas.
-        /// </summary>
-        /// <param name="opportunity">La oportunidad que será cerrada.</param>
-        
-        public Tag CreateTag(string tagname, RepoTag repo)
-        {
-            Tag tag = new Tag(tagname);
-            repo.tagList.Add(tag);
-            return tag;
-        }
+       
         
         /// <summary>
         /// Cierra una oportunidad y la agrega a una lista de oportunidades que fueron cerradas.
