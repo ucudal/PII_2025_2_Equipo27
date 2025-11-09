@@ -15,7 +15,7 @@ namespace Library
             {
                 return this.userName;
             }
-            setgit branc
+            set
             {
                 if (string.IsNullOrEmpty(value))
                 {
