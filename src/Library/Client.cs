@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
 using Library.interactions;
 using Microsoft.VisualBasic;
@@ -12,7 +13,7 @@ namespace Library
         {
             get
             {
-                return opportunities;
+                return this.opportunities;
             } 
         }
 
@@ -20,7 +21,7 @@ namespace Library
         {
             get
             {
-                return interactions;
+                return this.interactions;
             }
         }
 
@@ -30,7 +31,7 @@ namespace Library
         {
             get
             {
-                return tags;
+                return this.tags;
             }
         }
 
@@ -39,6 +40,26 @@ namespace Library
         public Client(int id, string name, string lastName, string email, string phone, GenderType gender, string birthDate, Seller seller)
 
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("El cliente debe tener un nombre", nameof(name));
+            }
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new ArgumentException("El cliente debe tener un apellido", nameof(lastName));
+            }
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("El cliente debe tener un emial", nameof(email));
+            }
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
+            }
+            if (string.IsNullOrEmpty(birthDate))
+            {
+                throw new ArgumentException("El cliente debe tener una fecha de nacimiento", nameof(birthDate));
+            }
             this.Id = id;
             this.Name = name;
             this.LastName = lastName;
@@ -48,19 +69,15 @@ namespace Library
             this.Waiting = false;
             this.Gender = gender;
             this.BirthDate = birthDate;
-            this.AsignedSeller = seller;
+            this.asignedSeller = seller;
         }
 
-        private Seller _asignedSeller;
+        private Seller asignedSeller;
         public Seller AsignedSeller 
         {
             get
             {
-                return _asignedSeller;
-            }
-            set
-            {
-                _asignedSeller = value;
+                return this.asignedSeller;
             }
         }
         public int Id { get; set; }
@@ -119,10 +136,17 @@ namespace Library
         /// Agrega la etiqueta al cliente, solamente permitiendo las que se encuentran creadas dentro del repoTags
         /// </summary>
         /// <param name="tag"></param>
+        /// <exception cref="InvalidOperationException">
+        /// Se lanza si el tag ya está agregado.
+        /// </exception>
 
         public void AddTag(Tag tag)
         {
-            tags.Add(tag);
+            if (this.tags.Contains(tag))
+            {
+                throw new InvalidOperationException("Este tag ya está añadido");
+            }
+            this.tags.Add(tag);
         }
 
         
@@ -138,15 +162,22 @@ namespace Library
             DateTime date)
         { 
             Opportunity oportunity = new Opportunity(product, price, states, client, date);
-            opportunities.Add(oportunity);
+            this.opportunities.Add(oportunity);
         }
 
         /// <summary>
         /// Agrega una nueva interaccion, pudiendo ser mensaje, EMail, llamada o reunion
         /// </summary>
         /// <param name="interaction"></param>
+        /// <exception cref="InvalidOperationException">
+        /// Se lanza si la interacción ya está añadida.
+        /// </exception>
         public void AddInteraction(Interaction interaction)
         {
+            if (this.interactions.Contains(interaction))
+            {
+                throw new InvalidOperationException("Esta interacción ya está añadida");
+            }
             this.interactions.Add(interaction);
         }
     }
