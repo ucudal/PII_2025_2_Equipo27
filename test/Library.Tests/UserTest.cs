@@ -11,21 +11,16 @@ public class UserTest
     {
     }
 
-    /// <summary>
-    /// Verifica que se cree correctamente una etiqueta
-    /// </summary>
-
     [Test]
-    public void CreateTag()
+    public void SetUserName_Valid()
     {
-        Admin admin = new Admin("Ezequiel");
-        RepoTag repo = new RepoTag();
-        
-        Tag tag = admin.CreateTag("VIP",repo);
-        
-        Assert.That(repo.tagList.Count, Is.EqualTo(1));
-        Assert.That(repo.tagList[0].TagName, Is.EqualTo("VIP"));
+        Seller seller = new Seller("Juan");
+        seller.UserName = "Manuel";
+        Assert.That("Manuel", Is.EqualTo(seller.UserName));
     }
+    
+   
+    
     
     /// <summary>
     /// Verifica que se cierre una oportunidad y que sea añadida a la lista de oportunidades cerradas

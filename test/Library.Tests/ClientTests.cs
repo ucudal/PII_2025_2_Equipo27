@@ -19,16 +19,6 @@ public class ClientTests
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));
 
     }
-    
-    [Test]
-    public void ModifyClientModifiesCorrectly()
-    {
-        Seller seller = new Seller("Seller");
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
-        client.ModifyClient(Client.TypeOfData.LastName, "Gutierrez");
-        Assert.That(client.LastName,Is.EqualTo("Gutierrez"));
-    }
-    
     [Test]
     public void AddInteractionAddsAnInteraction()
     {

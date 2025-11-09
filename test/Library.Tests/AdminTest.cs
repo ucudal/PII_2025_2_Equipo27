@@ -7,6 +7,36 @@ public class AdminTest
     {
     }
 
+    /// <summary>
+    /// Verifica en un vendedor sea encontrado en la lista
+    /// </summary>
+    
+    [Test]
+    public void SearchSeller_Existing()
+    {
+        Admin admin = new Admin("Lucas");
+        admin.CreateSeller("Marisol");
+
+        Seller seller = admin.SearchSeller("Marisol");
+        
+        Assert.That(seller.UserName, Is.EqualTo("Marisol"));
+    }
+
+    /// <summary>
+    /// Verifica que un vendedor no sea encontrado porque no existe
+    /// </summary>
+    
+    [Test]
+    public void SearchSeller_NotExisting()
+    {
+        Admin admin = new Admin("Lucas");
+        admin.CreateSeller("Marisol");
+
+        Seller seller = admin.SearchSeller("Lucas");
+        
+        Assert.That(seller, Is.Null);
+    }
+
 
     /// <summary>
     /// Verifica que se cree un usuario correctamente si este no existe

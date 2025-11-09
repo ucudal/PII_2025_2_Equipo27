@@ -12,12 +12,11 @@ namespace Library
         /// Crea una nueva etiqueta y la agrega al repositorio especificado.
         /// </summary>
         /// <param name="tagname">El nombre de la nueva etiqueta.</param>
-        /// <param name="repo">El repositorio al que se agregará la etiqueta.</param>
         /// <returns>La etiqueta creada.</returns>
-        public Tag CreateTag(string tagname, RepoTag repo)
+        public Tag CreateTag(string tagname)
         {
             Tag tag = new Tag(tagname);
-            repo.tagList.Add(tag);
+            this.tagList.Add(tag);
             return tag;
         }
         

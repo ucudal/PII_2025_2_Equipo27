@@ -92,25 +92,27 @@ namespace Library
         /// </summary>
         /// <param name="modified"></param>
         /// <param name="modification"></param>
-        public void ModifyClient(TypeOfData modified, string modification)
-        {
-            if (modified == TypeOfData.Name)
-            {
-                this.Name = modification;
-            }
-            else if (modified == TypeOfData.LastName)
-            {
-                this.LastName = modification;
-            }
-            else if (modified == TypeOfData.Email)
-            {
-                this.Email = modification;
-            }
-            else
-            {
-                this.Phone = modification;
-            }
-        }
+        
+        
+        // public void ModifyClient(TypeOfData modified, string modification)
+        // {
+        //     if (modified == TypeOfData.Name)
+        //     {
+        //         this.Name = modification;
+        //     }
+        //     else if (modified == TypeOfData.LastName)
+        //     {
+        //         this.LastName = modification;
+        //     }
+        //     else if (modified == TypeOfData.Email)
+        //     {
+        //         this.Email = modification;
+        //     }
+        //     else
+        //     {
+        //         this.Phone = modification;
+        //     }
+        // }
 
 
         /// <summary>

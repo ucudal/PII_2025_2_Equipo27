@@ -4,6 +4,7 @@ namespace Library.Tests;
 
 public class RepoClientsTests
 {
+    
     [Test]
     public void TestGetClients()
     {
@@ -24,12 +25,11 @@ public class RepoClientsTests
         // Assert
         Assert.That(actual.Count, Is.EqualTo(expected.Count));
     }
-
     [Test]
     public void TestCreateClient()
     {
         // Arrange
-        
+
         // Act
         
         // Assert

@@ -83,6 +83,7 @@ public class MainFacadeTests
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Jose");
         // Act
+
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         // Assert 
         Assert.That(mainFacade.GetClients(), Is.Not.Empty);
@@ -94,6 +95,7 @@ public class MainFacadeTests
         // Arrange
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Jose");
+
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         List<Client> expected = new List<Client>();
@@ -113,6 +115,7 @@ public class MainFacadeTests
         // Arrange
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Jose");
+
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         
@@ -128,6 +131,7 @@ public class MainFacadeTests
     {
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Lucas");
+
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -141,6 +145,7 @@ public class MainFacadeTests
     {
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Lucas");
+
         Client mariano = new Client(1, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
@@ -157,6 +162,7 @@ public class MainFacadeTests
     {
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Lucas");
+
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -170,8 +176,10 @@ public class MainFacadeTests
     {
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Lucas");
+
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+
         // Act
         List<Client> actual = mainFacade.SearchClientByPhone("987654321");
         // Assert
