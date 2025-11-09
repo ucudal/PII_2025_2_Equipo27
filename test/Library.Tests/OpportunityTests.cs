@@ -6,7 +6,7 @@ public class OpportunityTests
     public void OpportunityCreatesCorrectly()
     {
         Seller seller = new Seller("Juanito");
-        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.male,
+        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.Male,
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Open,client,DateTime.Today);
         Assert.That(opportunity.State,Is.EqualTo(Opportunity.States.Open));
@@ -21,7 +21,7 @@ public class OpportunityTests
     public void SellWorksCorrectly()
     {
         Seller seller = new Seller("Juanito");
-        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.male,
+        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.Male,
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Open,client,DateTime.Today);
         opportunity.Sell();
@@ -34,7 +34,7 @@ public class OpportunityTests
     public void SellThrowsIfAlreadyClosed()
     {
         Seller seller = new Seller("Juanito");
-        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.male,
+        Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.Male,
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Close, client, DateTime.Today);
 

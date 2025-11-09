@@ -75,7 +75,7 @@ namespace Library
 
         public enum GenderType
         {
-            male,
+            Male,
             Female
         }
 

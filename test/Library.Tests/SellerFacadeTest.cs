@@ -8,7 +8,7 @@ public class SellerFacadeTest
         SellerFacade facade = new SellerFacade();
         Seller seller1 = facade.admin.CreateSeller("Peter");
         Seller seller2 = facade.admin.CreateSeller("Ezequiel");
-        Client client = new Client(1, "Facundo", "Pastoruti", "facundopastoruti", "55555555", Client.GenderType.male,
+        Client client = new Client(1, "Facundo", "Pastoruti", "facundopastoruti", "55555555", Client.GenderType.Male,
             "21/10/2020", null);
         
         string example = facade.AssignClient("Peter","Ezequiel",client);
@@ -21,7 +21,7 @@ public class SellerFacadeTest
     {
         SellerFacade facade = new SellerFacade();
         Seller seller1 = facade.admin.CreateSeller("Peter");
-        Client client = new Client(1, "Facundo", "Pastoruti", "facundopastoruti", "55555555", Client.GenderType.male,
+        Client client = new Client(1, "Facundo", "Pastoruti", "facundopastoruti", "55555555", Client.GenderType.Male,
             "21/10/2020", null);
         
         string example = facade.AssignClient("Peter","Ezequiel",client);

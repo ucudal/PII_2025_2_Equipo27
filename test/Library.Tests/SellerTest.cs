@@ -18,7 +18,7 @@ public class SellerTest
         Seller seller1 = admin.CreateSeller("Peter");
         Seller seller2 = admin.CreateSeller("Matteo");
         
-        Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.male, "10/10/01",null);
+        Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
         
         string experiment = seller1.AsignClient(seller2,client);
         
