@@ -71,6 +71,32 @@ public class AdminTest
     }
 
     /// <summary>
+    /// Verifica que si se crea un vendedor sin nombre, devuelva null
+    /// </summary>
+
+    [Test]
+    public void CreateSeller_Exception()
+    {
+        Admin admin = new Admin("Alejandra");
+
+        Seller seller = admin.CreateSeller("");
+        
+        Assert.That(seller, Is.Null);
+    }
+
+    /// <summary>
+    /// Verifica que no se pueda activar un vendedor nulo
+    /// </summary>
+    [Test]
+    public void ActiveSeller_Exception()
+    {
+        Admin admin = new Admin("Julieta");
+        
+        Assert.Throws<ArgumentNullException>(()=> Is.EqualTo(admin.ActiveSeller(null)));
+    }
+    
+    
+    /// <summary>
     /// Verifica que se pueda activar un vendedor que estaba suspendido
     /// </summary>
     
@@ -106,6 +132,17 @@ public class AdminTest
     }
     
     /// <summary>
+    /// Verifica que no se pueda suspender un vendedor nulo
+    /// </summary>
+    [Test]
+    public void suspendSeller_Exception()
+    {
+        Admin admin = new Admin("Julieta");
+        
+        Assert.Throws<ArgumentNullException>(()=> Is.EqualTo(admin.SuspendSeller(null)));
+    }
+    
+    /// <summary>
     /// Verifica que un vendedor sea suspendido que estaba en estado activo
     /// </summary>
 
@@ -138,6 +175,18 @@ public class AdminTest
         Assert.That(example, Is.EqualTo("El vendedor ya estaba suspendido"));
     }
 
+    /// <summary>
+    /// Verifica que no se pueda eliminar un vendedor nulo
+    /// </summary>
+    [Test]
+    public void DeleteSeller_Exception()
+    {
+        Admin admin = new Admin("Julieta");
+        
+        Assert.Throws<ArgumentNullException>(()=> Is.EqualTo(admin.DeleteSeller(null)));
+    }
+    
+    
     /// <summary>
     /// Verifica que un vendedor sea eliminado
     /// </summary>

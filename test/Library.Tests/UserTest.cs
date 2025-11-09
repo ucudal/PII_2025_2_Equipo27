@@ -18,8 +18,16 @@ public class UserTest
         seller.UserName = "Manuel";
         Assert.That("Manuel", Is.EqualTo(seller.UserName));
     }
+
+    /// <summary>
+    /// Verifica que se lance una excepción si no se ingresa un nombre de usuario
+    /// </summary>
     
-   
+    [Test]
+    public void SetUserName_Exception()
+    {
+        Assert.Throws<ArgumentException>(() => Is.EqualTo(new Seller("")));
+    }
     
     
     /// <summary>

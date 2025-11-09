@@ -14,7 +14,6 @@ public class RepoTagTest
     [Test]
     public void CreateTag()
     {
-        Admin admin = new Admin("Ezequiel");
         RepoTag repo = new RepoTag();
 
         Tag tag = repo.CreateTag("VIP");
