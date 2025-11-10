@@ -6,7 +6,28 @@ namespace Library
 {
     public class SellerFacade : MainFacade
     {
-        
+        private static SellerFacade instance = null;
+
+        public static SellerFacade Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SellerFacade();
+                }
+
+                return instance;
+            }
+        }
+        public static void ResetInstance() 
+        {
+            instance = null;
+        }
+        private SellerFacade()
+        {
+            
+        }
         /// <summary>
         /// Instancia de administrador usada para búsqueda y asignación entre sellers.
         /// </summary>

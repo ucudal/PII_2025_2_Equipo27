@@ -7,7 +7,7 @@ class Program
     {
         // Crear instancia de Admin y AdminFacade
         Admin admin = new Admin("AdminPrincipal");
-        AdminFacade adminFacade = new AdminFacade();
+        AdminFacade adminFacade = AdminFacade.Instance;
 
         // Crear Sellers
         adminFacade.CreateSeller("sellerA");
@@ -31,7 +31,7 @@ class Program
         Console.WriteLine(adminFacade.ActiveSeller("sellerB"));  // Activa sellerB
 
         // Crear instancia de SellerFacade y asignar cliente de sellerA a sellerB
-        SellerFacade sellerFacade = new SellerFacade();
+        SellerFacade sellerFacade = SellerFacade.Instance;
         Client clienteParaAsignar = adminFacade.GetClients()[0]; // Tomamos el primer cliente de sellerA
         Console.WriteLine(sellerFacade.AssignClient("sellerA", "sellerB", clienteParaAsignar));
 

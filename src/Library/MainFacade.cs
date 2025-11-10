@@ -217,5 +217,23 @@ namespace Library
             Message message = new Message(content, notes, sender, channel, DateTime.Now);
             client.AddInteraction(message);
         }
+
+        public void SwitchClientActivity(int id)
+        {
+            foreach (Client client in repoClients.Clients)
+            {
+                if (client.Id == id)
+                {
+                    if (client.Inactive == true)
+                    {
+                        client.Inactive = false;
+                    }
+                    else
+                    {
+                        client.Inactive = true;
+                    }
+                }
+            }
+        }
     }
 }

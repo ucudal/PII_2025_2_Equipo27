@@ -2,10 +2,16 @@ namespace Library.Tests;
 
 public class AdminFacadeTest
 {
+    [SetUp]
+    public void SetUp()
+    {
+        AdminFacade.ResetInstance();
+    }
     [Test]
     public void SuspendSeller_ValidName()
     {
-        AdminFacade facade = new AdminFacade();
+        AdminFacade facade = AdminFacade.Instance;
+        
         facade.admin.CreateSeller("Daniela");
 
         string example = facade.SuspendSeller("Daniela");
@@ -17,7 +23,7 @@ public class AdminFacadeTest
     public void SuspendSeller_InvalidName()
     {
         
-        AdminFacade facade = new AdminFacade();
+        AdminFacade facade = AdminFacade.Instance;
         facade.admin.CreateSeller("Laura");
 
         string example = facade.SuspendSeller("José");
@@ -28,7 +34,7 @@ public class AdminFacadeTest
     [Test]
     public void ActiveSeller_ValidName()
     {
-        AdminFacade facade = new AdminFacade();
+        AdminFacade facade = AdminFacade.Instance;
         facade.admin.CreateSeller("Laura");
 
         string example = facade.ActiveSeller("Laura");
@@ -39,7 +45,7 @@ public class AdminFacadeTest
     [Test]
     public void ActiveSeller_InvalidName()
     {
-        AdminFacade facade = new AdminFacade();
+        AdminFacade facade = AdminFacade.Instance;
         facade.admin.CreateSeller("Laura");
 
         string example = facade.ActiveSeller("José");
@@ -50,7 +56,7 @@ public class AdminFacadeTest
     [Test]
     public void DeleteSeller_ValidName()
     {
-        AdminFacade facade = new AdminFacade();
+        AdminFacade facade = AdminFacade.Instance;
         facade.admin.CreateSeller("Daniela");
 
         string example = facade.DeleteSeller("Daniela");
@@ -64,7 +70,7 @@ public class AdminFacadeTest
     {
         Admin admin = new Admin("Martín");
         Seller seller = admin.CreateSeller("Daniela");
-        AdminFacade facade = new AdminFacade();
+        AdminFacade facade = AdminFacade.Instance;
 
         string example = facade.DeleteSeller("José");
         

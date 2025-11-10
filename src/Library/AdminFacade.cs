@@ -8,6 +8,27 @@ namespace Library
     /// </summary>
     public class AdminFacade : MainFacade
     {
+        private static AdminFacade instance = null;
+        public static AdminFacade Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new AdminFacade();
+                }
+
+                return instance;
+            }
+        }
+        public static void ResetInstance()
+        {
+            instance = null;
+        }
+        private AdminFacade()
+        {
+            
+        }
         /// <summary>
         /// Instancia única de administrador principal.
         /// </summary>
