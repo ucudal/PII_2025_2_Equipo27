@@ -50,7 +50,7 @@ class Program
             Console.WriteLine($"{c.Name} {c.LastName} - {c.Email}");
 
         // Probar búsquedas avanzadas
-        var encontrados = adminFacade.SearchClientByEmail("maria@email.com");
+        var encontrados = adminFacade.SearchClient(RepoClients.TypeOfData.Email,"maria@email.com");
         Console.WriteLine("--- Búsqueda por email ---");
         foreach (var c in encontrados)
             Console.WriteLine($"{c.Name} {c.LastName}");

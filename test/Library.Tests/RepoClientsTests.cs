@@ -4,7 +4,26 @@ namespace Library.Tests;
 
 public class RepoClientsTests
 {
+    [SetUp]
+    public void SetUp()
+    {
+        // Seller seller = new Seller("Leny");
+        // RepoClients repoClients = new RepoClients();
+    }
     
+    [Test]
+    public void TestCreateClient()
+    {
+        // Arrange
+        Seller jose = new Seller("Jose");
+        RepoClients repoClients = new RepoClients();
+        // Act
+        repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        // Assert
+        Assert.That(repoClients.Clients.Count, Is.EqualTo(1));
+        Assert.That(repoClients.Clients[0].Id, Is.EqualTo(0));
+    }
+
     [Test]
     public void TestGetClients()
     {
@@ -12,28 +31,11 @@ public class RepoClientsTests
         Seller jose = new Seller("Jose");
         RepoClients repoClients = new RepoClients();
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        // repoClients.AddClient(mario);
-        // repoClients.AddClient(mariano);
-        List<Client> expected = new List<Client>();
-        expected.Add(mario);
-        expected.Add(mariano);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose); 
         // Act 
         IReadOnlyList<Client> actual = repoClients.Clients;
         // Assert
-        Assert.That(actual.Count, Is.EqualTo(expected.Count));
-    }
-    [Test]
-    public void TestCreateClient()
-    {
-        // Arrange
-
-        // Act
-        
-        // Assert
-        
+        Assert.That(actual.Count, Is.EqualTo(2));
     }
 
     [Test]
@@ -42,84 +44,68 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Facundo");
         RepoClients repoClients = new RepoClients();
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        repoClients.AddClient(mariano);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
-        repoClients.DeleteClient(2);
+        repoClients.DeleteClient(0);
         // Assert
         Assert.That(repoClients.Clients.Count, Is.EqualTo(0));
     }
-    
+
     [Test]
-    public void TestSerchClientByName()
+    public void TestSearchClient_ByName()
     {
-        // Arrange
-        Seller jose = new Seller("Lucas");
-        RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        repoClients.AddClient(mario);
-        repoClients.AddClient(mariano);
-        List<Client> expected = new List<Client>();
-        expected.Add(mario);
-        // Act
-        List<Client> actual = repoClients.SearchClientByName("Mario");
-        // Assert
-        Assert.That(actual, Is.EqualTo(expected));
+            //Arrange
+            Seller jose = new Seller("Lucas");
+            RepoClients repoClients = new RepoClients();
+            repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+            repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+            // Act
+            List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Mario");
+            // Assert
+            Assert.That(actual[0].Name, Is.EqualTo("Mario"));
     }
     
     [Test]
-    public void TestSerchClientByLastName()
+    
+    public void TestSearchClient_ByLastName()
     {
         // Arrange
         Seller jose = new Seller("Peter");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        repoClients.AddClient(mario);
-        repoClients.AddClient(mariano);
-        List<Client> expected = new List<Client>();
-        expected.Add(mariano);
+        repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
-        List<Client> actual = repoClients.SearchClientByLastName("Dominguez");
+        List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.LastName,"Dominguez");
         // Assert
-        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(actual[0].LastName, Is.EqualTo("Dominguez"));
     }
     
     [Test]
-    public void TestSerchClientByEmail()
+    public void TestSearchClient_ByEmail()
     {
         // Arrange
         Seller jose = new Seller("Thomas");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        repoClients.AddClient(mario);
-        repoClients.AddClient(mariano);
-        List<Client> expected = new List<Client>();
-        expected.Add(mariano);
+        repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
-        List<Client> actual = repoClients.SearchClientByEmail("gfedcba");
+        List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.Email,"gfedcba");
         // Assert
-        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(actual[0].Email, Is.EqualTo("gfedcba"));
     }
     
     [Test]
-    public void TestSerchClientByPhone()
+    public void TestSearchClient_ByPhone()
     {
         // Arrange
         Seller jose = new Seller("Ezequiel");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        repoClients.AddClient(mario);
-        repoClients.AddClient(mariano);
-        List<Client> expected = new List<Client>();
-        expected.Add(mario);
+        repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
-        List<Client> actual = repoClients.SearchClientByPhone("123456789");
+        List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.Phone,"123456789");
         // Assert
-        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(actual[0].Phone, Is.EqualTo("123456789"));
     }
     
     [Test]
@@ -128,19 +114,17 @@ public class RepoClientsTests
         // Arrange
         Seller jose = new Seller("Ezequiel");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        Client josue = new Client(3, "Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.Male, "07/04/1950", jose);
-        Client oscar = new Client(4, "Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.Male, "31/10/2024", jose);
-        repoClients.AddClient(mario);
-        repoClients.AddClient(mariano);
-        repoClients.AddClient(josue);
-        repoClients.AddClient(oscar);
-        mario.Inactive = true;
-        oscar.Inactive = true;
+        repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        repoClients.CreateClient("Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.Male, "07/04/1950", jose);
+        repoClients.CreateClient("Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.Male, "31/10/2024", jose);
+        List<Client> mario = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Mario");
+        List<Client> oscar = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Oscar");
+        mario[0].Inactive = true;
+        oscar[0].Inactive = true;
         List<Client> expected = new List<Client>();
-        expected.Add(mario);
-        expected.Add(oscar);
+        expected.Add(mario[0]);
+        expected.Add(oscar[0]);
         // Act
         List<Client> actual = repoClients.InactiveClients();
         // Assert
@@ -152,19 +136,17 @@ public class RepoClientsTests
     {
         Seller jose = new Seller("Ezequiel");
         RepoClients repoClients = new RepoClients();
-        Client mario = new Client(1,"Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        Client mariano = new Client(2, "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
-        Client josue = new Client(3, "Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.Male, "07/04/1950", jose);
-        Client oscar = new Client(4, "Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.Male, "31/10/2024", jose);
-        repoClients.AddClient(mario);
-        repoClients.AddClient(mariano);
-        repoClients.AddClient(josue);
-        repoClients.AddClient(oscar);
-        mariano.Waiting = true;
-        josue.Waiting = true;
+        repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        repoClients.CreateClient("Josue", "Nunes", "acbdegf", "132457689", Client.GenderType.Male, "07/04/1950", jose);
+        repoClients.CreateClient("Oscar", "Piastri", "gefdcba", "978653421", Client.GenderType.Male, "31/10/2024", jose);
+        List<Client> mariano = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Mariano");
+        List<Client> josue = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Josue");
+        mariano[0].Waiting = true;
+        josue[0].Waiting = true;
         List<Client> expected = new List<Client>();
-        expected.Add(mariano);
-        expected.Add(josue);
+        expected.Add(mariano[0]);
+        expected.Add(josue[0]);
         // Act
         List<Client> actual = repoClients.WaitingClients();
         // Assert

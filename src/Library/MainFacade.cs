@@ -45,44 +45,55 @@ namespace Library
         }
 
         /// <summary>
-        /// Busca clientes por nombre.
+        /// Busca cliente por nombre, apellido mail o teléfono.
         /// </summary>
-        /// <param name="name">Nombre del cliente</param>
-        /// <returns>Lista coincidente</returns>
-        public List<Client> SearchClientByName(string name)
+        /// <param name="dataSerched">Name, LastName, Email o Phone</param>
+        /// <param name="text">El dato del cliente que se quierer buscar</param>
+        /// <returns></returns>
+        public List<Client> SearchClient(RepoClients.TypeOfData dataSerched, string text)
         {
-            return repoClients.SearchClientByName(name);
+            return repoClients.SearchClient(dataSerched, text);
         }
-
-        /// <summary>
-        /// Busca clientes por apellido.
-        /// </summary>
-        /// <param name="lastname">Apellido del cliente</param>
-        /// <returns>Lista coincidente</returns>
-        public List<Client> SearchClientByLastName(string lastname)
-        {
-            return repoClients.SearchClientByLastName(lastname);
-        }
-
-        /// <summary>
-        /// Busca clientes por email.
-        /// </summary>
-        /// <param name="email">Email del cliente</param>
-        /// <returns>Lista coincidente</returns>
-        public List<Client> SearchClientByEmail(string email)
-        {
-            return repoClients.SearchClientByEmail(email);
-        }
-
-        /// <summary>
-        /// Busca clientes por teléfono.
-        /// </summary>
-        /// <param name="phone">Teléfono</param>
-        /// <returns>Lista coincidente</returns>
-        public List<Client> SearchClientByPhone(string phone)
-        {
-            return repoClients.SearchClientByPhone(phone);
-        }
+        
+        // /// <summary>
+        // /// Busca clientes por nombre.
+        // /// </summary>
+        // /// <param name="name">Nombre del cliente</param>
+        // /// <returns>Lista coincidente</returns>
+        // public List<Client> SearchClientByName(string name)
+        // {
+        //     return repoClients.SearchClientByName(name);
+        // }
+        //
+        // /// <summary>
+        // /// Busca clientes por apellido.
+        // /// </summary>
+        // /// <param name="lastname">Apellido del cliente</param>
+        // /// <returns>Lista coincidente</returns>
+        // public List<Client> SearchClientByLastName(string lastname)
+        // {
+        //     return repoClients.SearchClientByLastName(lastname);
+        // }
+        //
+        // /// <summary>
+        // /// Busca clientes por email.
+        // /// </summary>
+        // /// <param name="email">Email del cliente</param>
+        // /// <returns>Lista coincidente</returns>
+        // public List<Client> SearchClientByEmail(string email)
+        // {
+        //     return repoClients.SearchClientByEmail(email);
+        // }
+        //
+        // /// <summary>
+        // /// Busca clientes por teléfono.
+        // /// </summary>
+        // /// <param name="phone">Teléfono</param>
+        // /// <returns>Lista coincidente</returns>
+        // public List<Client> SearchClientByPhone(string phone)
+        // {
+        //     return repoClients.SearchClientByPhone(phone);
+        // }
 
         /// <summary>
         /// Devuelve lista de clientes inactivos.

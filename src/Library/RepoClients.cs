@@ -47,6 +47,59 @@ namespace Library
                     clients.Remove(clients[i]);
                 }
             }
+        } 
+        public enum TypeOfData
+        {
+            Name,
+            LastName,
+            Email,
+            Phone
+        }
+
+        public List<Client> SearchClient(TypeOfData datasearched, string serdched)
+        {
+            List<Client> result = new List<Client>();
+            if (datasearched == TypeOfData.Name)
+            {
+                foreach (var client in clients)
+                {
+                    if (client.Name == serdched)
+                    {
+                        result.Add(client);
+                    }
+                }
+            }
+            else if (datasearched == TypeOfData.LastName)
+            {
+                foreach (var client in clients)
+                {
+                    if (client.LastName == serdched)
+                    {
+                        result.Add(client);
+                    }
+                }
+            }
+            else if (datasearched == TypeOfData.Email) 
+            { 
+                foreach (var client in clients)
+                {
+                    if (client.Email == serdched)
+                    {
+                        result.Add(client);
+                    }
+                }
+            }
+            else if (datasearched == TypeOfData.Phone) 
+            { 
+                foreach (var client in clients)
+                {
+                    if (client.Phone == serdched)
+                    {
+                        result.Add(client);
+                    }
+                }
+            }
+            return result;
         }
 
         /// <summary>
@@ -54,75 +107,75 @@ namespace Library
         /// </summary>
         /// <param name="name">El nombre por el que buscar.</param>
         /// <returns>Una lista de clientes cuyo nombre coincide con el del parametro</returns>
-        public List<Client> SearchClientByName(string name)
-        {
-            List<Client> result = new List<Client>();
-            foreach (var client in clients)
-            {
-                if (client.Name == name)
-                {
-                    result.Add(client);
-                }
-            }
-            return result;
-        }
-        
-        
-        /// <summary>
-        /// Busca clientes en la lista cuyo apellido coincida con el especificado.
-        /// </summary>
-        /// <param name="lastname">El apellido por el que buscar.</param>
-        /// <returns>Una lista de clientes cuyo apellido coincide con el del parametro</returns>
-        public List<Client> SearchClientByLastName(string lastname)
-        {
-            List<Client> result = new List<Client>();
-            foreach (var client in clients)
-            {
-                if (client.LastName == lastname)
-                {
-                    result.Add(client);
-                }
-            }
-            return result;
-        }
-        
-        
-        /// <summary>
-        /// Busca clientes en la lista cuyo email coincida con el especificado.
-        /// </summary>
-        /// <param name="email">El email por el que buscar.</param>
-        /// <returns>Una lista de clientes cuyo email coincide el del parametro</returns>
-        public List<Client> SearchClientByEmail(string email)
-        {
-            List<Client> result = new List<Client>();
-            foreach (var client in clients)
-            {
-                if (client.Email == email)
-                {
-                    result.Add(client);
-                }
-            }
-            return result;
-        }
-        
-        
-        /// <summary>
-        /// Busca clientes en la lista cuyo número de telefono coincida con el especificado.
-        /// </summary>
-        /// <param name="phone">El numero de telefono por el que buscar.</param>
-        /// <returns>Una lista de clientes cuyo numero de telefono coincide el del parametro</returns>
-        public List<Client> SearchClientByPhone(string phone)
-        {
-            List<Client> result = new List<Client>();
-            foreach (var client in clients)
-            {
-                if (client.Phone == phone)
-                {
-                    result.Add(client);
-                }
-            }
-            return result;
-        }
+        // public List<Client> SearchClientByName(string name)
+        // {
+        //     List<Client> result = new List<Client>();
+        //     foreach (var client in clients)
+        //     {
+        //         if (client.Name == name)
+        //         {
+        //             result.Add(client);
+        //         }
+        //     }
+        //     return result;
+        // }
+        //
+        //
+        // /// <summary>
+        // /// Busca clientes en la lista cuyo apellido coincida con el especificado.
+        // /// </summary>
+        // /// <param name="lastname">El apellido por el que buscar.</param>
+        // /// <returns>Una lista de clientes cuyo apellido coincide con el del parametro</returns>
+        // public List<Client> SearchClientByLastName(string lastname)
+        // {
+        //     List<Client> result = new List<Client>();
+        //     foreach (var client in clients)
+        //     {
+        //         if (client.LastName == lastname)
+        //         {
+        //             result.Add(client);
+        //         }
+        //     }
+        //     return result;
+        // }
+        //
+        //
+        // /// <summary>
+        // /// Busca clientes en la lista cuyo email coincida con el especificado.
+        // /// </summary>
+        // /// <param name="email">El email por el que buscar.</param>
+        // /// <returns>Una lista de clientes cuyo email coincide el del parametro</returns>
+        // public List<Client> SearchClientByEmail(string email)
+        // {
+        //     List<Client> result = new List<Client>();
+        //     foreach (var client in clients)
+        //     {
+        //         if (client.Email == email)
+        //         {
+        //             result.Add(client);
+        //         }
+        //     }
+        //     return result;
+        // }
+        //
+        //
+        // /// <summary>
+        // /// Busca clientes en la lista cuyo número de telefono coincida con el especificado.
+        // /// </summary>
+        // /// <param name="phone">El numero de telefono por el que buscar.</param>
+        // /// <returns>Una lista de clientes cuyo numero de telefono coincide el del parametro</returns>
+        // public List<Client> SearchClientByPhone(string phone)
+        // {
+        //     List<Client> result = new List<Client>();
+        //     foreach (var client in clients)
+        //     {
+        //         if (client.Phone == phone)
+        //         {
+        //             result.Add(client);
+        //         }
+        //     }
+        //     return result;
+        // }
 
         /// <summary>
         /// Crea una lista de clientes cuyo estado esta inactivo.
