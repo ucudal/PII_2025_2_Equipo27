@@ -235,5 +235,10 @@ namespace Library
                 }
             }
         }
+
+        public void AddNotes(Interaction interaction, string note)
+        {
+            interaction.Notes = note;
+        }
     }
 }
