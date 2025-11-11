@@ -69,17 +69,11 @@ namespace Library
             this.Waiting = false;
             this.Gender = gender;
             this.BirthDate = birthDate;
-            this.asignedSeller = seller;
+            this.AsignedSeller = seller;
         }
 
-        private Seller asignedSeller;
-        public Seller AsignedSeller 
-        {
-            get
-            {
-                return this.asignedSeller;
-            }
-        }
+        public Seller AsignedSeller { get; set; }
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -95,14 +89,7 @@ namespace Library
             Male,
             Female
         }
-
-        public enum TypeOfData
-        {
-            Name,
-            LastName,
-            Email,
-            Phone
-        }
+        
 
         /// <summary>
         /// Permite modificar los datos del cliente

@@ -19,12 +19,9 @@ public class SellerTest
         Seller seller2 = admin.CreateSeller("Matteo");
         
         Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
-        
-        string experiment = seller1.AsignClient(seller2,client);
-        
-
+        seller1.AsignClient(seller2,client);
         Assert.That(seller2.Clients.Count,Is.EqualTo(1));
         Assert.That(seller2.Clients[0], Is.EqualTo(client));
-        Assert.That(experiment, Is.EqualTo("Cliente agregado"));
+        Assert.That(client.AsignedSeller, Is.EqualTo(seller2));
     }
 }

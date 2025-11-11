@@ -33,7 +33,7 @@ class Program
         // Crear instancia de SellerFacade y asignar cliente de sellerA a sellerB
         SellerFacade sellerFacade = SellerFacade.Instance;
         Client clienteParaAsignar = adminFacade.GetClients()[0]; // Tomamos el primer cliente de sellerA
-        Console.WriteLine(sellerFacade.AssignClient("sellerA", "sellerB", clienteParaAsignar));
+        sellerFacade.AssignClient("sellerA", "sellerB", clienteParaAsignar);
 
         // Prueba de registro de interacción
         adminFacade.RegisterCall("Llamada intro", "Primer contacto", clienteParaAsignar);

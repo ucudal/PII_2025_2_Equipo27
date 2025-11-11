@@ -8,6 +8,7 @@ namespace Library
     /// </summary>
     public class AdminFacade : MainFacade
     {
+        
         private static AdminFacade instance = null;
         public static AdminFacade Instance
         {
@@ -29,6 +30,7 @@ namespace Library
         {
             
         }
+        
         /// <summary>
         /// Instancia única de administrador principal.
         /// </summary>

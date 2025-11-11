@@ -119,21 +119,21 @@ namespace Library
         /// <param name="client">Cliente a modificar</param>
         /// <param name="modified">Tipo de dato a modificar</param>
         /// <param name="modification">Nuevo valor</param>
-        public void ModifyClient(Client client, Client.TypeOfData modified, string modification)
+        public void ModifyClient(Client client, RepoClients.TypeOfData modified, string modification)
         {
-            if (modified == Client.TypeOfData.Email)
+            if (modified == RepoClients.TypeOfData.Email)
             {
                 client.Email = modification;
             }
-            else if (modified == Client.TypeOfData.LastName)
+            else if (modified == RepoClients.TypeOfData.LastName)
             {
                 client.LastName = modification;
             }
-            else if (modified == Client.TypeOfData.Name)
+            else if (modified == RepoClients.TypeOfData.Name)
             {
                 client.Name = modification;
             }
-            else if (modified == Client.TypeOfData.Phone)
+            else if (modified == RepoClients.TypeOfData.Phone)
             {
                 client.Phone = modification;
             }
@@ -197,9 +197,9 @@ namespace Library
         /// <param name="type">Estado de la reunión</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type, Client client, DateTime? interactionDate = null)
+        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type, Client client, DateTime interactionDate )
         {
-            Meeting meeting = new Meeting(content, notes, location, type, DateTime.Now);
+            Meeting meeting = new Meeting(content, notes, location, type, interactionDate);
             client.AddInteraction(meeting);
         }
 
@@ -218,6 +218,11 @@ namespace Library
             client.AddInteraction(message);
         }
 
+        public string GetPanel()
+        {
+            return this.repoClients.GetPanel();
+        }
+
         public void SwitchClientActivity(int id)
         {
             foreach (Client client in repoClients.Clients)
@@ -231,6 +236,23 @@ namespace Library
                     else
                     {
                         client.Inactive = true;
+                    }
+                }
+            }
+        }
+        public void SwitchClientWaiting(int id)
+        {
+            foreach (Client client in repoClients.Clients)
+            {
+                if (client.Id == id)
+                {
+                    if (client.Waiting == true)
+                    {
+                        client.Waiting = false;
+                    }
+                    else
+                    {
+                        client.Waiting = true;
                     }
                 }
             }

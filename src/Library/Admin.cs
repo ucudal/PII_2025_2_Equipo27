@@ -6,6 +6,15 @@ namespace Library
     public class Admin : User
     {
         public List<Seller> sellers = new List<Seller>();
+        private List<Seller> suspendedSellers = new List<Seller>();
+
+        public IReadOnlyList<Seller> SuspendedSellers
+        {
+            get
+            {
+                return suspendedSellers;
+            }
+        }
 
         public Admin(string username) : base(username)
         {
@@ -77,6 +86,7 @@ namespace Library
             if (!seller.Active)
             {
                 seller.Active = true;
+                suspendedSellers.Remove(seller);
                 return "El vendedor dejó de estar suspendido";
             }
             else 
@@ -101,6 +111,7 @@ namespace Library
             if (seller.Active)
             {
                 seller.Active = false;
+                suspendedSellers.Add(seller);
                 return "Vendedor suspendido";
             }
             else

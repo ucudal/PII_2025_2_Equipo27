@@ -233,11 +233,11 @@ namespace Library
                 {
                     if (interaction.InteractionDate.Month == month && interaction.InteractionDate.Year == year && interaction.InteractionDate <= DateTime.Now)
                     {
-                        recentInteractions++;
+                        recentInteractions+= 1;
                     }
                     if (DateTime.Now <= interaction.InteractionDate)
                     {
-                        futureMeetings++;
+                        futureMeetings+=1;
                     }
                 
                 }
