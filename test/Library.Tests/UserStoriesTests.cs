@@ -37,10 +37,10 @@ public class UserStoriesTests
         Client client = new Client(0, "Pedra", "Sanchez", "pedra@gmail.com", "099000111", Client.GenderType.Female,
             "10/05/1999", seller);
 
-        facade.ModifyClient(client, Client.TypeOfData.Name, "Guillermo");
-        facade.ModifyClient(client, Client.TypeOfData.LastName, "Diaz");
-        facade.ModifyClient(client, Client.TypeOfData.Email, "willy@gmail.com");
-        facade.ModifyClient(client, Client.TypeOfData.Phone, "097888999");
+        facade.ModifyClient(client, RepoClients.TypeOfData.Name, "Guillermo");
+        facade.ModifyClient(client, RepoClients.TypeOfData.LastName, "Diaz");
+        facade.ModifyClient(client, RepoClients.TypeOfData.Email, "willy@gmail.com");
+        facade.ModifyClient(client, RepoClients.TypeOfData.Phone, "097888999");
         
         
         Assert.That(client, Is.Not.Null);
