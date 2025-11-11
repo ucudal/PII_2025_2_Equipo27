@@ -65,10 +65,9 @@ namespace Library
         /// Activa a un vendedor que esté suspendido.
         /// </summary>
         /// <param name="seller">El vendedor que se desee activar.</param>
-        /// <returns>Un mensaje de que el vendedor dejó de estar suspendido o que ya estaba activo</returns>
         /// <exception cref="ArgumentNullException">Se lanza si el vendedor es nulo</exception>
         
-        public string ActiveSeller(Seller seller)
+        public void ActiveSeller(Seller seller)
         {
             if (seller == null)
             {
@@ -76,12 +75,12 @@ namespace Library
             }
             if (!seller.Active)
             {
+                Console.WriteLine("Vendedor activado");
                 seller.Active = true;
-                return "El vendedor dejó de estar suspendido";
             }
-            else 
+            else
             {
-                return "El vendedor ya estaba activo";
+                Console.WriteLine("El vendedor ya estaba activo");
             }
         }
         
@@ -89,23 +88,22 @@ namespace Library
         /// Suspende a un vendedor que esté activo.
         /// </summary>
         /// <param name="seller">El vendedor que se desee suspender.</param>
-        /// <returns>Un mensaje de que el vendedor ha sido suspendido o que ya estaba suspendido.</returns>
         /// <exception cref="ArgumentNullException">Se lanza si el vendedor es nulo.</exception>
 
-        public string SuspendSeller(Seller seller)
+        public void SuspendSeller(Seller seller)
         {
             if (seller == null)
             {
                 throw new ArgumentNullException(nameof(seller), "El vendedor no puede ser nulo.");
             }
             if (seller.Active)
-            {
+            {   
+                Console.WriteLine("Vendedor suspendido");
                 seller.Active = false;
-                return "Vendedor suspendido";
             }
             else
             {
-                return "El vendedor ya estaba suspendido";
+                Console.WriteLine("El vendedor ya esyaba suspendido");
             }
         }
         
@@ -113,10 +111,9 @@ namespace Library
         /// Elimina un vendedor y lo elimina de la lista de vendedores.
         /// </summary>
         /// <param name="seller">El vendedor que se desee eliminar.</param>
-        /// <returns>Un mensaje si el vendedor fue eliminado o si no existe.</returns>
         /// <exception cref="ArgumentNullException">Se lanza si el vendedor es nulo.</exception>
 
-        public string DeleteSeller(Seller seller)
+        public void DeleteSeller(Seller seller)
         {
             if (seller == null)
             {
@@ -125,12 +122,12 @@ namespace Library
 
             if (sellers.Contains(seller))
             {
+                Console.WriteLine("Vendedor eliminado");
                 sellers.Remove(seller);
-                return "Vendedor eliminado";
             }
             else
             {
-                return "Ese vendedor no existe";
+                Console.WriteLine("Ese vendedor no existe");
             }
         }
     }
