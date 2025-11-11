@@ -49,6 +49,12 @@ namespace Library
             repo.tagList.Add(tag);
             return tag;
         }
+        
+        /// <summary>
+        /// Cierra una oportunidad y la agrega a una lista de oportunidades que fueron cerradas.
+        /// </summary>
+        /// <param name="opportunity">La oportunidad que será cerrada.</param>
+        
         public void CloseOpportunity(Opportunity opportunity)
         {
             opportunity.Sell();
