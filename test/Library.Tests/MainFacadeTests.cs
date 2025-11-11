@@ -20,7 +20,7 @@ public class MainFacadeTests
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         MainFacade mainFacade = new MainFacade();
         mainFacade.ModifyClient(client, RepoClients.TypeOfData.LastName, "Gutierrez");
-        mainFacade.CreateOportunity("Product", 100 , Opportunity.States.Open, client);
+        mainFacade.CreateOpportunity("Product", 100 , Opportunity.States.Open, client);
         Assert.That(client.Opportunities.Count,Is.EqualTo(1));
     }
     

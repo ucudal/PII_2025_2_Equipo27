@@ -18,8 +18,8 @@ public class RepoTagTest
 
         Tag tag = repo.CreateTag("VIP");
         
-        Assert.That(repo.tagList.Count, Is.EqualTo(1));
-        Assert.That(repo.tagList[0].TagName, Is.EqualTo("VIP"));
+        Assert.That(repo.TagList.Count, Is.EqualTo(1));
+        Assert.That(repo.TagList[0].TagName, Is.EqualTo("VIP"));
     }
 
     /// <summary>
