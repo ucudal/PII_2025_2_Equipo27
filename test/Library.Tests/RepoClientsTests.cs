@@ -186,8 +186,8 @@ public class RepoClientsTests
         RepoClients repo = new RepoClients();
         Client client = new Client(1, "Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.Male, "12/12/12", null);
 
-        client.CreateOportunity("Azúcar",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
-        client.CreateOportunity("Arroz",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
+        client.CreateOpportunity("Azúcar",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
+        client.CreateOpportunity("Arroz",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
 
         repo.AddClient(client);
         DateTime startdate = new DateTime(2025, 10, 18);
