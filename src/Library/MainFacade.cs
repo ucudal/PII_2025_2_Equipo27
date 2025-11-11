@@ -169,8 +169,14 @@ namespace Library
         /// <param name="notes">Notas</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterCall(string content, string notes, Client client, DateTime? interactionDate = null)
+        public void RegisterCall(string content, string notes, Client client)
         {
+            RegisterCall(content, notes, client,DateTime.Now);
+        }
+
+        public void RegisterCall(string content, string notes, Client client, DateTime date)
+        {
+            
             Call call = new Call(content, notes, DateTime.Now);
             client.AddInteraction(call);
         }
@@ -183,9 +189,16 @@ namespace Library
         /// <param name="notes">Notas</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,
-            DateTime? interactionDate = null)
+        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client)
         {
+            
+            RegisterEmail(content, sender, notes, client,DateTime.Now);
+        }
+
+        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,
+            DateTime date)
+        {
+            
             Email email = new Email(content, sender, notes, DateTime.Now);
             client.AddInteraction(email);
         }
@@ -200,9 +213,14 @@ namespace Library
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
         public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type,
-            Client client, DateTime interactionDate)
+            Client client)
         {
-            Meeting meeting = new Meeting(content, notes, location, type, interactionDate);
+            RegisterMeeting(content, notes, location, type, client, DateTime.Now);
+        }
+        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type,
+            Client client, DateTime date)
+        {
+            Meeting meeting = new Meeting(content, notes, location, type, date);
             client.AddInteraction(meeting);
         }
 
@@ -216,9 +234,15 @@ namespace Library
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
         public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel,
-            Client client, DateTime? interactionDate = null)
+            Client client)
         {
-            Message message = new Message(content, notes, sender, channel, DateTime.Now);
+            RegisterMessage(content, notes, sender, channel, client, DateTime.Now);
+        }
+        
+        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel,
+            Client client, DateTime date)
+        {
+            Message message = new Message(content, notes, sender, channel, date);
             client.AddInteraction(message);
         }
 
