@@ -50,17 +50,14 @@ namespace Library
         /// </summary>
         /// <param name="username">Nombre de usuario del seller</param>
         /// <returns>Mensaje de resultado (éxito o error)</returns>
-        public string SuspendSeller(string username)
+        public void SuspendSeller(string username)
         {
             Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
-                return admin.SuspendSeller(seller);
+                admin.SuspendSeller(seller);
             }
-            else
-            {
-                return "El nombre de usuario ingresado no existe";
-            }
+            
         }
 
         /// <summary>
@@ -68,17 +65,14 @@ namespace Library
         /// </summary>
         /// <param name="username">Nombre de usuario del seller</param>
         /// <returns>Mensaje de resultado (éxito o error)</returns>
-        public string ActiveSeller(string username)
+        public void ActiveSeller(string username)
         {
             Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
-                return admin.ActiveSeller(seller);
+                admin.ActiveSeller(seller);
             }
-            else
-            {
-                return "El nombre de usuario ingresado no existe";
-            }
+
         }
 
         /// <summary>
@@ -86,17 +80,14 @@ namespace Library
         /// </summary>
         /// <param name="username">Nombre de usuario del seller</param>
         /// <returns>Mensaje de resultado (éxito o error)</returns>
-        public string DeleteSeller(string username)
+        public void DeleteSeller(string username)
         {
             Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
-                return admin.DeleteSeller(seller);
+                admin.DeleteSeller(seller);
             }
-            else
-            {
-                return "El nombre de usuario ingresado no existe";
-            }
+            
         }
 
     }

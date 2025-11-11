@@ -21,7 +21,8 @@ namespace Library
         /// <param name="gender">Género del cliente</param>
         /// <param name="birthDate">Fecha de nacimiento (string)</param>
         /// <param name="seller">Vendedor responsable</param>
-        public void CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        public void CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender,
+            string birthDate, Seller seller)
         {
             repoClients.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
         }
@@ -54,7 +55,7 @@ namespace Library
         {
             return repoClients.SearchClient(dataSerched, text);
         }
-        
+
         // /// <summary>
         // /// Busca clientes por nombre.
         // /// </summary>
@@ -182,7 +183,8 @@ namespace Library
         /// <param name="notes">Notas</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client, DateTime? interactionDate = null)
+        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,
+            DateTime? interactionDate = null)
         {
             Email email = new Email(content, sender, notes, DateTime.Now);
             client.AddInteraction(email);
@@ -197,7 +199,8 @@ namespace Library
         /// <param name="type">Estado de la reunión</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type, Client client, DateTime interactionDate )
+        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type,
+            Client client, DateTime interactionDate)
         {
             Meeting meeting = new Meeting(content, notes, location, type, interactionDate);
             client.AddInteraction(meeting);
@@ -212,7 +215,8 @@ namespace Library
         /// <param name="channel">Canal de contacto</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel, Client client, DateTime? interactionDate = null)
+        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel,
+            Client client, DateTime? interactionDate = null)
         {
             Message message = new Message(content, notes, sender, channel, DateTime.Now);
             client.AddInteraction(message);
@@ -240,6 +244,7 @@ namespace Library
                 }
             }
         }
+
         public void SwitchClientWaiting(int id)
         {
             foreach (Client client in repoClients.Clients)
@@ -257,5 +262,12 @@ namespace Library
                 }
             }
         }
+
+        public void AddNotes(Interaction interaction, string note)
+            {
+                interaction.Notes = note;
+
+            }
+        }
     }
-}
+

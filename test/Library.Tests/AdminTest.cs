@@ -10,7 +10,7 @@ public class AdminTest
     /// <summary>
     /// Verifica en un vendedor sea encontrado en la lista
     /// </summary>
-    
+
     [Test]
     public void SearchSeller_Existing()
     {
@@ -18,14 +18,14 @@ public class AdminTest
         admin.CreateSeller("Marisol");
 
         Seller seller = admin.SearchSeller("Marisol");
-        
+
         Assert.That(seller.UserName, Is.EqualTo("Marisol"));
     }
 
     /// <summary>
     /// Verifica que un vendedor no sea encontrado porque no existe
     /// </summary>
-    
+
     [Test]
     public void SearchSeller_NotExisting()
     {
@@ -33,7 +33,7 @@ public class AdminTest
         admin.CreateSeller("Marisol");
 
         Seller seller = admin.SearchSeller("Lucas");
-        
+
         Assert.That(seller, Is.Null);
     }
 
@@ -41,7 +41,7 @@ public class AdminTest
     /// <summary>
     /// Verifica que se cree un usuario correctamente si este no existe
     /// </summary>
-    
+
     [Test]
     public void CreateSeller_NotExistUsername()
     {
@@ -52,7 +52,7 @@ public class AdminTest
 
         Assert.That(seller.UserName, Is.EqualTo(username));
         Assert.That(admin.sellers.Count, Is.EqualTo(1));
-        Assert.That(admin.sellers[0],Is.EqualTo(seller));
+        Assert.That(admin.sellers[0], Is.EqualTo(seller));
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class AdminTest
     {
         Admin admin = new Admin("Rodrigo");
         Seller seller1 = admin.CreateSeller("Luciano");
-        
+
         Seller seller2 = admin.CreateSeller("Luciano");
 
         Assert.That(seller2, Is.Null);
@@ -80,7 +80,7 @@ public class AdminTest
         Admin admin = new Admin("Alejandra");
 
         Seller seller = admin.CreateSeller("");
-        
+
         Assert.That(seller, Is.Null);
     }
 
@@ -91,46 +91,28 @@ public class AdminTest
     public void ActiveSeller_Exception()
     {
         Admin admin = new Admin("Julieta");
-        
-        Assert.Throws<ArgumentNullException>(()=> Is.EqualTo(admin.ActiveSeller(null)));
+
+        Assert.Throws<ArgumentNullException>(() => admin.ActiveSeller(null));
     }
-    
-    
+
+
     /// <summary>
     /// Verifica que se pueda activar un vendedor que estaba suspendido
     /// </summary>
-    
+
     [Test]
-    public void ActiveSeller_IfItIsNotActive()
+    public void ActiveSeller()
     {
         Admin admin = new Admin("Julieta");
         Seller seller = admin.CreateSeller("Juliana");
         seller.Active = false;
 
-        string example = admin.ActiveSeller(seller);
-        
+        admin.ActiveSeller(seller);
+
         Assert.That(seller.Active, Is.True);
-        Assert.That(example,Is.EqualTo("El vendedor dejó de estar suspendido"));
     }
     
-    /// <summary>
-    /// Verifica que no se pueda activar un vendedor porque ya estaba en estado activo
-    /// </summary>
-    
-    [Test]
-    public void ActiveSeller_IfItWasAlredyActive()
-    {
-        Admin admin = new Admin("Silvia");
-        Seller seller = admin.CreateSeller("Nahuel");
-        seller.Active = true;
 
-        string example = admin.ActiveSeller(seller);
-        
-        Assert.That(seller.Active, Is.True);
-        Assert.That(example,Is.EqualTo("El vendedor ya estaba activo"));
-
-    }
-    
     /// <summary>
     /// Verifica que no se pueda suspender un vendedor nulo
     /// </summary>
@@ -138,41 +120,25 @@ public class AdminTest
     public void suspendSeller_Exception()
     {
         Admin admin = new Admin("Julieta");
-        
-        Assert.Throws<ArgumentNullException>(()=> Is.EqualTo(admin.SuspendSeller(null)));
+
+        Assert.Throws<ArgumentNullException>(() => admin.SuspendSeller(null));
     }
-    
+
     /// <summary>
     /// Verifica que un vendedor sea suspendido que estaba en estado activo
     /// </summary>
 
     [Test]
-    public void SuspendSeller_IfItIsNotSuspended()
+    public void SuspendSeller()
     {
         Admin admin = new Admin("Ámbar");
         Seller seller = admin.CreateSeller("Lucía");
-        
-        string example = admin.SuspendSeller(seller);
-        
-        Assert.That(seller.Active, Is.False);
-        Assert.That(example, Is.EqualTo("Vendedor suspendido"));
-        
-    }
-    
-    /// <summary>
-    /// Verifica que no se pueda suspender un vendedor porque ya estaba suspendido
-    /// </summary>
-    [Test]
-    public void SuspendSeller_IfItWasAlredySusspend()
-    {
-        Admin admin = new Admin("María");
-        Seller seller = admin.CreateSeller("Pablo");
-        seller.Active = false;
 
-        string example = admin.SuspendSeller(seller);
+        admin.SuspendSeller(seller);
 
         Assert.That(seller.Active, Is.False);
-        Assert.That(example, Is.EqualTo("El vendedor ya estaba suspendido"));
+
+
     }
 
     /// <summary>
@@ -182,39 +148,25 @@ public class AdminTest
     public void DeleteSeller_Exception()
     {
         Admin admin = new Admin("Julieta");
-        
-        Assert.Throws<ArgumentNullException>(()=> Is.EqualTo(admin.DeleteSeller(null)));
+
+        Assert.Throws<ArgumentNullException>(() => admin.DeleteSeller(null));
     }
-    
-    
+
+
     /// <summary>
     /// Verifica que un vendedor sea eliminado
     /// </summary>
-    
+
     [Test]
     public void DeleteSeller_Existing()
     {
         Admin admin = new Admin("Juan");
         Seller seller = admin.CreateSeller("Antonella");
-        
-        string example = admin.DeleteSeller(seller);
-        
-        Assert.That(admin.sellers.Count, Is.EqualTo(0));
-        Assert.That(example, Is.EqualTo("Vendedor eliminado"));
-    }
-    
-    /// <summary>
-    /// Verifica que el vendedor no pueda ser eliminado porque no existe
-    /// </summary>
-    
-    [Test]
-    public void DeleteSeller_IfNotExist()
-    {
-        Admin admin = new Admin("Luca");
-        Seller seller = new Seller("Matías");
 
-        string example = admin.DeleteSeller(seller);
-        
-        Assert.That(example, Is.EqualTo("Ese vendedor no existe"));
+        admin.DeleteSeller(seller);
+
+        Assert.That(admin.sellers.Count, Is.EqualTo(0));
     }
+    
 }
+    

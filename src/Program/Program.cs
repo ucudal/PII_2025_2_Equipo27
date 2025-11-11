@@ -27,8 +27,8 @@ class Program
             Console.WriteLine($"{c.Name} {c.LastName} - {c.Email}");
 
         // Probar métodos exclusivos de AdminFacade
-        Console.WriteLine(adminFacade.SuspendSeller("sellerB")); // Suspende sellerB
-        Console.WriteLine(adminFacade.ActiveSeller("sellerB"));  // Activa sellerB
+        adminFacade.SuspendSeller("sellerB"); // Suspende sellerB
+        adminFacade.ActiveSeller("sellerB");  // Activa sellerB
 
         // Crear instancia de SellerFacade y asignar cliente de sellerA a sellerB
         SellerFacade sellerFacade = SellerFacade.Instance;

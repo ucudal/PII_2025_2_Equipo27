@@ -24,4 +24,31 @@ public class SellerTest
         Assert.That(seller2.Clients[0], Is.EqualTo(client));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller2));
     }
+
+    /// <summary>
+    /// Verifica que se lance una excepción si el vendedor es nulo
+    /// </summary>
+    [Test]
+    public void AsignClient_IfTheClientIsNull()
+    {
+        Admin admin = new Admin("Natacha");
+        Seller seller1 = admin.CreateSeller("Facundo");
+        Seller seller2 = admin.CreateSeller("Matteo");
+
+        Assert.Throws<ArgumentNullException>(() => seller1.AsignClient(seller2, null));
+    }
+    
+    /// <summary>
+    /// Verifica que se lance una excepcion si el cliente es nulo
+    /// </summary>
+    [Test]
+    public void AsignClient_IfTheSellerIsNull()
+    {
+        Admin admin = new Admin("Natacha");
+        Seller seller1 = admin.CreateSeller("Thomas");
+        
+        Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
+
+        Assert.Throws<ArgumentNullException>(() => seller1.AsignClient(null, client));
+    }
 }
