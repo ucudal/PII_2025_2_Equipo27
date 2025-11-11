@@ -22,7 +22,7 @@ namespace Library
         /// <returns>Un mensaje de que se agregó el cliente o que no se pudo porque el vendedor está suspendido</returns>
         /// <exception cref="ArgumentNullException">El vendedor o el cliente no pueden ser nulos</exception>
         
-        public string AsignClient(Seller newSeller, Client client)
+        public void AsignClient(Seller newSeller, Client client)
         {
             if (newSeller == null)
             {
@@ -36,12 +36,9 @@ namespace Library
             if (newSeller.Active)
             {
                 newSeller._clients.Add(client);
-                return "Cliente agregado";
+                client.AsignedSeller = newSeller;
             }
-            else
-            {
-                return "No se le puede asignar un cliente al vendedor porque está suspendido";
-            }
+            
         }
 
     }

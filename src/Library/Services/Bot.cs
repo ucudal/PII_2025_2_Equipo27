@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using Ucu.Poo.DiscordBot.Domain;
+// using Ucu.Poo.DiscordBot.Domain;
 
 namespace Ucu.Poo.DiscordBot.Services
 {

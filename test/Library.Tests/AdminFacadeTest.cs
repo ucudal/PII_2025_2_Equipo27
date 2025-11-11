@@ -2,72 +2,47 @@ namespace Library.Tests;
 
 public class AdminFacadeTest
 {
-    [Test]
-    public void SuspendSeller_ValidName()
+    [SetUp]
+    public void SetUp()
     {
-        AdminFacade facade = new AdminFacade();
-        facade.admin.CreateSeller("Daniela");
-
-        string example = facade.SuspendSeller("Daniela");
+        AdminFacade.ResetInstance();
+    }
+    [Test]
+    public void SuspendSeller()
+    {
+        AdminFacade facade = AdminFacade.Instance;
         
-        Assert.That(example, Is.EqualTo("Vendedor suspendido"));
+        Seller seller = facade.admin.CreateSeller("Daniela");
+        facade.SuspendSeller("Daniela");
+        
+        
+        Assert.That(seller.Active, Is.False);
     }
     
     [Test]
-    public void SuspendSeller_InvalidName()
+    public void ActiveSeller()
     {
-        
-        AdminFacade facade = new AdminFacade();
-        facade.admin.CreateSeller("Laura");
+        AdminFacade facade = AdminFacade.Instance;
+        Seller seller = facade.admin.CreateSeller("Laura");
 
-        string example = facade.SuspendSeller("José");
-        
-        Assert.That(example, Is.EqualTo("El nombre de usuario ingresado no existe"));
-    }
+        facade.ActiveSeller("Laura");
 
-    [Test]
-    public void ActiveSeller_ValidName()
-    {
-        AdminFacade facade = new AdminFacade();
-        facade.admin.CreateSeller("Laura");
-
-        string example = facade.ActiveSeller("Laura");
-        
-        Assert.That(example, Is.EqualTo("El vendedor ya estaba activo"));
-    }
-
-    [Test]
-    public void ActiveSeller_InvalidName()
-    {
-        AdminFacade facade = new AdminFacade();
-        facade.admin.CreateSeller("Laura");
-
-        string example = facade.ActiveSeller("José");
-        
-        Assert.That(example, Is.EqualTo("El nombre de usuario ingresado no existe"));
+        Assert.That(seller.Active, Is.True);
     }
     
     [Test]
     public void DeleteSeller_ValidName()
     {
-        AdminFacade facade = new AdminFacade();
-        facade.admin.CreateSeller("Daniela");
+        AdminFacade facade = AdminFacade.Instance;
+        Seller seller = facade.admin.CreateSeller("Daniela");
 
-        string example = facade.DeleteSeller("Daniela");
-        Assert.That(example, Is.EqualTo("Vendedor eliminado"));
-
-    }
-
-
-    [Test]
-    public void DeleteSeller_InvalidName()
-    {
-        Admin admin = new Admin("Martín");
-        Seller seller = admin.CreateSeller("Daniela");
-        AdminFacade facade = new AdminFacade();
-
-        string example = facade.DeleteSeller("José");
+        facade.DeleteSeller("Daniela");
         
-        Assert.That(example, Is.EqualTo("El nombre de usuario ingresado no existe"));
+        Assert.That(facade.admin.sellers.Count, Is.EqualTo(0));
+
     }
+
+
+   
 }
+       

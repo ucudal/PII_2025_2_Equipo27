@@ -10,7 +10,6 @@ public class OpportunityTests
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Open,client,DateTime.Today);
         Assert.That(opportunity.State,Is.EqualTo(Opportunity.States.Open));
-
         Assert.That(opportunity.Product,Is.EqualTo("PS5"));
         Assert.That(opportunity.Price,Is.EqualTo(500));
         Assert.That(opportunity.Client,Is.EqualTo(client));

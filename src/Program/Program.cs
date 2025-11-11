@@ -1,6 +1,6 @@
 ﻿using System;
 using Library;
-using Ucu.Poo.DiscordBot.Domain;
+// using Ucu.Poo.DiscordBot.Domain;
 using Ucu.Poo.DiscordBot.Services;
 
 namespace Ucu.Poo.DiscordBot.Program
@@ -13,7 +13,7 @@ namespace Ucu.Poo.DiscordBot.Program
         /// <summary>
         /// Punto de entrada al programa.
         /// </summary>
-        private static void Main(string [] args)
+        private static void Main(string[] args)
         {
             if (args.Length != 0)
             {
@@ -25,11 +25,11 @@ namespace Ucu.Poo.DiscordBot.Program
             }
         }
 
-        private static void DemoFacade(string [] args)
+        private static void DemoFacade(string[] args)
         {
             if (args.Length > 0)
             {
-                Console.WriteLine(AdminFacade.Instance.GetUserInfo(args[0]));
+                Console.WriteLine(AdminFacade.Instance.admin.UserName);
             }
         }
 
@@ -39,3 +39,4 @@ namespace Ucu.Poo.DiscordBot.Program
         }
     }
 }
+

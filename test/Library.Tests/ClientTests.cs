@@ -25,7 +25,6 @@ public class ClientTests
         Seller seller = new Seller("Seller");
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
-        //string content, string notes, InteractionOrigin sender, string channel, DateTime? interactionDate = null
         client.AddInteraction(message);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
@@ -46,8 +45,36 @@ public class ClientTests
     {
         Seller seller = new Seller("Seller");
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
-        client.CreateOportunity("Product", 100 , Opportunity.States.Open, client, DateTime.Now);
+        client.CreateOpportunity("Product", 100 , Opportunity.States.Open, client, DateTime.Now);
         Assert.That(client.Opportunities.Count,Is.EqualTo(1));
+    }
+
+    [Test]
+    public void ClientConstructorThrowsIfStringsNullOrEmpty()
+    {
+        Seller seller = new Seller("Pedrito");
+        Assert.Throws<ArgumentException>(() => new Client(1, "", "", "", null,
+            Client.GenderType.Male,
+            null, seller));
+    }
+
+    [Test]
+    public void AddTagThrowsIfIsAlreadyAdded()
+    {
+        Seller seller = new Seller("Seller");
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
+        Tag tag = new Tag("Electrodomesticos");
+        client.AddTag(tag);
+        Assert.Throws<InvalidOperationException>(() => client.AddTag(tag));
+    }
+    [Test]
+    public void AddInteractionThrowsIfIsAlreadyAdded()
+    {
+        Seller seller = new Seller("Seller");
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
+        Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
+        client.AddInteraction(message);
+        Assert.Throws<InvalidOperationException>(() => client.AddInteraction(message));
     }
 }
 

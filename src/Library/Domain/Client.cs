@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
 using Library.interactions;
 using Microsoft.VisualBasic;
@@ -12,7 +13,7 @@ namespace Library
         {
             get
             {
-                return opportunities;
+                return this.opportunities;
             } 
         }
 
@@ -20,7 +21,7 @@ namespace Library
         {
             get
             {
-                return interactions;
+                return this.interactions;
             }
         }
 
@@ -30,7 +31,7 @@ namespace Library
         {
             get
             {
-                return tags;
+                return this.tags;
             }
         }
 
@@ -39,6 +40,26 @@ namespace Library
         public Client(int id, string name, string lastName, string email, string phone, GenderType gender, string birthDate, Seller seller)
 
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("El cliente debe tener un nombre", nameof(name));
+            }
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new ArgumentException("El cliente debe tener un apellido", nameof(lastName));
+            }
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("El cliente debe tener un emial", nameof(email));
+            }
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
+            }
+            if (string.IsNullOrEmpty(birthDate))
+            {
+                throw new ArgumentException("El cliente debe tener una fecha de nacimiento", nameof(birthDate));
+            }
             this.Id = id;
             this.Name = name;
             this.LastName = lastName;
@@ -51,18 +72,8 @@ namespace Library
             this.AsignedSeller = seller;
         }
 
-        private Seller _asignedSeller;
-        public Seller AsignedSeller 
-        {
-            get
-            {
-                return _asignedSeller;
-            }
-            set
-            {
-                _asignedSeller = value;
-            }
-        }
+        public Seller AsignedSeller { get; set; }
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -78,14 +89,7 @@ namespace Library
             Male,
             Female
         }
-
-        public enum TypeOfData
-        {
-            Name,
-            LastName,
-            Email,
-            Phone
-        }
+        
 
         /// <summary>
         /// Permite modificar los datos del cliente
@@ -119,10 +123,17 @@ namespace Library
         /// Agrega la etiqueta al cliente, solamente permitiendo las que se encuentran creadas dentro del repoTags
         /// </summary>
         /// <param name="tag"></param>
+        /// <exception cref="InvalidOperationException">
+        /// Se lanza si el tag ya está agregado.
+        /// </exception>
 
         public void AddTag(Tag tag)
         {
-            tags.Add(tag);
+            if (this.tags.Contains(tag))
+            {
+                throw new InvalidOperationException("Este tag ya está añadido");
+            }
+            this.tags.Add(tag);
         }
 
         
@@ -134,19 +145,27 @@ namespace Library
         /// <param name="states"></param>
         /// <param name="client"></param>
         /// <param name="Date"></param>
-        public void CreateOportunity(string product, int price, Opportunity.States states, Client client,
+        public Opportunity CreateOpportunity(string product, int price, Opportunity.States states, Client client,
             DateTime date)
         { 
-            Opportunity oportunity = new Opportunity(product, price, states, client, date);
-            opportunities.Add(oportunity);
+            Opportunity opportunity = new Opportunity(product, price, states, client, date);
+            this.opportunities.Add(opportunity);
+            return opportunity;
         }
 
         /// <summary>
         /// Agrega una nueva interaccion, pudiendo ser mensaje, EMail, llamada o reunion
         /// </summary>
         /// <param name="interaction"></param>
+        /// <exception cref="InvalidOperationException">
+        /// Se lanza si la interacción ya está añadida.
+        /// </exception>
         public void AddInteraction(Interaction interaction)
         {
+            if (this.interactions.Contains(interaction))
+            {
+                throw new InvalidOperationException("Esta interacción ya está añadida");
+            }
             this.interactions.Add(interaction);
         }
     }

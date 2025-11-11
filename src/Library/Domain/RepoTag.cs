@@ -5,19 +5,25 @@ namespace Library
 {
     public class RepoTag
     {
-        public List<Tag> tagList = new List<Tag>();
-        
+        private List<Tag> tagList = new List<Tag>();
+
+        public IReadOnlyList<Tag> TagList
+        {
+            get
+            {
+                return tagList;
+            }
+        }
 
         /// <summary>
         /// Crea una nueva etiqueta y la agrega al repositorio especificado.
         /// </summary>
         /// <param name="tagname">El nombre de la nueva etiqueta.</param>
-        /// <param name="repo">El repositorio al que se agregará la etiqueta.</param>
         /// <returns>La etiqueta creada.</returns>
-        public Tag CreateTag(string tagname, RepoTag repo)
+        public Tag CreateTag(string tagname)
         {
             Tag tag = new Tag(tagname);
-            repo.tagList.Add(tag);
+            this.tagList.Add(tag);
             return tag;
         }
         
