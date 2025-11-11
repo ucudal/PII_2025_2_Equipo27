@@ -10,6 +10,7 @@ namespace Library
     public class MainFacade
     {
         private RepoClients repoClients = new RepoClients();
+        private RepoTag repoTag = new RepoTag();
 
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio.
@@ -21,9 +22,9 @@ namespace Library
         /// <param name="gender">Género del cliente</param>
         /// <param name="birthDate">Fecha de nacimiento (string)</param>
         /// <param name="seller">Vendedor responsable</param>
-        public void CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        public Client CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
         {
-            repoClients.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
+            return repoClients.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
         }
 
         /// <summary>
@@ -45,55 +46,25 @@ namespace Library
         }
 
         /// <summary>
+        /// Busca un cliente por su Id, que es única.
+        /// </summary>
+        /// <param name="id"> Id del cliente a buscar</param>
+        /// <returns>Cliente con la Id buscada</returns>
+        public Client SearchClientById(int id)
+        {
+            return repoClients.SearchClientById(id);
+        }
+
+        /// <summary>
         /// Busca cliente por nombre, apellido mail o teléfono.
         /// </summary>
         /// <param name="dataSerched">Name, LastName, Email o Phone</param>
         /// <param name="text">El dato del cliente que se quierer buscar</param>
-        /// <returns></returns>
+        /// <returns>Lista con clientes buscados</returns>
         public List<Client> SearchClient(RepoClients.TypeOfData dataSerched, string text)
         {
             return repoClients.SearchClient(dataSerched, text);
         }
-        
-        // /// <summary>
-        // /// Busca clientes por nombre.
-        // /// </summary>
-        // /// <param name="name">Nombre del cliente</param>
-        // /// <returns>Lista coincidente</returns>
-        // public List<Client> SearchClientByName(string name)
-        // {
-        //     return repoClients.SearchClientByName(name);
-        // }
-        //
-        // /// <summary>
-        // /// Busca clientes por apellido.
-        // /// </summary>
-        // /// <param name="lastname">Apellido del cliente</param>
-        // /// <returns>Lista coincidente</returns>
-        // public List<Client> SearchClientByLastName(string lastname)
-        // {
-        //     return repoClients.SearchClientByLastName(lastname);
-        // }
-        //
-        // /// <summary>
-        // /// Busca clientes por email.
-        // /// </summary>
-        // /// <param name="email">Email del cliente</param>
-        // /// <returns>Lista coincidente</returns>
-        // public List<Client> SearchClientByEmail(string email)
-        // {
-        //     return repoClients.SearchClientByEmail(email);
-        // }
-        //
-        // /// <summary>
-        // /// Busca clientes por teléfono.
-        // /// </summary>
-        // /// <param name="phone">Teléfono</param>
-        // /// <returns>Lista coincidente</returns>
-        // public List<Client> SearchClientByPhone(string phone)
-        // {
-        //     return repoClients.SearchClientByPhone(phone);
-        // }
 
         /// <summary>
         /// Devuelve lista de clientes inactivos.
@@ -146,9 +117,18 @@ namespace Library
         /// <param name="price">Precio</param>
         /// <param name="states">Estado de la oportunidad</param>
         /// <param name="client">Cliente asociado</param>
-        public void CreateOportunity(string Product, int price, Opportunity.States states, Client client)
+        public Opportunity CreateOpportunity(string Product, int price, Opportunity.States states, Client client)
         {
-            client.CreateOportunity(Product, price, states, client, DateTime.Now);
+            return client.CreateOpportunity(Product, price, states, client, DateTime.Now);
+        }
+
+        /// <summary>
+        /// Crea un Tag y lo guarda.
+        /// </summary>
+        /// <param name="tagName">Nombre del Tag</param>
+        public Tag CreateTag(string tagName)
+        {
+            return repoTag.CreateTag(tagName);
         }
 
         /// <summary>
@@ -159,6 +139,15 @@ namespace Library
         public void AddTag(Client client, Tag tag)
         {
             client.AddTag(tag);
+        }
+
+        /// <summary>
+        /// Retorna una IReadOnlyList con todos los Tags creados.
+        /// </summary>
+        /// <returns></returns>
+        public IReadOnlyList<Tag> GetTags()
+        {
+            return repoTag.TagList;
         }
 
         /// <summary>

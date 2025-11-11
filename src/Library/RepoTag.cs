@@ -5,8 +5,15 @@ namespace Library
 {
     public class RepoTag
     {
-        public List<Tag> tagList = new List<Tag>();
-        
+        private List<Tag> tagList = new List<Tag>();
+
+        public IReadOnlyList<Tag> TagList
+        {
+            get
+            {
+                return tagList;
+            }
+        }
 
         /// <summary>
         /// Crea una nueva etiqueta y la agrega al repositorio especificado.

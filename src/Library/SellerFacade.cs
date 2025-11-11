@@ -32,7 +32,7 @@ namespace Library
         /// Instancia de administrador usada para búsqueda y asignación entre sellers.
         /// </summary>
         public Admin admin = new Admin("Luciano");
-        public RepoClients repo = new RepoClients();
+        // public RepoClients repo = new RepoClients();
 
         /// <summary>
         /// Asigna un cliente de este seller a otro seller.
