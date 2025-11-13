@@ -22,6 +22,33 @@ https://miro.com/welcomeonboard/NDZjYkdBODFETkdFQ0dSTkZMWnllNzlId21PZXBQTDNkbWIx
 https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=sharing
 
 
+---
+
+| Historia                                   | Comandos                                                     |
+|--------------------------------------------|--------------------------------------------------------------|
+| Crear cliente                              | !newclient nombre                                            |
+| Modificar cliente                          | !editclient                                                  |
+| Eliminar cliente                           | !deleteclient                                                |
+| Buscar cliente                             | !searchclient                                                |
+| Ver lista de clientes                      | !getclients                                                  |
+| Registrar llamadas                         | !newcall                                                     |
+| Registrar reuniones                        | !newmeeting                                                  |
+| Registrar mensajes                         | !newmessage                                                  |
+| Registrar emails                           | !newemail                                                    |
+| Registrar otros datos                      | !addclientdata client typeofdata data                        |
+| Definir etiquetas                          | !addtag                                                      |
+| Agregar etiqueta a cliente                 | !assigntag                                                   |
+| Registrar venta                            | !newsell                                                     |
+| registrar cotizaciones enviadas            | !newopportunity                                              |
+| Ver todas las interacciones con un cliente | !getinteractions                                             |
+| Clientes hace tiempo no hay interacción | !getinactiveclients                                          |
+| Clientes esperando respuesta | !getwaitingclients                                           |
+| Crear, suspender o eliminar usuarios | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
+| Asignar otro vendedor a cliente | !assignseller                                                |
+| Saber total de ventas en periodo | !getsales                                                    |
+| Ver panel | !getpanel                                                    |
+| Mostrar comandos | !help |
+| Mostrar Usuario | !who |
 
 
 
