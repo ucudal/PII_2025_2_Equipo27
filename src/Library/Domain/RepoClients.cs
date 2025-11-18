@@ -41,10 +41,10 @@ namespace Library
         /// Agrega un cliente a la lista de clientes.
         /// </summary>
         /// <param name="client">El cliente que se va a agregar.</param>
-        public void AddClient(Client client)
-        {
-            clients.Add(client);
-        }
+        // public void AddClient(Client client)
+        // {
+        //     clients.Add(client);
+        // }
         
         /// <summary>
         /// Elimina un cliente del repo clientes.
