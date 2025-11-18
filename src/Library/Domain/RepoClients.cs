@@ -52,12 +52,16 @@ namespace Library
         /// <param name="client">El id del cliente que se va a eliminar.</param>
         public void DeleteClient(int id)
         {
-            for (int i=0;i<clients.Count;i++)
+            int i = 0;
+            bool clientFound = false;
+            while (i <= clients.Count & !clientFound)
             {
                 if (clients[i].Id == id)
                 {
-                    clients.Remove(clients[i]);
+                    clientFound = true;
+                    clients.Remove(Clients[i]);
                 }
+                i += 1;
             }
         } 
         public enum TypeOfData
