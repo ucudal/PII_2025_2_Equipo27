@@ -42,6 +42,10 @@ namespace Library
         /// <param name="username">Nombre de usuario del seller</param>
         public void CreateSeller(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentException("El usuario debe tener un nombre", nameof(username));
+            }
             admin.CreateSeller(username);
         }
 
@@ -52,6 +56,10 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void SuspendSeller(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentException("Debe ingresarse un nombre de usuario válido", nameof(username));
+            }
             Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
@@ -67,6 +75,10 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void ActiveSeller(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentException("Debe ingresarse un nombre de usuario válido", nameof(username));
+            }
             Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
@@ -82,6 +94,10 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void DeleteSeller(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentException("Debe ingresarse un nombre de usuario válido", nameof(username));
+            }
             Seller seller = admin.SearchSeller(username);
             if (seller != null)
             {
