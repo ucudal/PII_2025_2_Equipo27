@@ -36,19 +36,19 @@ https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=shari
 | Registrar mensajes                         | !newmessage                                                  |
 | Registrar emails                           | !newemail                                                    |
 | Registrar otros datos                      | !addclientdata client typeofdata data                        |
-| Definir etiquetas                          | !addtag                                                      |
-| Agregar etiqueta a cliente                 | !assigntag                                                   |
-| Registrar venta                            | !newsell                                                     |
-| registrar cotizaciones enviadas            | !newopportunity                                              |
-| Ver todas las interacciones con un cliente | !getinteractions                                             |
-| Clientes hace tiempo no hay interacción | !getinactiveclients                                          |
-| Clientes esperando respuesta | !getwaitingclients                                           |
-| Crear, suspender o eliminar usuarios | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
-| Asignar otro vendedor a cliente | !assignseller                                                |
-| Saber total de ventas en periodo | !getsales                                                    |
-| Ver panel | !getpanel                                                    |
-| Mostrar comandos | !help |
-| Mostrar Usuario | !who |
+| Definir etiquetas                          | !addtag tagname                                              |
+| Agregar etiqueta a cliente                 | !assigntag client tagname                                    |
+| Registrar venta                            | !closeopportunity product price client                       |
+| Registrar cotizaciones enviadas            | !newopportunity product price oppstate client                |
+| Ver todas las interacciones con un cliente | !getinteractions client filter(optional)                     |
+| Clientes hace tiempo no hay interacción    | !getinactiveclients                                          |
+| Clientes esperando respuesta               | !getwaitingclients                                           |
+| Crear, suspender o eliminar usuarios       | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
+| Asignar otro vendedor a cliente            | !assignseller                                                |
+| Saber total de ventas en periodo           | !getsales                                                    |
+| Ver panel                                  | !getpanel                                                    |
+| Mostrar comandos                           | !help                                                        |
+| Mostrar Usuario                            | !who                                                         |
 
 
 

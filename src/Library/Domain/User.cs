@@ -35,7 +35,7 @@ namespace Library
             {
                 throw new ArgumentException("El usuario debe tener un nombre", nameof(username));
             }
-            this.userName = username;
+            this.UserName = username;
             this.Active = true;
         }
        
