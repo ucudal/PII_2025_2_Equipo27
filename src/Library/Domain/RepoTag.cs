@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -20,11 +21,31 @@ namespace Library
         /// </summary>
         /// <param name="tagname">El nombre de la nueva etiqueta.</param>
         /// <returns>La etiqueta creada.</returns>
-        public Tag CreateTag(string tagname)
+        public Tag CreateTag(string tagName)
         {
-            Tag tag = new Tag(tagname);
-            this.tagList.Add(tag);
-            return tag;
+            string newTagName = tagName.Trim().ToLower();
+            try
+            {
+                if ( string.IsNullOrEmpty(newTagName) )
+                {
+                    throw new ArgumentException("El nombre ingresado no es valido");
+                }
+                foreach (var tag in tagList)
+                {
+                    
+                    if (tag.TagName == newTagName)
+                    {
+                        throw new ArgumentException("Ya existe un tag con ese nombre");
+                    }
+                }
+                Tag newTag = new Tag(newTagName);
+                this.tagList.Add(newTag);
+                return newTag;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al crear exception: " + e.Message);
+            }
         }
         
 
@@ -34,19 +55,25 @@ namespace Library
         /// <param name="tagname">El nombre de la etiqueta por el que buscar.</param>
         /// <returns>Una lista de etiquetas cuyo nombre coincide con <paramref name="tagname"/>.</returns>
 
-        public List<Tag> Search(string tagname)
+        public Tag Search(string tagName)
         {
-            List<Tag> result = new List<Tag>();
-            foreach (var tag in tagList)
+            string searchedTag = tagName;
+            try
             {
-                if (tag.TagName == tagname)
+                foreach (var tag in tagList)
                 {
-                    result.Add(tag);
+                    if (tag.TagName == searchedTag)
+                    {
+                        return tag;
+                    }
                 }
-                 
+
+                throw new ArgumentException("No se encontro ninguna tag con ese nombre");
             }
- 
-            return result;
+            catch (Exception e)
+            {
+                throw new Exception("Error al encontrar tag: " + e);
+            }
         }
     }
     

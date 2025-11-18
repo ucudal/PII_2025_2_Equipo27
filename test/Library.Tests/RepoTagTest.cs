@@ -14,12 +14,29 @@ public class RepoTagTest
     [Test]
     public void CreateTag()
     {
+        string testTagName = "vip";
         RepoTag repo = new RepoTag();
 
-        Tag tag = repo.CreateTag("VIP");
+        Tag tag = repo.CreateTag(testTagName);
         
         Assert.That(repo.TagList.Count, Is.EqualTo(1));
-        Assert.That(repo.TagList[0].TagName, Is.EqualTo("VIP"));
+        Assert.That(repo.TagList[0].TagName, Is.EqualTo(testTagName));
+    }
+    
+    /// <summary>
+    /// Verifica que no sea creada una nueva etiqueta con el mismo nombre que otra etiqueta
+    /// </summary>
+    
+    [Test]
+    public void CreateDuplicatedTag()
+    {
+        string testTagName = "vip";
+        RepoTag repo = new RepoTag();
+
+        repo.CreateTag(testTagName);
+        
+        var tag2 = Assert.Throws<Exception>(() => repo.CreateTag(testTagName));
+        Assert.That(tag2.Message, Does.Contain("Ya existe un tag con ese nombre"));
     }
 
     /// <summary>
@@ -29,12 +46,31 @@ public class RepoTagTest
     [Test]
     public void SearchTag_Existing()
     {
+        string testTagName = "vip";
+
         RepoTag repo = new RepoTag();
-        Tag tag = repo.CreateTag("VIP");
+        Tag tag = repo.CreateTag(testTagName);
 
-        List<Tag> search = repo.Search("VIP");
+        Tag search = repo.Search(testTagName);
 
 
-        Assert.That(search[0].TagName, Is.EqualTo("VIP"));
+        Assert.That(search.TagName, Is.EqualTo(testTagName));
+    }
+
+    /// <summary>
+    /// Verifica que una etiqueta no existente no sea encontrada en la lista.
+    /// </summary>
+    
+    [Test]
+    public void SearchTag_NotExisting()
+    {
+        string testTagName = "vip";
+
+        RepoTag repo = new RepoTag();
+        Tag tag = repo.CreateTag(testTagName);
+
+
+        var search = Assert.Throws<Exception>(() => repo.Search("hyper"));
+        Assert.That(search.Message, Does.Contain("Error al encontrar tag: "));
     }
 }
