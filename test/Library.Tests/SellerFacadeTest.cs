@@ -11,13 +11,14 @@ public class SellerFacadeTest
     [Test]
     public void AsignClient_IfFind()
     {
-        SellerFacade facade = SellerFacade.Instance;
-        Seller seller1 = facade.admin.CreateSeller("Peter");
-        Seller seller2 = facade.admin.CreateSeller("Ezequiel");
-        Client client = new Client(1, "Facundo", "Pastoruti", "facundopastoruti", "55555555", Client.GenderType.Male,
-            "21/10/2020", null);
-
-        facade.AssignClient("Peter", "Ezequiel", client);
+        
+     
+        Seller seller1 = AdminFacade.Instance.CreateSeller("Peter");
+        Seller seller2 = AdminFacade.Instance.CreateSeller("Ezequiel");
+        Client client = AdminFacade.Instance.CreateClient("Facundo", "Pastoruti", "facundopastoruti", "55555555",
+            Client.GenderType.Male, "21/10/2020", null);
+        
+        SellerFacade.Instance.AssignClient(seller1.UserName, seller2.UserName, "0");
 
         Assert.That(client.AsignedSeller, Is.EqualTo(seller2));
     }

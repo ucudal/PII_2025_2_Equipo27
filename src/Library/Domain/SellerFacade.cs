@@ -40,12 +40,17 @@ namespace Library
         /// <param name="sellernameOther">Nombre de usuario del seller destino</param>
         /// <param name="client">Cliente que se desea asignar</param>
         /// <returns>Mensaje con resultado de la operación</returns>
-        public void AssignClient(string sellernameMy, string sellernameOther, Client client)
+        public void AssignClient(string sellernameMy, string sellernameOther, string id)
         {
-            Seller seller1 = admin.SearchSeller(sellernameMy);
-            Seller seller2 = admin.SearchSeller(sellernameOther);
+            int clientId;
+            if (!int.TryParse(id, out clientId))
+                return;
+            
+            Seller seller1 = repoSellers.SearchSeller(sellernameMy);
+            Seller seller2 = repoSellers.SearchSeller(sellernameOther);
+            Client client = repoClients.SearchClientById(clientId);
 
-            if (seller1 != null && seller2 != null)
+            if (seller1 != null && seller2 != null && client != null)
             {
                 seller1.AsignClient(seller2, client);
             }

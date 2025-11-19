@@ -335,11 +335,13 @@ public class UserStoriesTests
         Seller user = new Seller("Carlos");
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Carlos");
-        int actual1 = facade.admin.sellers.Count;
+        IReadOnlyList<Seller> sellers = facade.GetSellers();
+        int actual1 = sellers.Count;
         facade.SuspendSeller("Carlos");
-        int actual2 = facade.admin.SuspendedSellers.Count;
+        IReadOnlyList<Seller> suspendedSellers = facade.GetSuspendedSellers();
+        int actual2 = suspendedSellers.Count;
         facade.DeleteSeller("Carlos");
-        int actual3 = facade.admin.sellers.Count;
+        int actual3 = sellers.Count;
         Assert.That(actual1,Is.EqualTo(1));
         Assert.That(actual2,Is.EqualTo(1));
         Assert.That(actual3,Is.EqualTo(0));
@@ -349,13 +351,13 @@ public class UserStoriesTests
     public void UserStory20Test()
     //Como vendedor, quiero poder asignar un cliente a otro vendedor para distribuir el trabajo en el equipo.
     {
-        SellerFacade facade = SellerFacade.Instance;
-        facade.admin.CreateSeller("Pedro");
-        facade.admin.CreateSeller("Juan");
-        facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
-            "10/05/1999", facade.admin.SearchSeller("Pedro"));
-        facade.AssignClient("Pedro", "Juan", facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0]);
-        Assert.That(facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].AsignedSeller,Is.EqualTo(facade.admin.SearchSeller("Juan")));
+     
+        AdminFacade.Instance.CreateSeller("Pedro");
+        AdminFacade.Instance.CreateSeller("Juan");
+        AdminFacade.Instance.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+            "10/05/1999", AdminFacade.Instance.SearchSeller("Pedro"));
+        SellerFacade.Instance.AssignClient("Pedro", "Juan", "1");
+        Assert.That(AdminFacade.Instance.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchSeller("Juan")));
     }
 
     [Test]
@@ -363,9 +365,9 @@ public class UserStoriesTests
     //Como usuario quiero saber el total de ventas de un periodo dado, para analizar en rendimiento de mi negocio.
     {
         AdminFacade facade = AdminFacade.Instance;
-        facade.admin.CreateSeller("Juan");
+        facade.CreateSeller("Juan");
         facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
-            "10/05/1999", facade.admin.SearchSeller("Juan"));
+            "10/05/1999", facade.SearchSeller("Juan"));
         facade.CreateOpportunity("Harina",50,Opportunity.States.Open,facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0]);
         facade.admin.CloseOpportunity(facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].Opportunities[0]);
         int actual = facade.admin.ClosedOpportunities.Count;

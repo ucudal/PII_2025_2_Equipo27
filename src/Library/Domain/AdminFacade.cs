@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Library
 {
@@ -8,6 +9,7 @@ namespace Library
     /// </summary>
     public class AdminFacade : MainFacade
     {
+        
         
         private static AdminFacade instance = null;
         public static AdminFacade Instance
@@ -30,19 +32,30 @@ namespace Library
         {
             
         }
-        
-        /// <summary>
-        /// Instancia única de administrador principal.
-        /// </summary>
-        public Admin admin = new Admin("Famapez");
 
+        public Admin admin = new Admin("Fachada");
         /// <summary>
         /// Crea un nuevo seller en el sistema.
         /// </summary>
         /// <param name="username">Nombre de usuario del seller</param>
-        public void CreateSeller(string username)
+        public Seller CreateSeller(string username)
         {
-            admin.CreateSeller(username);
+            return repoSellers.CreateSeller(username);
+        }
+
+        public Seller SearchSeller(string userName)
+        {
+            return repoSellers.SearchSeller(userName);
+        }
+
+        public IReadOnlyList<Seller> GetSellers()
+        {
+            return repoSellers.Sellers;
+        }
+
+        public IReadOnlyList<Seller> GetSuspendedSellers()
+        {
+            return repoSellers.GetSuspendedSellers();
         }
 
         /// <summary>
@@ -52,7 +65,7 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void SuspendSeller(string username)
         {
-            Seller seller = admin.SearchSeller(username);
+            Seller seller = repoSellers.SearchSeller(username);
             if (seller != null)
             {
                 admin.SuspendSeller(seller);
@@ -67,7 +80,7 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void ActiveSeller(string username)
         {
-            Seller seller = admin.SearchSeller(username);
+            Seller seller = repoSellers.SearchSeller(username);
             if (seller != null)
             {
                 admin.ActiveSeller(seller);
@@ -82,10 +95,10 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void DeleteSeller(string username)
         {
-            Seller seller = admin.SearchSeller(username);
+            Seller seller = repoSellers.SearchSeller(username);
             if (seller != null)
             {
-                admin.DeleteSeller(seller);
+                repoSellers.DeleteSeller(seller);
             }
             
         }

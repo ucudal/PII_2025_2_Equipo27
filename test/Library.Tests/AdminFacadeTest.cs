@@ -12,7 +12,7 @@ public class AdminFacadeTest
     {
         AdminFacade facade = AdminFacade.Instance;
         
-        Seller seller = facade.admin.CreateSeller("Daniela");
+        Seller seller = facade.CreateSeller("Daniela");
         facade.SuspendSeller("Daniela");
         
         
@@ -23,24 +23,14 @@ public class AdminFacadeTest
     public void ActiveSeller()
     {
         AdminFacade facade = AdminFacade.Instance;
-        Seller seller = facade.admin.CreateSeller("Laura");
+        Seller seller = facade.CreateSeller("Laura");
 
         facade.ActiveSeller("Laura");
 
         Assert.That(seller.Active, Is.True);
     }
     
-    [Test]
-    public void DeleteSeller_ValidName()
-    {
-        AdminFacade facade = AdminFacade.Instance;
-        Seller seller = facade.admin.CreateSeller("Daniela");
-
-        facade.DeleteSeller("Daniela");
-        
-        Assert.That(facade.admin.sellers.Count, Is.EqualTo(0));
-
-    }
+  
 
 
    

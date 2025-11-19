@@ -14,9 +14,9 @@ public class SellerTest
     [Test]
     public void AsignNewClient()
     {
-        Admin admin = new Admin("Famapez");
-        Seller seller1 = admin.CreateSeller("Peter");
-        Seller seller2 = admin.CreateSeller("Matteo");
+        RepoSeller repoSellers = new RepoSeller();
+        Seller seller1 = repoSellers.CreateSeller("Peter");
+        Seller seller2 = repoSellers.CreateSeller("Matteo");
         
         Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
         seller1.AsignClient(seller2,client);
@@ -31,9 +31,9 @@ public class SellerTest
     [Test]
     public void AsignClient_IfTheClientIsNull()
     {
-        Admin admin = new Admin("Natacha");
-        Seller seller1 = admin.CreateSeller("Facundo");
-        Seller seller2 = admin.CreateSeller("Matteo");
+        RepoSeller repoSellers = new RepoSeller();
+        Seller seller1 = repoSellers.CreateSeller("Facundo");
+        Seller seller2 = repoSellers.CreateSeller("Matteo");
 
         Assert.Throws<ArgumentNullException>(() => seller1.AsignClient(seller2, null));
     }
@@ -44,8 +44,8 @@ public class SellerTest
     [Test]
     public void AsignClient_IfTheSellerIsNull()
     {
-        Admin admin = new Admin("Natacha");
-        Seller seller1 = admin.CreateSeller("Thomas");
+        RepoSeller repoSellers = new RepoSeller();
+        Seller seller1 = repoSellers.CreateSeller("Thomas");
         
         Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
 

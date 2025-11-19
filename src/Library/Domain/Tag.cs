@@ -24,6 +24,10 @@ namespace Library
 
         public Tag(string tagname)
         {
+            if (string.IsNullOrEmpty(tagname))
+            {
+                throw new ArgumentException("La etiqueta debe tener un nombre", nameof(tagname));
+            }
             this.TagName = tagname;
         }
     }

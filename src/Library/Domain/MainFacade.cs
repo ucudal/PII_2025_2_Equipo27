@@ -9,8 +9,10 @@ namespace Library
     /// </summary>
     public class MainFacade
     {
-        private RepoClients repoClients = new RepoClients();
+        protected RepoClients repoClients = new RepoClients();
         private RepoTag repoTag = new RepoTag();
+        protected RepoSeller repoSellers = new RepoSeller();
+        
 
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio.
