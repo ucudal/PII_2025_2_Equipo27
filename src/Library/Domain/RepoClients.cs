@@ -44,17 +44,11 @@ namespace Library
             return client;
         }
         
-        /// <summary>
-        /// Agrega un cliente a la lista de clientes.
-        /// </summary>
-        /// <param name="client">El cliente que se va a agregar.</param>
-        public void AddClient(Client client)
-        {
-            clients.Add(client);
-        }
+ 
         
         /// <summary>
         /// Por la guía Expert, la información necesaria para eliminar un cliente la tiene RepoClients, ya que es le que tiene las instancias y los id.
+        /// Elimina un cliente del repo clientes.
         /// </summary>
         /// <param name="client">El id del cliente que se va a eliminar.</param>
         public void DeleteClient(int id)
@@ -63,12 +57,16 @@ namespace Library
             {
                 throw new ArgumentException("Debe escribir un id válido", nameof(id));
             }
-            for (int i=0;i<clients.Count;i++)
+            int i = 0;
+            bool clientFound = false;
+            while (i <= clients.Count & !clientFound)
             {
                 if (clients[i].Id == id)
                 {
-                    clients.Remove(clients[i]);
+                    clientFound = true;
+                    clients.Remove(Clients[i]);
                 }
+                i += 1;
             }
         } 
         public enum TypeOfData
