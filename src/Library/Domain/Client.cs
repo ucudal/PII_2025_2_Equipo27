@@ -183,7 +183,7 @@ namespace Library
         /// Aplicación de los patrones y principios:
         /// - Demeter: Expone la información necesaria y limita dependencias externas.
         /// - Expert: Client posee los datos y la lógica para calcular la cantidad.
-        /// - SRP: La responsabilidad está perfectamente acotada.
+        /// - SRP: La responsabilidad es única.
         /// </summary>
         /// <returns>Cantidad de interacciones totales en el mes actual.</returns>
 
@@ -206,9 +206,16 @@ namespace Library
         }
 
         /// <summary>
-        /// GetFutureMeetings existe para no violar Demeter, se utiliza en GetPanel de RepoClients
+        /// Devuelve la cantidad de reuniones próximas en el mes actual.
+        /// Este método existe para no violar el principio de Demeter,
+        /// evitando que otras clases accedan directamente a la colección interna.
+        /// Aplicación de los patrones y principios:
+        /// - Demeter: Expone la información necesaria, limitando las dependencias externas.
+        /// - Expert: Client posee los datos y la lógica para calcular la cantidad.
+        /// - SRP: La responsabilidad es única.
         /// </summary>
-        /// <returns> Cantidad de reuniones próximas</returns>
+        /// <returns>Cantidad de reuniones futuras en el mes actual.</returns>
+
         public int GetFutureMeetings()
         {
             DateTime now = DateTime.Now;
@@ -218,7 +225,7 @@ namespace Library
             foreach (var interaction in this.Interactions)
             {
                 if (interaction.InteractionDate.Month == month && interaction.InteractionDate.Year == year &&
-                    interaction.InteractionDate <= DateTime.Now)
+                    interaction.InteractionDate >= DateTime.Now)
                 {
 
                     if (DateTime.Now <= interaction.InteractionDate)
@@ -232,11 +239,18 @@ namespace Library
         }
         
         /// <summary>
-        /// Este método existe para no violar Demeter, se utiliza en GetTotalSales en RepoClients.
+        /// Devuelve el total de ventas en un período determinado.
+        /// Este método existe para no violar el principio de Demeter,
+        /// evitando que otras clases accedan directamente a la colección interna.
+        /// Aplicación de los patrones y principios:
+        /// - Demeter: Expone la cantidad total limitando el acceso externo a los datos.
+        /// - Expert: Client sabe cómo determinar las ventas en un intervalo temporal.
+        /// - SRP: Responsabilidad clara, sólo calcula ventas en el rango dado.
         /// </summary>
-        /// <param name="startdate"></param>
-        /// <param name="finishdate"></param>
-        /// <returns> Devuelve todas las ventas en un período determinado</returns>
+        /// <param name="startdate">Fecha de inicio del período.</param>
+        /// <param name="finishdate">Fecha de fin del período.</param>
+        /// <returns>Total de ventas en el período solicitado.</returns>
+
         public int GetTotalSales(DateTime startdate, DateTime finishdate)
         {
             int totalSales = 0;
