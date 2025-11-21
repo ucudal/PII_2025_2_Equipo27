@@ -11,7 +11,7 @@ namespace Library
     {
         protected RepoClients repoClients = new RepoClients();
         private RepoTag repoTag = new RepoTag();
-        protected RepoSeller repoSellers = new RepoSeller();
+        protected RepoUser RepoUsers = new RepoUser();
         
 
         /// <summary>

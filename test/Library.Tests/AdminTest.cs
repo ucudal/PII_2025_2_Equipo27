@@ -3,58 +3,58 @@ namespace Library.Tests;
 public class AdminTest
 {
     /// <summary>
-    /// Verifica que no se pueda activar un vendedor nulo
+    /// Verifica que no se pueda activar un usuario nulo
     /// </summary>
     [Test]
-    public void ActiveSeller_Exception()
+    public void ActiveUser_Exception()
     {
         Admin admin = new Admin("Julieta");
 
-        Assert.Throws<ArgumentNullException>(() => admin.ActiveSeller(null));
+        Assert.Throws<ArgumentNullException>(() => admin.ActiveUser(null));
     }
 
 
     /// <summary>
-    /// Verifica que se pueda activar un vendedor que estaba suspendido
+    /// Verifica que se pueda activar un usuario que estaba suspendido
     /// </summary>
 
     [Test]
-    public void ActiveSeller()
+    public void ActiveUser()
     {
-        RepoSeller repoSeller = new RepoSeller();
+        RepoUser repoUser = new RepoUser();
         Admin admin = new Admin("Julieta");
-        Seller seller = repoSeller.CreateSeller("Juliana");
+        Seller seller = repoUser.CreateSeller("Juliana");
         seller.Active = false;
 
-        admin.ActiveSeller(seller);
+        admin.ActiveUser(seller);
 
         Assert.That(seller.Active, Is.True);
     }
     
 
     /// <summary>
-    /// Verifica que no se pueda suspender un vendedor nulo
+    /// Verifica que no se pueda suspender un usuario nulo
     /// </summary>
     [Test]
-    public void suspendSeller_Exception()
+    public void suspendUser_Exception()
     {
         Admin admin = new Admin("Julieta");
 
-        Assert.Throws<ArgumentNullException>(() => admin.SuspendSeller(null));
+        Assert.Throws<ArgumentNullException>(() => admin.SuspendUser(null));
     }
 
     /// <summary>
-    /// Verifica que un vendedor sea suspendido que estaba en estado activo
+    /// Verifica que un usuario sea suspendido que estaba en estado activo
     /// </summary>
 
     [Test]
-    public void SuspendSeller()
+    public void SuspendUser()
     {
-        RepoSeller repoSeller = new RepoSeller();
+        RepoUser repoUser = new RepoUser();
         Admin admin = new Admin("Ámbar");
-        Seller seller = repoSeller.CreateSeller("Lucía");
+        Seller seller = repoUser.CreateSeller("Lucía");
 
-        admin.SuspendSeller(seller);
+        admin.SuspendUser(seller);
 
         Assert.That(seller.Active, Is.False);
 

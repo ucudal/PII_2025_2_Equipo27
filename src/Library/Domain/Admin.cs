@@ -11,38 +11,38 @@ namespace Library
         }
         
         /// <summary>
-        /// Activa a un vendedor que esté suspendido.
+        /// Activa a un usuario que esté suspendido.
         /// </summary>
-        /// <param name="seller">El vendedor que se desee activar.</param>
-        /// <exception cref="ArgumentNullException">Se lanza si el vendedor es nulo</exception>
+        /// <param name="user">El usuario que se desee activar.</param>
+        /// <exception cref="ArgumentNullException">Se lanza si el usuario es nulo</exception>
         
-        public void ActiveSeller(Seller seller)
+        public void ActiveUser(User user)
         {
-            if (seller == null)
+            if (user == null)
             {
-                throw new ArgumentNullException(nameof(seller), "El vendedor no puede ser nulo.");
+                throw new ArgumentNullException(nameof(user), "El vendedor no puede ser nulo.");
             }
-            if (!seller.Active)
+            if (!user.Active)
             {
-                seller.Active = true;
+                user.Active = true;
             }
         }
         
         /// <summary>
-        /// Suspende a un vendedor que esté activo.
+        /// Suspende a un usuario que esté activo.
         /// </summary>
-        /// <param name="seller">El vendedor que se desee suspender.</param>
+        /// <param name="user">El usuario que se desee suspender.</param>
         /// <exception cref="ArgumentNullException">Se lanza si el vendedor es nulo.</exception>
 
-        public void SuspendSeller(Seller seller)
+        public void SuspendUser(User user)
         {
-            if (seller == null)
+            if (user == null)
             {
-                throw new ArgumentNullException(nameof(seller), "El vendedor no puede ser nulo.");
+                throw new ArgumentNullException(nameof(user), "El vendedor no puede ser nulo.");
             }
-            if (seller.Active)
+            if (user.Active)
             {   
-                seller.Active = false;
+                user.Active = false;
             }
         }
     }

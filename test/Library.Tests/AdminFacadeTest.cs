@@ -13,7 +13,7 @@ public class AdminFacadeTest
         AdminFacade facade = AdminFacade.Instance;
         
         Seller seller = facade.CreateSeller("Daniela");
-        facade.SuspendSeller("Daniela");
+        facade.SuspendUser("Daniela");
         
         
         Assert.That(seller.Active, Is.False);
@@ -25,7 +25,7 @@ public class AdminFacadeTest
         AdminFacade facade = AdminFacade.Instance;
         Seller seller = facade.CreateSeller("Laura");
 
-        facade.ActiveSeller("Laura");
+        facade.ActiveUser("Laura");
 
         Assert.That(seller.Active, Is.True);
     }

@@ -33,72 +33,72 @@ namespace Library
             
         }
 
-        public Admin admin = new Admin("Fachada");
+        public Admin admin = new Admin("Fachada" );
         /// <summary>
         /// Crea un nuevo seller en el sistema.
         /// </summary>
         /// <param name="username">Nombre de usuario del seller</param>
         public Seller CreateSeller(string username)
         {
-            return repoSellers.CreateSeller(username);
+            return RepoUsers.CreateSeller(username);
         }
 
-        public Seller SearchSeller(string userName)
+        public T SearchUser<T>(string userName) where T : User
         {
-            return repoSellers.SearchSeller(userName);
+            return RepoUsers.SearchUser<T>(userName);
         }
 
-        public IReadOnlyList<Seller> GetSellers()
+        public IReadOnlyList<User> GetUsers()
         {
-            return repoSellers.Sellers;
+            return RepoUsers.Users;
         }
 
-        public IReadOnlyList<Seller> GetSuspendedSellers()
+        public IReadOnlyList<User> GetSuspendedSellers()
         {
-            return repoSellers.GetSuspendedSellers();
+            return RepoUsers.GetSuspendedUsers();
         }
 
         /// <summary>
-        /// Suspende un seller existente por su username.
+        /// Suspende un usuario existente por su username.
         /// </summary>
-        /// <param name="username">Nombre de usuario del seller</param>
+        /// <param name="username">Nombre del usuario</param>
         /// <returns>Mensaje de resultado (éxito o error)</returns>
-        public void SuspendSeller(string username)
+        public void SuspendUser(string username)
         {
-            Seller seller = repoSellers.SearchSeller(username);
-            if (seller != null)
+            User user = RepoUsers.SearchUser<User>(username);
+            if (user != null)
             {
-                admin.SuspendSeller(seller);
+                admin.SuspendUser(user);
             }
             
         }
 
         /// <summary>
-        /// Activa un seller previamente suspendido por su username.
+        /// Activa un usuario previamente suspendido por su username.
         /// </summary>
-        /// <param name="username">Nombre de usuario del seller</param>
+        /// <param name="username">Nombre del usuario</param>
         /// <returns>Mensaje de resultado (éxito o error)</returns>
-        public void ActiveSeller(string username)
+        public void ActiveUser(string username)
         {
-            Seller seller = repoSellers.SearchSeller(username);
-            if (seller != null)
+            User user = RepoUsers.SearchUser<User>(username);
+            if (user != null)
             {
-                admin.ActiveSeller(seller);
+                admin.ActiveUser(user);
             }
 
         }
 
         /// <summary>
-        /// Elimina un seller del sistema por su username.
+        /// Elimina un usuario del sistema por su username.
         /// </summary>
-        /// <param name="username">Nombre de usuario del seller</param>
+        /// <param name="username">Nombre del usuario</param>
         /// <returns>Mensaje de resultado (éxito o error)</returns>
-        public void DeleteSeller(string username)
+        public void DeleteUser(string username)
         {
-            Seller seller = repoSellers.SearchSeller(username);
-            if (seller != null)
+            User user = RepoUsers.SearchUser<User>(username);
+            if (user != null)
             {
-                repoSellers.DeleteSeller(seller);
+                RepoUsers.DeleteUser(user.UserName);
             }
             
         }

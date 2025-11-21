@@ -42,18 +42,20 @@ namespace Library
         /// <returns>Mensaje con resultado de la operación</returns>
         public void AssignClient(string sellernameMy, string sellernameOther, string id)
         {
+
             int clientId;
             if (!int.TryParse(id, out clientId))
-                return;
+                throw new ArgumentException("El id no es válido");
             
-            Seller seller1 = repoSellers.SearchSeller(sellernameMy);
-            Seller seller2 = repoSellers.SearchSeller(sellernameOther);
+            Seller seller1 = RepoUsers.SearchUser<Seller>(sellernameMy);
+            Seller seller2 = RepoUsers.SearchUser<Seller>(sellernameOther);
             Client client = repoClients.SearchClientById(clientId);
 
             if (seller1 != null && seller2 != null && client != null)
             {
                 seller1.AsignClient(seller2, client);
             }
+            
         }
     }
 }

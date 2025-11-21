@@ -335,12 +335,12 @@ public class UserStoriesTests
         Seller user = new Seller("Carlos");
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Carlos");
-        IReadOnlyList<Seller> sellers = facade.GetSellers();
+        IReadOnlyList<User> sellers = facade.GetUsers();
         int actual1 = sellers.Count;
-        facade.SuspendSeller("Carlos");
-        IReadOnlyList<Seller> suspendedSellers = facade.GetSuspendedSellers();
+        facade.SuspendUser("Carlos");
+        IReadOnlyList<User> suspendedSellers = facade.GetSuspendedSellers();
         int actual2 = suspendedSellers.Count;
-        facade.DeleteSeller("Carlos");
+        facade.DeleteUser("Carlos");
         int actual3 = sellers.Count;
         Assert.That(actual1,Is.EqualTo(1));
         Assert.That(actual2,Is.EqualTo(1));
@@ -355,9 +355,9 @@ public class UserStoriesTests
         AdminFacade.Instance.CreateSeller("Pedro");
         AdminFacade.Instance.CreateSeller("Juan");
         AdminFacade.Instance.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
-            "10/05/1999", AdminFacade.Instance.SearchSeller("Pedro"));
+            "10/05/1999", AdminFacade.Instance.SearchUser<Seller>("Pedro"));
         SellerFacade.Instance.AssignClient("Pedro", "Juan", "1");
-        Assert.That(AdminFacade.Instance.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchSeller("Juan")));
+        Assert.That(AdminFacade.Instance.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("Juan")));
     }
 
     [Test]
@@ -367,7 +367,7 @@ public class UserStoriesTests
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Juan");
         facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
-            "10/05/1999", facade.SearchSeller("Juan"));
+            "10/05/1999", facade.SearchUser<Seller>("Juan"));
         facade.CreateOpportunity("Harina",50,Opportunity.States.Open,facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0]);
         facade.admin.CloseOpportunity(facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].Opportunities[0]);
         int actual = facade.admin.ClosedOpportunities.Count;
