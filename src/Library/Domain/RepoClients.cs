@@ -8,6 +8,25 @@ namespace Library
         /// <summary>
         /// Para una mejor encapsulación de las listas se utiliza IReadOnlyList y otra lista privada.
         /// </summary>
+
+        private static RepoClients instance = null;
+
+        public static RepoClients Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new RepoClients();
+                }
+
+                return instance;
+            }
+        }
+        public static void ResetInstance()
+        {
+            instance = null;
+        }
         public IReadOnlyList<Client> Clients
         {
             get
@@ -23,6 +42,11 @@ namespace Library
         /// NextId aumenta en uno cada vez que se crea un cliente, así todos los clientes tienen un número identificador diferente.
         /// </summary>
         private int NextId = 0;
+
+        private RepoClients()
+        {
+            // Intencionalmente en blanco
+        }
         
         /// <summary>
         /// RepoClients contiene instancias de Client y trabaja con ellos, siguiendo la guía del patron Creator debería ser quien cree los clientes.

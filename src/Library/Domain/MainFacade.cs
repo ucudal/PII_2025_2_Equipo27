@@ -9,8 +9,10 @@ namespace Library
     /// </summary>
     public class MainFacade
     {
-        private RepoClients repoClients = new RepoClients();
+        protected RepoClients repoClients = RepoClients.Instance;
         private RepoTag repoTag = new RepoTag();
+        protected RepoUser RepoUsers = RepoUser.Instance;
+        
 
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio.
@@ -117,9 +119,9 @@ namespace Library
         /// <param name="price">Precio</param>
         /// <param name="states">Estado de la oportunidad</param>
         /// <param name="client">Cliente asociado</param>
-        public Opportunity CreateOpportunity(string Product, int price, Opportunity.States states, Client client)
+        public Opportunity CreateOpportunity(string product, int price, Opportunity.States states, Client client)
         {
-            return client.CreateOpportunity(Product, price, states, client, DateTime.Now);
+            return client.CreateOpportunity(product, price, states, client, DateTime.Now);
         }
 
         /// <summary>

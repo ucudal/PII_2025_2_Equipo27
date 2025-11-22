@@ -71,5 +71,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             await ReplyAsync("Nueva llamada Registrada:");
             await ReplyAsync($"Contenido: {content}\nNota: {notes}\nFecha: {date}");
         }
+        
+        
     }
 }
