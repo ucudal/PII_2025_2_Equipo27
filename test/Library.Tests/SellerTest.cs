@@ -5,6 +5,7 @@ public class SellerTest
     [SetUp]
     public void Setup()
     {
+        RepoUser.ResetInstance();
     }
 
     /// <summary>
@@ -14,7 +15,7 @@ public class SellerTest
     [Test]
     public void AsignNewClient()
     {
-        RepoUser repoUsers = new RepoUser();
+        RepoUser repoUsers = RepoUser.Instance;
         Seller seller1 = repoUsers.CreateSeller("Peter");
         Seller seller2 = repoUsers.CreateSeller("Matteo");
         
@@ -31,7 +32,7 @@ public class SellerTest
     [Test]
     public void AsignClient_IfTheClientIsNull()
     {
-        RepoUser repoUsers = new RepoUser();
+        RepoUser repoUsers = RepoUser.Instance;
         Seller seller1 = repoUsers.CreateSeller("Facundo");
         Seller seller2 = repoUsers.CreateSeller("Matteo");
 
@@ -44,7 +45,7 @@ public class SellerTest
     [Test]
     public void AsignClient_IfTheSellerIsNull()
     {
-        RepoUser repoUsers = new RepoUser();
+        RepoUser repoUsers = RepoUser.Instance;
         Seller seller1 = repoUsers.CreateSeller("Thomas");
         
         Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);

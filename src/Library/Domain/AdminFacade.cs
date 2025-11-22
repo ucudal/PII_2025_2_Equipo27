@@ -30,7 +30,7 @@ namespace Library
         }
         private AdminFacade()
         {
-            
+            // Intencionalmente en blanco
         }
 
         public Admin admin = new Admin("Fachada" );

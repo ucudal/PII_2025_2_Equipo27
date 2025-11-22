@@ -21,7 +21,7 @@ public class AdminTest
     [Test]
     public void ActiveUser()
     {
-        RepoUser repoUser = new RepoUser();
+        RepoUser repoUser = RepoUser.Instance;
         Admin admin = new Admin("Julieta");
         Seller seller = repoUser.CreateSeller("Juliana");
         seller.Active = false;
@@ -50,7 +50,7 @@ public class AdminTest
     [Test]
     public void SuspendUser()
     {
-        RepoUser repoUser = new RepoUser();
+        RepoUser repoUser = RepoUser.Instance;
         Admin admin = new Admin("Ámbar");
         Seller seller = repoUser.CreateSeller("Lucía");
 

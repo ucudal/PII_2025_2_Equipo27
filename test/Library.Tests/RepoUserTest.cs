@@ -5,6 +5,7 @@ public class RepoUserTest
     [SetUp]
     public void Setup()
     {
+        RepoUser.ResetInstance();
     }
 
     /// <summary>
@@ -14,7 +15,7 @@ public class RepoUserTest
     [Test]
     public void SearchUser_Existing()
     {
-        RepoUser users = new RepoUser();
+        RepoUser users = RepoUser.Instance;
         Seller seller = users.CreateSeller("Marisol");
         
 
@@ -28,7 +29,7 @@ public class RepoUserTest
     [Test]
     public void SearchUser_NotExisting()
     {
-        RepoUser users = new RepoUser();
+        RepoUser users = RepoUser.Instance;
         users.CreateSeller("Marisol");
 
         Seller seller = users.SearchUser<Seller>("Lucas");
@@ -44,7 +45,7 @@ public class RepoUserTest
     [Test]
     public void CreateSeller_NotExistUsername()
     {
-        RepoUser users = new RepoUser();
+        RepoUser users = RepoUser.Instance;
         string username = "Lucas";
 
         Seller seller = users.CreateSeller(username);
@@ -61,7 +62,7 @@ public class RepoUserTest
     [Test]
     public void CreateSeller_Existing()
     {
-        RepoUser users = new RepoUser();
+        RepoUser users = RepoUser.Instance;
         Seller seller1 = users.CreateSeller("Luciano");
 
         Seller seller2 = users.CreateSeller("Luciano");
@@ -77,7 +78,7 @@ public class RepoUserTest
     [Test]
     public void CreateSeller_Exception()
     {
-        RepoUser users = new RepoUser();
+        RepoUser users = RepoUser.Instance;
         Seller seller = users.CreateSeller("");
 
         Assert.That(seller, Is.Null);
@@ -93,7 +94,7 @@ public class RepoUserTest
     [Test]
     public void DeleteUser_Existing()
     {
-        RepoUser users = new RepoUser();
+        RepoUser users = RepoUser.Instance;
         Seller seller = users.CreateSeller("Antonella");
 
         users.DeleteUser("Antonella");

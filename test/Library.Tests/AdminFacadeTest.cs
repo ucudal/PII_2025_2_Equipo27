@@ -6,9 +6,11 @@ public class AdminFacadeTest
     public void SetUp()
     {
         AdminFacade.ResetInstance();
+        RepoClients.ResetInstance();
+        RepoUser.ResetInstance();
     }
     [Test]
-    public void SuspendSeller()
+    public void SuspendUser()
     {
         AdminFacade facade = AdminFacade.Instance;
         
@@ -20,7 +22,7 @@ public class AdminFacadeTest
     }
     
     [Test]
-    public void ActiveSeller()
+    public void ActiveUser()
     {
         AdminFacade facade = AdminFacade.Instance;
         Seller seller = facade.CreateSeller("Laura");

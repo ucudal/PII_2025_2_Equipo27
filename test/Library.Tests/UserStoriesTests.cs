@@ -9,6 +9,8 @@ public class UserStoriesTests
     {
         SellerFacade.ResetInstance();
         AdminFacade.ResetInstance();
+        RepoClients.ResetInstance();
+        RepoUser.ResetInstance();
     }
     
     [Test]
@@ -356,7 +358,7 @@ public class UserStoriesTests
         AdminFacade.Instance.CreateSeller("Juan");
         AdminFacade.Instance.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
             "10/05/1999", AdminFacade.Instance.SearchUser<Seller>("Pedro"));
-        SellerFacade.Instance.AssignClient("Pedro", "Juan", "1");
+        SellerFacade.Instance.AssignClient("Pedro", "Juan", "0");
         Assert.That(AdminFacade.Instance.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("Juan")));
     }
 

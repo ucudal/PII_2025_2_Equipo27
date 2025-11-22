@@ -5,6 +5,30 @@ namespace Library
 {
     public class RepoUser
     {
+        private static RepoUser instance = null;
+
+        public static RepoUser Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new RepoUser();
+                }
+
+                return instance;
+            }
+        }
+        public static void ResetInstance()
+        {
+            instance = null;
+        }
+
+        private RepoUser()
+        {
+            // Intencionalmente en blanco
+        }
+        
         private List<User> users = new List<User>();
 
         public IReadOnlyList<User> Users
@@ -88,7 +112,7 @@ namespace Library
             foreach (var user in users)
             {
                 Type type = user.GetType();
-                if (user.UserName == username && type == typeof(T))
+                if (user.UserName == username && user is T)
                 {
                     return (T)user;
                 }

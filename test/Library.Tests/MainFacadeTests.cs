@@ -3,6 +3,11 @@ namespace Library.Tests;
 
 public class MainFacadeTests
 {
+    [SetUp]
+    public void SetUp()
+    {
+        RepoClients.ResetInstance();
+    }
     [Test]
     public void ModifyOpportunityWorksCorrectly()
     {

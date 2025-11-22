@@ -5,6 +5,25 @@ namespace Library
 {
     public class RepoClients
     {
+
+        private static RepoClients instance = null;
+
+        public static RepoClients Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new RepoClients();
+                }
+
+                return instance;
+            }
+        }
+        public static void ResetInstance()
+        {
+            instance = null;
+        }
         public IReadOnlyList<Client> Clients
         {
             get
@@ -16,6 +35,11 @@ namespace Library
 
         private List<Client> clients = new List<Client>();
         private int NextId = 0;
+
+        private RepoClients()
+        {
+            // Intencionalmente en blanco
+        }
         
         /// <summary>
         /// Crea una instancia de Client y la guarda en List<Client> clients.
