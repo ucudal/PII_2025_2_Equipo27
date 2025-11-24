@@ -25,16 +25,22 @@ namespace Library
         private int NextId = 0;
         
         /// <summary>
-        /// RepoClients contiene instancias de Client y trabaja con ellos, siguiendo la guía del patron Creator debería ser quien cree los clientes.
+        /// Crea y registra un nuevo cliente en el sistema.
+        /// RepoClients contiene instancias de Client y debe crearlos siguiendo el patrón Creator.
+        /// Aplicación de los patrones y principios:
+        /// - Creator: RepoClients es responsable de crear clientes porque gestiona la colección y su ciclo de vida.
+        /// - Expert: RepoClients tiene la información y lógica para asignar datos y generar identificadores.
+        /// - SRP: Responsabilidad clara, solo crea y registra un cliente.
         /// </summary>
-        /// <param name="name">Nombre del Cliente</param>
-        /// <param name="lastName">Apellido del Cliente</param>
-        /// <param name="email">Email del Cliente</param>
-        /// <param name="phone">Numero de teléfono del Cliente</param>
-        /// <param name="gender">Sexo del Cliente</param>
-        /// <param name="birthDate">Fecha de nacimiento del Cliente</param>
-        /// <param name="seller">Vendedor asignado al Cliente</param>
-        /// <returns>Cliente creado</returns>
+        /// <param name="name">Nombre del Cliente.</param>
+        /// <param name="lastName">Apellido del Cliente.</param>
+        /// <param name="email">Email del Cliente.</param>
+        /// <param name="phone">Número de teléfono del Cliente.</param>
+        /// <param name="gender">Sexo del Cliente.</param>
+        /// <param name="birthDate">Fecha de nacimiento del Cliente.</param>
+        /// <param name="seller">Vendedor asignado al Cliente.</param>
+        /// <returns>Cliente creado.</returns>
+
         public Client CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
         {
             int id = this.NextId;
@@ -44,13 +50,15 @@ namespace Library
             return client;
         }
         
- 
-        
         /// <summary>
-        /// Por la guía Expert, la información necesaria para eliminar un cliente la tiene RepoClients, ya que es le que tiene las instancias y los id.
-        /// Elimina un cliente del repo clientes.
+        /// Elimina un cliente del repositorio de clientes utilizando su identificador.
+        /// De acuerdo al patrón Expert, RepoClients tiene la información necesaria porque gestiona la colección y los identificadores.
+        /// Aplicación de los patrones y principios:
+        /// - Expert : RepoClients sabe cómo y a quién eliminar, gracias a que mantiene la colección y los IDs.
+        /// - SRP : La responsabilidad del método es única, eliminar un cliente.
         /// </summary>
-        /// <param name="client">El id del cliente que se va a eliminar.</param>
+        /// <param name="id">El id del cliente que se va a eliminar.</param>
+        
         public void DeleteClient(int id)
         {
             if (string.IsNullOrEmpty(id.ToString()))
@@ -78,11 +86,14 @@ namespace Library
         }
 
         /// <summary>
-        /// Por la guía Expert, RepoClients contiene la información para ser responsable de buscar los clientes.
-        /// Busca un cliente por su Id, que es única.
+        /// Busca y devuelve el cliente cuya Id coincide con la solicitada.
+        /// Según el patrón Expert, RepoClients tiene la información y controla la colección, por lo que es responsable de la búsqueda.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: RepoClients gestiona y tiene acceso a todos los clientes e identificadores.
+        /// - SRP: El método tiene una única responsabilidad, buscar un cliente por id.
         /// </summary>
-        /// <param name="id">Id del cliente</param>
-        /// <returns>Cliente con la Id correspondiente</returns>
+        /// <param name="id">Id del cliente.</param>
+        /// <returns>Cliente correspondiente al id proporcionado, o null si no existe.</returns>
         public Client SearchClientById(int id)
         {
             if (string.IsNullOrEmpty(id.ToString()))
@@ -102,12 +113,16 @@ namespace Library
         }
 
         /// <summary>
-        /// Por la guía Expert, RepoClients contiene la información para ser responsable de buscar los clientes.
-        /// Busca los clientes que cumplan con dato ingresado.
+        /// Busca y devuelve los clientes que cumplan con el criterio especificado.
+        /// Según el patrón Expert, RepoClients controla la colección y la información necesaria, por lo que es responsable de la búsqueda.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: RepoClients tiene el acceso y conocimiento sobre los datos almacenados de todos los clientes.
+        /// - SRP: El método tiene una responsabilidad única, buscar clientes por un dato específico.
         /// </summary>
-        /// <param name="datasearched">Tipo de dato a buscar</param>
-        /// <param name="serdched">Nombre, Apellido, Mail o Teléfono a buscar</param>
-        /// <returns>Lista de clientes buscados</returns>
+        /// <param name="datasearched">Tipo de dato a buscar: Nombre, Apellido, Email o Teléfono.</param>
+        /// <param name="searched">Valor del dato a buscar.</param>
+        /// <returns>Lista de clientes que cumplen con el criterio especificado.</returns>
+
         public List<Client> SearchClient(TypeOfData datasearched, string searched)
         {
             if (string.IsNullOrEmpty(searched))
@@ -164,9 +179,14 @@ namespace Library
         }
 
         /// <summary>
-        /// RepoClients contiene los clientes, entonces tiene los datos suficientes para buscar los que estan inactivos.
+        /// Devuelve una lista con los clientes cuyo estado es inactivo.
+        /// RepoClients contiene los clientes y, por lo tanto, tiene los datos suficientes para identificar los inactivos.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: RepoClients gestiona la colección y los datos de los clientes, así que puede identificar los inactivos.
+        /// - SRP : El método tiene responsabilidad única, encontrar todos los clientes inactivos.
         /// </summary>
         /// <returns>Lista de clientes con estado inactivo.</returns>
+
         public List<Client> InactiveClients()
         {
             List<Client> inactiveClients = new List<Client>();
@@ -182,9 +202,14 @@ namespace Library
         }
 
         /// <summary>
-        /// RepoClients contiene los clientes, entonces tiene los datos suficientes para buscar los que estan esperando.
+        /// Devuelve una lista con los clientes cuyo estado es “esperando por respuesta”.
+        /// RepoClients contiene todos los clientes y tiene los datos suficientes para identificarlos.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: RepoClients posee la información y controla el acceso para identificar los clientes esperando por respuesta.
+        /// - SRP: La responsabilidad de este método es devolver la lista de clientes en estado de espera.
         /// </summary>
         /// <returns>Lista de clientes con estado esperando por respuesta.</returns>
+
         public List<Client> WaitingClients()
         {
             List<Client> waitingClients = new List<Client>();
@@ -199,11 +224,14 @@ namespace Library
         }
         
         /// <summary>
-        /// Al contener a los clientes, RepoClients es el experto en información de los clientes.
-        /// Para no violar Demeter, se crearon en Client GetInteractions y GetFutureMeetings.
+        /// Devuelve un mensaje con la cantidad de clientes, interacciones recientes y reuniones futuras.
+        /// Al contener a los clientes, RepoClients es el experto en información necesaria para consolidar estos datos.
+        /// Para no violar Demeter, se crearon en Client los métodos GetInteractions y GetFutureMeetings.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: RepoClients es el experto en la información de los clientes y cómo obtener sus datos.
+        /// - SRP : La responsabilidad de este método es recopilar y retornar en formato texto las estadísticas principales de los clientes del repositorio.
         /// </summary>
         /// <returns>Un mensaje con la cantidad de clientes, interacciones recientes y reuniones futuras.</returns>
-
 
         public string GetPanel()
         {
@@ -223,13 +251,17 @@ namespace Library
         }
         
         /// <summary>
-        /// Al contener a los clientes, RepoClients es el experto en información de los clientes.
-        /// Para no violar Demeter existe GetTotalSales en Client.
-        /// Calcula la cantidad de ventas entre un período dado.
+        /// Calcula la cantidad de ventas entre un período dado y la devuelve en formato de mensaje.
+        /// Al contener a los clientes, RepoClients es el experto en la información de ventas consolidada.
+        /// Para no violar Demeter, la consulta de ventas por período se realiza usando GetTotalSales en Client.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: RepoClients posee y gestiona la colección, así que consolida la información de ventas.
+        /// - SRP: La responsabilidad de este método es calcular y retornar la cantidad global de ventas registradas entre dos fechas para todos los clientes del repositorio.
         /// </summary>
         /// <param name="startdate">Fecha inicial del período.</param>
         /// <param name="finishdate">Fecha final del período.</param>
-        /// <returns>Un mensaje con la cantidad de ventas</returns>
+        /// <returns>Un mensaje con la cantidad de ventas.</returns>
+
 
 
         public string GetTotalSales(DateTime startdate, DateTime finishdate)
