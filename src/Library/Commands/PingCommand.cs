@@ -29,6 +29,26 @@ namespace Ucu.Poo.DiscordBot.Commands
             await ReplyAsync("pong");
         }
 
+        [Command("sum")]
+        [Summary("Devuelve la suma de los dós numeros ingresados.")]
+        public async Task SumTwoNumbersAsync(int num1, int num2)
+        { 
+            string result = (num1 + num2).ToString();
+            await ReplyAsync(result);
+        }
+        // public async Task SumTwoNumbersAsync(string stringNum1, string stringNum2)
+        // {
+        //     int num1;
+        //     int num2;
+        //     int sum;
+        //     int.TryParse(stringNum1, out num1);
+        //     int.TryParse(stringNum2, out num2);
+        //     sum = num1 + num2;
+        //     string result = sum.ToString();
+        //     await ReplyAsync(result);
+        // }
+        
+
         // [Command("newclient")]
         // public async Task ExecuteAsync(
         //     [Remainder] [Summary("Se crea un nuevo cliente")]
