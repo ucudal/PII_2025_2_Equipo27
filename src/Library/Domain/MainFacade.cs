@@ -10,7 +10,7 @@ namespace Library
     public class MainFacade
     {
         protected RepoClients repoClients = RepoClients.Instance;
-        private RepoTag repoTag = new RepoTag();
+        private RepoTags repoTag = new RepoTags();
         protected RepoUser RepoUsers = RepoUser.Instance;
         
 
@@ -164,7 +164,7 @@ namespace Library
         /// <returns></returns>
         public IReadOnlyList<Tag> GetTags()
         {
-            return repoTag.TagList;
+            return repoTag.GetAll();
         }
 
         /// <summary>
