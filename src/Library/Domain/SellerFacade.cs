@@ -31,7 +31,7 @@ namespace Library
         /// <summary>
         /// Instancia de administrador usada para búsqueda y asignación entre sellers.
         /// </summary>
-        public Admin admin = new Admin("Luciano");
+        public Admin admin = new Admin("Luciano", 0);
 
         /// <summary>
         /// Asigna un cliente de este seller a otro seller.
@@ -40,16 +40,16 @@ namespace Library
         /// <param name="sellernameOther">Nombre de usuario del seller destino</param>
         /// <param name="client">Cliente que se desea asignar</param>
         /// <returns>Mensaje con resultado de la operación</returns>
-        public void AssignClient(string sellernameMy, string sellernameOther, string id)
+        public void AssignClient(string sellerIdMy, string sellerIdOther, string clientId)
         {
 
-            int clientId;
-            if (!int.TryParse(id, out clientId))
+            int ClientId;
+            if (!int.TryParse(clientId, out ClientId))
                 throw new ArgumentException("El id no es válido");
             
-            Seller seller1 = RepoUsers.SearchUser<Seller>(sellernameMy);
-            Seller seller2 = RepoUsers.SearchUser<Seller>(sellernameOther);
-            Client client = repoClients.SearchClientById(clientId);
+            Seller seller1 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdMy));
+            Seller seller2 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdOther));
+            Client client = repoClients.SearchClientById(ClientId);
 
             if (seller1 != null && seller2 != null && client != null)
             {

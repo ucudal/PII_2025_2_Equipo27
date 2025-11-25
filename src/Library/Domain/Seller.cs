@@ -9,7 +9,7 @@ namespace Library
         private List<Client> _clients = new List<Client>();
         public IReadOnlyList<Client> Clients => _clients.AsReadOnly();
 
-        public Seller(string username) : base(username)
+        public Seller(string username, int id) : base(username, id)
         {
             // Intencionalmente en blanco
         }

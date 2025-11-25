@@ -14,7 +14,7 @@ public class UserTest
     [Test]
     public void SetUserName_Valid()
     {
-        Seller seller = new Seller("Juan");
+        Seller seller = new Seller("Juan", 0);
         seller.UserName = "Manuel";
         Assert.That("Manuel", Is.EqualTo(seller.UserName));
     }
@@ -26,7 +26,7 @@ public class UserTest
     [Test]
     public void SetUserName_Exception()
     {
-        Assert.Throws<ArgumentException>(() => Is.EqualTo(new Seller("")));
+        Assert.Throws<ArgumentException>(() => Is.EqualTo(new Seller("", 0)));
     }
     
     
@@ -36,7 +36,7 @@ public class UserTest
     [Test]
     public void CloseOpportunityClosesAnOpportunityAndAddsToTheList()
     {
-        Seller seller = new Seller("Juanito");
+        Seller seller = new Seller("Juanito", 0);
         Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.Male,
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Open,client,DateTime.Now);

@@ -32,11 +32,56 @@ public class RepoUserTest
         RepoUser users = RepoUser.Instance;
         users.CreateSeller("Marisol");
 
-        Seller seller = users.SearchUser<Seller>("Lucas");
+        Seller seller = users.SearchUser<Seller>(1);
 
         Assert.That(seller, Is.Null);
     }
+    
+    /// <summary>
+    /// Verifica que se cree un administrador correctamente si este no existe
+    /// </summary>
 
+    [Test]
+    public void CreateAdmin_NotExistUsername()
+    {
+        RepoUser users = RepoUser.Instance;
+        string username = "Lucas";
+
+        Admin admin = users.CreateAdmin(username);
+
+        Assert.That(admin.UserName, Is.EqualTo(username));
+        Assert.That(users.Users.Count, Is.EqualTo(1));
+        Assert.That(users.Users[0], Is.EqualTo(admin));
+    }
+
+    /// <summary>
+    /// Verifica que no se pueda crear un administrador porque
+    /// ya se habia creado uno antes con el mismo nombre
+    /// </summary>
+    [Test]
+    public void CreateAdmin_Existing()
+    {
+        RepoUser users = RepoUser.Instance;
+        Admin seller1 = users.CreateAdmin("Luciano");
+
+        Admin seller2 = users.CreateAdmin("Luciano");
+
+        Assert.That(seller2, Is.Null);
+        Assert.That(users.Users.Count, Is.EqualTo(1));
+    }
+    
+    /// <summary>
+    /// Verifica que si se crea un administrador sin nombre, devuelva null
+    /// </summary>
+
+    [Test]
+    public void CreateAdmin_Exception()
+    {
+        RepoUser users = RepoUser.Instance;
+        Admin admin = users.CreateAdmin("");
+
+        Assert.That(admin, Is.Null);
+    }
 
     /// <summary>
     /// Verifica que se cree un vendedor correctamente si este no existe
@@ -97,8 +142,9 @@ public class RepoUserTest
         RepoUser users = RepoUser.Instance;
         Seller seller = users.CreateSeller("Antonella");
 
-        users.DeleteUser("Antonella");
+        users.DeleteUser(0);
 
         Assert.That(users.Users.Count, Is.EqualTo(0));
     }
+    
 }

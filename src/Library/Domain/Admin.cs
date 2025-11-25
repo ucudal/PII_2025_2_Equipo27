@@ -5,7 +5,7 @@ namespace Library
 {
     public class Admin : User
     {
-        public Admin(string username) : base(username)
+        public Admin(string username, int id) : base(username, id)
         {
             // Itencionalmente en blanco
         }

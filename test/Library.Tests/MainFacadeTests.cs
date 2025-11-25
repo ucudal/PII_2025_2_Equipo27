@@ -11,7 +11,7 @@ public class MainFacadeTests
     [Test]
     public void ModifyOpportunityWorksCorrectly()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         MainFacade mainFacade = new MainFacade();
         mainFacade.ModifyClient(client, RepoClients.TypeOfData.LastName, "Gutierrez");
@@ -21,7 +21,7 @@ public class MainFacadeTests
     [Test]
     public void CreateOpportunityWorksCorrectly()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         MainFacade mainFacade = new MainFacade();
         mainFacade.ModifyClient(client, RepoClients.TypeOfData.LastName, "Gutierrez");
@@ -32,7 +32,7 @@ public class MainFacadeTests
     [Test]
     public void AddTagAddsATag()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         Tag tag = new Tag("Electrodomesticos");
         MainFacade mainFacade = new MainFacade();
@@ -45,7 +45,7 @@ public class MainFacadeTests
     [Test]
     public void RegisterCallRegistersACall()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterCall("contenido","llamada a juan", client, DateTime.Now);
@@ -55,7 +55,7 @@ public class MainFacadeTests
     [Test]
     public void RegisterEmailRegistersAnEmail()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterEmail("contenido",InteractionOrigin.Origin.Sent, "Email a juan",client, DateTime.Now);
@@ -65,7 +65,7 @@ public class MainFacadeTests
     [Test]
     public void RegisterMeetingRegistersAMeeting()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterMeeting("Expulsion de juan","Rechazada","Edificio de la empresa",Meeting.MeetingState.Done,client,DateTime.Now);
@@ -75,7 +75,7 @@ public class MainFacadeTests
     [Test]
     public void RegisterMessageRegistersAMessage()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterMessage("contenido", "Email a juan", InteractionOrigin.Origin.Received,"Whatsapp",client,DateTime.Now);
@@ -87,7 +87,7 @@ public class MainFacadeTests
     {
         // Arrange
         MainFacade mainFacade = new MainFacade();
-        Seller jose = new Seller("Jose");
+        Seller jose = new Seller("Jose", 0);
         // Act
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         // Assert 
@@ -99,7 +99,7 @@ public class MainFacadeTests
     {
         // Arrange
         MainFacade mainFacade = new MainFacade();
-        Seller jose = new Seller("Jose");
+        Seller jose = new Seller("Jose", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -113,7 +113,7 @@ public class MainFacadeTests
     {
         // Arrange
         MainFacade mainFacade = new MainFacade();
-        Seller jose = new Seller("Jose");
+        Seller jose = new Seller("Jose", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -126,7 +126,7 @@ public class MainFacadeTests
     public void SearchClient_ByNameTest()
     {
         MainFacade mainFacade = new MainFacade();
-        Seller jose = new Seller("Lucas");
+        Seller jose = new Seller("Lucas", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -139,7 +139,7 @@ public class MainFacadeTests
     public void SearchClient_ByLastNameTest()
     {
         MainFacade mainFacade = new MainFacade();
-        Seller jose = new Seller("Lucas");
+        Seller jose = new Seller("Lucas", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -152,7 +152,7 @@ public class MainFacadeTests
     public void SearchClient_ByEmailTest()
     {
         MainFacade mainFacade = new MainFacade();
-        Seller jose = new Seller("Lucas");
+        Seller jose = new Seller("Lucas", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -165,7 +165,7 @@ public class MainFacadeTests
     public void SearchClient_ByPhoneTest()
     {
         MainFacade mainFacade = new MainFacade();
-        Seller jose = new Seller("Lucas");
+        Seller jose = new Seller("Lucas", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act

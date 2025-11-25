@@ -5,7 +5,7 @@ public class OpportunityTests
     [Test]
     public void OpportunityCreatesCorrectly()
     {
-        Seller seller = new Seller("Juanito");
+        Seller seller = new Seller("Juanito", 0);
         Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.Male,
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Open,client,DateTime.Today);
@@ -19,7 +19,7 @@ public class OpportunityTests
     [Test]
     public void SellWorksCorrectly()
     {
-        Seller seller = new Seller("Juanito");
+        Seller seller = new Seller("Juanito", 0);
         Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.Male,
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Open,client,DateTime.Today);
@@ -32,7 +32,7 @@ public class OpportunityTests
     [Test]
     public void SellThrowsIfAlreadyClosed()
     {
-        Seller seller = new Seller("Juanito");
+        Seller seller = new Seller("Juanito", 0);
         Client client = new Client(0, "Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321", Client.GenderType.Male,
             "04/11/1999", seller);
         Opportunity opportunity = new Opportunity("PS5", 500, Opportunity.States.Close, client, DateTime.Today);
