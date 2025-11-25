@@ -34,7 +34,8 @@ public class MainFacadeTests
     {
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
-        Tag tag = new Tag("Electrodomesticos");
+        RepoTags repoTags = new RepoTags();
+        Tag tag = repoTags.CreateTag("vip");
         MainFacade mainFacade = new MainFacade();
         mainFacade.ModifyClient(client, RepoClients.TypeOfData.LastName, "Gutierrez");
         mainFacade.AddTag(client,tag);
@@ -89,7 +90,7 @@ public class MainFacadeTests
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Jose", 0);
         // Act
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "male", "19/03/2000", jose);
         // Assert 
         Assert.That(mainFacade.GetClients(), Is.Not.Empty);
     }
@@ -99,9 +100,11 @@ public class MainFacadeTests
     {
         // Arrange
         MainFacade mainFacade = new MainFacade();
+
         Seller jose = new Seller("Jose", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+
         // Act
         IReadOnlyCollection<Client> actual = mainFacade.GetClients();
         // Assert
@@ -113,9 +116,11 @@ public class MainFacadeTests
     {
         // Arrange
         MainFacade mainFacade = new MainFacade();
+
         Seller jose = new Seller("Jose", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+
         // Act
         mainFacade.DeleteClient(0);
         //Assert
@@ -142,6 +147,7 @@ public class MainFacadeTests
         Seller jose = new Seller("Lucas", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+
         // Act
         List<Client> actual = mainFacade.SearchClient(RepoClients.TypeOfData.LastName,"Dominguez");
         // Assert
@@ -152,9 +158,11 @@ public class MainFacadeTests
     public void SearchClient_ByEmailTest()
     {
         MainFacade mainFacade = new MainFacade();
+
         Seller jose = new Seller("Lucas", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+
         // Act
         List<Client> actual = mainFacade.SearchClient( RepoClients.TypeOfData.Email,"abcdefg");
         // Assert
@@ -165,9 +173,11 @@ public class MainFacadeTests
     public void SearchClient_ByPhoneTest()
     {
         MainFacade mainFacade = new MainFacade();
+
         Seller jose = new Seller("Lucas", 0);
         mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+
         // Act
         List<Client> actual = mainFacade.SearchClient( RepoClients.TypeOfData.Phone,"987654321");
         // Assert

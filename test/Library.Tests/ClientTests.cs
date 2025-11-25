@@ -34,7 +34,8 @@ public class ClientTests
     {
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
-        Tag tag = new Tag("Electrodomesticos");
+        RepoTags repoTags = new RepoTags();
+        Tag tag = repoTags.CreateTag("vip");
         client.AddTag(tag);
         Assert.That(client.Tags.Count,Is.EqualTo(1));
         Assert.That(client.Tags[0], Is.EqualTo(tag));
@@ -63,7 +64,8 @@ public class ClientTests
     {
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
-        Tag tag = new Tag("Electrodomesticos");
+        RepoTags repoTags = new RepoTags();
+        Tag tag = repoTags.CreateTag("vip");
         client.AddTag(tag);
         Assert.Throws<InvalidOperationException>(() => client.AddTag(tag));
     }

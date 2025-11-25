@@ -10,7 +10,7 @@ namespace Library
     public class MainFacade
     {
         protected RepoClients repoClients = RepoClients.Instance;
-        private RepoTag repoTag = new RepoTag();
+        private RepoTags repoTag = new RepoTags();
         protected RepoUser RepoUsers = RepoUser.Instance;
         
 
@@ -24,9 +24,24 @@ namespace Library
         /// <param name="gender">Género del cliente</param>
         /// <param name="birthDate">Fecha de nacimiento (string)</param>
         /// <param name="seller">Vendedor responsable</param>
-        public Client CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        public Client CreateClient(string name, string lastName, string email, string phone, string gender, string birthDate, Seller seller)
         {
-            return repoClients.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
+            gender = gender.ToLower();
+            Client.GenderType genderTypeGender;
+            if (gender == "male")
+            {
+                genderTypeGender = Client.GenderType.Male;
+            }
+            else if (gender == "female")
+            {
+                genderTypeGender = Client.GenderType.Female;
+            }
+            else
+            {
+                throw new ArgumentException("Gender tiene que ser 'male' o 'female'", nameof(gender));
+            }
+            
+            return repoClients.CreateClient(name, lastName, email, phone, genderTypeGender, birthDate, seller);
         }
 
         /// <summary>
@@ -149,7 +164,7 @@ namespace Library
         /// <returns></returns>
         public IReadOnlyList<Tag> GetTags()
         {
-            return repoTag.TagList;
+            return repoTag.GetAll();
         }
 
         /// <summary>

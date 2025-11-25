@@ -73,7 +73,7 @@ namespace Library
             this.NextId += 1;
             return client;
         }
-        
+            
         /// <summary>
         /// Elimina un cliente del repositorio de clientes utilizando su identificador.
         /// De acuerdo al patrón Expert, RepoClients tiene la información necesaria porque gestiona la colección y los identificadores.
