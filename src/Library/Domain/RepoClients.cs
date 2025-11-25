@@ -65,10 +65,10 @@ namespace Library
         /// <param name="seller">Vendedor asignado al Cliente.</param>
         /// <returns>Cliente creado.</returns>
 
-        public Client CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        public Client CreateClient(string name, string lastName, string email, string phone, Seller seller)
         {
             int id = this.NextId;
-            Client client = new Client(id, name, lastName, email, phone, gender, birthDate, seller);
+            Client client = new Client(id, name, lastName, email, phone, seller);
             clients.Add(client);
             this.NextId += 1;
             return client;
@@ -138,9 +138,9 @@ namespace Library
 
         /// <summary>
         /// Busca y devuelve los clientes que cumplan con el criterio especificado.
-        /// Según el patrón Expert, RepoClients controla la colección y la información necesaria, por lo que es responsable de la búsqueda.
+        /// Según el patrón Expert, RepoClients controla la colección y Client la información, por lo que RepoCLients es responsable de la búsqueda validando con un método de Client.
         /// Aplicación de los patrones y principios:
-        /// - Expert: RepoClients tiene el acceso y conocimiento sobre los datos almacenados de todos los clientes.
+        /// - Expert: RepoClients contiene a los clientes, entonces debería ser quien los busque.
         /// - SRP: El método tiene una responsabilidad única, buscar clientes por un dato específico.
         /// </summary>
         /// <param name="datasearched">Tipo de dato a buscar: Nombre, Apellido, Email o Teléfono.</param>
@@ -159,44 +159,11 @@ namespace Library
                 throw new ArgumentException("Debe utilizar un tipo de dato existente", nameof(datasearched));
             }
             List<Client> result = new List<Client>();
-            if (datasearched == TypeOfData.Name)
+            foreach (Client client in this.clients)
             {
-                foreach (var client in clients)
+                if (client.IsTheSearchedClient(datasearched,searched))
                 {
-                    if (client.Name == searched)
-                    {
-                        result.Add(client);
-                    }
-                }
-            }
-            else if (datasearched == TypeOfData.LastName)
-            {
-                foreach (var client in clients)
-                {
-                    if (client.LastName == searched)
-                    {
-                        result.Add(client);
-                    }
-                }
-            }
-            else if (datasearched == TypeOfData.Email) 
-            { 
-                foreach (var client in clients)
-                {
-                    if (client.Email == searched)
-                    {
-                        result.Add(client);
-                    }
-                }
-            }
-            else if (datasearched == TypeOfData.Phone) 
-            { 
-                foreach (var client in clients)
-                {
-                    if (client.Phone == searched)
-                    {
-                        result.Add(client);
-                    }
+                    result.Add(client);
                 }
             }
             return result;

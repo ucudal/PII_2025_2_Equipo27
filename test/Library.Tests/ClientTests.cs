@@ -8,14 +8,12 @@ public class ClientTests
     public void ClientShouldCreateCorrectly()
     {
         Seller seller = new Seller("Seller");
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male, "09/10/08", seller);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com",  "099888222", seller);
         Assert.That(client.Id, Is.EqualTo(0));
         Assert.That(client.Name, Is.EqualTo("Juan"));
         Assert.That(client.LastName, Is.EqualTo("Perez"));
         Assert.That(client.Email, Is.EqualTo("juanperez@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("099888222"));
-        Assert.That(client.Gender, Is.EqualTo(Client.GenderType.Male));
-        Assert.That(client.BirthDate, Is.EqualTo("09/10/08"));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));
 
     }
@@ -23,7 +21,7 @@ public class ClientTests
     public void AddInteractionAddsAnInteraction()
     {
         Seller seller = new Seller("Seller");
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "09/10/08", seller);
         Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
         client.AddInteraction(message);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
@@ -33,7 +31,7 @@ public class ClientTests
     public void AddTagAddsATag()
     {
         Seller seller = new Seller("Seller");
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", seller);
         Tag tag = new Tag("Electrodomesticos");
         client.AddTag(tag);
         Assert.That(client.Tags.Count,Is.EqualTo(1));
@@ -44,7 +42,7 @@ public class ClientTests
     public void CreateOportunityWorksCorrectly()
     {
         Seller seller = new Seller("Seller");
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
         client.CreateOpportunity("Product", 100 , Opportunity.States.Open, client, DateTime.Now);
         Assert.That(client.Opportunities.Count,Is.EqualTo(1));
     }
@@ -54,15 +52,14 @@ public class ClientTests
     {
         Seller seller = new Seller("Pedrito");
         Assert.Throws<ArgumentException>(() => new Client(1, "", "", "", null,
-            Client.GenderType.Male,
-            null, seller));
+             seller));
     }
 
     [Test]
     public void AddTagThrowsIfIsAlreadyAdded()
     {
         Seller seller = new Seller("Seller");
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
         Tag tag = new Tag("Electrodomesticos");
         client.AddTag(tag);
         Assert.Throws<InvalidOperationException>(() => client.AddTag(tag));
@@ -71,10 +68,26 @@ public class ClientTests
     public void AddInteractionThrowsIfIsAlreadyAdded()
     {
         Seller seller = new Seller("Seller");
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", seller);
         Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
         client.AddInteraction(message);
         Assert.Throws<InvalidOperationException>(() => client.AddInteraction(message));
+    }
+
+    [Test]
+    public void AddData_AddsDataCorrectly()
+    {
+        Seller seller = new Seller("pip");
+        Client client = new Client(0, "Julian", "Rod", "jaujad@", "099", seller);
+        client.AddData("Gender","Male");
+        client.AddData("birthdate","21/03/1991");
+
+        // Act
+        string actualClientBirthDate = client.BirthDate;
+        Client.GenderType actualClientGender = client.Gender;
+        // Assert
+        Assert.That(actualClientBirthDate, Is.EqualTo("21/03/1991"));
+        Assert.That(actualClientGender, Is.EqualTo(Client.GenderType.Male));
     }
 }
 

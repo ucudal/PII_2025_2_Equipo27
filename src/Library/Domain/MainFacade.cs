@@ -24,9 +24,9 @@ namespace Library
         /// <param name="gender">Género del cliente</param>
         /// <param name="birthDate">Fecha de nacimiento (string)</param>
         /// <param name="seller">Vendedor responsable</param>
-        public Client CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        public Client CreateClient(string name, string lastName, string email, string phone,  Seller seller)
         {
-            return repoClients.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
+            return repoClients.CreateClient(name, lastName, email, phone, seller);
         }
 
         /// <summary>
@@ -92,24 +92,28 @@ namespace Library
         /// <param name="client">Cliente a modificar</param>
         /// <param name="modified">Tipo de dato a modificar</param>
         /// <param name="modification">Nuevo valor</param>
-        public void ModifyClient(Client client, RepoClients.TypeOfData modified, string modification)
+        public void ModifyClient(string id, string modified, string modification)
         {
-            if (modified == RepoClients.TypeOfData.Email)
-            {
-                client.Email = modification;
-            }
-            else if (modified == RepoClients.TypeOfData.LastName)
-            {
-                client.LastName = modification;
-            }
-            else if (modified == RepoClients.TypeOfData.Name)
-            {
-                client.Name = modification;
-            }
-            else if (modified == RepoClients.TypeOfData.Phone)
-            {
-                client.Phone = modification;
-            }
+           Client client = repoClients.SearchClientById(int.Parse(id));
+           if (modified == RepoClients.TypeOfData.Name.ToString())
+           {
+               client.ModifyClient(RepoClients.TypeOfData.Name,modification);
+           }
+           else if (modified == RepoClients.TypeOfData.LastName.ToString())
+           {
+               client.ModifyClient(RepoClients.TypeOfData.LastName,modification);
+
+           }
+           else if (modified == RepoClients.TypeOfData.Email.ToString())
+           {
+               client.ModifyClient(RepoClients.TypeOfData.Email,modification);
+
+           }
+           else if (modified == RepoClients.TypeOfData.Phone.ToString())
+           {
+               client.ModifyClient(RepoClients.TypeOfData.Phone,modification);
+
+           }
         }
 
         /// <summary>
@@ -123,7 +127,18 @@ namespace Library
         {
             return client.CreateOpportunity(product, price, states, client, DateTime.Now);
         }
-
+        
+        /// <summary>
+        /// Añade nuevos datos al cliente, ya sea fecha de nacimiento o genero.
+        /// </summary>
+        /// <param name="clientid"></param>
+        /// <param name="data"></param>
+        /// <param name="modification"></param>
+        public void AddData(int clientid,string data, string modification)
+        {
+            Client client = repoClients.SearchClientById(clientid);
+            client.AddData(data,modification);
+        }
         /// <summary>
         /// Crea un Tag y lo guarda.
         /// </summary>
