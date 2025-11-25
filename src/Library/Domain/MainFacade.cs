@@ -9,8 +9,10 @@ namespace Library
     /// </summary>
     public class MainFacade
     {
-        private RepoClients repoClients = new RepoClients();
+        protected RepoClients repoClients = RepoClients.Instance;
         private RepoTag repoTag = new RepoTag();
+        protected RepoUser RepoUsers = RepoUser.Instance;
+        
 
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio.
@@ -22,9 +24,24 @@ namespace Library
         /// <param name="gender">Género del cliente</param>
         /// <param name="birthDate">Fecha de nacimiento (string)</param>
         /// <param name="seller">Vendedor responsable</param>
-        public Client CreateClient(string name, string lastName, string email, string phone, Client.GenderType gender, string birthDate, Seller seller)
+        public Client CreateClient(string name, string lastName, string email, string phone, string gender, string birthDate, Seller seller)
         {
-            return repoClients.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
+            gender = gender.ToLower();
+            Client.GenderType genderTypeGender;
+            if (gender == "male")
+            {
+                genderTypeGender = Client.GenderType.Male;
+            }
+            else if (gender == "female")
+            {
+                genderTypeGender = Client.GenderType.Female;
+            }
+            else
+            {
+                throw new ArgumentException("Gender tiene que ser 'male' o 'female'", nameof(gender));
+            }
+            
+            return repoClients.CreateClient(name, lastName, email, phone, genderTypeGender, birthDate, seller);
         }
 
         /// <summary>
@@ -117,9 +134,9 @@ namespace Library
         /// <param name="price">Precio</param>
         /// <param name="states">Estado de la oportunidad</param>
         /// <param name="client">Cliente asociado</param>
-        public Opportunity CreateOpportunity(string Product, int price, Opportunity.States states, Client client)
+        public Opportunity CreateOpportunity(string product, int price, Opportunity.States states, Client client)
         {
-            return client.CreateOpportunity(Product, price, states, client, DateTime.Now);
+            return client.CreateOpportunity(product, price, states, client, DateTime.Now);
         }
 
         /// <summary>

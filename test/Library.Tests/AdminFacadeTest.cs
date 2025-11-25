@@ -6,41 +6,33 @@ public class AdminFacadeTest
     public void SetUp()
     {
         AdminFacade.ResetInstance();
+        RepoClients.ResetInstance();
+        RepoUser.ResetInstance();
     }
     [Test]
-    public void SuspendSeller()
+    public void SuspendUser()
     {
         AdminFacade facade = AdminFacade.Instance;
         
-        Seller seller = facade.admin.CreateSeller("Daniela");
-        facade.SuspendSeller("Daniela");
+        Seller seller = facade.CreateSeller("Daniela");
+        facade.SuspendUser("Daniela");
         
         
         Assert.That(seller.Active, Is.False);
     }
     
     [Test]
-    public void ActiveSeller()
+    public void ActiveUser()
     {
         AdminFacade facade = AdminFacade.Instance;
-        Seller seller = facade.admin.CreateSeller("Laura");
+        Seller seller = facade.CreateSeller("Laura");
 
-        facade.ActiveSeller("Laura");
+        facade.ActiveUser("Laura");
 
         Assert.That(seller.Active, Is.True);
     }
     
-    [Test]
-    public void DeleteSeller_ValidName()
-    {
-        AdminFacade facade = AdminFacade.Instance;
-        Seller seller = facade.admin.CreateSeller("Daniela");
-
-        facade.DeleteSeller("Daniela");
-        
-        Assert.That(facade.admin.sellers.Count, Is.EqualTo(0));
-
-    }
+  
 
 
    

@@ -35,6 +35,7 @@ namespace Library
             }
             if (newSeller.Active)
             {
+                
                 newSeller._clients.Add(client);
                 client.AsignedSeller = newSeller;
             }
