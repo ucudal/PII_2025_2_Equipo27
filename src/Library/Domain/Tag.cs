@@ -5,6 +5,7 @@ namespace Library
     public class Tag
     {
         private string tagName;
+        public int Id { get; set; }
         public string TagName
         {
             get
@@ -22,13 +23,11 @@ namespace Library
             }
         }
 
-        public Tag(string tagname)
+        public Tag(int id,string tagname)
         {
-            if (string.IsNullOrEmpty(tagname))
-            {
-                throw new ArgumentException("La etiqueta debe tener un nombre", nameof(tagname));
-            }
-            this.TagName = tagname;
+            string name = tagname.ToLower().Trim();
+            this.Id = id;
+            this.TagName = name;
         }
     }
 }
