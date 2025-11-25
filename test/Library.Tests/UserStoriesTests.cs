@@ -61,9 +61,9 @@ public class UserStoriesTests
     {
         SellerFacade facade = SellerFacade.Instance;
         Seller user = new Seller("Carlos");
-        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645", Client.GenderType.Male,
+        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645", "male",
             "01/12/1969", user);
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", "male",
             "10/05/1999", user);
 
         facade.DeleteClient(facade.GetClients()[0].Id);
@@ -79,11 +79,11 @@ public class UserStoriesTests
     {
         SellerFacade facade = SellerFacade.Instance;
         Seller user = new Seller("Carlos");
-        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645", Client.GenderType.Male,
+        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645", "male",
             "01/12/1969", user);
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", "male",
             "10/05/1999", user);
-        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321", Client.GenderType.Female,
+        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321", "female",
             "19/03/2004", user);
 
         List<Client> busqueda1 =  facade.SearchClient(RepoClients.TypeOfData.Name,"pedro");
@@ -108,11 +108,11 @@ public class UserStoriesTests
     {
         SellerFacade facade = SellerFacade.Instance;
         Seller user = new Seller("Carlos");
-        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645", Client.GenderType.Male,
+        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645", "male",
             "01/12/1969", user);
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", "male",
             "10/05/1999", user);
-        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321", Client.GenderType.Female,
+        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321", "female",
             "19/03/2004", user);
         
         
@@ -206,7 +206,7 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789", Client.GenderType.Male, "21/03/1991", seller); 
+        SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789", "male", "21/03/1991", seller); 
         IReadOnlyList<Client> clients = SellerFacade.Instance.GetClients();
         // Act
         string actualClientBirthDate = clients[0].BirthDate;
@@ -236,8 +236,8 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789", Client.GenderType.Male, "09/09/1985", seller); 
-        SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879", Client.GenderType.Male, "22/07/1998", seller);
+        SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789", "male", "09/09/1985", seller); 
+        SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879", "male", "22/07/1998", seller);
         Tag tag1 = SellerFacade.Instance.CreateTag("Compra milanesas");
         Tag tag2 = SellerFacade.Instance.CreateTag("Compra merengue");
         Tag tag3 = SellerFacade.Instance.CreateTag("Compra botines");
@@ -262,7 +262,7 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456", Client.GenderType.Male, "14/02/1987", seller);
+        Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456", "male", "14/02/1987", seller);
         // Act
         Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Mate", 450, Opportunity.States.Close, elEdi);
         // Assert
@@ -276,7 +276,7 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556", Client.GenderType.Male, "08/07/1991", seller);
+        Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556", "male", "08/07/1991", seller);
         // Act
         Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Pelota", 200, Opportunity.States.Open, virgil);
         // Assert
@@ -291,7 +291,7 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999", Client.GenderType.Male, "28/07/1993", seller);
+        Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999", "male", "28/07/1993", seller);
         SellerFacade.Instance.RegisterCall("Compra de botines", "Quiere comprar 3 pares", harry, DateTime.Today);
         SellerFacade.Instance.RegisterEmail("Organizando una llamada para hacer una compra", InteractionOrigin.Origin.Received, "Ninguna nota", harry, DateTime.Today);
         SellerFacade.Instance.RegisterMeeting("-", "Proximamente", "Munich", Meeting.MeetingState.Programmed, harry, DateTime.Today);
@@ -308,7 +308,7 @@ public class UserStoriesTests
     {
         Seller user = new Seller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", "male",
             "10/05/1999", user);
         facade.SwitchClientActivity(0);
         int actual = facade.InactiveClients().Count;
@@ -321,7 +321,7 @@ public class UserStoriesTests
     {
         Seller user = new Seller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111", "male",
             "10/05/1999", user);
         facade.SwitchClientWaiting(0);
         int actual = facade.WaitingClients().Count;
@@ -352,7 +352,7 @@ public class UserStoriesTests
         SellerFacade facade = SellerFacade.Instance;
         facade.admin.CreateSeller("Pedro");
         facade.admin.CreateSeller("Juan");
-        facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+        facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", "male",
             "10/05/1999", facade.admin.SearchSeller("Pedro"));
         facade.AssignClient("Pedro", "Juan", facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0]);
         Assert.That(facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].AsignedSeller,Is.EqualTo(facade.admin.SearchSeller("Juan")));
@@ -364,7 +364,7 @@ public class UserStoriesTests
     {
         AdminFacade facade = AdminFacade.Instance;
         facade.admin.CreateSeller("Juan");
-        facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", Client.GenderType.Male,
+        facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", "male",
             "10/05/1999", facade.admin.SearchSeller("Juan"));
         facade.CreateOpportunity("Harina",50,Opportunity.States.Open,facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0]);
         facade.admin.CloseOpportunity(facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].Opportunities[0]);
@@ -377,8 +377,8 @@ public class UserStoriesTests
     //Como usuario quiero ver un panel con clientes totales, interacciones recientes y reuniones próximas, para tener un resumen rápido.
     {
         AdminFacade facade = AdminFacade.Instance;
-        facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999", Client.GenderType.Male, "12/12/12", null);
-        facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888", Client.GenderType.Female, "1995-05-05", null);
+        facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999", "male", "12/12/12", null);
+        facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888", "female", "1995-05-05", null);
         facade.RegisterCall("Llamada 1", "Notas 1", facade.SearchClient(RepoClients.TypeOfData.Name,"Ezequiel")[0],DateTime.Now.AddDays(-1));
         facade.RegisterMeeting("Reunión 1", "Notas 2", "Sala A",Meeting.MeetingState.Programmed ,facade.SearchClient(RepoClients.TypeOfData.Name,"Ezequiel")[0] ,DateTime.Now.AddDays(1));
         facade.RegisterEmail("Email 1", InteractionOrigin.Origin.Sent, "Notas",facade.SearchClient(RepoClients.TypeOfData.Name,"Lucía")[0] ,DateTime.Now.AddDays(-1));
