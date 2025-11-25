@@ -1,6 +1,6 @@
 namespace Library.Tests;
 
-public class RepoTagTest
+public class RepoTagsTest
 {
     [SetUp]
     public void Setup()
@@ -15,12 +15,12 @@ public class RepoTagTest
     public void CreateTag()
     {
         string testTagName = "vip";
-        RepoTag repo = new RepoTag();
+        RepoTags repo = new RepoTags();
 
         Tag tag = repo.CreateTag(testTagName);
         
-        Assert.That(repo.TagList.Count, Is.EqualTo(1));
-        Assert.That(repo.TagList[0].TagName, Is.EqualTo(testTagName));
+        Assert.That(repo.GetAll().Count, Is.EqualTo(1));
+        Assert.That(repo.GetAll()[0].TagName, Is.EqualTo(testTagName));
     }
     
     /// <summary>
@@ -31,7 +31,7 @@ public class RepoTagTest
     public void CreateDuplicatedTag()
     {
         string testTagName = "vip";
-        RepoTag repo = new RepoTag();
+        RepoTags repo = new RepoTags();
 
         repo.CreateTag(testTagName);
         
@@ -48,7 +48,7 @@ public class RepoTagTest
     {
         string testTagName = "vip";
 
-        RepoTag repo = new RepoTag();
+        RepoTags repo = new RepoTags();
         Tag tag = repo.CreateTag(testTagName);
 
         Tag search = repo.Search(testTagName);
@@ -66,9 +66,9 @@ public class RepoTagTest
     {
         string testTagName = "vip";
 
-        RepoTag repo = new RepoTag();
+        RepoTags repo = new RepoTags();
         Tag tag = repo.CreateTag(testTagName);
-
+    
 
         var search = Assert.Throws<Exception>(() => repo.Search("hyper"));
         Assert.That(search.Message, Does.Contain("Error al encontrar tag: "));

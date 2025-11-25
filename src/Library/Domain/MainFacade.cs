@@ -10,7 +10,8 @@ namespace Library
     public class MainFacade
     {
         private RepoClients repoClients = new RepoClients();
-        private RepoTag repoTag = new RepoTag();
+        private RepoTags repoTags = new RepoTags();
+        
 
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio.
@@ -128,7 +129,7 @@ namespace Library
         /// <param name="tagName">Nombre del Tag</param>
         public Tag CreateTag(string tagName)
         {
-            return repoTag.CreateTag(tagName);
+            return repoTags.CreateTag(tagName);
         }
 
         /// <summary>
@@ -147,7 +148,7 @@ namespace Library
         /// <returns></returns>
         public IReadOnlyList<Tag> GetTags()
         {
-            return repoTag.TagList;
+            return repoTags.GetAll();
         }
 
         /// <summary>

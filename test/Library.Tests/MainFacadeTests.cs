@@ -29,7 +29,8 @@ public class MainFacadeTests
     {
         Seller seller = new Seller("Seller");
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
-        Tag tag = new Tag("Electrodomesticos");
+        RepoTags repoTags = new RepoTags();
+        Tag tag = repoTags.CreateTag("vip");
         MainFacade mainFacade = new MainFacade();
         mainFacade.ModifyClient(client, RepoClients.TypeOfData.LastName, "Gutierrez");
         mainFacade.AddTag(client,tag);
