@@ -7,7 +7,7 @@ public class AdminFacadeTest
     {
         AdminFacade.ResetInstance();
         RepoClients.ResetInstance();
-        RepoUser.ResetInstance();
+        RepoUsers.ResetInstance();
     }
     [Test]
     public void SuspendUser()

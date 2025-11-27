@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 
 namespace Library
 {
-    public class RepoUser : IRepo<User>
+    public class RepoUsers : IRepo<User>
     {
-        private static RepoUser instance = null;
+        private static RepoUsers instance = null;
 
-        public static RepoUser Instance
+        public static RepoUsers Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new RepoUser();
+                    instance = new RepoUsers();
                 }
 
                 return instance;
@@ -25,7 +27,7 @@ namespace Library
             instance = null;
         }
 
-        private RepoUser()
+        private RepoUsers()
         {
             // Intencionalmente en blanco
         }
@@ -53,6 +55,11 @@ namespace Library
 
         /// <summary>
         /// Crea un nuevo administrador y lo agrega a la lista de usuario.
+        /// Principios aplicados:
+        /// Expert: RepoUsers es quien conoce la lista de usuarios.
+        /// SRP: El método solo crea y guarda un administrador.
+        /// Creator: RepoUsers es responsable de crear Admin porque gestiona la colección.
+        /// Polymorphism: Admin es subtipo de User, el metodo en la lista lo añade como User.
         /// </summary>
         /// <param name="username">El nombre de usuario del nuevo usuario.</param>
         /// <returns>El administrador creado o nada si ya hay un usuario con el nombre de usuario ingresado</returns>
@@ -82,6 +89,11 @@ namespace Library
 
         /// <summary>
         /// Crea un nuevo vendedor y lo agrega a la lista de usuarios.
+        /// Principios aplicados:
+        /// Expert: RepoUsers es quien conoce la lista de usuarios.
+        /// SRP: El método solo crea y guarda un vendedor.
+        /// Creator: RepoUsers es responsable de crear Seller porque gestiona la colección.
+        /// Polymorphism: Seller es subtipo de User, el metodo en la lista lo añade como User.
         /// </summary>
         /// <param name="username">El nombre de usuario del nuevo vendedor.</param>
         /// <returns>El vendedor creado o nada si ya hay un vendedor con el nombre de usuario ingresado</returns>
@@ -111,28 +123,36 @@ namespace Library
 
         /// <summary>
         /// Añade un usuario a la lista.
+        /// Principios aplicados:
+        /// Expert: RepoUsers es quien gestiona la lista de usuarios.
+        /// SRP: El método solo guarda un usuario en la lista.
+        /// Polymorphism: El metodo recibe cualquier subtipo de User.
         /// </summary>
         /// <param name="entity"></param>
         public void Add(User entity)
         {
             users.Add(entity);
         }
-
+        
+        /// <summary>
+        /// Se obtiene un usuario por su Id.
+        /// Principios aplicados:
+        /// Expert: AdminFacade es quien gestiona la lista de usuarios.
+        /// SRP: El método solo devuelve el primer usuario.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public User GetById(int id)
         {
-            foreach (var user in users)
-            {
-                if (user.Id == id)
-                {
-                    return user;
-                }
-            }
-
-            return null;
+            return users.FirstOrDefault(t => t.Id == id);
         }
 
         /// <summary>
         /// Busca un administrador o vendedor especifico en la lista de vendedores.
+        /// Principios aplicados:
+        /// Expert: AdminFacade es quien gestiona la lista de usuarios.
+        /// SRP: El método solo devuelve un usuario.
+        /// Polymorphism: El método trabaja con subtipos de User.
         /// </summary>
         /// <param name="id">La id del usuario.</param>
         /// <returns>El administrador o vendedor deseado a buscar o nada si no existe.</returns>
@@ -153,6 +173,9 @@ namespace Library
         
         /// <summary>
         /// Crea una lista con todos los usuarios.
+        /// Principios aplicados:
+        /// Expert: AdminFacade es quien gestiona la lista de usuarios.
+        /// SRP: El método solo crea una lista con todos los usuarios.
         /// </summary>
         /// <returns>La lista creada.</returns>
         public IReadOnlyList<User> GetAll()
@@ -170,6 +193,9 @@ namespace Library
 
         /// <summary>
         /// Crea una lista con todos los usuarios suspendidos.
+        /// /// Principios aplicados:
+        /// Expert: AdminFacade es quien gestiona la lista de usuarios.
+        /// SRP: El método solo crea una lista con todos los suspendidos.
         /// </summary>
         /// <returns>Una lista con todos los usuarios suspendidos.</returns>
         public IReadOnlyList<User> GetSuspendedUsers()
@@ -189,6 +215,9 @@ namespace Library
 
         /// <summary>
         /// Elimina un usuario de la lista de usuarios.
+        /// Principios aplicados:
+        /// Expert: AdminFacade es quien gestiona la lista de usuarios.
+        /// SRP: El método solo elimina un usuario de la lista.
         /// </summary>
         /// <param name="id">Id del usario</param>
         /// <exception cref="ArgumentException"></exception>

@@ -45,6 +45,8 @@ namespace Library
         
         /// <summary>
         /// Cierra una oportunidad y la agrega a una lista de oportunidades que fueron cerradas.
+        /// Principios aplicados:
+        /// Expert: User conoce y gestiona las oportunidades.
         /// </summary>
         /// <param name="opportunity">La oportunidad que será cerrada.</param>
         

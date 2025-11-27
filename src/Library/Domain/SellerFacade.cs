@@ -35,6 +35,9 @@ namespace Library
 
         /// <summary>
         /// Asigna un cliente de este seller a otro seller.
+        /// Principios aplicados:
+        /// Expert: SellerFacade tiene el rol de cordina operaciones entre vendedores.
+        /// SRP: El método solo se encarga de asignar un cliente.
         /// </summary>
         /// <param name="sellerIdMy">Id de usuario del seller actual</param>
         /// <param name="sellerIdOther">Id de usuario del seller destino</param>
@@ -42,9 +45,6 @@ namespace Library
         /// <returns>Mensaje con resultado de la operación</returns>
         public void AssignClient(string sellerIdMy, string sellerIdOther, string clientId)
         {
-
-            
-            
             Seller seller1 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdMy));
             Seller seller2 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdOther));
             Client client = repoClients.SearchClientById(int.Parse(clientId));

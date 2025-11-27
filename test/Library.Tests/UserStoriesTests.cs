@@ -10,7 +10,7 @@ public class UserStoriesTests
         SellerFacade.ResetInstance();
         AdminFacade.ResetInstance();
         RepoClients.ResetInstance();
-        RepoUser.ResetInstance();
+        RepoUsers.ResetInstance();
     }
     
     [Test]

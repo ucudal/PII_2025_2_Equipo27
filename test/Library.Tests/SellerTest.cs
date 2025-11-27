@@ -5,7 +5,7 @@ public class SellerTest
     [SetUp]
     public void Setup()
     {
-        RepoUser.ResetInstance();
+        RepoUsers.ResetInstance();
     }
 
     /// <summary>
@@ -15,9 +15,9 @@ public class SellerTest
     [Test]
     public void AsignNewClient()
     {
-        RepoUser repoUsers = RepoUser.Instance;
-        Seller seller1 = repoUsers.CreateSeller("Peter");
-        Seller seller2 = repoUsers.CreateSeller("Matteo");
+        RepoUsers repoUserses = RepoUsers.Instance;
+        Seller seller1 = repoUserses.CreateSeller("Peter");
+        Seller seller2 = repoUserses.CreateSeller("Matteo");
         
         Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
         seller1.AsignClient(seller2,client);
@@ -32,9 +32,9 @@ public class SellerTest
     [Test]
     public void AsignClient_IfTheClientIsNull()
     {
-        RepoUser repoUsers = RepoUser.Instance;
-        Seller seller1 = repoUsers.CreateSeller("Facundo");
-        Seller seller2 = repoUsers.CreateSeller("Matteo");
+        RepoUsers repoUserses = RepoUsers.Instance;
+        Seller seller1 = repoUserses.CreateSeller("Facundo");
+        Seller seller2 = repoUserses.CreateSeller("Matteo");
 
         Assert.Throws<ArgumentNullException>(() => seller1.AsignClient(seller2, null));
     }
@@ -45,8 +45,8 @@ public class SellerTest
     [Test]
     public void AsignClient_IfTheSellerIsNull()
     {
-        RepoUser repoUsers = RepoUser.Instance;
-        Seller seller1 = repoUsers.CreateSeller("Thomas");
+        RepoUsers repoUserses = RepoUsers.Instance;
+        Seller seller1 = repoUserses.CreateSeller("Thomas");
         
         Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
 

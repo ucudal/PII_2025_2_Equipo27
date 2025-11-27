@@ -7,7 +7,7 @@ public class SellerFacadeTest
     {
         SellerFacade.ResetInstance();
         AdminFacade.ResetInstance();
-        RepoUser.ResetInstance();
+        RepoUsers.ResetInstance();
         RepoClients.ResetInstance();
     }
 

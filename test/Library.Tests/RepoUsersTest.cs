@@ -1,11 +1,11 @@
 namespace Library.Tests;
 
-public class RepoUserTest
+public class RepoUsersTest
 {
     [SetUp]
     public void Setup()
     {
-        RepoUser.ResetInstance();
+        RepoUsers.ResetInstance();
     }
 
     /// <summary>
@@ -15,7 +15,7 @@ public class RepoUserTest
     [Test]
     public void SearchUser_Existing()
     {
-        RepoUser users = RepoUser.Instance;
+        RepoUsers users = RepoUsers.Instance;
         users.CreateSeller("Marisol");
 
         Seller seller = users.SearchUser<Seller>(0);
@@ -30,7 +30,7 @@ public class RepoUserTest
     [Test]
     public void SearchUser_NotExisting()
     {
-        RepoUser users = RepoUser.Instance;
+        RepoUsers users = RepoUsers.Instance;
         users.CreateSeller("Marisol");
 
         Seller seller = users.SearchUser<Seller>(1);
@@ -45,14 +45,19 @@ public class RepoUserTest
     [Test]
     public void CreateAdmin_NotExistUsername()
     {
-        RepoUser users = RepoUser.Instance;
-        string username = "Lucas";
+        RepoUsers users = RepoUsers.Instance;
+        string username1 = "Lucas";
+        string username2 = "Facundo";
 
-        Admin admin = users.CreateAdmin(username);
+        Admin admin1 = users.CreateAdmin(username1);
+        Admin admin2 = users.CreateAdmin(username2);
 
-        Assert.That(admin.UserName, Is.EqualTo(username));
-        Assert.That(users.Users.Count, Is.EqualTo(1));
-        Assert.That(users.Users[0], Is.EqualTo(admin));
+        Assert.That(admin1.UserName, Is.EqualTo(username1));
+        Assert.That(admin1.Id, Is.EqualTo(0));
+        Assert.That(admin2.UserName, Is.EqualTo(username2));
+        Assert.That(admin2.Id, Is.EqualTo(1));
+        Assert.That(users.Users.Count, Is.EqualTo(2));
+        Assert.That(users.Users[0], Is.EqualTo(admin1));
     }
 
     /// <summary>
@@ -62,12 +67,11 @@ public class RepoUserTest
     [Test]
     public void CreateAdmin_Existing()
     {
-        RepoUser users = RepoUser.Instance;
-        Admin seller1 = users.CreateAdmin("Luciano");
+        RepoUsers users = RepoUsers.Instance;
+        Admin admin1 = users.CreateAdmin("Luciano");
+        Admin admin2 = users.CreateAdmin("Luciano");
 
-        Admin seller2 = users.CreateAdmin("Luciano");
-
-        Assert.That(seller2, Is.Null);
+        Assert.That(admin2, Is.Null);
         Assert.That(users.Users.Count, Is.EqualTo(1));
     }
     
@@ -78,7 +82,7 @@ public class RepoUserTest
     [Test]
     public void CreateAdmin_Exception()
     {
-        RepoUser users = RepoUser.Instance;
+        RepoUsers users = RepoUsers.Instance;
         Admin admin = users.CreateAdmin("");
 
         Assert.That(admin, Is.Null);
@@ -91,14 +95,19 @@ public class RepoUserTest
     [Test]
     public void CreateSeller_NotExistUsername()
     {
-        RepoUser users = RepoUser.Instance;
-        string username = "Lucas";
+        RepoUsers users = RepoUsers.Instance;
+        string username1 = "Rodrigo";
+        string username2 = "Agustín";
 
-        Seller seller = users.CreateSeller(username);
+        Seller seller1 = users.CreateSeller(username1);
+        Seller seller2 = users.CreateSeller(username2);
 
-        Assert.That(seller.UserName, Is.EqualTo(username));
-        Assert.That(users.Users.Count, Is.EqualTo(1));
-        Assert.That(users.Users[0], Is.EqualTo(seller));
+        Assert.That(seller1.UserName, Is.EqualTo(username1));
+        Assert.That(seller1.Id, Is.EqualTo(0));
+        Assert.That(seller2.UserName, Is.EqualTo(username2));
+        Assert.That(seller2.Id, Is.EqualTo(1));
+        Assert.That(users.Users.Count, Is.EqualTo(2));
+        Assert.That(users.Users[0], Is.EqualTo(seller1));
     }
 
     /// <summary>
@@ -108,7 +117,7 @@ public class RepoUserTest
     [Test]
     public void CreateSeller_Existing()
     {
-        RepoUser users = RepoUser.Instance;
+        RepoUsers users = RepoUsers.Instance;
         Seller seller1 = users.CreateSeller("Luciano");
 
         Seller seller2 = users.CreateSeller("Luciano");
@@ -124,7 +133,7 @@ public class RepoUserTest
     [Test]
     public void CreateSeller_Exception()
     {
-        RepoUser users = RepoUser.Instance;
+        RepoUsers users = RepoUsers.Instance;
         Seller seller = users.CreateSeller("");
 
         Assert.That(seller, Is.Null);
@@ -136,17 +145,38 @@ public class RepoUserTest
     [Test]
     public void AddUser()
     {
-        RepoUser repo = RepoUser.Instance;
+        RepoUsers repo = RepoUsers.Instance;
         
         repo.Add(repo.CreateAdmin("Emanuel"));
         
         Assert.That(repo.Users.Count, Is.EqualTo(2));
     }
 
+    /// <summary>
+    /// Verifica que se cree correctamente una lista con todos los usuarios ya creados.
+    /// </summary>
     [Test]
     public void GetAllUsers()
     {
-        // falta implementación
+        RepoUsers repo = RepoUsers.Instance;
+        repo.CreateSeller("Luis");
+        repo.CreateAdmin("Alejandro");
+        repo.CreateAdmin("Andrés");
+
+        IReadOnlyList<User> users = repo.GetAll();
+        
+        Assert.That(users.Count, Is.EqualTo(3));
+    }
+
+    [Test]
+    public void GetByIdFirst()
+    {
+        RepoUsers repo = RepoUsers.Instance;
+        Seller seller= repo.CreateSeller("Mónica");
+
+        User user = repo.GetById(0);
+        
+        Assert.That(user, Is.EqualTo(seller));
     }
 
     /// <summary>
@@ -156,7 +186,7 @@ public class RepoUserTest
     [Test]
     public void DeleteUser_Existing()
     {
-        RepoUser users = RepoUser.Instance;
+        RepoUsers users = RepoUsers.Instance;
         Seller seller = users.CreateSeller("Antonella");
 
         users.Remove(0);
@@ -165,28 +195,19 @@ public class RepoUserTest
     }
     
     /// <summary>
-    /// Verifica que se lance una excepción si se ingresa un número negativo.
+    /// Verifica que se lance una excepción si se ingresa un número negativo o un numero incorrecto.
     /// </summary>
     [Test]
-    public void DeleteUser_Exception1()
+    public void DeleteUser_Exceptions()
     {
-        RepoUser users = RepoUser.Instance;
+        RepoUsers users = RepoUsers.Instance;
         Seller seller = users.CreateSeller("Antonella");
 
 
         Assert.Throws<ArgumentException>(()=>users.Remove(-1));
-    }
-    
-    /// <summary>
-    /// Verifica que se lance una excepción si se ingresa un número invalido.
-    /// </summary>
-    [Test]
-    public void DeleteUser_Exception2()
-    {
-        RepoUser users = RepoUser.Instance;
-        Seller seller = users.CreateSeller("Antonella");
-
         Assert.Throws<KeyNotFoundException>(()=>users.Remove(2));
     }
+    
+    
     
 }

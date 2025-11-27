@@ -11,7 +11,7 @@ namespace Library
     {
         protected RepoClients repoClients = RepoClients.Instance;
         private RepoTags repoTag = new RepoTags();
-        protected RepoUser RepoUsers = RepoUser.Instance;
+        protected RepoUsers RepoUsers = RepoUsers.Instance;
         
 
         /// <summary>
