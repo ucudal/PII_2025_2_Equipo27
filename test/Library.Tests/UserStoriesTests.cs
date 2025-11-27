@@ -34,7 +34,7 @@ public class UserStoriesTests
 
         // Modificar la información de un cliente existente para mantenerla actualizada.
         Seller seller = new Seller("Carlos");
-        Client client = facade.CreateClient("Pedra", "Sanchez", "pedra@gmail.com", "099000111", seller);
+        Client client = facade.CreateClient("Pedra", "Sanchez", "pedra@gmail.com", "099000111", "Carlos");
 
         facade.ModifyClient("0", "Name", "Guillermo");
         facade.ModifyClient("0", "LastName", "Diaz");
@@ -56,10 +56,10 @@ public class UserStoriesTests
     {
         SellerFacade facade = SellerFacade.Instance;
         Seller user = new Seller("Carlos");
-        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  user);
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  user);
+        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "Carlos");
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
 
-        facade.DeleteClient(facade.GetClients()[0].Id);
+        facade.DeleteClient(facade.GetClients()[0].Id.ToString());
 
         Assert.That(facade.GetClients().Count, Is.EqualTo(1));
         Assert.That(facade.GetClients()[0].Name, Is.EqualTo("pedro"));
@@ -72,14 +72,14 @@ public class UserStoriesTests
     {
         SellerFacade facade = SellerFacade.Instance;
         Seller user = new Seller("Carlos");
-        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  user);
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  user);
-        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321",  user);
+        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "Carlos");
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
+        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321",  "Carlos");
 
-        List<Client> busqueda1 =  facade.SearchClient(RepoClients.TypeOfData.Name,"pedro");
-        List<Client> busqueda2 =  facade.SearchClient(RepoClients.TypeOfData.LastName,"Sanchez");
-        List<Client> busqueda3 =  facade.SearchClient(RepoClients.TypeOfData.Email,"pedro@gmail.com");
-        List<Client> busqueda4 =  facade.SearchClient(RepoClients.TypeOfData.Phone,"099000111");
+        List<Client> busqueda1 =  facade.SearchClient("Name","pedro");
+        List<Client> busqueda2 =  facade.SearchClient("LastName","Sanchez");
+        List<Client> busqueda3 =  facade.SearchClient("Email","pedro@gmail.com");
+        List<Client> busqueda4 =  facade.SearchClient("Phone","099000111");
 
         List<Client> expected = new List<Client>();
         
@@ -98,9 +98,9 @@ public class UserStoriesTests
     {
         SellerFacade facade = SellerFacade.Instance;
         Seller user = new Seller("Carlos");
-        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  user);
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  user);
-        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321",  user);
+        facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "Carlos");
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
+        facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321",  "Carlos");
         
         
         Assert.That(facade.GetClients().Count, Is.EqualTo(3));
@@ -188,10 +188,10 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789",  seller); 
+        SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789",  "Kiki"); 
         IReadOnlyList<Client> clients = SellerFacade.Instance.GetClients();
-        clients[0].AddData("Gender","Male");
-        clients[0].AddData("birthdate","21/03/1991");
+        clients[0].AddData(RepoClients.TypeOfData.Gender,"Male");
+        clients[0].AddData(RepoClients.TypeOfData.BirthDate,"21/03/1991");
 
         // Act
         string actualClientBirthDate = clients[0].BirthDate;
@@ -221,13 +221,13 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789",  seller); 
-        SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879",  seller);
+        SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789",  "Kiki"); 
+        SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879",  "Kiki");
         Tag tag1 = SellerFacade.Instance.CreateTag("Compra milanesas");
         Tag tag2 = SellerFacade.Instance.CreateTag("Compra merengue");
         Tag tag3 = SellerFacade.Instance.CreateTag("Compra botines");
-        Client client1 = SellerFacade.Instance.SearchClientById(0);
-        Client client2 = SellerFacade.Instance.SearchClientById(1);
+        Client client1 = SellerFacade.Instance.SearchClientById("0");
+        Client client2 = SellerFacade.Instance.SearchClientById("1");
         // Act
         SellerFacade.Instance.AddTag(client1, tag2);
         SellerFacade.Instance.AddTag(client1, tag3);
@@ -247,9 +247,9 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456",  seller);
+        Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456",  "Kiki");
         // Act
-        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Mate", 450, Opportunity.States.Close, elEdi);
+        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Mate", "450", "Close", elEdi);
         // Assert
         Assert.That(elEdi.Opportunities, Does.Contain(opportunity));
     }
@@ -261,9 +261,9 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556",  seller);
+        Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556",  "Kiki");
         // Act
-        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Pelota", 200, Opportunity.States.Open, virgil);
+        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Pelota", "200", "Open", virgil);
         // Assert
         Assert.That(virgil.Opportunities, Does.Contain(opportunity));
         Assert.That(opportunity.State,Is.EqualTo(Opportunity.States.Open));
@@ -276,7 +276,7 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = new Seller("Kiki");
-        Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999",  seller);
+        Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999",  "Kiki");
         SellerFacade.Instance.RegisterCall("Compra de botines", "Quiere comprar 3 pares", harry, DateTime.Today);
         SellerFacade.Instance.RegisterEmail("Organizando una llamada para hacer una compra", InteractionOrigin.Origin.Received, "Ninguna nota", harry, DateTime.Today);
         SellerFacade.Instance.RegisterMeeting("-", "Proximamente", "Munich", Meeting.MeetingState.Programmed, harry, DateTime.Today);
@@ -293,7 +293,7 @@ public class UserStoriesTests
     {
         Seller user = new Seller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  user);
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
         facade.SwitchClientActivity(0);
         int actual = facade.InactiveClients().Count;
         Assert.That(actual,Is.EqualTo(1));
@@ -305,7 +305,7 @@ public class UserStoriesTests
     {
         Seller user = new Seller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
-        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  user);
+        facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
         facade.SwitchClientWaiting(0);
         int actual = facade.WaitingClients().Count;
         Assert.That(actual,Is.EqualTo(1));
@@ -337,9 +337,9 @@ public class UserStoriesTests
      
         AdminFacade.Instance.CreateSeller("Pedro");
         AdminFacade.Instance.CreateSeller("Juan");
-        AdminFacade.Instance.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111",  AdminFacade.Instance.SearchUser<Seller>("Pedro"));
+        AdminFacade.Instance.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111",  "Pedro");
         SellerFacade.Instance.AssignClient("Pedro", "Juan", "0");
-        Assert.That(AdminFacade.Instance.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("Juan")));
+        Assert.That(AdminFacade.Instance.SearchClient("Name","Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("Juan")));
     }
 
     [Test]
@@ -348,9 +348,9 @@ public class UserStoriesTests
     {
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Juan");
-        facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", facade.SearchUser<Seller>("Juan"));
-        facade.CreateOpportunity("Harina",50,Opportunity.States.Open,facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0]);
-        facade.admin.CloseOpportunity(facade.SearchClient(RepoClients.TypeOfData.Name,"Jose")[0].Opportunities[0]);
+        facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", "Juan");
+        facade.CreateOpportunity("Harina","50","Open",facade.SearchClient("Name","Jose")[0]);
+        facade.admin.CloseOpportunity(facade.SearchClient("Name","Jose")[0].Opportunities[0]);
         int actual = facade.admin.ClosedOpportunities.Count;
         Assert.That(actual,Is.EqualTo(1));
     }
@@ -362,9 +362,9 @@ public class UserStoriesTests
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
         facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888",  null);
-        facade.RegisterCall("Llamada 1", "Notas 1", facade.SearchClient(RepoClients.TypeOfData.Name,"Ezequiel")[0],DateTime.Now.AddDays(-1));
-        facade.RegisterMeeting("Reunión 1", "Notas 2", "Sala A",Meeting.MeetingState.Programmed ,facade.SearchClient(RepoClients.TypeOfData.Name,"Ezequiel")[0] ,DateTime.Now.AddDays(1));
-        facade.RegisterEmail("Email 1", InteractionOrigin.Origin.Sent, "Notas",facade.SearchClient(RepoClients.TypeOfData.Name,"Lucía")[0] ,DateTime.Now.AddDays(-1));
+        facade.RegisterCall("Llamada 1", "Notas 1", facade.SearchClient("Name","Ezequiel")[0],DateTime.Now.AddDays(-1));
+        facade.RegisterMeeting("Reunión 1", "Notas 2", "Sala A",Meeting.MeetingState.Programmed ,facade.SearchClient("Name","Ezequiel")[0] ,DateTime.Now.AddDays(1));
+        facade.RegisterEmail("Email 1", InteractionOrigin.Origin.Sent, "Notas",facade.SearchClient("Name","Lucía")[0] ,DateTime.Now.AddDays(-1));
         string expected = 
             $"Clientes totales: 2\n" +
             $"Interacciones en este último mes: 2\n" +

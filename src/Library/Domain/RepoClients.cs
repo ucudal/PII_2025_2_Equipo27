@@ -106,7 +106,9 @@ namespace Library
             Name,
             LastName,
             Email,
-            Phone
+            Phone,
+            Gender,
+            BirthDate
         }
 
         /// <summary>

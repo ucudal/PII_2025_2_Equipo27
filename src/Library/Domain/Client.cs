@@ -132,9 +132,9 @@ namespace Library
         /// <param name="typeOfData">Indica si se va a modificar el género (“Gender”) o la fecha de nacimiento (“BirthDate”).</param>
         /// <param name="newData">Nuevo valor para el campo indicado.</param>
 
-        public void AddData(string typeOfData, string newData)
+        public void AddData(RepoClients.TypeOfData typeOfData, string newData)
         {
-            if (typeOfData == "Gender" || typeOfData == "gender")
+            if (typeOfData == RepoClients.TypeOfData.Gender)
             {
                 if (newData == GenderType.Male.ToString())
                 {
@@ -145,7 +145,7 @@ namespace Library
                     this.Gender = GenderType.Female;
                 }
             }
-            else if (typeOfData == "BirthDate"||typeOfData=="birthdate")
+            else if (typeOfData == RepoClients.TypeOfData.BirthDate)
             {
                 this.BirthDate = newData;
             }

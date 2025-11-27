@@ -19,7 +19,7 @@ public class SellerFacadeTest
         Seller seller1 = AdminFacade.Instance.CreateSeller("Peter");
         Seller seller2 = AdminFacade.Instance.CreateSeller("Ezequiel");
         Client client = AdminFacade.Instance.CreateClient("Facundo", "Pastoruti", "facundopastoruti", "55555555",
-             seller1);
+             "Peter");
    
         SellerFacade.Instance.AssignClient(seller1.UserName, seller2.UserName, "0");
 

@@ -79,8 +79,8 @@ public class ClientTests
     {
         Seller seller = new Seller("pip");
         Client client = new Client(0, "Julian", "Rod", "jaujad@", "099", seller);
-        client.AddData("Gender","Male");
-        client.AddData("birthdate","21/03/1991");
+        client.AddData(RepoClients.TypeOfData.Gender,"Male");
+        client.AddData(RepoClients.TypeOfData.BirthDate,"21/03/1991");
 
         // Act
         string actualClientBirthDate = client.BirthDate;

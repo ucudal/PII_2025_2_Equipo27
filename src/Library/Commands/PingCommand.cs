@@ -51,7 +51,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                 return;
             }
 
-            Client client = AdminFacade.Instance.SearchClientById(clientId);
+            Client client = AdminFacade.Instance.SearchClientById(clientId.ToString());
 
             if (client == null)
             {
