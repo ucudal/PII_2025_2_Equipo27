@@ -14,7 +14,7 @@ public class RepoClientsTests
     public void TestCreateClient()
     {
         // Arrange
-        Seller jose = new Seller("Jose");
+        Seller jose = new Seller("Jose", 0);
         RepoClients repoClients = RepoClients.Instance;
         // Act
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
@@ -27,7 +27,7 @@ public class RepoClientsTests
     public void TestGetClients()
     {
         // Arrange
-        Seller jose = new Seller("Jose");
+        Seller jose = new Seller("Jose", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose); 
@@ -41,7 +41,7 @@ public class RepoClientsTests
     public void TestDeleteClient()
     {
         // Arrange
-        Seller jose = new Seller("Facundo");
+        Seller jose = new Seller("Facundo", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
         // Act
@@ -54,7 +54,7 @@ public class RepoClientsTests
     public void TestSearchClient_ByName()
     {
             //Arrange
-            Seller jose = new Seller("Lucas");
+            Seller jose = new Seller("Lucas", 0);
             RepoClients repoClients = RepoClients.Instance;
             repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
             repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
@@ -69,7 +69,7 @@ public class RepoClientsTests
     public void TestSearchClient_ByLastName()
     {
         // Arrange
-        Seller jose = new Seller("Peter");
+        Seller jose = new Seller("Peter", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
@@ -83,7 +83,7 @@ public class RepoClientsTests
     public void TestSearchClient_ByEmail()
     {
         // Arrange
-        Seller jose = new Seller("Thomas");
+        Seller jose = new Seller("Thomas", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
@@ -97,7 +97,7 @@ public class RepoClientsTests
     public void TestSearchClient_ByPhone()
     {
         // Arrange
-        Seller jose = new Seller("Ezequiel");
+        Seller jose = new Seller("Ezequiel", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
@@ -111,7 +111,7 @@ public class RepoClientsTests
     public void TestInactiveClients()
     {
         // Arrange
-        Seller jose = new Seller("Ezequiel");
+        Seller jose = new Seller("Ezequiel", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
@@ -133,7 +133,7 @@ public class RepoClientsTests
     [Test]
     public void TestWaitingClients()
     {
-        Seller jose = new Seller("Ezequiel");
+        Seller jose = new Seller("Ezequiel", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);

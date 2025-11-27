@@ -7,7 +7,7 @@ public class ClientTests
     [Test]
     public void ClientShouldCreateCorrectly()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male, "09/10/08", seller);
         Assert.That(client.Id, Is.EqualTo(0));
         Assert.That(client.Name, Is.EqualTo("Juan"));
@@ -22,7 +22,7 @@ public class ClientTests
     [Test]
     public void AddInteractionAddsAnInteraction()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
         client.AddInteraction(message);
@@ -32,7 +32,7 @@ public class ClientTests
     [Test]
     public void AddTagAddsATag()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         RepoTags repoTags = new RepoTags();
         Tag tag = repoTags.CreateTag("vip");
@@ -44,7 +44,7 @@ public class ClientTests
     [Test]
     public void CreateOportunityWorksCorrectly()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         client.CreateOpportunity("Product", 100 , Opportunity.States.Open, client, DateTime.Now);
         Assert.That(client.Opportunities.Count,Is.EqualTo(1));
@@ -53,7 +53,7 @@ public class ClientTests
     [Test]
     public void ClientConstructorThrowsIfStringsNullOrEmpty()
     {
-        Seller seller = new Seller("Pedrito");
+        Seller seller = new Seller("Pedrito", 0);
         Assert.Throws<ArgumentException>(() => new Client(1, "", "", "", null,
             Client.GenderType.Male,
             null, seller));
@@ -62,7 +62,7 @@ public class ClientTests
     [Test]
     public void AddTagThrowsIfIsAlreadyAdded()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         RepoTags repoTags = new RepoTags();
         Tag tag = repoTags.CreateTag("vip");
@@ -72,7 +72,7 @@ public class ClientTests
     [Test]
     public void AddInteractionThrowsIfIsAlreadyAdded()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222", Client.GenderType.Male,"09/10/08", seller);
         Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
         client.AddInteraction(message);

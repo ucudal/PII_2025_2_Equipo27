@@ -29,7 +29,7 @@ namespace Ucu.Poo.DiscordBot.Program
         {
             if (args.Length > 0)
             {
-                Console.WriteLine(AdminFacade.Instance.admin.UserName);
+                Console.WriteLine(AdminFacade.Instance.Admin.UserName);
             }
         }
 
