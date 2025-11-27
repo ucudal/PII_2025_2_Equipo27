@@ -36,20 +36,18 @@ namespace Library
         /// <summary>
         /// Asigna un cliente de este seller a otro seller.
         /// </summary>
-        /// <param name="sellernameMy">Nombre de usuario del seller actual</param>
-        /// <param name="sellernameOther">Nombre de usuario del seller destino</param>
-        /// <param name="client">Cliente que se desea asignar</param>
+        /// <param name="sellerIdMy">Id de usuario del seller actual</param>
+        /// <param name="sellerIdOther">Id de usuario del seller destino</param>
+        /// <param name="clientId">Id del liente que se desea asignar</param>
         /// <returns>Mensaje con resultado de la operación</returns>
         public void AssignClient(string sellerIdMy, string sellerIdOther, string clientId)
         {
 
-            int ClientId;
-            if (!int.TryParse(clientId, out ClientId))
-                throw new ArgumentException("El id no es válido");
+            
             
             Seller seller1 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdMy));
             Seller seller2 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdOther));
-            Client client = repoClients.SearchClientById(ClientId);
+            Client client = repoClients.SearchClientById(int.Parse(clientId));
 
             if (seller1 != null && seller2 != null && client != null)
             {

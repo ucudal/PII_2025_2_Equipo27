@@ -65,7 +65,7 @@ namespace Library
         /// <returns>La lista creada</returns>
         public IReadOnlyList<User> GetUsers()
         {
-            return RepoUsers.Users;
+            return RepoUsers.GetAll();
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Library
             User user = RepoUsers.SearchUser<User>(int.Parse(id));
             if (user != null)
             {
-                RepoUsers.DeleteUser(int.Parse(id));
+                RepoUsers.Remove(int.Parse(id));
             }
             
         }

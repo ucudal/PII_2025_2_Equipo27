@@ -102,8 +102,8 @@ public class MainFacadeTests
         MainFacade mainFacade = new MainFacade();
 
         Seller jose = new Seller("Jose", 0);
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "male","19/03/2000", jose);
+        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321","male", "02/12/1990", jose);
 
         // Act
         IReadOnlyCollection<Client> actual = mainFacade.GetClients();
@@ -118,8 +118,8 @@ public class MainFacadeTests
         MainFacade mainFacade = new MainFacade();
 
         Seller jose = new Seller("Jose", 0);
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "male","02/12/1990", jose);
+        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321","male", "02/12/1990", jose);
 
         // Act
         mainFacade.DeleteClient(0);
@@ -132,8 +132,8 @@ public class MainFacadeTests
     {
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Lucas", 0);
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "male","19/03/2000", jose);
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321","male", "02/12/1990", jose);
         // Act
         List<Client> actual = mainFacade.SearchClient(RepoClients.TypeOfData.Name,"Mario");
         // Assert
@@ -145,8 +145,8 @@ public class MainFacadeTests
     {
         MainFacade mainFacade = new MainFacade();
         Seller jose = new Seller("Lucas", 0);
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "male","19/03/2000", jose);
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321","male", "02/12/1990", jose);
 
         // Act
         List<Client> actual = mainFacade.SearchClient(RepoClients.TypeOfData.LastName,"Dominguez");
@@ -160,8 +160,8 @@ public class MainFacadeTests
         MainFacade mainFacade = new MainFacade();
 
         Seller jose = new Seller("Lucas", 0);
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "male","19/03/2000", jose);
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321","male", "02/12/1990", jose);
 
         // Act
         List<Client> actual = mainFacade.SearchClient( RepoClients.TypeOfData.Email,"abcdefg");
@@ -175,8 +175,8 @@ public class MainFacadeTests
         MainFacade mainFacade = new MainFacade();
 
         Seller jose = new Seller("Lucas", 0);
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", Client.GenderType.Male, "19/03/2000", jose);
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", Client.GenderType.Male, "02/12/1990", jose);
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "male","19/03/2000", jose);
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321","male", "02/12/1990", jose);
 
         // Act
         List<Client> actual = mainFacade.SearchClient( RepoClients.TypeOfData.Phone,"987654321");

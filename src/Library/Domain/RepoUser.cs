@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    public class RepoUser
+    public class RepoUser : IRepo<User>
     {
         private static RepoUser instance = null;
 
@@ -35,6 +35,11 @@ namespace Library
         public IReadOnlyList<User> Users
         {
             get { return users; }
+        }
+
+        public int Count
+        {
+            get { return users.Count; }
         }
 
         private int nextId = 0;
@@ -105,6 +110,28 @@ namespace Library
         }
 
         /// <summary>
+        /// Añade un usuario a la lista.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Add(User entity)
+        {
+            users.Add(entity);
+        }
+
+        public User GetById(int id)
+        {
+            foreach (var user in users)
+            {
+                if (user.Id == id)
+                {
+                    return user;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Busca un administrador o vendedor especifico en la lista de vendedores.
         /// </summary>
         /// <param name="id">La id del usuario.</param>
@@ -114,7 +141,6 @@ namespace Library
         {
             foreach (var user in users)
             {
-                Type type = user.GetType();
                 if (user.Id == id && user is T)
                 {
                     return (T)user;
@@ -124,10 +150,26 @@ namespace Library
             return null;
         }
 
+        
+        /// <summary>
+        /// Crea una lista con todos los usuarios.
+        /// </summary>
+        /// <returns>La lista creada.</returns>
+        public IReadOnlyList<User> GetAll()
+        {
+            List<User> allUsers = new List<User>();
+            foreach (var user in users)
+            {
+                allUsers.Add(user);
+            }
+
+            return allUsers;
+        }
+
 
 
         /// <summary>
-        /// Crea una lista con solo los usuarios suspendidos.
+        /// Crea una lista con todos los usuarios suspendidos.
         /// </summary>
         /// <returns>Una lista con todos los usuarios suspendidos.</returns>
         public IReadOnlyList<User> GetSuspendedUsers()
@@ -148,30 +190,24 @@ namespace Library
         /// <summary>
         /// Elimina un usuario de la lista de usuarios.
         /// </summary>
-        /// <param name="id">La Id del usuario.</param>
+        /// <param name="id">Id del usario</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
 
-        public void DeleteUser(int id)
+        public void Remove(int id)
         {
-            if (string.IsNullOrEmpty(id.ToString()))
+            if (id < 0)
             {
-                throw new ArgumentException("Debe escribir un Id válido");
+                throw new ArgumentException("El ID no puede ser negativo.", nameof(id));
             }
 
-            int i = 0;
-            bool finish = false;
-            while (i < users.Count && !finish)
+            var user = GetById(id);
+            if (user == null)
             {
-                if (users[i].Id == id)
-                {
-                    users.Remove(Users[i]);
-                    finish=true;
-                }
-
-                i++;
+                throw new KeyNotFoundException($"No existe un usuario con el ID {id}.");
             }
-        } 
+
+            users.Remove(user);
+        }
     }
-
-        
-    
 }

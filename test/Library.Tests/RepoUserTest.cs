@@ -16,8 +16,9 @@ public class RepoUserTest
     public void SearchUser_Existing()
     {
         RepoUser users = RepoUser.Instance;
-        Seller seller = users.CreateSeller("Marisol");
-        
+        users.CreateSeller("Marisol");
+
+        Seller seller = users.SearchUser<Seller>(0);
 
         Assert.That(seller.UserName, Is.EqualTo("Marisol"));
     }
@@ -129,8 +130,24 @@ public class RepoUserTest
         Assert.That(seller, Is.Null);
     }
 
-    
+    /// <summary>
+    /// Verifica que se agrege un usuario a la lista.
+    /// </summary>
+    [Test]
+    public void AddUser()
+    {
+        RepoUser repo = RepoUser.Instance;
+        
+        repo.Add(repo.CreateAdmin("Emanuel"));
+        
+        Assert.That(repo.Users.Count, Is.EqualTo(2));
+    }
 
+    [Test]
+    public void GetAllUsers()
+    {
+        // falta implementación
+    }
 
     /// <summary>
     /// Verifica que un usuario sea eliminado
@@ -142,9 +159,34 @@ public class RepoUserTest
         RepoUser users = RepoUser.Instance;
         Seller seller = users.CreateSeller("Antonella");
 
-        users.DeleteUser(0);
+        users.Remove(0);
 
         Assert.That(users.Users.Count, Is.EqualTo(0));
+    }
+    
+    /// <summary>
+    /// Verifica que se lance una excepción si se ingresa un número negativo.
+    /// </summary>
+    [Test]
+    public void DeleteUser_Exception1()
+    {
+        RepoUser users = RepoUser.Instance;
+        Seller seller = users.CreateSeller("Antonella");
+
+
+        Assert.Throws<ArgumentException>(()=>users.Remove(-1));
+    }
+    
+    /// <summary>
+    /// Verifica que se lance una excepción si se ingresa un número invalido.
+    /// </summary>
+    [Test]
+    public void DeleteUser_Exception2()
+    {
+        RepoUser users = RepoUser.Instance;
+        Seller seller = users.CreateSeller("Antonella");
+
+        Assert.Throws<KeyNotFoundException>(()=>users.Remove(2));
     }
     
 }
