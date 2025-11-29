@@ -19,7 +19,7 @@ public class SellerTest
         Seller seller1 = repoUsers.CreateSeller("Peter");
         Seller seller2 = repoUsers.CreateSeller("Matteo");
         
-        Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
+        Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", null);
         seller1.AsignClient(seller2,client);
         Assert.That(seller2.Clients.Count,Is.EqualTo(1));
         Assert.That(seller2.Clients[0], Is.EqualTo(client));
@@ -48,7 +48,7 @@ public class SellerTest
         RepoUser repoUsers = RepoUser.Instance;
         Seller seller1 = repoUsers.CreateSeller("Thomas");
         
-        Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", Client.GenderType.Male, "10/10/01",null);
+        Client client = new Client(1, "Hugo", "López", "hugolopez@", "555555555", null);
 
         Assert.Throws<ArgumentNullException>(() => seller1.AsignClient(null, client));
     }

@@ -50,8 +50,7 @@ namespace Library
         /// <param name="birthDate"></param>
         /// <param name="seller"></param>
         /// <exception cref="ArgumentException"></exception>
-        public Client(int id, string name, string lastName, string email, string phone, GenderType gender,
-            string birthDate, Seller seller)
+        public Client(int id, string name, string lastName, string email, string phone, Seller seller)
 
         {
             if (string.IsNullOrEmpty(name))
@@ -73,12 +72,6 @@ namespace Library
             {
                 throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
             }
-
-            if (string.IsNullOrEmpty(birthDate))
-            {
-                throw new ArgumentException("El cliente debe tener una fecha de nacimiento", nameof(birthDate));
-            }
-
             this.Id = id;
             this.Name = name;
             this.LastName = lastName;
@@ -86,8 +79,6 @@ namespace Library
             this.Phone = phone;
             this.Inactive = false;
             this.Waiting = false;
-            this.Gender = gender;
-            this.BirthDate = birthDate;
             this.AsignedSeller = seller;
         }
 
@@ -131,6 +122,34 @@ namespace Library
         }
 
 
+        
+        /// <summary>
+        /// Permite agregar informacioón como el género o la fecha de nacimiento del cliente según los parámetros recibidos.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: Client conoce y controla sus propios datos, por lo que puede modificarlos directamente.
+        /// - SRP: La responsabilidad de este método es modificar de forma segura el atributo solicitado (género o fecha de nacimiento) del cliente según el argumento recibido.
+        /// </summary>
+        /// <param name="typeOfData">Indica si se va a modificar el género (“Gender”) o la fecha de nacimiento (“BirthDate”).</param>
+        /// <param name="newData">Nuevo valor para el campo indicado.</param>
+
+        public void AddData(RepoClients.TypeOfData typeOfData, string newData)
+        {
+            if (typeOfData == RepoClients.TypeOfData.Gender)
+            {
+                if (newData == GenderType.Male.ToString())
+                {
+                    this.Gender = GenderType.Male;
+                }
+                else if (newData == GenderType.Female.ToString())
+                {
+                    this.Gender = GenderType.Female;
+                }
+            }
+            else if (typeOfData == RepoClients.TypeOfData.BirthDate)
+            {
+                this.BirthDate = newData;
+            }
+        }
         /// <summary>
         /// Crea una nueva oportunidad, pudiendo ser una venta o una potencial venta.
         /// Aplicación de los patrones y principios:
@@ -144,14 +163,42 @@ namespace Library
         /// <param name="client">Cliente asociado a la oportunidad.</param>
         /// <param name="date">Fecha de la oportunidad.</param>
         /// <returns>La oportunidad creada.</returns>
-
-
         public Opportunity CreateOpportunity(string product, int price, Opportunity.States states, Client client,
             DateTime date)
         {
             Opportunity opportunity = new Opportunity(product, price, states, client, date);
             this.opportunities.Add(opportunity);
             return opportunity;
+        }
+        
+        /// <summary>
+        /// Permite modificar uno de los atributos del cliente según el tipo de dato especificado.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: La clase Client tiene acceso y conocimiento sobre sus propios datos, por lo que puede modificarlos.
+        /// - SRP: La responsabilidad de este método es modificar correctamente el atributo solicitado del cliente, manteniendo la operación acotada.
+        /// </summary>
+        /// <param name="modified">Tipo de dato a modificar (Nombre, Apellido, Email, Teléfono).</param>
+        /// <param name="modification">Nuevo valor para el campo indicado.</param>
+
+        
+        public void ModifyClient(RepoClients.TypeOfData modified, string modification)
+        {
+            if (modified == RepoClients.TypeOfData.Name)
+            {
+                this.Name = modification;
+            }
+            else if (modified == RepoClients.TypeOfData.LastName)
+            {
+                this.LastName = modification;
+            }
+            else if (modified == RepoClients.TypeOfData.Email)
+            {
+                this.Email = modification;
+            }
+            else
+            {
+                this.Phone = modification;
+            }
         }
 
         /// <summary>
@@ -224,15 +271,7 @@ namespace Library
             int futureMeetings = 0;
             foreach (var interaction in this.Interactions)
             {
-                if (interaction.InteractionDate.Month == month && interaction.InteractionDate.Year == year &&
-                    interaction.InteractionDate >= DateTime.Now)
-                {
-
-                    if (DateTime.Now <= interaction.InteractionDate)
-                    {
-                        futureMeetings += 1;
-                    }
-                }
+                if (interaction.InteractionDate >= DateTime.Now) futureMeetings += 1;
             }
 
             return (futureMeetings);
@@ -263,6 +302,41 @@ namespace Library
             }
 
             return (totalSales);
+        }
+        
+        /// <summary>
+        /// Indica si el cliente coincide con el dato buscado.
+        /// Este método se utiliza para no violar el patrón Expert la instancia de Client conoce sus propios datos y es responsable de verificar la coincidencia.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: Client tiene acceso directo y completo a sus datos, siendo el lugar adecuado para validar la coincidencia.
+        /// - SRP: La responsabilidad de este método es comprobar y responder si el cliente actual coincide con el criterio de búsqueda especificado por tipo y valor.
+        /// </summary>
+        /// <param name="typeofdata">Tipo de dato a comparar (Nombre, Apellido, Email, Teléfono).</param>
+        /// <param name="modification">Valor buscado para comparar.</param>
+        /// <returns>True si el cliente coincide con el dato buscado, False en caso contrario.</returns>
+
+        public bool IsTheSearchedClient(RepoClients.TypeOfData typeofdata, string modification)
+        {
+            bool IsTheClient = false;
+            if (typeofdata == RepoClients.TypeOfData.Name && modification == this.Name)
+            {
+                IsTheClient = true;
+
+            }
+            else if (typeofdata == RepoClients.TypeOfData.LastName&& modification == this.LastName)
+            {
+                IsTheClient = true;
+            }
+            else if (typeofdata == RepoClients.TypeOfData.Email&& modification == this.Email)
+            {
+                IsTheClient = true;
+            }
+            else if ((typeofdata == RepoClients.TypeOfData.Phone&& modification == this.Phone))
+            {
+                IsTheClient = true;
+            }
+
+            return IsTheClient;
         }
     }
 }
