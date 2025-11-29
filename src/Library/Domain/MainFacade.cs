@@ -174,8 +174,9 @@ namespace Library
         /// <param name="price">Precio</param>
         /// <param name="states">Estado de la oportunidad</param>
         /// <param name="client">Cliente asociado</param>
-        public Opportunity CreateOpportunity(string product, string price, string state, Client client)
+        public Opportunity CreateOpportunity(string product, string price, string state, string clientid)
         {
+            Client client = this.SearchClientById(clientid);
             Opportunity.States states = 0;
             if (state == Opportunity.States.Canceled.ToString())
             {
@@ -212,8 +213,10 @@ namespace Library
         /// </summary>
         /// <param name="client">Cliente</param>
         /// <param name="tag">Tag a asociar</param>
-        public void AddTag(Client client, Tag tag)
+        public void AddTag(string clientid, string tagid)
         {
+            Client client = this.SearchClientById(clientid);
+            Tag tag = repoTag.GetById(int.Parse(tagid));
             client.AddTag(tag);
         }
 
@@ -233,14 +236,10 @@ namespace Library
         /// <param name="notes">Notas</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterCall(string content, string notes, Client client)
-        {
-            RegisterCall(content, notes, client,DateTime.Now);
-        }
 
-        public void RegisterCall(string content, string notes, Client client, DateTime date)
+        public void RegisterCall(string content, string notes, string clientid)
         {
-            
+            Client client = this.SearchClientById(clientid);
             Call call = new Call(content, notes, DateTime.Now);
             client.AddInteraction(call);
         }
@@ -253,20 +252,25 @@ namespace Library
         /// <param name="notes">Notas</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client)
+        public void RegisterEmail(string content, string sender, string notes, string clientid)
         {
-            
-            RegisterEmail(content, sender, notes, client,DateTime.Now);
+            Client client = this.SearchClientById(clientid);
+            if (sender == InteractionOrigin.Origin.Received.ToString())
+            {
+                Email email = new Email(content, InteractionOrigin.Origin.Received, notes, DateTime.Now);
+                client.AddInteraction(email);
+            }
+            else if(sender == InteractionOrigin.Origin.Sent.ToString())
+            {
+                Email email = new Email(content, InteractionOrigin.Origin.Sent, notes, DateTime.Now);
+                client.AddInteraction(email);
+            }
+            else
+            {
+                throw new ArgumentException("El estado de la llamada debe ser o 'Sent' o 'Received'");
+            }
         }
-
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,
-            DateTime date)
-        {
-            
-            Email email = new Email(content, sender, notes, DateTime.Now);
-            client.AddInteraction(email);
-        }
-
+        
         /// <summary>
         /// Registra una reunión con un cliente.
         /// </summary>
@@ -276,16 +280,29 @@ namespace Library
         /// <param name="type">Estado de la reunión</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type,
-            Client client)
+        public void RegisterMeeting(string content, string notes, string location, string type,
+            string clientid, string date)
         {
-            RegisterMeeting(content, notes, location, type, client, DateTime.Now);
-        }
-        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type,
-            Client client, DateTime date)
-        {
-            Meeting meeting = new Meeting(content, notes, location, type, date);
-            client.AddInteraction(meeting);
+            Client client = this.SearchClientById(clientid);
+            if (type == Meeting.MeetingState.Programmed.ToString())
+            {
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Programmed, DateTime.Parse(date));
+                client.AddInteraction(meeting);        
+            }
+            else if (type == Meeting.MeetingState.Canceled.ToString())
+            {
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Canceled, DateTime.Parse(date));
+                client.AddInteraction(meeting);        
+            } 
+            else if (type == Meeting.MeetingState.Done.ToString())
+            {
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Done, DateTime.Parse(date));
+                client.AddInteraction(meeting);        
+            }
+            else
+            {
+                throw new ArgumentException("El tipo de la reunión debe ser o 'Done' o 'Canceled' o 'Programmed'");
+            }
         }
 
         /// <summary>
@@ -297,29 +314,36 @@ namespace Library
         /// <param name="channel">Canal de contacto</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel,
-            Client client)
+        public void RegisterMessage(string content, string notes, string sender, string channel,
+            string clientid)
         {
-            RegisterMessage(content, notes, sender, channel, client, DateTime.Now);
-        }
-        
-        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel,
-            Client client, DateTime date)
-        {
-            Message message = new Message(content, notes, sender, channel, date);
-            client.AddInteraction(message);
-        }
+            Client client = this.SearchClientById(clientid);
 
+            if (sender == InteractionOrigin.Origin.Received.ToString())
+            {
+                Message message = new Message(content, notes, InteractionOrigin.Origin.Received, channel, DateTime.Now);
+                client.AddInteraction(message);
+            }
+            else if(sender == InteractionOrigin.Origin.Sent.ToString())
+            {
+                Message message = new Message(content, notes, InteractionOrigin.Origin.Sent, channel, DateTime.Now);
+                client.AddInteraction(message);
+            }
+            else
+            {
+                throw new ArgumentException("El estado del mensaje debe ser o 'Sent' o 'Received'");
+            }
+        }
         public string GetPanel()
         {
             return this.repoClients.GetPanel();
         }
 
-        public void SwitchClientActivity(int id)
+        public void SwitchClientActivity(string id)
         {
             foreach (Client client in repoClients.Clients)
             {
-                if (client.Id == id)
+                if (client.Id.ToString() == id)
                 {
                     if (client.Inactive == true)
                     {
@@ -333,11 +357,11 @@ namespace Library
             }
         }
 
-        public void SwitchClientWaiting(int id)
+        public void SwitchClientWaiting(string id)
         {
             foreach (Client client in repoClients.Clients)
             {
-                if (client.Id == id)
+                if (client.Id.ToString() == id)
                 {
                     if (client.Waiting == true)
                     {
@@ -351,10 +375,16 @@ namespace Library
             }
         }
 
-        public void AddNotes(Interaction interaction, string note)
+        public void AddNotes(string interactionid, string note,string clientid)
+        {
+            Client client = this.SearchClientById(clientid);
+            foreach (Interaction i in client.Interactions)
             {
-                interaction.Notes = note;
-
+                if (i.Id.ToString() == interactionid)
+                {
+                    i.Notes = note;
+                }
+            }
             }
         }
     }

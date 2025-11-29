@@ -115,11 +115,12 @@ public class UserStoriesTests
     public void UserStory6Test()
     //Como usuario quiero registrar llamadas enviadas o recibidas de clientes, incluyendo cuándo fueron y de qué tema trataron, para saber mis interacciones
     {
+        Seller user = new Seller("Carlos",0);
+
+        Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
         
-        Client client = new Client(0, "Elías", "Núñez", "elias@gmail.com", "555555555",  null);
-        
-        AdminFacade.Instance.RegisterCall("Tema","nota",client,new DateTime(2025,11,05));
-        AdminFacade.Instance.RegisterCall("Llamada","nota",client, new DateTime(2025,11,10));
+        AdminFacade.Instance.RegisterCall("Tema","nota",client.Id.ToString());
+        AdminFacade.Instance.RegisterCall("Llamada","nota",client.Id.ToString());
         
         Assert.That(client.Interactions.Count, Is.EqualTo(2));
         Assert.That(client.Interactions[0].Content, Is.EqualTo("Tema"));
@@ -131,10 +132,12 @@ public class UserStoriesTests
     public void UserStory7Test()
         //Como usuario quiero registrar reuniones con los clientes, incluyendo cuándo y dónde fueron, y de qué tema trataron, para poder saber mis interacciones.
     {
-        Client client = new Client(0, "Elías", "Núñez", "elias@gmail.com", "555555555",  null);
+        Seller user = new Seller("Carlos",0);
 
-        AdminFacade.Instance.RegisterMeeting("Contenido", "nota", "Uruguay", Meeting.MeetingState.Done, client,
-            new DateTime(2025, 11, 07));
+        Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
+
+        AdminFacade.Instance.RegisterMeeting("Contenido", "nota", "Uruguay", "Done", client.Id.ToString(),
+            "07/11/2025");
 
         Assert.That(client.Interactions.Count, Is.EqualTo(1));
         Assert.That(client.Interactions[0].Content, Is.EqualTo("Contenido"));
@@ -146,10 +149,12 @@ public class UserStoriesTests
     public void UserStory8Test()
     //Como usuario quiero registrar mensajes enviados a o recibidos de los clientes, incluyendo cuándo y dónde fueron, y de qué tema trataron, para saber mis interacciones.
     {
-        Client client = new Client(0, "Elías", "Núñez", "elias@gmail.com", "555555555",  null);
-        
-        AdminFacade.Instance.RegisterMessage("Mensaje","nota", InteractionOrigin.Origin.Received, "Whatsapp", client, new DateTime(2025,11,09));
-        AdminFacade.Instance.RegisterMessage("Mensaje","nota", InteractionOrigin.Origin.Sent, "Whatsapp", client, new DateTime(2025,11,09));
+        Seller user = new Seller("Carlos",0);
+
+        Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
+
+        AdminFacade.Instance.RegisterMessage("Mensaje","nota", "Received", "Whatsapp", client.Id.ToString());
+        AdminFacade.Instance.RegisterMessage("Mensaje","nota", "Sent", "Whatsapp", client.Id.ToString());
         
         Assert.That(client.Interactions.Count, Is.EqualTo(2));
         Assert.That(client.Interactions[0].Content, Is.EqualTo("Mensaje"));
@@ -161,10 +166,12 @@ public class UserStoriesTests
     public void UserStory9Test()
     //Como usuario quiero registrar correos electrónicos enviados a o recibidos, incluyendo cuándo y dónde fueron, y de qué tema trataron, para saber mis interacciones.
     {
-        Client client = new Client(0, "Elías", "Núñez", "elias@gmail.com", "555555555", null);
-        
-        AdminFacade.Instance.RegisterEmail("Correo electrónico", InteractionOrigin.Origin.Received, "notas", client, new DateTime(2025,10,31));
-        AdminFacade.Instance.RegisterEmail("Correo electrónico", InteractionOrigin.Origin.Sent, "notas", client, new DateTime(2025,11,01));
+        Seller user = new Seller("Carlos",0);
+
+        Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
+
+        AdminFacade.Instance.RegisterEmail("Correo electrónico", "Received", "notas", client.Id.ToString());
+        AdminFacade.Instance.RegisterEmail("Correo electrónico", "Sent", "notas", client.Id.ToString());
         
         Assert.That(client.Interactions.Count, Is.EqualTo(2));
         Assert.That(client.Interactions[0].Content, Is.EqualTo("Correo electrónico"));
@@ -175,12 +182,12 @@ public class UserStoriesTests
     public void UserStory10Test()
     //Como usuario quiero agregar notas o comentarios a las llamadas, reuniones, mensajes y correos enviados o recibidos de los clientes, para tener información adicional de mis interacciones con los clientes.
     {
-        Client client = new Client(0, "Elías", "Núñez", "elias@gmail.com", "555555555", null);
+        Seller seller = new Seller("pepe", 0);
+        Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555", "0");
 
-        AdminFacade.Instance.RegisterEmail("Correo electrónico", InteractionOrigin.Origin.Received, "", client,
-            new DateTime(2025, 10, 25));
+        AdminFacade.Instance.RegisterEmail("Correo electrónico", "Received", "", client.Id.ToString());
         
-        AdminFacade.Instance.AddNotes(client.Interactions[0], "Nueva nota");
+        AdminFacade.Instance.AddNotes(client.Interactions[0].Id.ToString(), "Nueva nota",client.Id.ToString());
 
         Assert.That(client.Interactions[0].Notes, Is.EqualTo("Nueva nota"));
     }
@@ -235,10 +242,10 @@ public class UserStoriesTests
         Client client1 = SellerFacade.Instance.SearchClientById("0");
         Client client2 = SellerFacade.Instance.SearchClientById("1");
         // Act
-        SellerFacade.Instance.AddTag(client1, tag2);
-        SellerFacade.Instance.AddTag(client1, tag3);
-        SellerFacade.Instance.AddTag(client2, tag1);
-        SellerFacade.Instance.AddTag(client2, tag2);
+        SellerFacade.Instance.AddTag(client1.Id.ToString(), tag2.Id.ToString());
+        SellerFacade.Instance.AddTag(client1.Id.ToString(), tag3.Id.ToString());
+        SellerFacade.Instance.AddTag(client2.Id.ToString(), tag1.Id.ToString());
+        SellerFacade.Instance.AddTag(client2.Id.ToString(), tag2.Id.ToString());
         // Assert
         Assert.That(client1.Tags, Does.Contain(tag2));
         Assert.That(client1.Tags, Does.Contain(tag3));
@@ -256,7 +263,7 @@ public class UserStoriesTests
         Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456",  "0");
 
         // Act
-        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Mate", "450", "Close", elEdi);
+        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Mate", "450", "Close", elEdi.Id.ToString());
         // Assert
         Assert.That(elEdi.Opportunities, Does.Contain(opportunity));
     }
@@ -271,7 +278,7 @@ public class UserStoriesTests
         Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556",  "0");
 
         // Act
-        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Pelota", "200", "Open", virgil);
+        Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Pelota", "200", "Open", virgil.Id.ToString());
         // Assert
         Assert.That(virgil.Opportunities, Does.Contain(opportunity));
         Assert.That(opportunity.State,Is.EqualTo(Opportunity.States.Open));
@@ -286,10 +293,10 @@ public class UserStoriesTests
         Seller seller = new Seller("Kiki",0);
         Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999",  "0");
 
-        SellerFacade.Instance.RegisterCall("Compra de botines", "Quiere comprar 3 pares", harry, DateTime.Today);
-        SellerFacade.Instance.RegisterEmail("Organizando una llamada para hacer una compra", InteractionOrigin.Origin.Received, "Ninguna nota", harry, DateTime.Today);
-        SellerFacade.Instance.RegisterMeeting("-", "Proximamente", "Munich", Meeting.MeetingState.Programmed, harry, DateTime.Today);
-        SellerFacade.Instance.RegisterMessage("Saludo confirmando la reunion", "Ninguna", InteractionOrigin.Origin.Sent, "Discord", harry, DateTime.Now);
+        SellerFacade.Instance.RegisterCall("Compra de botines", "Quiere comprar 3 pares", harry.Id.ToString());
+        SellerFacade.Instance.RegisterEmail("Organizando una llamada para hacer una compra", "Received", "Ninguna nota", harry.Id.ToString());
+        SellerFacade.Instance.RegisterMeeting("-", "Proximamente", "Munich", "Programmed", harry.Id.ToString(), DateTime.Today.ToString());
+        SellerFacade.Instance.RegisterMessage("Saludo confirmando la reunion", "Ninguna", "Sent", "Discord", harry.Id.ToString());
         // Act
         IReadOnlyList<Interaction> interactions = harry.Interactions;
         // Assert
@@ -304,7 +311,7 @@ public class UserStoriesTests
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
 
-        facade.SwitchClientActivity(0);
+        facade.SwitchClientActivity("0");
         int actual = facade.InactiveClients().Count;
         Assert.That(actual,Is.EqualTo(1));
     }
@@ -317,7 +324,7 @@ public class UserStoriesTests
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
 
-        facade.SwitchClientWaiting(0);
+        facade.SwitchClientWaiting("0");
         int actual = facade.WaitingClients().Count;
         Assert.That(actual,Is.EqualTo(1));
     }
@@ -360,10 +367,9 @@ public class UserStoriesTests
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Juan");
         facade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111", "0");
-        facade.CreateOpportunity("Harina","50","Open",facade.SearchClient("Name","Jose")[0]);
+        facade.CreateOpportunity("Harina","50","Open","0");
         facade.Admin.CloseOpportunity(facade.SearchClient("Name","Jose")[0].Opportunities[0]);
         int actual = facade.Admin.ClosedOpportunities.Count;
-
         Assert.That(actual,Is.EqualTo(1));
     }
 
@@ -375,9 +381,9 @@ public class UserStoriesTests
         facade.CreateSeller("mario");
         facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999",  "0");
         facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888",  "0");
-        facade.RegisterCall("Llamada 1", "Notas 1", facade.SearchClient("Name","Ezequiel")[0],DateTime.Now.AddDays(-1));
-        facade.RegisterMeeting("Reunión 1", "Notas 2", "Sala A",Meeting.MeetingState.Programmed ,facade.SearchClient("Name","Ezequiel")[0] ,DateTime.Now.AddDays(1));
-        facade.RegisterEmail("Email 1", InteractionOrigin.Origin.Sent, "Notas",facade.SearchClient("Name","Lucía")[0] ,DateTime.Now.AddDays(-1));
+        facade.RegisterCall("Llamada 1", "Notas 1", "0");
+        facade.RegisterMeeting("Reunión 1", "Notas 2", "Sala A","Programmed" ,"0" ,DateTime.Now.AddDays(1).ToString());
+        facade.RegisterEmail("Email 1", "Sent", "Notas","0");
 
         string expected = 
             $"Clientes totales: 2\n" +

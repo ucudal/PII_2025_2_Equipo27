@@ -29,7 +29,7 @@ public class MainFacadeTests
         Seller jose = mainFacade.CreateSeller("Lucas");
         Client client = mainFacade.CreateClient("Juan", "Perez", "juanperez@gmail.com", "099888222",  "0");
         mainFacade.ModifyClient("0", "LastName", "Gutierrez");
-        mainFacade.CreateOpportunity("Product", "100" , "Open", client);
+        mainFacade.CreateOpportunity("Product", "100" , "Open", client.Id.ToString());
 
         Assert.That(client.Opportunities.Count,Is.EqualTo(1));
     }
@@ -41,9 +41,8 @@ public class MainFacadeTests
         Seller jose = mainFacade.CreateSeller("Lucas");
         Client client= mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  "0");
         mainFacade.ModifyClient("0", "LastName", "Gutierrez");
-        RepoTags repoTags = new RepoTags();
-        Tag tag = repoTags.CreateTag("vip");
-        mainFacade.AddTag(client,tag);
+        Tag tag = mainFacade.CreateTag("vip");
+        mainFacade.AddTag(client.Id.ToString(),tag.Id.ToString());
         Assert.That(client.Tags.Count,Is.EqualTo(1));
         Assert.That(client.Tags[0], Is.EqualTo(tag));
     }
@@ -51,44 +50,40 @@ public class MainFacadeTests
     [Test]
     public void RegisterCallRegistersACall()
     {
-        Seller seller = new Seller("Seller",0);
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
-
         MainFacade mainFacade = new MainFacade();
-        mainFacade.RegisterCall("contenido","llamada a juan", client, DateTime.Now);
+        Seller seller = new Seller("Seller",0);
+        Client client = mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller.Id.ToString());
+        mainFacade.RegisterCall("contenido","llamada a juan", client.Id.ToString());
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
     
     [Test]
     public void RegisterEmailRegistersAnEmail()
     {
-        Seller seller = new Seller("Seller",0);
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
-
         MainFacade mainFacade = new MainFacade();
-        mainFacade.RegisterEmail("contenido",InteractionOrigin.Origin.Sent, "Email a juan",client, DateTime.Now);
+        Seller seller = new Seller("Seller",0);
+        Client client = mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller.Id.ToString());
+        mainFacade.RegisterEmail("contenido","Sent", "Email a juan",client.Id.ToString());
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
     
     [Test]
     public void RegisterMeetingRegistersAMeeting()
     {
-        Seller seller = new Seller("Seller",0);
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
-
         MainFacade mainFacade = new MainFacade();
-        mainFacade.RegisterMeeting("Expulsion de juan","Rechazada","Edificio de la empresa",Meeting.MeetingState.Done,client,DateTime.Now);
+        Seller seller = new Seller("Seller",0);
+        Client client = mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller.Id.ToString());
+        mainFacade.RegisterMeeting("Expulsion de juan","Rechazada","Edificio de la empresa","Done",client.Id.ToString(),"10/12/2025");
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
     
     [Test]
     public void RegisterMessageRegistersAMessage()
     {
-        Seller seller = new Seller("Seller",0);
-        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
-
         MainFacade mainFacade = new MainFacade();
-        mainFacade.RegisterMessage("contenido", "Email a juan", InteractionOrigin.Origin.Received,"Whatsapp",client,DateTime.Now);
+        Seller seller = new Seller("Seller",0);
+        Client client = mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller.Id.ToString());
+        mainFacade.RegisterMessage("contenido", "Email a juan", "Received","Whatsapp",client.Id.ToString());
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
     

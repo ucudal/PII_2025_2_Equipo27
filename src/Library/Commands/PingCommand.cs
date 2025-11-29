@@ -143,7 +143,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                 return;
             }
 
-            AdminFacade.Instance.RegisterCall(content, notes, client, date);
+            AdminFacade.Instance.RegisterCall(content, notes, client.Id.ToString());
 
             await ReplyAsync("Nueva llamada Registrada:");
             await ReplyAsync($"Contenido: {content}\nNota: {notes}\nFecha: {date}");

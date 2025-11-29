@@ -28,6 +28,8 @@ namespace Library
 
         private List<Interaction> interactions = new List<Interaction>();
         
+        private int NextId = 1;
+
         /// <summary>
         /// Se crean tags privado y el IReadOnlyList Tags para mejorar la encapsulación de las listas.
         /// </summary>
@@ -221,6 +223,8 @@ namespace Library
                 throw new InvalidOperationException("Esta interacción ya está añadida");
             }
 
+            interaction.Id = NextId;
+            NextId += 1;
             this.interactions.Add(interaction);
         }
         /// <summary>

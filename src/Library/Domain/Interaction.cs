@@ -8,7 +8,7 @@ namespace Library
         public DateTime InteractionDate { get; set; }
         public string Content { get; set; }
         public string Notes { get; set; }
-
+        public int Id { get; set; }
         protected Interaction(String content, String notes, DateTime date)
         {
             if (date == null)
