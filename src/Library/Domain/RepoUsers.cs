@@ -159,18 +159,25 @@ namespace Library
 
         public T SearchUser<T>(int id) where T : User
         {
-            foreach (var user in users)
+            if (id < 0)
             {
-                if (user.Id == id && user is T)
-                {
-                    return (T)user;
-                }
+                throw new ArgumentException("El número de Id no puede ser negativo", nameof(id));
             }
 
-            return null;
+            var userSearch = GetById(id);
+            if (userSearch == null)
+            {
+                throw new KeyNotFoundException("No existe un usuario con esa Id");
+            }
+            if (userSearch is T)
+            {
+                return (T)userSearch;
+            }
+
+            throw new InvalidCastException($"El usuario con la id {id} no es del tipo {typeof(T).Name}.");
         }
 
-        
+
         /// <summary>
         /// Crea una lista con todos los usuarios.
         /// Principios aplicados:
