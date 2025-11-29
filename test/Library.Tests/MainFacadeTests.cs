@@ -16,8 +16,9 @@ public class MainFacadeTests
     {
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        Client client =  mainFacade.CreateClient("Juan", "Perez", "juanperez@gmail.com", "099888222", "Lucas");
+        Client client =  mainFacade.CreateClient("Juan", "Perez", "juanperez@gmail.com", "099888222", "0");
         mainFacade.ModifyClient("0", "LastName", "Gutierrez");
+
         Assert.That(client.LastName,Is.EqualTo("Gutierrez"));
     }
     
@@ -26,9 +27,10 @@ public class MainFacadeTests
     {
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        Client client = mainFacade.CreateClient("Juan", "Perez", "juanperez@gmail.com", "099888222",  "Lucas");
+        Client client = mainFacade.CreateClient("Juan", "Perez", "juanperez@gmail.com", "099888222",  "0");
         mainFacade.ModifyClient("0", "LastName", "Gutierrez");
         mainFacade.CreateOpportunity("Product", "100" , "Open", client);
+
         Assert.That(client.Opportunities.Count,Is.EqualTo(1));
     }
     
@@ -37,9 +39,10 @@ public class MainFacadeTests
     {
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        Client client= mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  "Lucas");
-        Tag tag = new Tag("Electrodomesticos");
+        Client client= mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  "0");
         mainFacade.ModifyClient("0", "LastName", "Gutierrez");
+        RepoTags repoTags = new RepoTags();
+        Tag tag = repoTags.CreateTag("vip");
         mainFacade.AddTag(client,tag);
         Assert.That(client.Tags.Count,Is.EqualTo(1));
         Assert.That(client.Tags[0], Is.EqualTo(tag));
@@ -48,8 +51,9 @@ public class MainFacadeTests
     [Test]
     public void RegisterCallRegistersACall()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterCall("contenido","llamada a juan", client, DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
@@ -58,8 +62,9 @@ public class MainFacadeTests
     [Test]
     public void RegisterEmailRegistersAnEmail()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterEmail("contenido",InteractionOrigin.Origin.Sent, "Email a juan",client, DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
@@ -68,8 +73,9 @@ public class MainFacadeTests
     [Test]
     public void RegisterMeetingRegistersAMeeting()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterMeeting("Expulsion de juan","Rechazada","Edificio de la empresa",Meeting.MeetingState.Done,client,DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
@@ -78,8 +84,9 @@ public class MainFacadeTests
     [Test]
     public void RegisterMessageRegistersAMessage()
     {
-        Seller seller = new Seller("Seller");
+        Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+
         MainFacade mainFacade = new MainFacade();
         mainFacade.RegisterMessage("contenido", "Email a juan", InteractionOrigin.Origin.Received,"Whatsapp",client,DateTime.Now);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
@@ -92,7 +99,8 @@ public class MainFacadeTests
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
         // Act
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "Lucas");
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "0");
+
         // Assert 
         Assert.That(mainFacade.GetClients(), Is.Not.Empty);
     }
@@ -103,8 +111,9 @@ public class MainFacadeTests
         // Arrange
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "Lucas");
-        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321",  "Lucas");
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "0");
+        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321",  "0");
+
         // Act
         IReadOnlyCollection<Client> actual = mainFacade.GetClients();
         // Assert
@@ -117,8 +126,9 @@ public class MainFacadeTests
         // Arrange
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "Lucas");
-        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321",  "Lucas");
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789", "0");
+        mainFacade.CreateClient( "Mariano", "Dominguez", "gfedcba", "987654321",  "0");
+
         // Act
         mainFacade.DeleteClient("0");
         //Assert
@@ -130,8 +140,9 @@ public class MainFacadeTests
     {
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "Lucas");
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "Lucas");
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "0");
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "0");
+
         // Act
         List<Client> actual = mainFacade.SearchClient("Name","Mario");
         // Assert
@@ -143,8 +154,9 @@ public class MainFacadeTests
     {
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "Lucas");
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "Lucas");
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "0");
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "0");
+
         // Act
         List<Client> actual = mainFacade.SearchClient("LastName","Dominguez");
         // Assert
@@ -156,8 +168,9 @@ public class MainFacadeTests
     {
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "Lucas");
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "Lucas");
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "0");
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "0");
+
         // Act
         List<Client> actual = mainFacade.SearchClient( "Email","abcdefg");
         // Assert
@@ -169,8 +182,9 @@ public class MainFacadeTests
     {
         AdminFacade mainFacade = AdminFacade.Instance;
         Seller jose = mainFacade.CreateSeller("Lucas");
-        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "Lucas");
-        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "Lucas");
+        mainFacade.CreateClient("Mario", "Dias", "abcdefg", "123456789",  "0");
+        mainFacade.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  "0");
+
         // Act
         List<Client> actual = mainFacade.SearchClient( "Phone","987654321");
         // Assert
@@ -181,7 +195,7 @@ public class MainFacadeTests
     public void AddData_WorksinFacade()
     {
         Seller seller = AdminFacade.Instance.CreateSeller("kiki");
-        SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789",  "kiki"); 
+        SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789",  "0"); 
         IReadOnlyList<Client> clients = SellerFacade.Instance.GetClients();
         SellerFacade.Instance.AddData("0","Gender","Male");
         SellerFacade.Instance.AddData("0","BirthDate","21/03/1991");

@@ -10,8 +10,8 @@ namespace Library
     public class MainFacade
     {
         protected RepoClients repoClients = RepoClients.Instance;
-        private RepoTag repoTag = new RepoTag();
-        protected RepoUser RepoUsers = RepoUser.Instance;
+        private RepoTags repoTag = new RepoTags();
+        protected RepoUsers RepoUsers = RepoUsers.Instance;
         
 
         /// <summary>
@@ -24,9 +24,9 @@ namespace Library
         /// <param name="gender">Género del cliente</param>
         /// <param name="birthDate">Fecha de nacimiento (string)</param>
         /// <param name="seller">Vendedor responsable</param>
-        public Client CreateClient(string name, string lastName, string email, string phone,  string sellerName)
+        public Client CreateClient(string name, string lastName, string email, string phone,  string sellerid)
         {
-            Seller seller = RepoUsers.SearchUser<Seller>(sellerName);
+            Seller seller = RepoUsers.SearchUser<Seller>(int.Parse(sellerid));
             return repoClients.CreateClient(name, lastName, email, phone, seller);
         }
         /// <summary>
@@ -223,7 +223,7 @@ namespace Library
         /// <returns></returns>
         public IReadOnlyList<Tag> GetTags()
         {
-            return repoTag.TagList;
+            return repoTag.GetAll();
         }
 
         /// <summary>

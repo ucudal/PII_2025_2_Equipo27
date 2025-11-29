@@ -271,15 +271,11 @@ namespace Library
             int futureMeetings = 0;
             foreach (var interaction in this.Interactions)
             {
-                if (interaction.InteractionDate.Month == month && interaction.InteractionDate.Year == year &&
-                    interaction.InteractionDate >= DateTime.Now)
+                if (DateTime.Now <= interaction.InteractionDate)
                 {
-
-                    if (DateTime.Now <= interaction.InteractionDate)
-                    {
-                        futureMeetings += 1;
-                    }
+                    futureMeetings += 1;
                 }
+                
             }
 
             return (futureMeetings);
