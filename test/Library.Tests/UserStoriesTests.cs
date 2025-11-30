@@ -33,7 +33,7 @@ public class UserStoriesTests
         SellerFacade facade = SellerFacade.Instance;
 
         // Modificar la información de un cliente existente para mantenerla actualizada.
-        Seller seller = new Seller("Carlos");
+        AdminFacade.Instance.CreateSeller("Carlos");
         Client client = facade.CreateClient("Pedra", "Sanchez", "pedra@gmail.com", "099000111", "Carlos");
 
         facade.ModifyClient("0", "Name", "Guillermo");
@@ -55,7 +55,7 @@ public class UserStoriesTests
     //Eliminar un cliente para mantener limpia la base de datos.
     {
         SellerFacade facade = SellerFacade.Instance;
-        Seller user = new Seller("Carlos");
+        AdminFacade.Instance.CreateSeller("Carlos");
         facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "Carlos");
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
         
@@ -71,7 +71,7 @@ public class UserStoriesTests
     //Buscar clientes por nombre, apellido, teléfono o correo para identificarlos rápidamente.
     {
         SellerFacade facade = SellerFacade.Instance;
-        Seller user = new Seller("Carlos");
+        AdminFacade.Instance.CreateSeller("Carlos");
         
         facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "Carlos");
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
@@ -98,7 +98,7 @@ public class UserStoriesTests
     // Ver una lista de todos mis clientes para tener una vista general de mi cartera.
     {
         SellerFacade facade = SellerFacade.Instance;
-        Seller user = new Seller("Carlos");
+        AdminFacade.Instance.CreateSeller("Carlos");
 
         facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "Carlos");
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
@@ -188,12 +188,11 @@ public class UserStoriesTests
     // para realizar campañas y saludarlos en sus cumpleaños.
     {
         // Arrange
-        Seller seller = new Seller("Kiki");
+        AdminFacade.Instance.CreateSeller("Kiki");
         SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789",  "Kiki"); 
         IReadOnlyList<Client> clients = SellerFacade.Instance.GetClients();
-        clients[0].AddData(RepoClients.TypeOfData.Gender,"Male");
-        clients[0].AddData(RepoClients.TypeOfData.BirthDate,"21/03/1991");
-
+        SellerFacade.Instance.AddData("0", "Gender", "Male");
+        SellerFacade.Instance.AddData("0", "BirthDate", "21/03/1991");
         // Act
         string actualClientBirthDate = clients[0].BirthDate;
         Client.GenderType actualClientGender = clients[0].Gender;
@@ -221,7 +220,7 @@ public class UserStoriesTests
     public void UserStory13Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki");
+        AdminFacade.Instance.CreateSeller("Kiki");
         SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789",  "Kiki"); 
         SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879",  "Kiki");
         Tag tag1 = SellerFacade.Instance.CreateTag("Compra milanesas");
@@ -247,7 +246,7 @@ public class UserStoriesTests
     public void UserStory14Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki");
+        AdminFacade.Instance.CreateSeller("Kiki");;
         Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456",  "Kiki");
         // Act
         Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Mate", "450", "Close", elEdi);
@@ -261,7 +260,7 @@ public class UserStoriesTests
     public void UserStory15Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki");
+        AdminFacade.Instance.CreateSeller("Kiki");
         Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556",  "Kiki");
         // Act
         Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Pelota", "200", "Open", virgil);
@@ -276,7 +275,7 @@ public class UserStoriesTests
     public void UserStory16Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki");
+        AdminFacade.Instance.CreateSeller("Kiki");
         Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999",  "Kiki");
         SellerFacade.Instance.RegisterCall("Compra de botines", "Quiere comprar 3 pares", harry, DateTime.Today);
         SellerFacade.Instance.RegisterEmail("Organizando una llamada para hacer una compra", InteractionOrigin.Origin.Received, "Ninguna nota", harry, DateTime.Today);
@@ -292,7 +291,7 @@ public class UserStoriesTests
     public void UserStory17Test()
     //Como usuario quiero saber los clientes que hace cierto tiempo que no tengo ninguna interacción con ellos, para no peder contacto con ellos.
     {
-        Seller user = new Seller("Carlos");
+        AdminFacade.Instance.CreateSeller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
         facade.SwitchClientActivity(0);
@@ -304,7 +303,7 @@ public class UserStoriesTests
     public void UserStory18Test()
     //Como usuario quiero saber los clientes que se pusieron en contacto conmigo y no les contesté hace cierto tiempo, para no dejar de responder mensajes o llamadas.
     {
-        Seller user = new Seller("Carlos");
+        AdminFacade.Instance.CreateSeller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "Carlos");
         facade.SwitchClientWaiting(0);
@@ -316,7 +315,7 @@ public class UserStoriesTests
     public void UserStory19Test()
     //Como administrador quiero crear, suspender o eliminar usuarios, para mantener control sobre los accesos.
     {
-        Seller user = new Seller("Carlos");
+        AdminFacade.Instance.CreateSeller("Carlos");
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Carlos");
         IReadOnlyList<User> sellers = facade.GetUsers();
@@ -360,8 +359,9 @@ public class UserStoriesTests
     //Como usuario quiero ver un panel con clientes totales, interacciones recientes y reuniones próximas, para tener un resumen rápido.
     {
         AdminFacade facade = AdminFacade.Instance;
-        facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
-        facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888",  null);
+        facade.CreateSeller("Juan");
+        facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999",  "Juan");
+        facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888",  "Juan");
         facade.RegisterCall("Llamada 1", "Notas 1", facade.SearchClient("Name","Ezequiel")[0],DateTime.Now.AddDays(-1));
         facade.RegisterMeeting("Reunión 1", "Notas 2", "Sala A",Meeting.MeetingState.Programmed ,facade.SearchClient("Name","Ezequiel")[0] ,DateTime.Now.AddDays(1));
         facade.RegisterEmail("Email 1", InteractionOrigin.Origin.Sent, "Notas",facade.SearchClient("Name","Lucía")[0] ,DateTime.Now.AddDays(-1));

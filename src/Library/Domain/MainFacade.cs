@@ -27,6 +27,30 @@ namespace Library
 
         public Client CreateClient(string name, string lastName, string email, string phone,  string sellerName)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("El cliente debe tener un nombre", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new ArgumentException("El cliente debe tener un apellido", nameof(lastName));
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("El cliente debe tener un emial", nameof(email));
+            }
+
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
+            }
+            
+            if (string.IsNullOrEmpty(sellerName) || RepoUsers.SearchUser<Seller>(sellerName) == null)
+            {
+                throw new ArgumentException("El nombre del seller no es válido", nameof(sellerName));
+            }
             Seller seller = RepoUsers.SearchUser<Seller>(sellerName);
             return repoClients.CreateClient(name, lastName, email, phone, seller);
         }

@@ -80,10 +80,11 @@ namespace Library
             this.Inactive = false;
             this.Waiting = false;
             this.AsignedSeller = seller;
+            this.Gender = GenderType.Empty;
+            this.BirthDate = "Empty";
         }
 
         public Seller AsignedSeller { get; set; }
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -97,7 +98,8 @@ namespace Library
         public enum GenderType
         {
             Male,
-            Female
+            Female,
+            Empty
         }
 
         /// <summary>

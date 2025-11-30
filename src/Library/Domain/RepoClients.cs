@@ -67,6 +67,25 @@ namespace Library
 
         public Client CreateClient(string name, string lastName, string email, string phone, Seller seller)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("El cliente debe tener un nombre", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new ArgumentException("El cliente debe tener un apellido", nameof(lastName));
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("El cliente debe tener un emial", nameof(email));
+            }
+
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
+            }
             int id = this.NextId;
             Client client = new Client(id, name, lastName, email, phone, seller);
             clients.Add(client);
@@ -126,7 +145,7 @@ namespace Library
             {
                 throw new ArgumentException("Debe escribir un id válido", nameof(id));
             }
-        Client result = null;
+            Client result = null;
             foreach (var client in clients)
             {
                 if (client.Id == id)
