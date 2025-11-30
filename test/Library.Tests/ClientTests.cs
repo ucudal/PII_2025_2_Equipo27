@@ -17,8 +17,8 @@ public class ClientTests
         Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com",  "099888222", seller);
         Assert.That(client.Id, Is.EqualTo(0));
-        Assert.That(client.Name, Is.EqualTo("Juan"));
-        Assert.That(client.LastName, Is.EqualTo("Perez"));
+        Assert.That(client.Name, Is.EqualTo("juan"));
+        Assert.That(client.LastName, Is.EqualTo("perez"));
         Assert.That(client.Email, Is.EqualTo("juanperez@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("099888222"));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));

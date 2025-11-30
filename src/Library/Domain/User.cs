@@ -22,7 +22,7 @@ namespace Library
                     throw new ArgumentException(nameof(value));
                 }
 
-                userName = value;
+                userName = value.Trim().ToLower();
             } 
         }
         

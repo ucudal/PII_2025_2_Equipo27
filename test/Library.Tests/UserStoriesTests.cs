@@ -18,13 +18,14 @@ public class UserStoriesTests
     public void UserStory1Test()
     {
         // Crear un nuevo cliente con su información básica (nombre, apellido, teléfono y correo electrónico) para poder contactarme con ellos.
-        Seller seller = new Seller("Carlos",0);
+        RepoUsers users = RepoUsers.Instance;
+        Seller seller = users.CreateSeller("carlos");
         Client client = new Client(0, "pedro", "Sanchez", "pedro@gmail.com", 
             "099000111", seller);
 
         Assert.That(client, Is.Not.Null);
         Assert.That(client.Name, Is.EqualTo("pedro"));
-        Assert.That(client.LastName, Is.EqualTo("Sanchez"));
+        Assert.That(client.LastName, Is.EqualTo("sanchez"));
         Assert.That(client.Email, Is.EqualTo("pedro@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("099000111"));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));
@@ -46,8 +47,8 @@ public class UserStoriesTests
         
         
         Assert.That(client, Is.Not.Null);
-        Assert.That(client.Name, Is.EqualTo("Guillermo"));
-        Assert.That(client.LastName, Is.EqualTo("Diaz"));
+        Assert.That(client.Name, Is.EqualTo("guillermo"));
+        Assert.That(client.LastName, Is.EqualTo("diaz"));
         Assert.That(client.Email, Is.EqualTo("willy@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("097888999"));
     }
@@ -334,7 +335,6 @@ public class UserStoriesTests
     public void UserStory19Test()
     //Como administrador quiero crear, suspender o eliminar usuarios, para mantener control sobre los accesos.
     {
-        Seller user = new Seller("Carlos", 0);
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Carlos");
         IReadOnlyList<User> sellers = facade.GetUsers();
@@ -346,18 +346,21 @@ public class UserStoriesTests
         int actual3 = sellers.Count;
         Assert.That(actual1,Is.EqualTo(1));
         Assert.That(actual2,Is.EqualTo(1));
-        Assert.That(actual3,Is.EqualTo(1));
+        Assert.That(actual3,Is.EqualTo(0));
     }
 
     [Test]
     public void UserStory20Test()
     //Como vendedor, quiero poder asignar un cliente a otro vendedor para distribuir el trabajo en el equipo.
     {
-        AdminFacade.Instance.CreateSeller("Pedro");
-        AdminFacade.Instance.CreateSeller("Juan");
-        AdminFacade.Instance.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111",  "0");
+        AdminFacade adminFacade = AdminFacade.Instance;
+        adminFacade.CreateSeller("Pedro");
+        adminFacade.CreateSeller("Juan");
+        
+        adminFacade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111",  "0");
+       
         SellerFacade.Instance.AssignClient("0", "1", "0");
-        Assert.That(AdminFacade.Instance.SearchClient("Name","Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("1")));
+        Assert.That(adminFacade.SearchClient("Name","jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("1")));
 
     }
 

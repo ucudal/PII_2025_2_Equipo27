@@ -61,7 +61,7 @@ public class RepoClientsTests
             // Act
             List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Mario");
             // Assert
-            Assert.That(actual[0].Name, Is.EqualTo("Mario"));
+            Assert.That(actual[0].Name, Is.EqualTo("mario"));
     }
     
     [Test]
@@ -76,7 +76,7 @@ public class RepoClientsTests
         // Act
         List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.LastName,"Dominguez");
         // Assert
-        Assert.That(actual[0].LastName, Is.EqualTo("Dominguez"));
+        Assert.That(actual[0].LastName, Is.EqualTo("dominguez"));
     }
     
     [Test]
