@@ -69,14 +69,14 @@ namespace Library
         public IReadOnlyList<Client> GetAll() => clients.AsReadOnly();
         
         /// <summary>
-        /// Crea y registra un nuevo cliente (client) en el sistema.
-        /// RepoClients contiene instancias de Client y debe crearlos siguiendo el patrón Creator.
-        /// Aplicación de los patrones y principios:
-        /// - Creator: RepoClients es responsable de crear Clients porque gestiona la colección y su ciclo de vida.
-        /// - Expert: RepoClients tiene la información y lógica para asignar datos y generar identificadores.
-        /// - SRP: Responsabilidad clara, solo crea y registra un client.
+        /// Agrega un cliente ya existente al repositorio.
+        /// Implementación del contrato de la interfaz IRepo.
+        /// Aplicación de patrones y principios:
+        /// - Repository: Se encarga exclusivamente de la lógica de almacenamiento (agregar a la lista).
+        /// - DIP (SOLID): Implementa la abstracción, permitiendo que el sistema dependa de la interfaz y no de la implementación concreta.
+        /// - SRP: Su única responsabilidad es guardar una entidad válida.
         /// </summary>
-        /// <param name="entity">Entidad del client.0..</param>
+        /// <param name="entity">Entidad del cliente a guardar.</param>
         public void Create(Client entity)
         {
             if (entity == null)
@@ -88,22 +88,18 @@ namespace Library
 
         
         /// <summary>
-        /// Crea y registra un nuevo cliente en el sistema.
-        /// RepoClients contiene instancias de Client y debe crearlos siguiendo el patrón Creator.
-        /// Aplicación de los patrones y principios:
-        /// - Creator: RepoClients es responsable de crear clientes porque gestiona la colección y su ciclo de vida.
-        /// - Expert: RepoClients tiene la información y lógica para asignar datos y generar identificadores.
-        /// - SRP: Responsabilidad clara, solo crea y registra un cliente.
+        /// Método para crear un nuevo cliente.
+        /// Genera el ID único, instancia el objeto y lo registra automáticamente.
+        /// Aplicación de patrones y principios:
+        /// - Creator (GRASP): RepoClients es el responsable de crear instancias de Client porque es quien las contiene y gestiona.
+        /// - Expert (GRASP): Posee la información necesaria (como el NextId y la lista para validar) para crear un cliente válido.
         /// </summary>
         /// <param name="name">Nombre del Cliente.</param>
         /// <param name="lastName">Apellido del Cliente.</param>
         /// <param name="email">Email del Cliente.</param>
         /// <param name="phone">Número de teléfono del Cliente.</param>
-        /// <param name="gender">Sexo del Cliente.</param>
-        /// <param name="birthDate">Fecha de nacimiento del Cliente.</param>
         /// <param name="seller">Vendedor asignado al Cliente.</param>
-        /// <returns>Cliente creado.</returns>
-
+        /// <returns>La instancia del Cliente recién creado.</returns>
         public Client CreateClient(string name, string lastName, string email, string phone, Seller seller)
         {
             int id = this.NextId;
