@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -22,42 +23,34 @@ namespace Ucu.Poo.DiscordBot.Commands
         public async Task CreateNewClientAsync(string input)
         {
             string[] parameters = input.Split(",");
-            string name; string lastName; string email; string phone; string sellerName;
+            string name;
+            string lastName;
+            string email;
+            string phone;
+            string sellerName;
             if (parameters.Length != 5)
             {
                 await ReplyAsync(
                     "Debe ingresar los parámetros necesarios. \n Ejemplo: !newclient Marcelo, Rodriguez, email@example, 099123123, SellerName");
                 return;
             }
-            
-            name = parameters[0]; lastName = parameters[1]; email = parameters[2]; phone = parameters[3];
+
+            name = parameters[0];
+            lastName = parameters[1];
+            email = parameters[2];
+            phone = parameters[3];
             sellerName = parameters[4];
             AdminFacade.Instance.CreateSeller("Marito");
-            Client client = SellerFacade.Instance.CreateClient(name,lastName,email,phone,sellerName);
-            if (SellerFacade.Instance.GetClients().Contains(client))
+
+            try
             {
+                SellerFacade.Instance.CreateClient(name, lastName, email, phone, sellerName);
                 await ReplyAsync("Cliente creado correctamente.");
             }
-            else
+            catch (ArgumentException e)
             {
-                await ReplyAsync("Client no creado.");
+                await ReplyAsync($"Error: {e.Message}");
             }
         }
-
-        // [Command("newclient")]
-        // [Summary("Crear un nuevo cliente y devuelve un mensaje indicando si se creeó correctamente o no.")]
-        // public async Task CreateNewClientAsync(string name, string lastName, string email, string phone, string gender, string birthDate)
-        // {
-        //     Seller seller = new Seller("Marito");
-        //     Client client = SellerFacade.Instance.CreateClient(name, lastName, email, phone, gender, birthDate, seller);
-        //     if (SellerFacade.Instance.GetClients().Contains(client))
-        //     {
-        //         await ReplyAsync("Cliente creado correctamente.");
-        //     }
-        //     else
-        //     {
-        //         await ReplyAsync("Client no creado.");
-        //     }
-        // }
     }
 }

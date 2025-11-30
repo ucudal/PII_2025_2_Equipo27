@@ -12,7 +12,9 @@ namespace Library
         protected RepoClients repoClients = RepoClients.Instance;
         private RepoTags repoTag = new RepoTags();
         protected RepoUser RepoUsers = RepoUser.Instance;
-        
+
+        // Seller para probar los comandos.
+        private Seller seller = new Seller("Marito");
 
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio.
