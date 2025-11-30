@@ -11,6 +11,7 @@ public class UserStoriesTests
         AdminFacade.ResetInstance();
         RepoClients.ResetInstance();
         RepoUsers.ResetInstance();
+        RepoTags.ResetInstance();
     }
     
     [Test]

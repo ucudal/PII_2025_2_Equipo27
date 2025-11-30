@@ -126,7 +126,7 @@ namespace Library
             {
                 throw new ArgumentException("Debe escribir un id válido", nameof(id));
             }
-        Client result = null;
+            Client result = null;
             foreach (var client in clients)
             {
                 if (client.Id == id)
