@@ -153,9 +153,9 @@ public class RepoUsersTest
     public void CreateSeller_Exception()
     {
         RepoUsers users = RepoUsers.Instance;
-        Seller seller = users.CreateSeller("");
-
-        Assert.That(seller, Is.Null);
+        
+        var errorSeller = Assert.Throws<InvalidOperationException>(() => users.CreateSeller(""));
+        Assert.That(errorSeller.Message, Does.Contain("El usuario debe tener un nombre"));
     }
 
     /// <summary>
