@@ -64,6 +64,10 @@ namespace Library
         {
             RepoClients.TypeOfData datatype = 0;
             Client client = repoClients.SearchClientById(int.Parse(id));
+            if (client == null)
+            {
+                throw new ArgumentException("Cliente no encontrado.");
+            }
             if (typeOfData == RepoClients.TypeOfData.BirthDate.ToString())
             {
                 datatype = RepoClients.TypeOfData.BirthDate;

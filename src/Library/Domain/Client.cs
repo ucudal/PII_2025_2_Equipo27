@@ -80,7 +80,7 @@ namespace Library
             this.Inactive = false;
             this.Waiting = false;
             this.AsignedSeller = seller;
-            this.Gender = 0;
+            this.Gender = GenderType.Empty;
             this.BirthDate = "Empty";
         }
 
@@ -99,6 +99,7 @@ namespace Library
         {
             Male,
             Female,
+            Empty
         }
 
         /// <summary>

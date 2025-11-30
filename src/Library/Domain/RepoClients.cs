@@ -108,7 +108,7 @@ namespace Library
         /// </summary>
         /// <param name="id">El id del cliente que se va a eliminar.</param>
         
-        public void DeleteClient(int id)
+        public bool DeleteClient(int id)
         {
             if (string.IsNullOrEmpty(id.ToString()))
             {
@@ -125,6 +125,8 @@ namespace Library
                 }
                 i += 1;
             }
+
+            return clientFound;
         } 
         public enum TypeOfData
         {
