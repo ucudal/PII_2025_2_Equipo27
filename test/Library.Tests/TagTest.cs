@@ -9,7 +9,9 @@ public class TagTest
     public void SetTagName_Valid()
     {
         Tag tag = new Tag(0,"ViP");
-        Assert.That("vip", Is.EqualTo(tag.TagName));
+        string testTagName = "vip";
+
+        Assert.That(testTagName, Is.EqualTo(tag.TagName));
     }
     
 }
