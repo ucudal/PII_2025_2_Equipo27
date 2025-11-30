@@ -16,11 +16,11 @@ public class RepoUsersTest
     public void SearchUser_Existing()
     {
         RepoUsers users = RepoUsers.Instance;
-        users.CreateSeller("Marisol");
+        users.CreateSeller("marisol");
 
         Seller seller = users.SearchUser<Seller>(0);
 
-        Assert.That(seller.UserName, Is.EqualTo("Marisol"));
+        Assert.That(seller.UserName, Is.EqualTo("marisol"));
     }
 
     /// <summary>
@@ -67,8 +67,8 @@ public class RepoUsersTest
     public void CreateAdmin_NotExistUsername()
     {
         RepoUsers users = RepoUsers.Instance;
-        string username1 = "Lucas";
-        string username2 = "Facundo";
+        string username1 = "lucas";
+        string username2 = "facundo";
 
         Admin admin1 = users.CreateAdmin(username1);
         Admin admin2 = users.CreateAdmin(username2);
@@ -77,8 +77,8 @@ public class RepoUsersTest
         Assert.That(admin1.Id, Is.EqualTo(0));
         Assert.That(admin2.UserName, Is.EqualTo(username2));
         Assert.That(admin2.Id, Is.EqualTo(1));
-        Assert.That(users.Users.Count, Is.EqualTo(2));
-        Assert.That(users.Users[0], Is.EqualTo(admin1));
+        Assert.That(users.Count, Is.EqualTo(2));
+        Assert.That(users.GetAll()[0], Is.EqualTo(admin1));
     }
 
     /// <summary>
@@ -90,10 +90,9 @@ public class RepoUsersTest
     {
         RepoUsers users = RepoUsers.Instance;
         Admin admin1 = users.CreateAdmin("Luciano");
-        Admin admin2 = users.CreateAdmin("Luciano");
-
-        Assert.That(admin2, Is.Null);
-        Assert.That(users.Users.Count, Is.EqualTo(1));
+        
+        var admin2 = Assert.Throws<InvalidOperationException>(() => users.CreateAdmin("Luciano"));
+        Assert.That(admin2.Message, Does.Contain("Ya existe un user con ese nombre"));
     }
     
     /// <summary>
@@ -117,8 +116,8 @@ public class RepoUsersTest
     public void CreateSeller_NotExistUsername()
     {
         RepoUsers users = RepoUsers.Instance;
-        string username1 = "Rodrigo";
-        string username2 = "Agustín";
+        string username1 = "rodrigo";
+        string username2 = "agustín";
 
         Seller seller1 = users.CreateSeller(username1);
         Seller seller2 = users.CreateSeller(username2);
@@ -127,8 +126,8 @@ public class RepoUsersTest
         Assert.That(seller1.Id, Is.EqualTo(0));
         Assert.That(seller2.UserName, Is.EqualTo(username2));
         Assert.That(seller2.Id, Is.EqualTo(1));
-        Assert.That(users.Users.Count, Is.EqualTo(2));
-        Assert.That(users.Users[0], Is.EqualTo(seller1));
+        Assert.That(users.Count, Is.EqualTo(2));
+        Assert.That(users.GetAll()[0], Is.EqualTo(seller1));
     }
 
     /// <summary>
@@ -140,11 +139,9 @@ public class RepoUsersTest
     {
         RepoUsers users = RepoUsers.Instance;
         Seller seller1 = users.CreateSeller("Luciano");
-
-        Seller seller2 = users.CreateSeller("Luciano");
-
-        Assert.That(seller2, Is.Null);
-        Assert.That(users.Users.Count, Is.EqualTo(1));
+        
+        var seller2 = Assert.Throws<InvalidOperationException>(() => users.CreateSeller("Luciano"));
+        Assert.That(seller2.Message, Does.Contain("Ya existe un user con ese nombre"));
     }
 
     /// <summary>
@@ -168,9 +165,9 @@ public class RepoUsersTest
     {
         RepoUsers repo = RepoUsers.Instance;
         
-        repo.CreateTag(repo.CreateAdmin("Emanuel"));
+        repo.CreateAdmin("Emanuel");
         
-        Assert.That(repo.Users.Count, Is.EqualTo(2));
+        Assert.That(repo.Count, Is.EqualTo(1));
     }
 
     /// <summary>
@@ -212,7 +209,7 @@ public class RepoUsersTest
 
         users.Remove(0);
 
-        Assert.That(users.Users.Count, Is.EqualTo(0));
+        Assert.That(users.Count, Is.EqualTo(0));
     }
     
     /// <summary>

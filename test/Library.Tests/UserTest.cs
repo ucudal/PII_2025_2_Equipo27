@@ -16,7 +16,7 @@ public class UserTest
     {
         Seller seller = new Seller("Juan", 0);
         seller.UserName = "Manuel";
-        Assert.That("Manuel", Is.EqualTo(seller.UserName));
+        Assert.That("manuel", Is.EqualTo(seller.UserName));
     }
 
     /// <summary>

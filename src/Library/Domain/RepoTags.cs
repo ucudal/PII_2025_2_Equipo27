@@ -21,7 +21,7 @@ namespace Library
         /// <item><b>Singleton:</b> Garantiza una única instancia del repositorio para mantener la consistencia de los datos en memoria.</item>
         /// <item><b>Repository:</b> Abstrae la lógica de almacenamiento y acceso a datos.</item>
         /// <item><b>Information Expert (GRASP):</b> Es la clase experta en gestionar la colección de tags y sus IDs.</item>
-        /// <item><b>DIP (SOLID):</b> Implementa la abstracción IRepo&lt;Tag&gt; para reducir el acoplamiento.</item>
+        /// <item><b>DIP (SOLID):</b> Implementa la abstracción para reducir el acoplamiento.</item>
         /// </list>
         /// </summary>
 
@@ -115,6 +115,10 @@ namespace Library
         /// <returns>Tag correspondiente al id proporcionado, o null si no existe.</returns>
         public Tag GetById(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("El número de Id no puede ser negativo", nameof(id));
+            }
             Tag result = null;
             foreach (var tag in tags)
             {
@@ -138,6 +142,10 @@ namespace Library
         /// <param name="id">El id del tag que se va a eliminar.</param>
         public void Remove(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("El ID no puede ser negativo.", nameof(id));
+            }
             Tag tagToRemove = GetById(id);
 
             if (tagToRemove != null)
