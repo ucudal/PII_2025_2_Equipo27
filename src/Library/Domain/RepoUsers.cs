@@ -44,7 +44,7 @@ namespace Library
             get { return users.Count; }
         }
 
-        private int nextId = 0;
+        private int NextId = 0;
 
         //private List<Seller> suspendedSellers = new List<Seller>();
 
@@ -76,9 +76,9 @@ namespace Library
 
             try
             {
-                Admin admin = new Admin(username, nextId);
-                users.Add(admin);
-                nextId++;
+                Admin admin = new Admin(username, NextId);
+                this.Create(admin);
+                NextId++;
                 return admin;
             }
             catch (ArgumentException e)
@@ -110,15 +110,20 @@ namespace Library
 
             try
             {
-                Seller seller = new Seller(username, nextId);
-                users.Add(seller);
-                nextId++;
+                Seller seller = new Seller(username, NextId);
+                this.Create(seller);
+                NextId++;
                 return seller;
             }
             catch (ArgumentException e)
             {
                 return null;
             }
+        }
+        
+        public void Create(User entity)
+        {
+           users.Add(entity);
         }
 
         /// <summary>
@@ -129,9 +134,9 @@ namespace Library
         /// Polymorphism: El metodo recibe cualquier subtipo de User.
         /// </summary>
         /// <param name="entity"></param>
-        public void Add(User entity)
+        public void CreateTag(User entity)
         {
-            users.Add(entity);
+            this.Create(entity);
         }
         
         /// <summary>

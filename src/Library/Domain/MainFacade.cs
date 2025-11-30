@@ -10,7 +10,7 @@ namespace Library
     public class MainFacade
     {
         protected RepoClients repoClients = RepoClients.Instance;
-        private RepoTags repoTag = new RepoTags();
+        private RepoTags repoTag =  RepoTags.Instance;
         protected RepoUsers RepoUsers = RepoUsers.Instance;
         
 

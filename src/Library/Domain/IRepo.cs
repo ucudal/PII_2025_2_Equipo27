@@ -15,14 +15,14 @@ namespace Library
         IReadOnlyList<T> GetAll();
 
         /// <summary>
+        /// Agrega un nuevo elemento al repositorio.
+        /// </summary>
+        void Create(T entity);
+        
+        /// <summary>
         /// Obtiene un elemento por su identificador único.
         /// </summary>
         T GetById(int id);
-
-        /// <summary>
-        /// Agrega un nuevo elemento al repositorio.
-        /// </summary>
-        void Add(T entity);
 
         /// <summary>
         /// Elimina un elemento del repositorio por su ID.
@@ -33,5 +33,6 @@ namespace Library
         /// Obtiene la cantidad total de elementos.
         /// </summary>
         int Count { get; }
+        
     }
 }

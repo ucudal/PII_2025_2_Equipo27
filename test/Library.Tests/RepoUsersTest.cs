@@ -168,7 +168,7 @@ public class RepoUsersTest
     {
         RepoUsers repo = RepoUsers.Instance;
         
-        repo.Add(repo.CreateAdmin("Emanuel"));
+        repo.CreateTag(repo.CreateAdmin("Emanuel"));
         
         Assert.That(repo.Users.Count, Is.EqualTo(2));
     }
