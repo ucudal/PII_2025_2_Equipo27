@@ -28,7 +28,7 @@ public class UserTest
     [Test]
     public void SetUserName_Exception()
     {
-        Assert.Throws<ArgumentException>(() => Is.EqualTo(new Seller("", 0)));
+        Assert.Throws<InvalidOperationException>(() => Is.EqualTo(new Seller("", 0)));
     }
     
     
