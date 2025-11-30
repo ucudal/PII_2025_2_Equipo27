@@ -91,12 +91,9 @@ public class RepoTagsTest
     [Test]
     public void SearchTag_NotExisting()
     {
-        string testTagName = "vip";
-
         RepoTags repo = RepoTags.Instance;
-    
-
-        var search = Assert.Throws<ArgumentException>(() => repo.Search("hyper"));
+        
+        var search = Assert.Throws<ArgumentException>(() => repo.Search("vip"));
         Assert.That(search.Message, Does.Contain("No se encontró ninguna tag con ese nombre"));
     }
     
