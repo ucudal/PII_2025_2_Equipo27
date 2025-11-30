@@ -32,10 +32,31 @@ public class RepoUsersTest
     {
         RepoUsers users = RepoUsers.Instance;
         users.CreateSeller("Marisol");
+        
+        Assert.Throws<KeyNotFoundException>(()=>users.SearchUser<Seller>(1));
+    }
 
-        Seller seller = users.SearchUser<Seller>(1);
+    /// <summary>
+    /// Verifica que se lance una excepción si el numero es negativo.
+    /// </summary>
+    [Test]
+    public void SearchUser_InvalidId()
+    {
+        RepoUsers users = RepoUsers.Instance;
+        users.CreateSeller("Marisol");
+        
+        Assert.Throws<ArgumentException>(()=>users.SearchUser<Seller>(-2));
+    }
 
-        Assert.That(seller, Is.Null);
+    [Test]
+    public void SearchUser_IfTheIdDoesNotCorrespond()
+    {
+        RepoUsers users = RepoUsers.Instance;
+        users.CreateAdmin("Triana");
+        users.CreateSeller("Tadeo");
+        users.CreateSeller("Francesco");
+
+        Assert.Throws<InvalidCastException>(() => users.SearchUser<Admin>(1));
     }
     
     /// <summary>

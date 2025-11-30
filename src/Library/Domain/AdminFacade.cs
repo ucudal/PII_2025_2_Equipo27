@@ -117,7 +117,7 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void SuspendUser(string id)
         {
-            User user = RepoUsers.SearchUser<User>(int.Parse(id));
+            User user = this.SearchUser<User>(id);
             if (user != null)
             {
                 Admin.SuspendUser(user);
@@ -136,7 +136,7 @@ namespace Library
         public void ActiveUser(string id)
         {
 
-            User user = RepoUsers.SearchUser<User>(int.Parse(id));
+            User user = this.SearchUser<User>(id);
             if (user != null)
             {
                 Admin.ActiveUser(user);
@@ -156,10 +156,10 @@ namespace Library
         public void DeleteUser(string id)
         {
 
-            User user = RepoUsers.SearchUser<User>(int.Parse(id));
+            User user = this.SearchUser<User>(id);
             if (user != null)
             {
-                RepoUsers.Remove(int.Parse(id));
+                RepoUsers.Remove(user.Id);
             }
             
         }
