@@ -86,6 +86,12 @@ namespace Library
             {
                 throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
             }
+
+            if (seller == null)
+            {
+                throw new ArgumentException("El cliente debe tener un seller", nameof(seller));
+            }
+            
             int id = this.NextId;
             Client client = new Client(id, name, lastName, email, phone, seller);
             clients.Add(client);
