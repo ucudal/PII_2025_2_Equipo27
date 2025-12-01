@@ -9,13 +9,13 @@ namespace Ucu.Poo.DiscordBot.Commands
     {
         [Command("newmessage")]
         [Summary("Registra un mensage para un cliente.")]
-        public async Task RegisterMessageAsync(string clientId, string content, string notes, string sender, string channel)
+        public async Task RegisterMessageAsync(string clientId, string content, string sender, string channel,[Remainder] string notes)
         {
             try
             {
                 AdminFacade.Instance.RegisterMessage(content,notes,sender,channel,clientId);
                 await ReplyAsync("Nuevo mensaje registrado");
-                await ReplyAsync($"Contenido: {content}\nNotas: {notes}\nCanal: {channel}");
+                await ReplyAsync($"Contenido: {content}\nNotas: {notes}\nCanal: {channel}\nFecha: {DateTime.Now}");
             }
             catch (ArgumentException e)
             {
