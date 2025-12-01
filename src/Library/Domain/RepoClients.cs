@@ -260,10 +260,6 @@ namespace Library
 
         public string GetPanel()
         {
-            DateTime now = DateTime.Now;
-            int month = now.Month;
-            int year = now.Year;
-
             int recentInteractions = 0;
             int futureMeetings = 0;
 

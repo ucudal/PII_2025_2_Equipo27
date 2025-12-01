@@ -249,8 +249,7 @@ namespace Library
             int recentInteractions = 0;
             foreach (var interaction in this.Interactions)
             {
-                if (interaction.InteractionDate.Month == month && interaction.InteractionDate.Year == year &&
-                    interaction.InteractionDate <= DateTime.Now)
+                if (interaction.InteractionDate.Date <= DateTime.Now && interaction.InteractionDate.Date >= DateTime.Now.AddDays(-31))
                 {
                     recentInteractions += 1;
                 }
