@@ -11,19 +11,21 @@ public class UserStoriesTests
         AdminFacade.ResetInstance();
         RepoClients.ResetInstance();
         RepoUsers.ResetInstance();
+        RepoTags.ResetInstance();
     }
     
     [Test]
     public void UserStory1Test()
     {
         // Crear un nuevo cliente con su información básica (nombre, apellido, teléfono y correo electrónico) para poder contactarme con ellos.
-        Seller seller = new Seller("Carlos",0);
+        RepoUsers users = RepoUsers.Instance;
+        Seller seller = users.CreateSeller("carlos");
         Client client = new Client(0, "pedro", "Sanchez", "pedro@gmail.com", 
             "099000111", seller);
 
         Assert.That(client, Is.Not.Null);
         Assert.That(client.Name, Is.EqualTo("pedro"));
-        Assert.That(client.LastName, Is.EqualTo("Sanchez"));
+        Assert.That(client.LastName, Is.EqualTo("sanchez"));
         Assert.That(client.Email, Is.EqualTo("pedro@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("099000111"));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));
@@ -34,7 +36,7 @@ public class UserStoriesTests
         SellerFacade facade = SellerFacade.Instance;
 
         // Modificar la información de un cliente existente para mantenerla actualizada.
-        Seller seller = new Seller("Carlos",0);
+        Seller seller = AdminFacade.Instance.CreateSeller("Carlos");
         Client client = facade.CreateClient("Pedra", "Sanchez", "pedra@gmail.com", "099000111", "0");
 
 
@@ -45,8 +47,8 @@ public class UserStoriesTests
         
         
         Assert.That(client, Is.Not.Null);
-        Assert.That(client.Name, Is.EqualTo("Guillermo"));
-        Assert.That(client.LastName, Is.EqualTo("Diaz"));
+        Assert.That(client.Name, Is.EqualTo("guillermo"));
+        Assert.That(client.LastName, Is.EqualTo("diaz"));
         Assert.That(client.Email, Is.EqualTo("willy@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("097888999"));
     }
@@ -57,7 +59,7 @@ public class UserStoriesTests
     //Eliminar un cliente para mantener limpia la base de datos.
     {
         SellerFacade facade = SellerFacade.Instance;
-        Seller user = new Seller("Carlos",0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
         facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "0");
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
 
@@ -73,7 +75,7 @@ public class UserStoriesTests
     //Buscar clientes por nombre, apellido, teléfono o correo para identificarlos rápidamente.
     {
         SellerFacade facade = SellerFacade.Instance;
-        Seller user = new Seller("Carlos",0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
         facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "0");
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
         facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321",  "0");
@@ -100,7 +102,7 @@ public class UserStoriesTests
     // Ver una lista de todos mis clientes para tener una vista general de mi cartera.
     {
         SellerFacade facade = SellerFacade.Instance;
-        Seller user = new Seller("Carlos",0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
         facade.CreateClient("Omar", "Gonzalez", "omar@gmail.com", "097654645",  "0");
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
         facade.CreateClient("Sandra", "Lopez", "sandra@gmail.com", "095456321",  "0");
@@ -115,7 +117,7 @@ public class UserStoriesTests
     public void UserStory6Test()
     //Como usuario quiero registrar llamadas enviadas o recibidas de clientes, incluyendo cuándo fueron y de qué tema trataron, para saber mis interacciones
     {
-        Seller user = new Seller("Carlos",0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
 
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
         
@@ -132,7 +134,7 @@ public class UserStoriesTests
     public void UserStory7Test()
         //Como usuario quiero registrar reuniones con los clientes, incluyendo cuándo y dónde fueron, y de qué tema trataron, para poder saber mis interacciones.
     {
-        Seller user = new Seller("Carlos",0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
 
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
 
@@ -149,7 +151,7 @@ public class UserStoriesTests
     public void UserStory8Test()
     //Como usuario quiero registrar mensajes enviados a o recibidos de los clientes, incluyendo cuándo y dónde fueron, y de qué tema trataron, para saber mis interacciones.
     {
-        Seller user = new Seller("Carlos",0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
 
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
 
@@ -166,7 +168,7 @@ public class UserStoriesTests
     public void UserStory9Test()
     //Como usuario quiero registrar correos electrónicos enviados a o recibidos, incluyendo cuándo y dónde fueron, y de qué tema trataron, para saber mis interacciones.
     {
-        Seller user = new Seller("Carlos",0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
 
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
 
@@ -182,7 +184,7 @@ public class UserStoriesTests
     public void UserStory10Test()
     //Como usuario quiero agregar notas o comentarios a las llamadas, reuniones, mensajes y correos enviados o recibidos de los clientes, para tener información adicional de mis interacciones con los clientes.
     {
-        Seller seller = new Seller("pepe", 0);
+        Seller seller = AdminFacade.Instance.CreateSeller("pepe");
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555", "0");
 
         AdminFacade.Instance.RegisterEmail("Correo electrónico", "Received", "", client.Id.ToString());
@@ -198,7 +200,7 @@ public class UserStoriesTests
     // para realizar campañas y saludarlos en sus cumpleaños.
     {
         // Arrange
-        Seller seller = new Seller("Kiki",0);
+        Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
         SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789",  "0"); 
 
         IReadOnlyList<Client> clients = SellerFacade.Instance.GetClients();
@@ -232,7 +234,7 @@ public class UserStoriesTests
     public void UserStory13Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki",0);
+        Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
         SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789",  "0"); 
         SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879",  "0");
 
@@ -259,7 +261,7 @@ public class UserStoriesTests
     public void UserStory14Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki",0);
+        Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
         Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456",  "0");
 
         // Act
@@ -274,7 +276,7 @@ public class UserStoriesTests
     public void UserStory15Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki",0);
+        Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
         Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556",  "0");
 
         // Act
@@ -290,7 +292,7 @@ public class UserStoriesTests
     public void UserStory16Test()
     {
         // Arrange
-        Seller seller = new Seller("Kiki",0);
+        Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
         Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999",  "0");
 
         SellerFacade.Instance.RegisterCall("Compra de botines", "Quiere comprar 3 pares", harry.Id.ToString());
@@ -307,7 +309,7 @@ public class UserStoriesTests
     public void UserStory17Test()
     //Como usuario quiero saber los clientes que hace cierto tiempo que no tengo ninguna interacción con ellos, para no peder contacto con ellos.
     {
-        Seller user = new Seller("Carlos", 0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
 
@@ -320,7 +322,7 @@ public class UserStoriesTests
     public void UserStory18Test()
     //Como usuario quiero saber los clientes que se pusieron en contacto conmigo y no les contesté hace cierto tiempo, para no dejar de responder mensajes o llamadas.
     {
-        Seller user = new Seller("Carlos", 0);
+        Seller user = AdminFacade.Instance.CreateSeller("Carlos");
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
 
@@ -333,7 +335,6 @@ public class UserStoriesTests
     public void UserStory19Test()
     //Como administrador quiero crear, suspender o eliminar usuarios, para mantener control sobre los accesos.
     {
-        Seller user = new Seller("Carlos", 0);
         AdminFacade facade = AdminFacade.Instance;
         facade.CreateSeller("Carlos");
         IReadOnlyList<User> sellers = facade.GetUsers();
@@ -345,18 +346,21 @@ public class UserStoriesTests
         int actual3 = sellers.Count;
         Assert.That(actual1,Is.EqualTo(1));
         Assert.That(actual2,Is.EqualTo(1));
-        Assert.That(actual3,Is.EqualTo(1));
+        Assert.That(actual3,Is.EqualTo(0));
     }
 
     [Test]
     public void UserStory20Test()
     //Como vendedor, quiero poder asignar un cliente a otro vendedor para distribuir el trabajo en el equipo.
     {
-        AdminFacade.Instance.CreateSeller("Pedro");
-        AdminFacade.Instance.CreateSeller("Juan");
-        AdminFacade.Instance.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111",  "0");
+        AdminFacade adminFacade = AdminFacade.Instance;
+        adminFacade.CreateSeller("Pedro");
+        adminFacade.CreateSeller("Juan");
+        
+        adminFacade.CreateClient("Jose", "Sanchez", "pedro@gmail.com", "099000111",  "0");
+       
         SellerFacade.Instance.AssignClient("0", "1", "0");
-        Assert.That(AdminFacade.Instance.SearchClient("Name","Jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("1")));
+        Assert.That(adminFacade.SearchClient("Name","jose")[0].AsignedSeller,Is.EqualTo(AdminFacade.Instance.SearchUser<Seller>("1")));
 
     }
 

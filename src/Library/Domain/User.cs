@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Library
 {
@@ -22,7 +23,7 @@ namespace Library
                     throw new ArgumentException(nameof(value));
                 }
 
-                userName = value;
+                userName = value.Trim().ToLower();
             } 
         }
         
@@ -35,7 +36,7 @@ namespace Library
         {
             if (string.IsNullOrEmpty(username))
             {
-                throw new ArgumentException("El usuario debe tener un nombre", nameof(username));
+                throw new InvalidOperationException("El usuario debe tener un nombre");
             }
             this.UserName = username;
             this.Id = id;

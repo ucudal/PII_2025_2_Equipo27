@@ -19,8 +19,8 @@ public class RepoClientsTests
         // Act
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         // Assert
-        Assert.That(repoClients.Clients.Count, Is.EqualTo(1));
-        Assert.That(repoClients.Clients[0].Id, Is.EqualTo(0));
+        Assert.That(repoClients.GetAll().Count, Is.EqualTo(1));
+        Assert.That(repoClients.GetAll()[0].Id, Is.EqualTo(0));
     }
 
     [Test]
@@ -32,7 +32,7 @@ public class RepoClientsTests
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose); 
         // Act 
-        IReadOnlyList<Client> actual = repoClients.Clients;
+        IReadOnlyList<Client> actual = repoClients.GetAll();
         // Assert
         Assert.That(actual.Count, Is.EqualTo(2));
     }
@@ -45,9 +45,9 @@ public class RepoClientsTests
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose);
         // Act
-        repoClients.DeleteClient(0);
+        repoClients.Remove(0);
         // Assert
-        Assert.That(repoClients.Clients.Count, Is.EqualTo(0));
+        Assert.That(repoClients.Count, Is.EqualTo(0));
     }
 
     [Test]
@@ -61,7 +61,7 @@ public class RepoClientsTests
             // Act
             List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Mario");
             // Assert
-            Assert.That(actual[0].Name, Is.EqualTo("Mario"));
+            Assert.That(actual[0].Name, Is.EqualTo("mario"));
     }
     
     [Test]
@@ -76,7 +76,7 @@ public class RepoClientsTests
         // Act
         List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.LastName,"Dominguez");
         // Assert
-        Assert.That(actual[0].LastName, Is.EqualTo("Dominguez"));
+        Assert.That(actual[0].LastName, Is.EqualTo("dominguez"));
     }
     
     [Test]

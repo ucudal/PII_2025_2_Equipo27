@@ -14,9 +14,11 @@ public class UserTest
     [Test]
     public void SetUserName_Valid()
     {
+        string testUserName = "manuel";
+
         Seller seller = new Seller("Juan", 0);
         seller.UserName = "Manuel";
-        Assert.That("Manuel", Is.EqualTo(seller.UserName));
+        Assert.That(testUserName, Is.EqualTo(seller.UserName));
     }
 
     /// <summary>
@@ -26,7 +28,7 @@ public class UserTest
     [Test]
     public void SetUserName_Exception()
     {
-        Assert.Throws<ArgumentException>(() => Is.EqualTo(new Seller("", 0)));
+        Assert.Throws<InvalidOperationException>(() => Is.EqualTo(new Seller("", 0)));
     }
     
     

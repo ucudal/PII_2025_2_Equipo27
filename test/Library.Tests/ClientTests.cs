@@ -4,14 +4,21 @@ namespace Library.Tests;
 
 public class ClientTests
 {
+    [SetUp]
+    public void Setup()
+    {
+        // Antes de empezar cualquier test, aseguramos que el repo esté vacío
+        RepoTags.ResetInstance();
+    }
+    
     [Test]
     public void ClientShouldCreateCorrectly()
     {
         Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com",  "099888222", seller);
         Assert.That(client.Id, Is.EqualTo(0));
-        Assert.That(client.Name, Is.EqualTo("Juan"));
-        Assert.That(client.LastName, Is.EqualTo("Perez"));
+        Assert.That(client.Name, Is.EqualTo("juan"));
+        Assert.That(client.LastName, Is.EqualTo("perez"));
         Assert.That(client.Email, Is.EqualTo("juanperez@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("099888222"));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));
@@ -34,7 +41,7 @@ public class ClientTests
 
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
-        RepoTags repoTags = new RepoTags();
+        RepoTags repoTags = RepoTags.Instance;
         Tag tag = repoTags.CreateTag("vip");
         client.AddTag(tag);
         Assert.That(client.Tags.Count,Is.EqualTo(1));
@@ -65,7 +72,7 @@ public class ClientTests
 
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
-        RepoTags repoTags = new RepoTags();
+        RepoTags repoTags = RepoTags.Instance;
         Tag tag = repoTags.CreateTag("vip");
         client.AddTag(tag);
         Assert.Throws<InvalidOperationException>(() => client.AddTag(tag));
