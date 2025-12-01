@@ -83,17 +83,10 @@ namespace Library
 
         public Admin CreateAdmin(string username)
         {
-            try
-            {
-                Admin admin = new Admin(username, NextId);
-                this.Create(admin);
-                NextId++;
-                return admin;
-            }
-            catch (ArgumentException e)
-            {
-                return null;
-            }
+            Admin admin = new Admin(username, NextId);
+            this.Create(admin);
+            NextId++;
+            return admin;
         }
 
         /// <summary>
@@ -109,17 +102,10 @@ namespace Library
 
         public Seller CreateSeller(string username)
         {
-            try
-            {
-                Seller seller = new Seller(username.Trim().ToLower(), NextId);
-                this.Create(seller);
-                NextId++;
-                return seller;
-            }
-            catch (ArgumentException e)
-            {
-                return null;
-            }
+            Seller seller = new Seller(username.Trim().ToLower(), NextId);
+            this.Create(seller);
+            NextId++;
+            return seller;
         }
         
         /// <summary>

@@ -62,12 +62,12 @@ namespace Library
         public IReadOnlyList<Tag> GetAll() => tags.AsReadOnly();
        
         /// <summary>
-        /// Crea y registra un nuevo tag (etiqueta) en el sistema.
-        /// RepoTags contiene instancias de Tag y debe crearlos siguiendo el patrón Creator.
-        /// Aplicación de los patrones y principios:
-        /// - Creator: RepoTags es responsable de crear tags porque gestiona la colección y su ciclo de vida.
-        /// - Expert: RepoTags tiene la información y lógica para asignar datos y generar identificadores.
-        /// - SRP: Responsabilidad clara, solo crea y registra un tag.
+        /// Agrega un tag ya existente al repositorio.
+        /// Implementación del contrato de la interfaz IRepo.
+        /// Aplicación de patrones y principios:
+        /// - Repository: Se encarga exclusivamente de la lógica de almacenamiento (agregar a la lista).
+        /// - DIP (SOLID): Implementa la abstracción, permitiendo que el sistema dependa de la interfaz y no de la implementación concreta.
+        /// - SRP: Su única responsabilidad es guardar una entidad válida.
         /// </summary>
         /// <param name="entity">Entidad del Tag.</param>
         public void Create(Tag entity)
@@ -80,12 +80,13 @@ namespace Library
         }
         
         /// <summary>
-        /// Fábrica de Tags: Verifica duplicados, instancia un nuevo Tag con ID único y lo guarda.
-        /// Aplicación de patrones:
-        /// - Creator: RepoTags tiene la información para agregar y gestionar la entidad.
-        /// - Expert: Conoce el ID actual y la lista para validar nombres.
+        /// Método para crear un nuevo tag.
+        /// Genera el ID único, instancia el objeto y lo registra automáticamente.
+        /// Aplicación de patrones y principios:
+        /// - Creator (GRASP): RepoClients es el responsable de crear instancias de tags porque es quien las contiene y gestiona.
+        /// - Expert (GRASP): Posee la información necesaria (como el NextId y la lista para validar) para crear un tag válido.
         /// </summary>
-        /// <param name="tagName">Nombre del tag a crear.</param>
+        /// <param name="name">Nombre del tag a crear.</param>
         /// <returns>El Tag recién creado.</returns>
         /// <exception cref="InvalidOperationException">Si ya existe un tag con ese nombre.</exception>
         public Tag CreateTag(string name)
