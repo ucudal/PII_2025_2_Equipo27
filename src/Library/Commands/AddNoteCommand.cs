@@ -9,7 +9,7 @@ namespace Ucu.Poo.DiscordBot.Commands
     {
         [Command("addnote")]
         [Summary("Añade una nueva nota a una interacción de un cliente.")]
-        public async Task AddNoteAsync(string interactionId, string note,[Remainder] string clientId)
+        public async Task AddNoteAsync(string clientId, string interactionId,[Remainder] string note)
         {
             try
             {
