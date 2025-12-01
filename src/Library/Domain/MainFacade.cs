@@ -39,7 +39,7 @@ namespace Library
         public void AddData(string id, string typeOfData, string modification)
         {
             RepoClients.TypeOfData datatype = 0;
-            Client client = repoClients.SearchClientById(int.Parse(id));
+            Client client = repoClients.GetById(int.Parse(id));
             if (typeOfData == RepoClients.TypeOfData.BirthDate.ToString())
             {
                 datatype = RepoClients.TypeOfData.BirthDate;
@@ -62,7 +62,7 @@ namespace Library
         /// <returns>Lista de clientes</returns>
         public IReadOnlyList<Client> GetClients()
         {
-            return repoClients.Clients;
+            return repoClients.GetAll();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Library
         /// <param name="id">ID del cliente</param>
         public void DeleteClient(string id)
         {
-            repoClients.DeleteClient(int.Parse(id));
+            repoClients.Remove(int.Parse(id));
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Library
         /// <returns>Cliente con la Id buscada</returns>
         public Client SearchClientById(string id)
         {
-            return repoClients.SearchClientById(int.Parse(id));
+            return repoClients.GetById(int.Parse(id));
         }
 
         /// <summary>
@@ -145,15 +145,14 @@ namespace Library
         /// <param name="modification">Nuevo valor</param>
         public void ModifyClient(string id, string modified, string modification)
         {
-            Client client = repoClients.SearchClientById(int.Parse(id));
+            Client client = repoClients.GetById(int.Parse(id));
             if (modified == RepoClients.TypeOfData.Name.ToString())
             {
-                client.ModifyClient(RepoClients.TypeOfData.Name, modification);
+                client.ModifyClient(RepoClients.TypeOfData.Name,modification);
             }
             else if (modified == RepoClients.TypeOfData.LastName.ToString())
             {
-                client.ModifyClient(RepoClients.TypeOfData.LastName, modification);
-
+                client.ModifyClient(RepoClients.TypeOfData.LastName,modification);
             }
             else if (modified == RepoClients.TypeOfData.Email.ToString())
             {
@@ -351,7 +350,7 @@ namespace Library
 
         public void SwitchClientActivity(string id)
         {
-            foreach (Client client in repoClients.Clients)
+            foreach (Client client in repoClients.GetAll())
             {
                 if (client.Id.ToString() == id)
                 {
@@ -369,7 +368,7 @@ namespace Library
 
         public void SwitchClientWaiting(string id)
         {
-            foreach (Client client in repoClients.Clients)
+            foreach (Client client in repoClients.GetAll())
             {
                 if (client.Id.ToString() == id)
                 {

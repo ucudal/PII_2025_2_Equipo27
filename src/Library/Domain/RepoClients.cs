@@ -3,9 +3,24 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    public class RepoClients
+    /// <summary>
+    /// Repositorio de clientes (clients).
+    /// Implementa IRepository<client> directamente sin interfaz intermedia.
+    /// Aplica patrón Repository y principio Information Expert (GRASP).
+    /// </summary>
+    public class RepoClients : IRepo<Client>
     {
         /// <summary>
+        /// Repositorio de clientes (clients).
+        /// <br/>
+        /// <b>Patrones y Principios aplicados:</b>
+        /// <list type="bullet">
+        /// <item><b>Singleton:</b> Garantiza una única instancia del repositorio para mantener la consistencia de los datos en memoria.</item>
+        /// <item><b>Repository:</b> Abstrae la lógica de almacenamiento y acceso a datos.</item>
+        /// <item><b>Information Expert (GRASP):</b> Es la clase experta en gestionar la colección de Clients y sus IDs.</item>
+        /// <item><b>DIP (SOLID):</b> Implementa la abstracción para reducir el acoplamiento.</item>
+        /// </list>
+        /// <br/>
         /// Para una mejor encapsulación de las listas se utiliza IReadOnlyList y otra lista privada.
         /// </summary>
 
@@ -27,90 +42,74 @@ namespace Library
         {
             instance = null;
         }
-        public IReadOnlyList<Client> Clients
-        {
-            get
-            {
-                return clients;
-            }
-            
-        }
+        // public IReadOnlyList<Client> Clients
+        // {
+        //     get
+        //     {
+        //         return clients;
+        //     }
+        //     
+        // }
 
         private List<Client> clients = new List<Client>();
         
-        /// <summary>
-        /// NextId aumenta en uno cada vez que se crea un cliente, así todos los clientes tienen un número identificador diferente.
-        /// </summary>
-        private int NextId = 0;
-
         private RepoClients()
         {
             // Intencionalmente en blanco
         }
         
         /// <summary>
-        /// Crea y registra un nuevo cliente en el sistema.
-        /// RepoClients contiene instancias de Client y debe crearlos siguiendo el patrón Creator.
-        /// Aplicación de los patrones y principios:
-        /// - Creator: RepoClients es responsable de crear clientes porque gestiona la colección y su ciclo de vida.
-        /// - Expert: RepoClients tiene la información y lógica para asignar datos y generar identificadores.
-        /// - SRP: Responsabilidad clara, solo crea y registra un cliente.
+        /// NextId aumenta en uno cada vez que se crea un cliente, así todos los clientes tienen un número identificador diferente.
+        /// </summary>
+        private int NextId = 0;
+        
+        /// <summary>
+        /// Obtiene todos los clientes del repositorio (solo lectura).
+        /// </summary>
+        public IReadOnlyList<Client> GetAll() => clients.AsReadOnly();
+        
+        /// <summary>
+        /// Agrega un cliente ya existente al repositorio.
+        /// Implementación del contrato de la interfaz IRepo.
+        /// Aplicación de patrones y principios:
+        /// - Repository: Se encarga exclusivamente de la lógica de almacenamiento (agregar a la lista).
+        /// - DIP (SOLID): Implementa la abstracción, permitiendo que el sistema dependa de la interfaz y no de la implementación concreta.
+        /// - SRP: Su única responsabilidad es guardar una entidad válida.
+        /// </summary>
+        /// <param name="entity">Entidad del cliente a guardar.</param>
+        public void Create(Client entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), "No se puede agregar un cliente nulo.");
+            }
+            clients.Add(entity);
+        }
+
+        
+        /// <summary>
+        /// Método para crear un nuevo cliente.
+        /// Genera el ID único, instancia el objeto y lo registra automáticamente.
+        /// Aplicación de patrones y principios:
+        /// - Creator (GRASP): RepoClients es el responsable de crear instancias de Client porque es quien las contiene y gestiona.
+        /// - Expert (GRASP): Posee la información necesaria (como el NextId y la lista para validar) para crear un cliente válido.
         /// </summary>
         /// <param name="name">Nombre del Cliente.</param>
         /// <param name="lastName">Apellido del Cliente.</param>
         /// <param name="email">Email del Cliente.</param>
         /// <param name="phone">Número de teléfono del Cliente.</param>
-        /// <param name="gender">Sexo del Cliente.</param>
-        /// <param name="birthDate">Fecha de nacimiento del Cliente.</param>
         /// <param name="seller">Vendedor asignado al Cliente.</param>
-        /// <returns>Cliente creado.</returns>
-
+        /// <returns>La instancia del Cliente recién creado.</returns>
         public Client CreateClient(string name, string lastName, string email, string phone, Seller seller)
         {
             int id = this.NextId;
             Client client = new Client(id, name, lastName, email, phone, seller);
-            clients.Add(client);
+            Create(client);
             this.NextId += 1;
             return client;
         }
-            
-        /// <summary>
-        /// Elimina un cliente del repositorio de clientes utilizando su identificador.
-        /// De acuerdo al patrón Expert, RepoClients tiene la información necesaria porque gestiona la colección y los identificadores.
-        /// Aplicación de los patrones y principios:
-        /// - Expert : RepoClients sabe cómo y a quién eliminar, gracias a que mantiene la colección y los IDs.
-        /// - SRP : La responsabilidad del método es única, eliminar un cliente.
-        /// </summary>
-        /// <param name="id">El id del cliente que se va a eliminar.</param>
         
-        public void DeleteClient(int id)
-        {
-            if (string.IsNullOrEmpty(id.ToString()))
-            {
-                throw new ArgumentException("Debe escribir un id válido", nameof(id));
-            }
-            int i = 0;
-            bool clientFound = false;
-            while (i <= clients.Count & !clientFound)
-            {
-                if (clients[i].Id == id)
-                {
-                    clientFound = true;
-                    clients.Remove(Clients[i]);
-                }
-                i += 1;
-            }
-        } 
-        public enum TypeOfData
-        {
-            Name,
-            LastName,
-            Email,
-            Phone,
-            Gender,
-            BirthDate
-        }
-
+        
         /// <summary>
         /// Busca y devuelve el cliente cuya Id coincide con la solicitada.
         /// Según el patrón Expert, RepoClients tiene la información y controla la colección, por lo que es responsable de la búsqueda.
@@ -120,7 +119,7 @@ namespace Library
         /// </summary>
         /// <param name="id">Id del cliente.</param>
         /// <returns>Cliente correspondiente al id proporcionado, o null si no existe.</returns>
-        public Client SearchClientById(int id)
+        public Client GetById(int id)
         {
             if (string.IsNullOrEmpty(id.ToString()))
             {
@@ -136,6 +135,39 @@ namespace Library
                 }
             }
             return result;
+        }
+
+ 
+        /// <summary>
+        /// Elimina un cliente del repositorio de clientes utilizando su identificador.
+        /// De acuerdo al patrón Expert, RepoClients tiene la información necesaria porque gestiona la colección y los identificadores.
+        /// Aplicación de los patrones y principios:
+        /// - Expert : RepoClients sabe cómo y a quién eliminar, gracias a que mantiene la colección y los IDs.
+        /// - SRP : La responsabilidad del método es única, eliminar un cliente.
+        /// - DRY : usa GetById() para encontrar el tag
+        /// </summary>
+        /// <param name="id">El id del cliente que se va a eliminar.</param>
+        
+        public void Remove(int id)
+        {
+            if (string.IsNullOrEmpty(id.ToString()))
+            {
+                throw new ArgumentException("Debe escribir un id válido", nameof(id));
+            }
+            Client clientToRemove = GetById(id);
+            if (clientToRemove != null)
+            {
+                clients.Remove(clientToRemove);
+            }
+        } 
+        public enum TypeOfData
+        {
+            Name,
+            LastName,
+            Email,
+            Phone,
+            Gender,
+            BirthDate
         }
 
         /// <summary>
@@ -228,20 +260,21 @@ namespace Library
 
         public string GetPanel()
         {
-            DateTime now = DateTime.Now;
-            int month = now.Month;
-            int year = now.Year;
-
             int recentInteractions = 0;
             int futureMeetings = 0;
 
-            foreach (var client in this.Clients)
+            foreach (var client in this.clients)
             {
                 recentInteractions += client.GetInteractions();
                 futureMeetings += client.GetFutureMeetings();
             }
-            return ($"Clientes totales: {this.Clients.Count}\n" + $"Interacciones en este último mes: {recentInteractions}\n" + $"Reuniones próximas {futureMeetings}");
+            return ($"Clientes totales: {this.Count}\n" + $"Interacciones en este último mes: {recentInteractions}\n" + $"Reuniones próximas {futureMeetings}");
         }
+        
+        /// <summary>
+        /// Propiedad calculada para cumplir con IRepo.Count
+        /// </summary>
+        public int Count => clients.Count;
         
         /// <summary>
         /// Calcula la cantidad de ventas entre un período dado y la devuelve en formato de mensaje.
@@ -260,9 +293,9 @@ namespace Library
         public string GetTotalSales(DateTime startdate, DateTime finishdate)
         {
             int totalSales = 0;
-            foreach (var client in this.Clients)
+            foreach (var client in this.clients)
             {
-                totalSales = client.GetTotalSales(startdate,finishdate);
+                totalSales += client.GetTotalSales(startdate,finishdate);
             }
             return $"Cantidad de ventas dentro del período: {totalSales}";
         }

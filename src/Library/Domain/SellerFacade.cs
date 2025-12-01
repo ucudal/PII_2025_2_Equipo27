@@ -47,7 +47,7 @@ namespace Library
         {
             Seller seller1 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdMy));
             Seller seller2 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdOther));
-            Client client = repoClients.SearchClientById(int.Parse(clientId));
+            Client client = repoClients.GetById(int.Parse(clientId));
 
             if (seller1 != null && seller2 != null && client != null)
             {
