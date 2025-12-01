@@ -9,7 +9,7 @@ namespace Ucu.Poo.DiscordBot.Commands
     {
         [Command("newmeeting")]
         [Summary("Registra una reunion para un cliente.")]
-        public async Task RegisterMeetingAsync(string clientId, string content,[Remainder] string notes, string location, string type, string date)
+        public async Task RegisterMeetingAsync(string clientId, string content, string notes, string location, string type,[Remainder] string date)
         {
             try
             {

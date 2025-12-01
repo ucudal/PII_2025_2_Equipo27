@@ -9,7 +9,7 @@ namespace Ucu.Poo.DiscordBot.Commands
     {
         [Command("newemail")]
         [Summary("Registra un correo para un cliente.")]
-        public async Task RegisterEmailAsync(string clientId, string content,[Remainder] string notes, string sender)
+        public async Task RegisterEmailAsync(string clientId, string content, string notes,[Remainder] string sender)
         {
             try
             {
