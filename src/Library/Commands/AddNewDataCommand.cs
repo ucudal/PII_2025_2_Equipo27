@@ -10,7 +10,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Command("addnewdata")]
         [Summary("Comando para agregar datos a un cliente (Género y Fecha de nacimiento)")]
 
-        public async Task AddNewData(string input)
+        public async Task AddNewData(
+            [Remainder]
+            [Summary("Agrega datos a un cliente indicado")]
+            string input)
         {
             string[] parameters = input.Split(",");
             string clientId;
@@ -22,9 +25,9 @@ namespace Ucu.Poo.DiscordBot.Commands
                 return;
             }
 
-            clientId = parameters[0];
-            typeOfData = parameters[1];
-            data = parameters[2];
+            clientId = parameters[0].Trim();
+            typeOfData = parameters[1].Trim();
+            data = parameters[2].Trim();
                 
             try
             {

@@ -70,12 +70,11 @@ namespace Library
             {
                 throw new ArgumentException("Cliente no encontrado.");
             }
-
-            if (typeOfData.ToLower() == RepoClients.TypeOfData.BirthDate.ToString().ToLower())
+            if (typeOfData == RepoClients.TypeOfData.BirthDate.ToString())
             {
                 datatype = RepoClients.TypeOfData.BirthDate;
             }
-            else if (typeOfData.ToLower() == RepoClients.TypeOfData.Gender.ToString().ToLower())
+            else if (typeOfData == RepoClients.TypeOfData.Gender.ToString())
             {
                 datatype = RepoClients.TypeOfData.Gender;
             }

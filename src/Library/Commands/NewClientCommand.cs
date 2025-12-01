@@ -20,18 +20,21 @@ namespace Ucu.Poo.DiscordBot.Commands
 
         [Command("newclient")]
         [Summary("Crear un nuevo cliente y devuelve un mensaje indicando si se creeó correctamente o no.")]
-        public async Task CreateNewClientAsync(string input)
+        public async Task CreateNewClientAsync(
+        [Remainder]
+        [Summary("Crea un cliente con todos sus datos")]
+        string input)
         {
             string[] parameters = input.Split(",");
             string name;
             string lastName;
             string email;
             string phone;
-            string sellerName;
+            string sellerId;
             if (parameters.Length != 5)
             {
                 await ReplyAsync(
-                    "Debe ingresar los parámetros necesarios. \n Ejemplo: !newclient Marcelo, Rodriguez, email@example, 099123123, SellerName");
+                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !newclient Marcelo, Rodriguez, email@example, 099123123, SellerId");
                 return;
             }
 
@@ -39,12 +42,12 @@ namespace Ucu.Poo.DiscordBot.Commands
             lastName = parameters[1];
             email = parameters[2];
             phone = parameters[3];
-            sellerName = parameters[4];
+            sellerId = parameters[4];
             AdminFacade.Instance.CreateSeller("Marito");
 
             try
             {
-                SellerFacade.Instance.CreateClient(name, lastName, email, phone, sellerName);
+                SellerFacade.Instance.CreateClient(name, lastName, email, phone, sellerId);
                 await ReplyAsync("Cliente creado correctamente.");
             }
             catch (ArgumentException e)

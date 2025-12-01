@@ -10,13 +10,16 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Command("newtag")]
         [Summary(("Crea un nuevo tag"))]
 
-        public async Task CreateNewTag(string input)
+        public async Task CreateNewTag(
+            [Remainder]
+            [Summary("Crea un tag con el nombre ingresado si no exsiste uno con el mismo nombre")]
+            string input)
         {
             string[] parameters = input.Split(",");
             string tagName;
             if (parameters.Length != 1)
             {
-                await ReplyAsync("Debe ingresar exactamente 1 parámetro.\nEjemplo: !newtag Nombre del Tag");
+                await ReplyAsync("Debe ingresar exactamente 1 parámetro.\nEjemplo: !newtag nombreDelTag");
                 return;
             }
 
@@ -27,7 +30,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                 SellerFacade.Instance.CreateTag(tagName);
                 await ReplyAsync("Tag creado correctamente.");
             }
-            catch (ArgumentException e)
+            catch (InvalidOperationException e)
             {
                 await ReplyAsync($"Error: {e.Message}");
             }
