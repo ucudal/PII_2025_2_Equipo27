@@ -152,7 +152,25 @@ public class RepoClientsTests
         Assert.That(actual, Is.EqualTo(expected));
     }
     
+    [Test]
+    public void GetPanel()
+    {
+        RepoClients repo = RepoClients.Instance;
+        Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
+        Client client2 = repo.CreateClient( "Lucía", "García", "lucia@example.com", "098888888",  null);
+        client1.AddInteraction(new Call("Llamada 1", "Notas 1", DateTime.Now.AddDays(-1)));
+        client1.AddInteraction(new Meeting("Reunión 1", "Notas 2", "Sala A", Meeting.MeetingState.Programmed, DateTime.Now.AddDays(2))); 
+        client2.AddInteraction(new Email("Email 1", InteractionOrigin.Origin.Sent, "Notas", DateTime.Now.AddDays(-1)));
         
+        string expected = 
+            $"Clientes totales: 2\n" +
+            $"Interacciones en este último mes: 2\n" +
+            $"Reuniones próximas 1";
+        
+        string panel = repo.GetPanel();
+        
+        Assert.That(panel, Is.EqualTo(expected) );
+    }
   
     [Test]
     public void GetTotalSales()
