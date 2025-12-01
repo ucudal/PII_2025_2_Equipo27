@@ -8,7 +8,7 @@ public class AdminTest
     [Test]
     public void ActiveUser_Exception()
     {
-        Admin admin = new Admin("Julieta");
+        Admin admin = new Admin("Julieta", 0);
 
         Assert.Throws<ArgumentNullException>(() => admin.ActiveUser(null));
     }
@@ -21,9 +21,9 @@ public class AdminTest
     [Test]
     public void ActiveUser()
     {
-        RepoUser repoUser = RepoUser.Instance;
-        Admin admin = new Admin("Julieta");
-        Seller seller = repoUser.CreateSeller("Juliana");
+        RepoUsers repoUsers = RepoUsers.Instance;
+        Admin admin = new Admin("Julieta", 0);
+        Seller seller = repoUsers.CreateSeller("Juliana");
         seller.Active = false;
 
         admin.ActiveUser(seller);
@@ -38,7 +38,7 @@ public class AdminTest
     [Test]
     public void suspendUser_Exception()
     {
-        Admin admin = new Admin("Julieta");
+        Admin admin = new Admin("Julieta", 0);
 
         Assert.Throws<ArgumentNullException>(() => admin.SuspendUser(null));
     }
@@ -50,9 +50,9 @@ public class AdminTest
     [Test]
     public void SuspendUser()
     {
-        RepoUser repoUser = RepoUser.Instance;
-        Admin admin = new Admin("Ámbar");
-        Seller seller = repoUser.CreateSeller("Lucía");
+        RepoUsers repoUsers = RepoUsers.Instance;
+        Admin admin = new Admin("Ámbar", 0);
+        Seller seller = repoUsers.CreateSeller("Lucía");
 
         admin.SuspendUser(seller);
 

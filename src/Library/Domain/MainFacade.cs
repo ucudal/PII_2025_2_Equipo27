@@ -10,25 +10,23 @@ namespace Library
     public class MainFacade
     {
         protected RepoClients repoClients = RepoClients.Instance;
-        private RepoTags repoTag = new RepoTags();
-        protected RepoUser RepoUsers = RepoUser.Instance;
+        private RepoTags repoTag = RepoTags.Instance;
 
-        // Seller para probar los comandos.
-        private Seller seller = new Seller("Marito");
+        protected RepoUsers RepoUsers = RepoUsers.Instance;
 
-        /// <summary>
-        /// Crea un nuevo cliente y lo agrega al repositorio.
-        /// </summary>
-        /// <param name="name">Nombre del cliente</param>
-        /// <param name="lastName">Apellido del cliente</param>
-        /// <param name="email">Email del cliente</param>
-        /// <param name="phone">Teléfono del cliente</param>
-        /// <param name="gender">Género del cliente</param>
-        /// <param name="birthDate">Fecha de nacimiento (string)</param>
-        /// <param name="seller">Vendedor responsable</param>
 
-        public Client CreateClient(string name, string lastName, string email, string phone,  string sellerName)
+
+            /// <summary>
+            /// Crea un nuevo cliente y lo agrega al repositorio.
+            /// </summary>
+            /// <param name="name">Nombre del cliente</param>
+            /// <param name="lastName">Apellido del cliente</param>
+            /// <param name="email">Email del cliente</param>
+            /// <param name="phone">Teléfono del cliente</param>
+            /// <param name="sellerId">Id del vendedor responsable</param>
+        public Client CreateClient(string name, string lastName, string email, string phone, string sellerId)
         {
+            int intSellerId;
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException("El cliente debe tener un nombre", nameof(name));
@@ -48,33 +46,36 @@ namespace Library
             {
                 throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
             }
-            
-            if (string.IsNullOrEmpty(sellerName) || RepoUsers.SearchUser<Seller>(sellerName) == null)
+
+            if (!(int.TryParse(sellerId, out intSellerId)) || RepoUsers.SearchUser<Seller>(intSellerId) == null)
             {
-                throw new ArgumentException("El nombre del seller no es válido", nameof(sellerName));
+                throw new ArgumentException("El ID del seller no es valido", nameof(sellerId));
             }
-            Seller seller = RepoUsers.SearchUser<Seller>(sellerName);
+
+            Seller seller = RepoUsers.SearchUser<Seller>(intSellerId);
             return repoClients.CreateClient(name, lastName, email, phone, seller);
         }
+
         /// <summary>
         /// Añade nuevos datos al cliente, ya sea fecha de nacimiento o genero.
         /// </summary>
         /// <param name="clientid"></param>
         /// <param name="data"></param>
         /// <param name="modification"></param>
-        public void AddData(string id,string typeOfData, string modification)
+        public void AddData(string id, string typeOfData, string modification)
         {
             RepoClients.TypeOfData datatype = 0;
-            Client client = repoClients.SearchClientById(int.Parse(id));
+            Client client = repoClients.GetById(int.Parse(id));
             if (client == null)
             {
                 throw new ArgumentException("Cliente no encontrado.");
             }
-            if (typeOfData == RepoClients.TypeOfData.BirthDate.ToString())
+
+            if (typeOfData.ToLower() == RepoClients.TypeOfData.BirthDate.ToString().ToLower())
             {
                 datatype = RepoClients.TypeOfData.BirthDate;
             }
-            else if(typeOfData == RepoClients.TypeOfData.Gender.ToString())
+            else if (typeOfData.ToLower() == RepoClients.TypeOfData.Gender.ToString().ToLower())
             {
                 datatype = RepoClients.TypeOfData.Gender;
             }
@@ -82,16 +83,17 @@ namespace Library
             {
                 throw new ArgumentException("El tipo de datos a añadir debe ser 'BirthDate' o 'Gender'");
             }
-            
-            client.AddData(datatype,modification);
+
+            client.AddData(datatype, modification);
         }
+
         /// <summary>
         /// Devuelve el listado completo de clientes registrados.
         /// </summary>
         /// <returns>Lista de clientes</returns>
         public IReadOnlyList<Client> GetClients()
         {
-            return repoClients.Clients;
+            return repoClients.GetAll();
         }
 
         /// <summary>
@@ -100,7 +102,7 @@ namespace Library
         /// <param name="id">ID del cliente</param>
         public void DeleteClient(string id)
         {
-            repoClients.DeleteClient(int.Parse(id));
+            repoClients.Remove(int.Parse(id));
         }
 
         /// <summary>
@@ -110,7 +112,7 @@ namespace Library
         /// <returns>Cliente con la Id buscada</returns>
         public Client SearchClientById(string id)
         {
-            return repoClients.SearchClientById(int.Parse(id));
+            return repoClients.GetById(int.Parse(id));
         }
 
         /// <summary>
@@ -140,8 +142,10 @@ namespace Library
             }
             else
             {
-                throw new ArgumentException("El tipo de datos a buscar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
+                throw new ArgumentException(
+                    "El tipo de datos a buscar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
             }
+
             return repoClients.SearchClient(typeOfData, text);
 
         }
@@ -172,30 +176,31 @@ namespace Library
         /// <param name="modification">Nuevo valor</param>
         public void ModifyClient(string id, string modified, string modification)
         {
-           Client client = repoClients.SearchClientById(int.Parse(id));
-           if (modified == RepoClients.TypeOfData.Name.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.Name,modification);
-           }
-           else if (modified == RepoClients.TypeOfData.LastName.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.LastName,modification);
+            Client client = repoClients.GetById(int.Parse(id));
+            if (modified == RepoClients.TypeOfData.Name.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.Name, modification);
+            }
+            else if (modified == RepoClients.TypeOfData.LastName.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.LastName, modification);
 
-           }
-           else if (modified == RepoClients.TypeOfData.Email.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.Email,modification);
+            }
+            else if (modified == RepoClients.TypeOfData.Email.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.Email, modification);
 
-           }
-           else if (modified == RepoClients.TypeOfData.Phone.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.Phone,modification);
+            }
+            else if (modified == RepoClients.TypeOfData.Phone.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.Phone, modification);
 
-           }
-           else
-           {
-               throw new ArgumentException("El tipo de datos a modificar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
-           }
+            }
+            else
+            {
+                throw new ArgumentException(
+                    "El tipo de datos a modificar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
+            }
         }
 
         /// <summary>
@@ -205,8 +210,9 @@ namespace Library
         /// <param name="price">Precio</param>
         /// <param name="states">Estado de la oportunidad</param>
         /// <param name="client">Cliente asociado</param>
-        public Opportunity CreateOpportunity(string product, string price, string state, Client client)
+        public Opportunity CreateOpportunity(string product, string price, string state, string clientid)
         {
+            Client client = this.SearchClientById(clientid);
             Opportunity.States states = 0;
             if (state == Opportunity.States.Canceled.ToString())
             {
@@ -224,11 +230,12 @@ namespace Library
             {
                 throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
             }
+
             return client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
         }
-        
-        
-        
+
+
+
         /// <summary>
         /// Crea un Tag y lo guarda.
         /// </summary>
@@ -243,8 +250,10 @@ namespace Library
         /// </summary>
         /// <param name="client">Cliente</param>
         /// <param name="tag">Tag a asociar</param>
-        public void AddTag(Client client, Tag tag)
+        public void AddTag(string clientid, string tagid)
         {
+            Client client = this.SearchClientById(clientid);
+            Tag tag = repoTag.GetById(int.Parse(tagid));
             client.AddTag(tag);
         }
 
@@ -264,14 +273,10 @@ namespace Library
         /// <param name="notes">Notas</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterCall(string content, string notes, Client client)
-        {
-            RegisterCall(content, notes, client,DateTime.Now);
-        }
 
-        public void RegisterCall(string content, string notes, Client client, DateTime date)
+        public void RegisterCall(string content, string notes, string clientid)
         {
-            
+            Client client = this.SearchClientById(clientid);
             Call call = new Call(content, notes, DateTime.Now);
             client.AddInteraction(call);
         }
@@ -284,18 +289,23 @@ namespace Library
         /// <param name="notes">Notas</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client)
+        public void RegisterEmail(string content, string sender, string notes, string clientid)
         {
-            
-            RegisterEmail(content, sender, notes, client,DateTime.Now);
-        }
-
-        public void RegisterEmail(string content, InteractionOrigin.Origin sender, string notes, Client client,
-            DateTime date)
-        {
-            
-            Email email = new Email(content, sender, notes, DateTime.Now);
-            client.AddInteraction(email);
+            Client client = this.SearchClientById(clientid);
+            if (sender == InteractionOrigin.Origin.Received.ToString())
+            {
+                Email email = new Email(content, InteractionOrigin.Origin.Received, notes, DateTime.Now);
+                client.AddInteraction(email);
+            }
+            else if (sender == InteractionOrigin.Origin.Sent.ToString())
+            {
+                Email email = new Email(content, InteractionOrigin.Origin.Sent, notes, DateTime.Now);
+                client.AddInteraction(email);
+            }
+            else
+            {
+                throw new ArgumentException("El estado de la llamada debe ser o 'Sent' o 'Received'");
+            }
         }
 
         /// <summary>
@@ -307,16 +317,32 @@ namespace Library
         /// <param name="type">Estado de la reunión</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type,
-            Client client)
+        public void RegisterMeeting(string content, string notes, string location, string type,
+            string clientid, string date)
         {
-            RegisterMeeting(content, notes, location, type, client, DateTime.Now);
-        }
-        public void RegisterMeeting(string content, string notes, string location, Meeting.MeetingState type,
-            Client client, DateTime date)
-        {
-            Meeting meeting = new Meeting(content, notes, location, type, date);
-            client.AddInteraction(meeting);
+            Client client = this.SearchClientById(clientid);
+            if (type == Meeting.MeetingState.Programmed.ToString())
+            {
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Programmed,
+                    DateTime.Parse(date));
+                client.AddInteraction(meeting);
+            }
+            else if (type == Meeting.MeetingState.Canceled.ToString())
+            {
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Canceled,
+                    DateTime.Parse(date));
+                client.AddInteraction(meeting);
+            }
+            else if (type == Meeting.MeetingState.Done.ToString())
+            {
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Done,
+                    DateTime.Parse(date));
+                client.AddInteraction(meeting);
+            }
+            else
+            {
+                throw new ArgumentException("El tipo de la reunión debe ser o 'Done' o 'Canceled' o 'Programmed'");
+            }
         }
 
         /// <summary>
@@ -328,17 +354,25 @@ namespace Library
         /// <param name="channel">Canal de contacto</param>
         /// <param name="client">Cliente involucrado</param>
         /// <param name="interactionDate">Fecha de interacción (opcional)</param>
-        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel,
-            Client client)
+        public void RegisterMessage(string content, string notes, string sender, string channel,
+            string clientid)
         {
-            RegisterMessage(content, notes, sender, channel, client, DateTime.Now);
-        }
-        
-        public void RegisterMessage(string content, string notes, InteractionOrigin.Origin sender, string channel,
-            Client client, DateTime date)
-        {
-            Message message = new Message(content, notes, sender, channel, date);
-            client.AddInteraction(message);
+            Client client = this.SearchClientById(clientid);
+
+            if (sender == InteractionOrigin.Origin.Received.ToString())
+            {
+                Message message = new Message(content, notes, InteractionOrigin.Origin.Received, channel, DateTime.Now);
+                client.AddInteraction(message);
+            }
+            else if (sender == InteractionOrigin.Origin.Sent.ToString())
+            {
+                Message message = new Message(content, notes, InteractionOrigin.Origin.Sent, channel, DateTime.Now);
+                client.AddInteraction(message);
+            }
+            else
+            {
+                throw new ArgumentException("El estado del mensaje debe ser o 'Sent' o 'Received'");
+            }
         }
 
         public string GetPanel()
@@ -346,11 +380,11 @@ namespace Library
             return this.repoClients.GetPanel();
         }
 
-        public void SwitchClientActivity(int id)
+        public void SwitchClientActivity(string id)
         {
-            foreach (Client client in repoClients.Clients)
+            foreach (Client client in repoClients.GetAll())
             {
-                if (client.Id == id)
+                if (client.Id.ToString() == id)
                 {
                     if (client.Inactive == true)
                     {
@@ -364,11 +398,11 @@ namespace Library
             }
         }
 
-        public void SwitchClientWaiting(int id)
+        public void SwitchClientWaiting(string id)
         {
-            foreach (Client client in repoClients.Clients)
+            foreach (Client client in repoClients.GetAll())
             {
-                if (client.Id == id)
+                if (client.Id.ToString() == id)
                 {
                     if (client.Waiting == true)
                     {
@@ -382,11 +416,17 @@ namespace Library
             }
         }
 
-        public void AddNotes(Interaction interaction, string note)
+        public void AddNotes(string interactionid, string note, string clientid)
+        {
+            Client client = this.SearchClientById(clientid);
+            foreach (Interaction i in client.Interactions)
             {
-                interaction.Notes = note;
-
+                if (i.Id.ToString() == interactionid)
+                {
+                    i.Notes = note;
+                }
             }
         }
     }
+}
 

@@ -12,128 +12,180 @@ namespace Library
     /// </summary>
     public class RepoTags : IRepo<Tag>
     {
-        private readonly List<Tag> _tagList = new List<Tag>();
-        
-
-        private int NextId = 1;
         
         /// <summary>
-        /// Propiedad calculada para cumplir con IRepo.Count
+        /// Repositorio de etiquetas (tags).
+        /// <br/>
+        /// <b>Patrones y Principios aplicados:</b>
+        /// <list type="bullet">
+        /// <item><b>Singleton:</b> Garantiza una única instancia del repositorio para mantener la consistencia de los datos en memoria.</item>
+        /// <item><b>Repository:</b> Abstrae la lógica de almacenamiento y acceso a datos.</item>
+        /// <item><b>Information Expert (GRASP):</b> Es la clase experta en gestionar la colección de tags y sus IDs.</item>
+        /// <item><b>DIP (SOLID):</b> Implementa la abstracción para reducir el acoplamiento.</item>
+        /// </list>
         /// </summary>
-        public int Count => _tagList.Count;
-        
 
-        /// <summary>
-        /// Obtiene un tag por su ID (Cumple con IRepo.GetById)
-        /// </summary>
-        public Tag GetById(int id)
+        private static RepoTags instance = null;
+
+        public static RepoTags Instance
         {
-            // Busca el primero que coincida con el ID, o devuelve null
-            return _tagList.FirstOrDefault(t => t.Id == id);
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new RepoTags();
+                }
+
+                return instance;
+            }
         }
+        public static void ResetInstance()
+        {
+            instance = null;
+        }
+
+        private List<Tag> tags = new List<Tag>();
+        
+        private RepoTags()
+        {
+            // Intencionalmente en blanco
+        }
+        
+        /// <summary>
+        /// NextId aumenta en uno cada vez que se crea un tag, así todos los tags tienen un número identificador diferente.
+        /// </summary>
+        private int NextId = 0;
+        
         /// <summary>
         /// Obtiene todas las etiquetas del repositorio (solo lectura).
         /// </summary>
-        public IReadOnlyList<Tag> GetAll() => _tagList.AsReadOnly();
-        
-        
+        public IReadOnlyList<Tag> GetAll() => tags.AsReadOnly();
+       
+        /// <summary>
+        /// Agrega un tag ya existente al repositorio.
+        /// Implementación del contrato de la interfaz IRepo.
+        /// Aplicación de patrones y principios:
+        /// - Repository: Se encarga exclusivamente de la lógica de almacenamiento (agregar a la lista).
+        /// - DIP (SOLID): Implementa la abstracción, permitiendo que el sistema dependa de la interfaz y no de la implementación concreta.
+        /// - SRP: Su única responsabilidad es guardar una entidad válida.
+        /// </summary>
+        /// <param name="entity">Entidad del Tag.</param>
+        public void Create(Tag entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), "No se puede agregar un tag nulo.");
+            }
+            tags.Add(entity);
+        }
         
         /// <summary>
-        /// Crea una nueva etiqueta y la agrega al repositorio especificado.
+        /// Método para crear un nuevo tag.
+        /// Genera el ID único, instancia el objeto y lo registra automáticamente.
+        /// Aplicación de patrones y principios:
+        /// - Creator (GRASP): RepoClients es el responsable de crear instancias de tags porque es quien las contiene y gestiona.
+        /// - Expert (GRASP): Posee la información necesaria (como el NextId y la lista para validar) para crear un tag válido.
         /// </summary>
-        /// <param name="tagname">El nombre de la nueva etiqueta.</param>
-        public void Add(Tag entity)
+        /// <param name="name">Nombre del tag a crear.</param>
+        /// <returns>El Tag recién creado.</returns>
+        /// <exception cref="InvalidOperationException">Si ya existe un tag con ese nombre.</exception>
+        public Tag CreateTag(string name)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
-
-            // Validar nombre vacío
-            if (string.IsNullOrWhiteSpace(entity.TagName))
+            string tagName = name.Trim().ToLower();
+            foreach (var tag in tags)
             {
-                throw new ArgumentException("El nombre de la etiqueta no es válido");
+                if (tag.TagName == tagName)
+                {
+                    throw new InvalidOperationException("Ya existe un tag con ese nombre");
+                }
             }
-
-            // Validar duplicados (usando LINQ es más limpio)
-            if (_tagList.Any(t => t.TagName.ToLower() == entity.TagName.Trim().ToLower()))
-            {
-                throw new InvalidOperationException("Ya existe un tag con ese nombre");
-            }
-
-            // Asignar ID y aumentar contador
-            entity.Id = NextId;
-            NextId++;
-
-            _tagList.Add(entity);
-        }
-        public void Remove(int id)
-        {
-            // Reutilizamos GetById para encontrarlo
-            Tag tagToRemove = GetById(id);
-
-            if (tagToRemove == null)
-            {
-                throw new KeyNotFoundException($"No existe un tag con el ID {id}");
-            }
-
-            _tagList.Remove(tagToRemove);
+            Tag newTag = new Tag(this.NextId,tagName);
+            this.Create(newTag);
+            this.NextId += 1;
+            return newTag;
         }
         
+        /// <summary>
+        /// Busca y devuelve el tag cuya Id coincide con la solicitada.
+        /// Según el patrón Expert, RepoTags tiene la información y controla la colección, por lo que es responsable de la búsqueda.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: RepoTags gestiona y tiene acceso a todos los tags e identificadores.
+        /// - SRP: El método tiene una única responsabilidad, buscar un tag por id.
+        /// </summary>
+        /// <param name="id">Id del tag.</param>
+        /// <returns>Tag correspondiente al id proporcionado, o null si no existe.</returns>
+        public Tag GetById(int id)
+        {
+            if (id < 0)
+            {
+                throw new ArgumentException("El número de Id no puede ser negativo", nameof(id));
+            }
+            Tag result = null;
+            foreach (var tag in tags)
+            {
+                if (tag.Id == id)
+                {
+                    result = tag;
+                    break;
+                }
+            }
+            return result;
+        }
+        
+        /// <summary>
+        /// Elimina un tag del repositorio de tags utilizando su identificador.
+        /// De acuerdo al patrón Expert, RepoTags tiene la información necesaria porque gestiona la colección y los identificadores.
+        /// Aplicación de los patrones y principios:
+        /// - Expert : RepoTags sabe cómo y a quién eliminar, gracias a que mantiene la colección y los IDs.
+        /// - SRP : La responsabilidad del método es única, eliminar un tag.
+        /// - DRY : usa GetById() para encontrar el tag
+        /// </summary>
+        /// <param name="id">El id del tag que se va a eliminar.</param>
+        public void Remove(int id)
+        {
+            if (id < 0)
+            {
+                throw new ArgumentException("El ID no puede ser negativo.", nameof(id));
+            }
+            Tag tagToRemove = GetById(id);
+
+            if (tagToRemove != null)
+            {
+                tags.Remove(tagToRemove);
+            }
+        }
+
         /// <summary>
         /// Busca y devuelve las etiquetas cuyo nombre coincide con el especificado.
         /// </summary>
         /// <param name="tagName">El nombre de la etiqueta por el que buscar.</param>
         /// <returns>Una lista de etiquetas cuyo nombre coincide con <paramref name="tagName"/>.</returns>
 
-        public Tag Search(string tagName)
+        public Tag Search(string name)
         {
-            string searchedTag = tagName;
-            try
+            Tag searchedTag = null;
+            string tagName = name.Trim().ToLower();
+            foreach (var tag in tags)
             {
-                foreach (var tag in _tagList)
+                if (tag.TagName == tagName )
                 {
-                    if (tag.TagName == searchedTag)
-                    {
-                        return tag;
-                    }
+                    searchedTag = tag;
+                    break;
                 }
-
-                throw new ArgumentException("No se encontro ninguna tag con ese nombre");
             }
-            catch (Exception e)
+            if (searchedTag == null)
             {
-                throw new Exception("Error al encontrar tag: " + e);
+                throw new ArgumentException("No se encontró ninguna tag con ese nombre");
             }
+
+            return searchedTag;
         }
         
-        public Tag CreateTag(string tagName)
-        {
-            try
-            {
-                
-                foreach (var tag in _tagList)
-                {
-                    if (tag.TagName == tagName)
-                    {
-                        throw new Exception("Ya existe un tag con ese nombre");
-                    }
-                }
-                // Creamos la instancia (el ID se asignará dentro de Add)
-                Tag newTag = new Tag(0, tagName); // Asumimos que el constructor acepta (id, nombre)
-                
-                // Llamamos a Add para reutilizar la lógica de validación y asignación de ID
-                this.Add(newTag);
-            
-                return newTag;
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception("Error: "+ e);
-            }
-        }
-
-        
-        
-        
+         
+        /// <summary>
+        /// Propiedad calculada para cumplir con IRepo.Count
+        /// </summary>
+        public int Count => tags.Count;
         
     }
     

@@ -14,25 +14,25 @@ public class RepoClientsTests
     public void TestCreateClient()
     {
         // Arrange
-        Seller jose = new Seller("Jose");
+        Seller jose = new Seller("Jose", 0);
         RepoClients repoClients = RepoClients.Instance;
         // Act
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         // Assert
-        Assert.That(repoClients.Clients.Count, Is.EqualTo(1));
-        Assert.That(repoClients.Clients[0].Id, Is.EqualTo(0));
+        Assert.That(repoClients.GetAll().Count, Is.EqualTo(1));
+        Assert.That(repoClients.GetAll()[0].Id, Is.EqualTo(0));
     }
 
     [Test]
     public void TestGetClients()
     {
         // Arrange
-        Seller jose = new Seller("Jose");
+        Seller jose = new Seller("Jose", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose); 
         // Act 
-        IReadOnlyList<Client> actual = repoClients.Clients;
+        IReadOnlyList<Client> actual = repoClients.GetAll();
         // Assert
         Assert.That(actual.Count, Is.EqualTo(2));
     }
@@ -41,27 +41,27 @@ public class RepoClientsTests
     public void TestDeleteClient()
     {
         // Arrange
-        Seller jose = new Seller("Facundo");
+        Seller jose = new Seller("Facundo", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose);
         // Act
-        repoClients.DeleteClient(0);
+        repoClients.Remove(0);
         // Assert
-        Assert.That(repoClients.Clients.Count, Is.EqualTo(0));
+        Assert.That(repoClients.Count, Is.EqualTo(0));
     }
 
     [Test]
     public void TestSearchClient_ByName()
     {
             //Arrange
-            Seller jose = new Seller("Lucas");
+            Seller jose = new Seller("Lucas", 0);
             RepoClients repoClients = RepoClients.Instance;
             repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
             repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose);
             // Act
             List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Mario");
             // Assert
-            Assert.That(actual[0].Name, Is.EqualTo("Mario"));
+            Assert.That(actual[0].Name, Is.EqualTo("mario"));
     }
     
     [Test]
@@ -69,21 +69,21 @@ public class RepoClientsTests
     public void TestSearchClient_ByLastName()
     {
         // Arrange
-        Seller jose = new Seller("Peter");
+        Seller jose = new Seller("Peter", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose);
         // Act
         List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.LastName,"Dominguez");
         // Assert
-        Assert.That(actual[0].LastName, Is.EqualTo("Dominguez"));
+        Assert.That(actual[0].LastName, Is.EqualTo("dominguez"));
     }
     
     [Test]
     public void TestSearchClient_ByEmail()
     {
         // Arrange
-        Seller jose = new Seller("Thomas");
+        Seller jose = new Seller("Thomas", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", jose);
@@ -97,7 +97,7 @@ public class RepoClientsTests
     public void TestSearchClient_ByPhone()
     {
         // Arrange
-        Seller jose = new Seller("Ezequiel");
+        Seller jose = new Seller("Ezequiel", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose);
@@ -111,7 +111,7 @@ public class RepoClientsTests
     public void TestInactiveClients()
     {
         // Arrange
-        Seller jose = new Seller("Ezequiel");
+        Seller jose = new Seller("Ezequiel", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789",  jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321",  jose);
@@ -133,7 +133,7 @@ public class RepoClientsTests
     [Test]
     public void TestWaitingClients()
     {
-        Seller jose = new Seller("Ezequiel");
+        Seller jose = new Seller("Ezequiel", 0);
         RepoClients repoClients = RepoClients.Instance;
         repoClients.CreateClient("Mario", "Dias", "abcdefg", "123456789", jose);
         repoClients.CreateClient("Mariano", "Dominguez", "gfedcba", "987654321", jose);
@@ -156,9 +156,10 @@ public class RepoClientsTests
     [Test]
     public void GetPanel()
     {
+        Seller seller = new Seller("Kiki", 0);
         RepoClients repo = RepoClients.Instance;
-        Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
-        Client client2 = repo.CreateClient( "Lucía", "García", "lucia@example.com", "098888888",  null);
+        Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  seller);
+        Client client2 = repo.CreateClient( "Lucía", "García", "lucia@example.com", "098888888",  seller);
         client1.AddInteraction(new Call("Llamada 1", "Notas 1", DateTime.Now.AddDays(-1)));
         client1.AddInteraction(new Meeting("Reunión 1", "Notas 2", "Sala A", Meeting.MeetingState.Programmed, DateTime.Now.AddDays(2))); 
         client2.AddInteraction(new Email("Email 1", InteractionOrigin.Origin.Sent, "Notas", DateTime.Now.AddDays(-1)));
@@ -176,8 +177,9 @@ public class RepoClientsTests
     [Test]
     public void GetTotalSales()
     {
+        Seller seller = new Seller("Kiki", 0);
         RepoClients repo = RepoClients.Instance;
-        Client client = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
+        Client client = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  seller);
 
         client.CreateOpportunity("Azúcar",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
         client.CreateOpportunity("Arroz",60,Opportunity.States.Open,client, new DateTime(2025,10,20));

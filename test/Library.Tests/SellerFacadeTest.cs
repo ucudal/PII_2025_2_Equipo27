@@ -7,19 +7,20 @@ public class SellerFacadeTest
     {
         SellerFacade.ResetInstance();
         AdminFacade.ResetInstance();
-        RepoUser.ResetInstance();
+        RepoUsers.ResetInstance();
         RepoClients.ResetInstance();
     }
 
     [Test]
     public void AsignClient_IfFind()
     {
-        
-     
         Seller seller1 = AdminFacade.Instance.CreateSeller("Peter");
         Seller seller2 = AdminFacade.Instance.CreateSeller("Ezequiel");
-        Client client = AdminFacade.Instance.CreateClient("Facundo", "Pastoruti", "facundopastoruti", "55555555", "Peter");
-        SellerFacade.Instance.AssignClient(seller1.UserName, seller2.UserName, "0");
+        Client client = AdminFacade.Instance.CreateClient("Facundo", "Pastoruti", "facundopastoruti", "55555555", "0");
+
+        SellerFacade.Instance.AssignClient(seller1.Id.ToString(), seller2.Id.ToString(), client.Id.ToString());
+
+
         Assert.That(client.AsignedSeller.UserName, Is.EqualTo(seller2.UserName));
     }
 }

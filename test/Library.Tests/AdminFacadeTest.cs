@@ -7,7 +7,7 @@ public class AdminFacadeTest
     {
         AdminFacade.ResetInstance();
         RepoClients.ResetInstance();
-        RepoUser.ResetInstance();
+        RepoUsers.ResetInstance();
     }
     [Test]
     public void SuspendUser()
@@ -15,7 +15,7 @@ public class AdminFacadeTest
         AdminFacade facade = AdminFacade.Instance;
         
         Seller seller = facade.CreateSeller("Daniela");
-        facade.SuspendUser("Daniela");
+        facade.SuspendUser("0");
         
         
         Assert.That(seller.Active, Is.False);
@@ -27,7 +27,7 @@ public class AdminFacadeTest
         AdminFacade facade = AdminFacade.Instance;
         Seller seller = facade.CreateSeller("Laura");
 
-        facade.ActiveUser("Laura");
+        facade.ActiveUser("0");
 
         Assert.That(seller.Active, Is.True);
     }
