@@ -10,9 +10,9 @@ namespace Library
     public class MainFacade
     {
         protected RepoClients repoClients = RepoClients.Instance;
-        private RepoTags repoTag =  RepoTags.Instance;
+        private RepoTags repoTag = RepoTags.Instance;
         protected RepoUsers RepoUsers = RepoUsers.Instance;
-        
+
 
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio.
@@ -24,18 +24,19 @@ namespace Library
         /// <param name="gender">Género del cliente</param>
         /// <param name="birthDate">Fecha de nacimiento (string)</param>
         /// <param name="seller">Vendedor responsable</param>
-        public Client CreateClient(string name, string lastName, string email, string phone,  string sellerid)
+        public Client CreateClient(string name, string lastName, string email, string phone, string sellerid)
         {
             Seller seller = RepoUsers.SearchUser<Seller>(int.Parse(sellerid));
             return repoClients.CreateClient(name, lastName, email, phone, seller);
         }
+
         /// <summary>
         /// Añade nuevos datos al cliente, ya sea fecha de nacimiento o genero.
         /// </summary>
         /// <param name="clientid"></param>
         /// <param name="data"></param>
         /// <param name="modification"></param>
-        public void AddData(string id,string typeOfData, string modification)
+        public void AddData(string id, string typeOfData, string modification)
         {
             RepoClients.TypeOfData datatype = 0;
             Client client = repoClients.SearchClientById(int.Parse(id));
@@ -43,7 +44,7 @@ namespace Library
             {
                 datatype = RepoClients.TypeOfData.BirthDate;
             }
-            else if(typeOfData == RepoClients.TypeOfData.Gender.ToString())
+            else if (typeOfData == RepoClients.TypeOfData.Gender.ToString())
             {
                 datatype = RepoClients.TypeOfData.Gender;
             }
@@ -51,9 +52,10 @@ namespace Library
             {
                 throw new ArgumentException("El tipo de datos a añadir debe ser 'BirthDate' o 'Gender'");
             }
-            
-            client.AddData(datatype,modification);
+
+            client.AddData(datatype, modification);
         }
+
         /// <summary>
         /// Devuelve el listado completo de clientes registrados.
         /// </summary>
@@ -109,8 +111,10 @@ namespace Library
             }
             else
             {
-                throw new ArgumentException("El tipo de datos a buscar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
+                throw new ArgumentException(
+                    "El tipo de datos a buscar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
             }
+
             return repoClients.SearchClient(typeOfData, text);
 
         }
@@ -141,30 +145,31 @@ namespace Library
         /// <param name="modification">Nuevo valor</param>
         public void ModifyClient(string id, string modified, string modification)
         {
-           Client client = repoClients.SearchClientById(int.Parse(id));
-           if (modified == RepoClients.TypeOfData.Name.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.Name,modification);
-           }
-           else if (modified == RepoClients.TypeOfData.LastName.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.LastName,modification);
+            Client client = repoClients.SearchClientById(int.Parse(id));
+            if (modified == RepoClients.TypeOfData.Name.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.Name, modification);
+            }
+            else if (modified == RepoClients.TypeOfData.LastName.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.LastName, modification);
 
-           }
-           else if (modified == RepoClients.TypeOfData.Email.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.Email,modification);
+            }
+            else if (modified == RepoClients.TypeOfData.Email.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.Email, modification);
 
-           }
-           else if (modified == RepoClients.TypeOfData.Phone.ToString())
-           {
-               client.ModifyClient(RepoClients.TypeOfData.Phone,modification);
+            }
+            else if (modified == RepoClients.TypeOfData.Phone.ToString())
+            {
+                client.ModifyClient(RepoClients.TypeOfData.Phone, modification);
 
-           }
-           else
-           {
-               throw new ArgumentException("El tipo de datos a modificar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
-           }
+            }
+            else
+            {
+                throw new ArgumentException(
+                    "El tipo de datos a modificar debe ser 'Name' o 'LastName' o 'Email' o 'Phone'");
+            }
         }
 
         /// <summary>
@@ -194,11 +199,12 @@ namespace Library
             {
                 throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
             }
+
             return client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
         }
-        
-        
-        
+
+
+
         /// <summary>
         /// Crea un Tag y lo guarda.
         /// </summary>
@@ -260,7 +266,7 @@ namespace Library
                 Email email = new Email(content, InteractionOrigin.Origin.Received, notes, DateTime.Now);
                 client.AddInteraction(email);
             }
-            else if(sender == InteractionOrigin.Origin.Sent.ToString())
+            else if (sender == InteractionOrigin.Origin.Sent.ToString())
             {
                 Email email = new Email(content, InteractionOrigin.Origin.Sent, notes, DateTime.Now);
                 client.AddInteraction(email);
@@ -270,7 +276,7 @@ namespace Library
                 throw new ArgumentException("El estado de la llamada debe ser o 'Sent' o 'Received'");
             }
         }
-        
+
         /// <summary>
         /// Registra una reunión con un cliente.
         /// </summary>
@@ -286,18 +292,21 @@ namespace Library
             Client client = this.SearchClientById(clientid);
             if (type == Meeting.MeetingState.Programmed.ToString())
             {
-                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Programmed, DateTime.Parse(date));
-                client.AddInteraction(meeting);        
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Programmed,
+                    DateTime.Parse(date));
+                client.AddInteraction(meeting);
             }
             else if (type == Meeting.MeetingState.Canceled.ToString())
             {
-                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Canceled, DateTime.Parse(date));
-                client.AddInteraction(meeting);        
-            } 
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Canceled,
+                    DateTime.Parse(date));
+                client.AddInteraction(meeting);
+            }
             else if (type == Meeting.MeetingState.Done.ToString())
             {
-                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Done, DateTime.Parse(date));
-                client.AddInteraction(meeting);        
+                Meeting meeting = new Meeting(content, notes, location, Meeting.MeetingState.Done,
+                    DateTime.Parse(date));
+                client.AddInteraction(meeting);
             }
             else
             {
@@ -324,7 +333,7 @@ namespace Library
                 Message message = new Message(content, notes, InteractionOrigin.Origin.Received, channel, DateTime.Now);
                 client.AddInteraction(message);
             }
-            else if(sender == InteractionOrigin.Origin.Sent.ToString())
+            else if (sender == InteractionOrigin.Origin.Sent.ToString())
             {
                 Message message = new Message(content, notes, InteractionOrigin.Origin.Sent, channel, DateTime.Now);
                 client.AddInteraction(message);
@@ -334,6 +343,7 @@ namespace Library
                 throw new ArgumentException("El estado del mensaje debe ser o 'Sent' o 'Received'");
             }
         }
+
         public string GetPanel()
         {
             return this.repoClients.GetPanel();
@@ -375,7 +385,7 @@ namespace Library
             }
         }
 
-        public void AddNotes(string interactionid, string note,string clientid)
+        public void AddNotes(string interactionid, string note, string clientid)
         {
             Client client = this.SearchClientById(clientid);
             foreach (Interaction i in client.Interactions)
@@ -385,7 +395,7 @@ namespace Library
                     i.Notes = note;
                 }
             }
-            }
         }
     }
+}
 
