@@ -88,9 +88,9 @@ namespace Library
 
         public int Id { get; set; }
         private string name;
-        public string Name { get{return name;} set{name= value.Trim().ToLower();} }
+        public string Name { get{return name;} set{name= value.Trim();} }
         private string lastName;
-        public string LastName { get{return lastName;} set{lastName= value.Trim().ToLower();} }
+        public string LastName { get{return lastName;} set{lastName= value.Trim();} }
         private string email;
         public string Email { get{return email;} set{email= value.Trim().ToLower();} }
         public string Phone { get; set; }
@@ -225,9 +225,34 @@ namespace Library
             {
                 throw new InvalidOperationException("Esta interacción ya está añadida");
             }
-
+            
             interaction.Id = NextId;
             NextId += 1;
+            if (interaction is Message)
+            {
+                Message message = interaction as Message;
+                if (message.Sender == InteractionOrigin.Origin.Received)
+                {
+                    this.Waiting = false;
+                }
+                else if (message.Sender == InteractionOrigin.Origin.Sent)
+                {
+                    this.Waiting = true;
+                }
+            
+            }
+            else if(interaction is Email)
+            {
+                Email email = interaction as Email;
+                if (email.Sender == InteractionOrigin.Origin.Received)
+                {
+                    this.Waiting = false;
+                }
+                else if (email.Sender == InteractionOrigin.Origin.Sent)
+                {
+                    this.Waiting = true;
+                }
+            }
             this.interactions.Add(interaction);
         }
         /// <summary>
