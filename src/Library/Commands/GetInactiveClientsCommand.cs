@@ -1,0 +1,7 @@
+﻿namespace Ucu.Poo.DiscordBot.Commands
+{
+    public class GetInactiveClientsCommand
+    {
+        
+    }
+}

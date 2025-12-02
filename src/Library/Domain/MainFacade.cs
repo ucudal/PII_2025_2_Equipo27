@@ -460,34 +460,6 @@ namespace Library
                 }
             }
         }
-    
-        /// <summary>
-        /// Cambia el estado de espera de un cliente (esperando/no esperando) según su Id.
-        /// Aplicación de los patrones y principios:
-        /// - Expert: El cambio de estado se realiza sobre Client, que es el experto en su propia información y estado de espera.
-        /// - SRP: La responsabilidad de este método es localizar al cliente por su Id en el repositorio y alternar su estado de espera entre verdadero y falso.
-        /// </summary>
-        /// <param name="id">Id del cliente cuyo estado de espera se va a cambiar.</param>
-
-        public void SwitchClientWaiting(string id)
-        {
-            foreach (Client client in repoClients.GetAll())
-            {
-                if (client.Id.ToString() == id)
-                {
-                    if (client.Waiting == true)
-                    {
-                        client.Waiting = false;
-                    }
-                    else
-                    {
-                        client.Waiting = true;
-                    }
-                }
-            }
-        }
-
-
         /// <summary>
         /// Agrega o actualiza las notas de una interacción específica de un cliente.
         /// Aplicación de los patrones y principios:

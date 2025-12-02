@@ -326,7 +326,7 @@ public class UserStoriesTests
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
 
-        facade.SwitchClientWaiting("0");
+        facade.RegisterCall("hola","llamada","0");
         int actual = facade.WaitingClients().Count;
         Assert.That(actual,Is.EqualTo(1));
     }
