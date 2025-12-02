@@ -28,7 +28,9 @@ namespace Library
 
         private List<Interaction> interactions = new List<Interaction>();
         
-        private int NextId = 1;
+        private int nextInteractionId = 1;
+
+        private int nextOpportunityId = 1;
 
         /// <summary>
         /// Se crean tags privado y el IReadOnlyList Tags para mejorar la encapsulación de las listas.
@@ -82,10 +84,11 @@ namespace Library
             this.Inactive = false;
             this.Waiting = false;
             this.AsignedSeller = seller;
+            this.Gender = GenderType.Empty;
+            this.BirthDate = "Empty";
         }
 
         public Seller AsignedSeller { get; set; }
-
         public int Id { get; set; }
         private string name;
         public string Name { get{return name;} set{name= value.Trim();} }
@@ -102,7 +105,8 @@ namespace Library
         public enum GenderType
         {
             Male,
-            Female
+            Female,
+            Empty
         }
 
         /// <summary>
@@ -139,15 +143,22 @@ namespace Library
 
         public void AddData(RepoClients.TypeOfData typeOfData, string newData)
         {
+            string male = "male";
+            string female = "female";
+            
             if (typeOfData == RepoClients.TypeOfData.Gender)
             {
-                if (newData == GenderType.Male.ToString())
+                if (newData.ToLower() == male)
                 {
                     this.Gender = GenderType.Male;
                 }
-                else if (newData == GenderType.Female.ToString())
+                else if (newData.ToLower() == female)
                 {
                     this.Gender = GenderType.Female;
+                }
+                else
+                {
+                    throw new ArgumentException("El género debe ser 'Male' o 'Female'.", nameof(newData));
                 }
             }
             else if (typeOfData == RepoClients.TypeOfData.BirthDate)
@@ -173,7 +184,13 @@ namespace Library
         {
             Opportunity opportunity = new Opportunity(product, price, states, client, date);
             this.opportunities.Add(opportunity);
+            nextOpportunityId += 1;
             return opportunity;
+        }
+
+        public void ChangeOpportunityState(int opportunityId, Opportunity.States state)
+        {
+            
         }
         
         /// <summary>
@@ -230,9 +247,6 @@ namespace Library
                     throw new InvalidOperationException("Esta interacción ya está añadida");
                 }
             }
-            
-            interaction.Id = NextId;
-            NextId += 1;
             if (interaction is Message)
             {
                 Message message = interaction as Message;
@@ -269,6 +283,8 @@ namespace Library
                     this.Waiting = false;
                 }
             }
+            interaction.Id = nextInteractionId;
+            nextInteractionId += 1;
             this.interactions.Add(interaction);
         }
         /// <summary>
@@ -322,7 +338,6 @@ namespace Library
                 {
                     futureMeetings += 1;
                 }
-                
             }
 
             return (futureMeetings);

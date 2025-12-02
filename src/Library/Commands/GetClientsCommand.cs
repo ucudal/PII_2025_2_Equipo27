@@ -27,6 +27,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                         $"Teléfono: {client.Phone}\n" +
                         $"Género: {client.Gender}\n" +
                         $"Fecha de nacimiento: {client.BirthDate}\n" +
+                        $"Vendedor asignado: {client.AsignedSeller.UserName}\n" +
                         $"{new string('-', 40)}\n");
                 }
                 await ReplyAsync(result.ToString());
