@@ -221,9 +221,12 @@ namespace Library
 
         public void AddInteraction(Interaction interaction)
         {
-            if (this.interactions.Contains(interaction))
+            foreach (var i in interactions)
             {
-                throw new InvalidOperationException("Esta interacción ya está añadida");
+                if (i.Content == interaction.Content && i.Notes == interaction.Notes)
+                {
+                    throw new InvalidOperationException("Esta interacción ya está añadida");
+                }
             }
 
             interaction.Id = NextId;
