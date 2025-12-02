@@ -152,7 +152,6 @@ public class RepoClientsTests
         Assert.That(actual, Is.EqualTo(expected));
     }
     
-        
     [Test]
     public void GetPanel()
     {
@@ -172,7 +171,7 @@ public class RepoClientsTests
         
         Assert.That(panel, Is.EqualTo(expected) );
     }
-
+  
     [Test]
     public void GetTotalSales()
     {

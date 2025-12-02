@@ -36,7 +36,7 @@ namespace Library
             // Intencionalmente en blanco
         }
 
-        public Admin Admin = new Admin("Famapez", 0);
+        public Admin Admin = new Admin("thomaaswm", 0);
 
         
         /// <summary>

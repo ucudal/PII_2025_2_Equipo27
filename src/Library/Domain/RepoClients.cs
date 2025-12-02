@@ -121,22 +121,16 @@ namespace Library
         /// <returns>Cliente correspondiente al id proporcionado, o null si no existe.</returns>
         public Client GetById(int id)
         {
-            if (string.IsNullOrEmpty(id.ToString()))
-            {
-                throw new ArgumentException("Debe escribir un id válido", nameof(id));
-            }
-            Client result = null;
             foreach (var client in clients)
             {
                 if (client.Id == id)
                 {
-                    result = client;
-                    break;
+                    return client;
                 }
             }
-            return result;
-        }
 
+            throw new ArgumentException($"No existe un cliente con ID: {id}");
+        }
  
         /// <summary>
         /// Elimina un cliente del repositorio de clientes utilizando su identificador.
