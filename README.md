@@ -35,7 +35,7 @@ https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=shari
 | Registrar reuniones                        | !newmeeting                                                  |
 | Registrar mensajes                         | !newmessage                                                  |
 | Registrar emails                           | !newemail                                                    |
-| Registrar otros datos                      | !addclientdata client typeofdata data                        |
+| Registrar otros datos                      | !addclientdata                                               |
 | Definir etiquetas                          | !addtag tagname                                              |
 | Agregar etiqueta a cliente                 | !assigntag client tagname                                    |
 | Registrar venta                            | !closeopportunity product price client                       |

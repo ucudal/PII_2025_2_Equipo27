@@ -122,8 +122,8 @@ public class UserStoriesTests
 
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
         
-        AdminFacade.Instance.RegisterCall("Tema","nota",client.Id.ToString());
-        AdminFacade.Instance.RegisterCall("Llamada","nota",client.Id.ToString());
+        AdminFacade.Instance.RegisterCall("Tema","Sent", "nota",client.Id.ToString());
+        AdminFacade.Instance.RegisterCall("Llamada","Sent", "nota",client.Id.ToString());
         
         Assert.That(client.Interactions.Count, Is.EqualTo(2));
         Assert.That(client.Interactions[0].Content, Is.EqualTo("Tema"));
@@ -293,7 +293,9 @@ public class UserStoriesTests
         // Arrange
         Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
         Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999",  "0");
-        SellerFacade.Instance.RegisterCall("Compra de botines", "Quiere comprar 3 pares", harry.Id.ToString());
+
+
+        SellerFacade.Instance.RegisterCall("Compra de botines", "Sent","Quiere comprar 3 pares", harry.Id.ToString());
         SellerFacade.Instance.RegisterEmail("Organizando una llamada para hacer una compra", "Received", "Ninguna nota", harry.Id.ToString());
         SellerFacade.Instance.RegisterMeeting("-", "Proximamente", "Munich", "Programmed", harry.Id.ToString(), DateTime.Today.ToString());
         SellerFacade.Instance.RegisterMessage("Saludo confirmando la reunion", "Ninguna", "Sent", "Discord", harry.Id.ToString());
@@ -324,7 +326,7 @@ public class UserStoriesTests
         SellerFacade facade = SellerFacade.Instance;
         facade.CreateClient("pedro", "Sanchez", "pedro@gmail.com", "099000111",  "0");
 
-        facade.RegisterCall("hola","llamada","0");
+        facade.RegisterCall("hola","Sent","llamada","0");
         int actual = facade.WaitingClients().Count;
         Assert.That(actual,Is.EqualTo(1));
     }
@@ -383,7 +385,7 @@ public class UserStoriesTests
         facade.CreateSeller("mario");
         facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999",  "0");
         facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888",  "0");
-        facade.RegisterCall("Llamada 1", "Notas 1", "0");
+        facade.RegisterCall("Llamada 1", "Sent","Notas 1", "0");
         facade.RegisterMeeting("Reunión 1", "Notas 2", "Sala A","Programmed" ,"0" ,DateTime.Now.AddDays(1).ToString());
         facade.RegisterEmail("Email 1", "Sent", "Notas","0");
 

@@ -342,11 +342,23 @@ namespace Library
         /// <param name="clientid">Id del cliente involucrado.</param>
 
 
-        public void RegisterCall(string content, string notes, string clientid)
+        public void RegisterCall(string content, string sender, string notes, string clientid)
         {
             Client client = this.SearchClientById(clientid);
-            Call call = new Call(content, notes,InteractionOrigin.Origin.Sent ,DateTime.Now);
-            client.AddInteraction(call);
+            if (sender == InteractionOrigin.Origin.Received.ToString())
+            {
+                Call call = new Call(content, notes,InteractionOrigin.Origin.Received,  DateTime.Now);
+                client.AddInteraction(call);
+            }
+            else if (sender == InteractionOrigin.Origin.Sent.ToString())
+            {
+                Call call = new Call(content, notes,InteractionOrigin.Origin.Sent,  DateTime.Now);
+                client.AddInteraction(call);
+            }
+            else
+            {
+                throw new ArgumentException("El estado de la llamada debe ser o 'Sent' o 'Received'");
+            }
         }
 
         /// <summary>
@@ -526,12 +538,38 @@ namespace Library
         public void AddNotes(string interactionid, string note, string clientid)
         {
             Client client = this.SearchClientById(clientid);
+            if (client.Interactions.Count == 0 )
+            {
+                throw new ArgumentException("El cliente no tiene interacciones");
+            }
+
+            if (int.Parse(interactionid) <= 0)
+            {
+                throw new ArgumentException("Debe ingresar un Id válido");
+            }
+
+            bool exists = false;
             foreach (Interaction i in client.Interactions)
             {
                 if (i.Id.ToString() == interactionid)
                 {
+                    exists = true;
+                    
+                    if (i.Notes == note)
+                    {
+                        throw new ArgumentException("La interaccion ya tiene esa nota");
+                    }
+
                     i.Notes = note;
+                    break;
                 }
+
+                if (!exists)
+                {
+                    throw new KeyNotFoundException($"La interacción con Id {interactionid} no existe");
+                }
+                
+
             }
         }
     }
