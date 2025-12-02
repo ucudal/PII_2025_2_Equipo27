@@ -1,11 +1,13 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
+using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class GetClientsCommand : ModuleBase<SocketCommandContext>
+    public class GetClientsCommand : BotModuleBase
     {
         /// <summary>
         /// Implementa el comando 'getclients' para ver todos los clientes.
@@ -14,26 +16,34 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Muestra todos los clientes.")]
         public async Task GetClientsAsync()
         {
-            var result = new StringBuilder();
-            if (SellerFacade.Instance.GetClients().Count != 0)
+            try
             {
-                foreach (var client in SellerFacade.Instance.GetClients())
+                var clients = facade.GetClients();
+                var result = new StringBuilder();
+                if (clients.Count != 0)
                 {
-                    result.Append(
-                        $"ID del cliente: {client.Id}\n" +
-                        $"Nombre: {client.Name}\n" +
-                        $"Apellido: {client.LastName}\n" +
-                        $"Mail: {client.Email}\n" +
-                        $"Teléfono: {client.Phone}\n" +
-                        $"Género: {client.Gender}\n" +
-                        $"Fecha de nacimiento: {client.BirthDate}\n" +
-                        $"{new string('-', 40)}\n");
+                    foreach (var client in clients)
+                    {
+                        result.Append(
+                            $"ID del cliente: {client.Id}\n" +
+                            $"Nombre: {client.Name}\n" +
+                            $"Apellido: {client.LastName}\n" +
+                            $"Mail: {client.Email}\n" +
+                            $"Teléfono: {client.Phone}\n" +
+                            $"Género: {client.Gender}\n" +
+                            $"Fecha de nacimiento: {client.BirthDate}\n" +
+                            $"{new string('-', 40)}\n");
+                    }
+                    await ReplyAsync(result.ToString());
                 }
-                await ReplyAsync(result.ToString());
+                else
+                {
+                    await ReplyAsync("No tienes ningún cliente");
+                }
             }
-            else
+            catch (Exception e)
             {
-                await ReplyAsync("No tienes ningún cliente");
+                await ReplyAsync("Hubo un error al encontrar los clientes: " + e.Message);
             }
         }
     }

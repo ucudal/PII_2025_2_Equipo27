@@ -24,23 +24,28 @@ https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=shari
 
 ---
 
-| Historia                                   | Comandos                                                     |
-|--------------------------------------------|--------------------------------------------------------------|
-| Crear cliente                              | !newclient nombre                                            |
-| Modificar cliente                          | !editclient                                                  |
-| Eliminar cliente                           | !deleteclient                                                |
-| Buscar cliente                             | !searchclient                                                |
-| Ver lista de clientes                      | !getclients                                                  |
-| Registrar llamadas                         | !newcall                                                     |
+## Para iniciar el proyecto debe hacerlo con: 
+# !init
+ <br>
+
+| Historia                                   | Comandos                                                     | Ejemplo                                                                                                                                                                     |
+|--------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Crear cliente                              | !newclient                                                   | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1                                                                                 |
+| Modificar cliente                          | !editclient                                                  | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !editclient 0, Name, luis                                                  |
+| Eliminar cliente                           | !deleteclient                                                | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !deleteclient 0                                                            |
+| Buscar cliente                             | !searchclient                                                | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !searchclient Name, luis                                                   |
+| Ver lista de clientes                      | !getclients                                                  | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !newclient diego, lugano, dlugano@gmail.com, 099020202, 1 <br> !getclients | 
+| Registrar llamadas                         | !newcall                                                     |                                                                                                                                                                             |
 | Registrar reuniones                        | !newmeeting                                                  |
 | Registrar mensajes                         | !newmessage                                                  |
 | Registrar emails                           | !newemail                                                    |
-| Registrar otros datos                      | !addclientdata client typeofdata data                        |
+| Agregar una nota                           | !addnote                                                     |
+| Registrar otros datos                      | !addclientdata                                               |
 | Definir etiquetas                          | !addtag tagname                                              |
-| Agregar etiqueta a cliente                 | !assigntag client tagname                                    |
-| Registrar venta                            | !closeopportunity product price client                       |
-| Registrar cotizaciones enviadas            | !newopportunity product price oppstate client                |
-| Ver todas las interacciones con un cliente | !getinteractions client filter(optional)                     |
+| Agregar etiqueta a cliente                 | !assigntag                                                   |
+| Registrar venta                            | !closeopportunity                                            |
+| Registrar cotizaciones enviadas            | !newopportunity                                              |
+| Ver todas las interacciones con un cliente | !getinteractions                                             |
 | Clientes hace tiempo no hay interacción    | !getinactiveclients                                          |
 | Clientes esperando respuesta               | !getwaitingclients                                           |
 | Crear, suspender o eliminar usuarios       | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
