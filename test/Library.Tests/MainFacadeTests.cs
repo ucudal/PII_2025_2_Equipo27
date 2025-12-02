@@ -55,7 +55,7 @@ public class MainFacadeTests
         AdminFacade adminFacade = AdminFacade.Instance;
         Seller seller = adminFacade.CreateSeller("seller");
         Client client = mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller.Id.ToString());
-        mainFacade.RegisterCall("contenido","llamada a juan", client.Id.ToString());
+        mainFacade.RegisterCall("contenido","Sent","llamada a juan", client.Id.ToString());
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
     }
     

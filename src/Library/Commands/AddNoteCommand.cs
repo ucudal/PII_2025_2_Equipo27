@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
@@ -17,6 +18,10 @@ namespace Ucu.Poo.DiscordBot.Commands
                 await ReplyAsync("La nota se ha agregado correctamente");
             }
             catch (ArgumentException e)
+            {
+                await ReplyAsync(e.Message);
+            }
+            catch (KeyNotFoundException e)
             {
                 await ReplyAsync(e.Message);
             }
