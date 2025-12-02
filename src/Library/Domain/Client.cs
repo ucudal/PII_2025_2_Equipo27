@@ -239,7 +239,6 @@ namespace Library
                 {
                     this.Waiting = true;
                 }
-            
             }
             else if(interaction is Email)
             {
