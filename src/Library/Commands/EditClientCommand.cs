@@ -19,7 +19,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             }
             catch (Exception e)
             {
-               await ReplyAsync("hubo un error al modificar el client: " + e.Message);
+               await ReplyAsync("Hubo un error al modificar el client: " + e.Message);
             }
         }
     }

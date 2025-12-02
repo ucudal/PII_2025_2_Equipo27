@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
@@ -13,9 +14,16 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Inicia el crm creando el primer user admin a nombre del usuario.")]
         public async Task CreateFirstAdmin()
         {
-            string miNombreDiscord = Context.User.Username;
-            admin.CreateAdmin(miNombreDiscord);
-            await ReplyAsync("Primer admin creado: " + miNombreDiscord);
+            try
+            {   
+                string miNombreDiscord = Context.User.Username;
+                admin.CreateAdmin(miNombreDiscord);
+                await ReplyAsync("Primer admin creado: " + miNombreDiscord);
+            }
+            catch (Exception e)
+            {   
+                await ReplyAsync("Hubo un error al inciar el proyecto: " + e.Message);
+            }
         }
     }
 }
