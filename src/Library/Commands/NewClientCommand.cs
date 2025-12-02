@@ -19,22 +19,28 @@ namespace Ucu.Poo.DiscordBot.Commands
         /// <param name="gender"></param>
         /// <param name="birthDate"></param>
         
-        private readonly SellerFacade _facade = SellerFacade.Instance;
 
         [Command("newclient")]
         [Summary("Crear un nuevo cliente y devuelve un mensaje indicando si se creeó correctamente o no.")]
         public async Task NewClient(string name, string lastName, string email, string phone,string sellerId)
-        {   
-            var myId = GetMyId();
-            var client = seller.CreateClient(name, lastName, email, phone, sellerId);
-            if (client != null)
+        {
+            try
             {
-                await ReplyAsync("User creado correctamente" );
+                var client = facade.CreateClient(name, lastName, email, phone, sellerId);
+                if (client != null)
+                {
+                    await ReplyAsync("client creado correctamente: " + client.Name + " con el Id: " + client.Id);
+                }
+                else
+                {
+                    await ReplyAsync("No se pudo crear el user" );
+                }
             }
-            else
+            catch (Exception e)
             {
-                await ReplyAsync("No se pudo crear el user" );
+                await ReplyAsync("Hubo un error al crear el client: " + e.Message);
             }
+           
         }
         
     }

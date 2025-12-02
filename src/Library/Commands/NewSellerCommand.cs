@@ -13,6 +13,7 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite al admin crear un nuevo seller.")]
         public async Task CreateNewSeller(string name)
         {
+
             try
             {
                 var newSeller = admin.CreateSeller(name);
