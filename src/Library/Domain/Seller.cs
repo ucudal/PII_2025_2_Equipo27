@@ -11,7 +11,7 @@ namespace Library
 
         public Seller(string username, int id) : base(username, id)
         {
-            // Intencionalmente en blanco
+            // Intencionalmente en blanco.
         }
 
         /// <summary>
