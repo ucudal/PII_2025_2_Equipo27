@@ -141,15 +141,22 @@ namespace Library
 
         public void AddData(RepoClients.TypeOfData typeOfData, string newData)
         {
+            string male = "male";
+            string female = "female";
+            
             if (typeOfData == RepoClients.TypeOfData.Gender)
             {
-                if (newData == GenderType.Male.ToString())
+                if (newData.ToLower() == male)
                 {
                     this.Gender = GenderType.Male;
                 }
-                else if (newData == GenderType.Female.ToString())
+                else if (newData.ToLower() == female)
                 {
                     this.Gender = GenderType.Female;
+                }
+                else
+                {
+                    throw new ArgumentException("El género debe ser 'Male' o 'Female'.", nameof(newData));
                 }
             }
             else if (typeOfData == RepoClients.TypeOfData.BirthDate)

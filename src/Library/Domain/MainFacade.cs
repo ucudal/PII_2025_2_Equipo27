@@ -65,16 +65,18 @@ namespace Library
         public void AddData(string id, string typeOfData, string modification)
         {
             RepoClients.TypeOfData datatype = 0;
+            string birthDate = "birthdate";
+            string gender = "gender";
             Client client = repoClients.GetById(int.Parse(id));
             if (client == null)
             {
                 throw new ArgumentException("Cliente no encontrado.");
             }
-            if (typeOfData == RepoClients.TypeOfData.BirthDate.ToString())
+            if (typeOfData.ToLower() == birthDate)
             {
                 datatype = RepoClients.TypeOfData.BirthDate;
             }
-            else if (typeOfData == RepoClients.TypeOfData.Gender.ToString())
+            else if (typeOfData.ToLower() == gender)
             {
                 datatype = RepoClients.TypeOfData.Gender;
             }
@@ -247,12 +249,16 @@ namespace Library
         /// <summary>
         /// Asocia un tag al cliente.
         /// </summary>
-        /// <param name="client">Cliente</param>
-        /// <param name="tag">Tag a asociar</param>
-        public void AddTag(string clientid, string tagid)
+        /// <param name="clientId">Id del Cliente</param>
+        /// <param name="tagName">Nombre del Tag a asociar</param>
+        public void AddTag(string clientId, string tagName)
         {
-            Client client = this.SearchClientById(clientid);
-            Tag tag = repoTag.GetById(int.Parse(tagid));
+            Client client = this.SearchClientById(clientId);
+            Tag tag = repoTag.Search(tagName);
+            if (tag == null)
+            {
+                tag = repoTag.CreateTag(tagName);
+            }
             client.AddTag(tag);
         }
 

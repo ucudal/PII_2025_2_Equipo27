@@ -43,7 +43,7 @@ public class MainFacadeTests
         Client client= mainFacade.CreateClient( "Juan", "Perez", "juanperez@gmail.com", "099888222",  "0");
         mainFacade.ModifyClient("0", "LastName", "Gutierrez");
         Tag tag = mainFacade.CreateTag("vip");
-        mainFacade.AddTag(client.Id.ToString(),tag.Id.ToString());
+        mainFacade.AddTag(client.Id.ToString(),"vip");
         Assert.That(client.Tags.Count,Is.EqualTo(1));
         Assert.That(client.Tags[0], Is.EqualTo(tag));
     }

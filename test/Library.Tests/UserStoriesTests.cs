@@ -234,18 +234,21 @@ public class UserStoriesTests
     {
         // Arrange
         Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
+        string tagName1 = "Compra milanesas";
+        string tagName2 = "Compra merengue";
+        string tagName3 = "Compra botines";
         SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789",  "0"); 
         SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879",  "0");
-        Tag tag1 = SellerFacade.Instance.CreateTag("Compra milanesas");
-        Tag tag2 = SellerFacade.Instance.CreateTag("Compra merengue");
-        Tag tag3 = SellerFacade.Instance.CreateTag("Compra botines");
+        Tag tag1 = SellerFacade.Instance.CreateTag(tagName1);
+        Tag tag2 = SellerFacade.Instance.CreateTag(tagName2);
+        Tag tag3 = SellerFacade.Instance.CreateTag(tagName3);
         Client client1 = SellerFacade.Instance.SearchClientById("0");
         Client client2 = SellerFacade.Instance.SearchClientById("1");
         // Act
-        SellerFacade.Instance.AddTag(client1.Id.ToString(), tag2.Id.ToString());
-        SellerFacade.Instance.AddTag(client1.Id.ToString(), tag3.Id.ToString());
-        SellerFacade.Instance.AddTag(client2.Id.ToString(), tag1.Id.ToString());
-        SellerFacade.Instance.AddTag(client2.Id.ToString(), tag2.Id.ToString());
+        SellerFacade.Instance.AddTag(client1.Id.ToString(), tagName2);
+        SellerFacade.Instance.AddTag(client1.Id.ToString(), tagName3);
+        SellerFacade.Instance.AddTag(client2.Id.ToString(), tagName1);
+        SellerFacade.Instance.AddTag(client2.Id.ToString(), tagName2);
         // Assert
         Assert.That(client1.Tags, Does.Contain(tag2));
         Assert.That(client1.Tags, Does.Contain(tag3));
