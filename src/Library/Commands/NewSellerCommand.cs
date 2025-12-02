@@ -13,7 +13,7 @@ namespace Ucu.Poo.DiscordBot.Commands
         public async Task CreateNewSeller(string name)
         {
             var newSeller = admin.CreateSeller(name);
-            ReplyAsync("Nuevo seller creado: " + newSeller.UserName + ", con el id: " + newSeller.Id);
+            await ReplyAsync("Nuevo seller creado: " + newSeller.UserName + ", con el id: " + newSeller.Id);
         }
     }
 }

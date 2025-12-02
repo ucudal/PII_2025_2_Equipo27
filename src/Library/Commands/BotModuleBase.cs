@@ -8,6 +8,7 @@ namespace Program.Commands
     {
         protected readonly AdminFacade admin = AdminFacade.Instance;
         protected readonly SellerFacade seller = SellerFacade.Instance;
+        protected readonly MainFacade facade = new MainFacade();
 
         protected string GetMyId()
         {
