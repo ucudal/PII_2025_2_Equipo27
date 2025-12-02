@@ -330,7 +330,59 @@ namespace Library
         {
             return repoTag.GetAll();
         }
+        
+        /// <summary>
+        /// Retorna una lista con los tags asignados a un cliente específico.
+        ///  /// Aplicación de los patrones y principios:
+        /// - Expert: Client es el experto en la información y almacenamiento de sus tags, por eso provee la lista completa.
+        /// - SRP: La responsabilidad de este método es devolver a la capa superior la colección de tags obtenida del cliente sin modificarla.
+        /// </summary>
+        /// <param name="clientId">Id del cliente</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Se produce si el Id ingresado no es un número o no existe un cliente con ese Id</exception>
+        public IReadOnlyList<Tag> GetClientTags(string clientId)
+        {
+            int clientIdInt;
+            if (!int.TryParse(clientId, out clientIdInt))
+            {
+                throw new ArgumentException("Id de client no válida.");
+            }
+            
+            Client client = SearchClientById(clientId);
+            if (client == null)
+            {
+                throw new ArgumentException("No existe un cliente con el Id ingresado.");
+            }
 
+            return client.Tags;
+        }
+
+        /// <summary>
+        /// Retorna una lista con todas las interacciones de un cliente específico.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: Client es el experto en la información y almacenamiento de sus interacciones, por eso provee la lista completa.
+        /// - SRP: La responsabilidad de este método es devolver a la capa superior la colección de interacciones obtenida del cliente sin modificarla.
+        /// </summary>
+        /// <param name="clientId">Id del cliente</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Se produce si el Id ingresado no es un número o no existe un cliente con ese Id</exception>
+        public IReadOnlyList<Interaction> GetClientInteractions(string clientId)
+        {
+            int clientIdInt;
+            if (!int.TryParse(clientId, out clientIdInt))
+            {
+                throw new ArgumentException("Id de client no válida.");
+            }
+            
+            Client client = SearchClientById(clientId);
+            if (client == null)
+            {
+                throw new ArgumentException("No existe un cliente con el Id ingresado.");
+            }
+
+            return client.Interactions;
+        }
+        
         /// <summary>
         /// Registra una llamada realizada a un cliente y la asocia como interacción.
         /// Aplicación de los patrones y principios:

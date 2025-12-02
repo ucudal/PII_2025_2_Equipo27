@@ -4,12 +4,12 @@ using Library;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class AddTagCommand : ModuleBase<SocketCommandContext>
+    public class AssignTagCommand : ModuleBase<SocketCommandContext>
     {
-        [Command("addtag")]
+        [Command("assigntag")]
         [Summary("Comando para agregar un tag a un cliente")]
 
-        public async Task AddNewData(
+        public async Task AssignTag(
             [Remainder] 
             [Summary("Agrega tag a un cliente indicado")]
             string input)
