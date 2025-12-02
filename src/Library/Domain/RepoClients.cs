@@ -102,6 +102,31 @@ namespace Library
         /// <returns>La instancia del Cliente recién creado.</returns>
         public Client CreateClient(string name, string lastName, string email, string phone, Seller seller)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("El cliente debe tener un nombre", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new ArgumentException("El cliente debe tener un apellido", nameof(lastName));
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("El cliente debe tener un emial", nameof(email));
+            }
+
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
+            }
+
+            if (seller == null)
+            {
+                throw new ArgumentException("El cliente debe tener un seller", nameof(seller));
+            }
+            
             int id = this.NextId;
             Client client = new Client(id, name, lastName, email, phone, seller);
             Create(client);
@@ -109,6 +134,41 @@ namespace Library
             return client;
         }
         
+        
+        
+
+ 
+        /// <summary>
+        /// Elimina un cliente del repositorio de clientes utilizando su identificador.
+        /// De acuerdo al patrón Expert, RepoClients tiene la información necesaria porque gestiona la colección y los identificadores.
+        /// Aplicación de los patrones y principios:
+        /// - Expert : RepoClients sabe cómo y a quién eliminar, gracias a que mantiene la colección y los IDs.
+        /// - SRP : La responsabilidad del método es única, eliminar un cliente.
+        /// - DRY : usa GetById() para encontrar el tag
+        /// </summary>
+        /// <param name="id">El id del cliente que se va a eliminar.</param>
+        public void Remove(int id)
+        {
+            if (string.IsNullOrEmpty(id.ToString()))
+            {
+                throw new ArgumentException("Debe escribir un id válido", nameof(id));
+            }
+            Client clientToRemove = GetById(id);
+            if (clientToRemove != null)
+            {
+                clients.Remove(clientToRemove);
+            }
+        } 
+        
+        public enum TypeOfData
+        {
+            Name,
+            LastName,
+            Email,
+            Phone,
+            Gender,
+            BirthDate
+        }
         
         /// <summary>
         /// Busca y devuelve el cliente cuya Id coincide con la solicitada.
@@ -128,42 +188,9 @@ namespace Library
                     return client;
                 }
             }
-
             throw new ArgumentException($"No existe un cliente con ID: {id}");
         }
- 
-        /// <summary>
-        /// Elimina un cliente del repositorio de clientes utilizando su identificador.
-        /// De acuerdo al patrón Expert, RepoClients tiene la información necesaria porque gestiona la colección y los identificadores.
-        /// Aplicación de los patrones y principios:
-        /// - Expert : RepoClients sabe cómo y a quién eliminar, gracias a que mantiene la colección y los IDs.
-        /// - SRP : La responsabilidad del método es única, eliminar un cliente.
-        /// - DRY : usa GetById() para encontrar el tag
-        /// </summary>
-        /// <param name="id">El id del cliente que se va a eliminar.</param>
         
-        public void Remove(int id)
-        {
-            if (string.IsNullOrEmpty(id.ToString()))
-            {
-                throw new ArgumentException("Debe escribir un id válido", nameof(id));
-            }
-            Client clientToRemove = GetById(id);
-            if (clientToRemove != null)
-            {
-                clients.Remove(clientToRemove);
-            }
-        } 
-        public enum TypeOfData
-        {
-            Name,
-            LastName,
-            Email,
-            Phone,
-            Gender,
-            BirthDate
-        }
-
         /// <summary>
         /// Busca y devuelve los clientes que cumplan con el criterio especificado.
         /// Según el patrón Expert, RepoClients controla la colección y Client la información, por lo que RepoCLients es responsable de la búsqueda validando con un método de Client.

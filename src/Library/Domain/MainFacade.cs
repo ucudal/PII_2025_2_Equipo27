@@ -12,8 +12,8 @@ namespace Library
         protected RepoClients repoClients = RepoClients.Instance;
         private RepoTags repoTag = RepoTags.Instance;
         protected RepoUsers RepoUsers = RepoUsers.Instance;
-
-
+        
+        
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio a partir de los datos proporcionados por el bot.
         /// MainFacade funciona como fachada hacia RepoClients, delegando la creación al experto en clientes.
@@ -25,19 +25,38 @@ namespace Library
         /// <param name="lastName">Apellido del cliente</param>
         /// <param name="email">Email del cliente</param>
         /// <param name="phone">Teléfono del cliente</param>
-        /// <param name="gender">Género del cliente</param>
-        /// <param name="birthDate">Fecha de nacimiento (string)</param>
-        /// <param name="seller">Vendedor responsable</param>
-        /// <param name="name">Nombre del cliente.</param>
-        /// <param name="lastName">Apellido del cliente.</param>
-        /// <param name="email">Email del cliente.</param>
-        /// <param name="phone">Teléfono del cliente.</param>
         /// <param name="sellerid">Id del vendedor responsable.</param>
         /// <returns>Cliente creado.</returns>
 
-        public Client CreateClient(string name, string lastName, string email, string phone,  string sellerid)
+        public Client CreateClient(string name, string lastName, string email, string phone, string sellerId)
         {
-            Seller seller = RepoUsers.SearchUser<Seller>(int.Parse(sellerid));
+            int intSellerId;
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("El cliente debe tener un nombre", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new ArgumentException("El cliente debe tener un apellido", nameof(lastName));
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("El cliente debe tener un emial", nameof(email));
+            }
+
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
+            }
+
+            if (!(int.TryParse(sellerId, out intSellerId)) || RepoUsers.SearchUser<Seller>(intSellerId) == null)
+            {
+                throw new ArgumentException("El ID del seller no es valido", nameof(sellerId));
+            }
+
+            Seller seller = RepoUsers.SearchUser<Seller>(intSellerId);
             return repoClients.CreateClient(name, lastName, email, phone, seller);
         }
 
@@ -48,22 +67,24 @@ namespace Library
         /// - Expert: La validación y modificación final de los datos se delega a Client, que es el experto en su propia información.
         /// - SRP: La responsabilidad de este método es localizar al cliente por su id, interpretar el tipo de dato recibido como string y delegar en Client la actualización del valor.
         /// </summary>
-        /// <param name="clientid"></param>
-        /// <param name="data"></param>
-        /// <param name="modification"></param>
         /// <param name="id">Id del cliente al que se le añadirán los datos.</param>
         /// <param name="typeOfData">Tipo de dato a añadir (“BirthDate” o “Gender”).</param>
         /// <param name="modification">Nuevo valor para el dato especificado.</param>
-
-        public void AddData(string id,string typeOfData, string modification)
+        public void AddData(string id, string typeOfData, string modification)
         {
             RepoClients.TypeOfData datatype = 0;
+            string birthDate = "birthdate";
+            string gender = "gender";
             Client client = repoClients.GetById(int.Parse(id));
-            if (typeOfData == RepoClients.TypeOfData.BirthDate.ToString())
+            if (client == null)
+            {
+                throw new ArgumentException("Cliente no encontrado.");
+            }
+            if (typeOfData.ToLower() == birthDate)
             {
                 datatype = RepoClients.TypeOfData.BirthDate;
             }
-            else if (typeOfData == RepoClients.TypeOfData.Gender.ToString())
+            else if (typeOfData.ToLower() == gender)
             {
                 datatype = RepoClients.TypeOfData.Gender;
             }
@@ -237,6 +258,10 @@ namespace Library
         public Opportunity CreateOpportunity(string product, string price, string state, string clientid)
         {
             Client client = this.SearchClientById(clientid);
+            if (client == null)
+            {
+                throw new ArgumentException("No existe un cliente con le ID ingresado.");
+            }
             Opportunity.States states = 0;
             if (state == Opportunity.States.Canceled.ToString())
             {
@@ -254,7 +279,7 @@ namespace Library
             {
                 throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
             }
-
+            
             return client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
         }
 
@@ -279,13 +304,17 @@ namespace Library
         /// - Expert: Client es el experto en sus propios tags, por eso la asociación final se realiza mediante su método AddTag.
         /// - SRP: La responsabilidad de este método es obtener el cliente y el tag a partir de sus ids y pedir al cliente que agregue dicho tag.
         /// </summary>
-        /// <param name="clientid">Id del cliente.</param>
-        /// <param name="tagid">Id del tag a asociar.</param>
 
-        public void AddTag(string clientid, string tagid)
+        /// <param name="clientId">Id del Cliente</param>
+        /// <param name="tagName">Nombre del Tag a asociar</param>
+        public void AddTag(string clientId, string tagName)
         {
-            Client client = this.SearchClientById(clientid);
-            Tag tag = repoTag.GetById(int.Parse(tagid));
+            Client client = this.SearchClientById(clientId);
+            Tag tag = repoTag.Search(tagName);
+            if (tag == null)
+            {
+                tag = repoTag.CreateTag(tagName);
+            }
             client.AddTag(tag);
         }
 
@@ -423,6 +452,7 @@ namespace Library
                 throw new ArgumentException("El estado del mensaje debe ser o 'Sent' o 'Received'");
             }
         }
+
         /// <summary>
         /// Devuelve el panel de información general de clientes generado por RepoClients.
         /// Aplicación de los patrones y principios:
@@ -460,6 +490,26 @@ namespace Library
                 }
             }
         }
+        
+        public void SwitchClientWaiting(string id)
+        {
+            foreach (Client client in repoClients.GetAll())
+            {
+                if (client.Id.ToString() == id)
+                {
+                    if (client.Waiting == true)
+                    {
+                        client.Waiting = false;
+                    }
+                    else
+                    {
+                        client.Waiting = true;
+                    }
+                }
+            }
+        }
+
+        
         /// <summary>
         /// Agrega o actualiza las notas de una interacción específica de un cliente.
         /// Aplicación de los patrones y principios:
@@ -469,7 +519,7 @@ namespace Library
         /// <param name="interactionid">Id de la interacción a la que se agregarán las notas.</param>
         /// <param name="note">Texto de la nota a guardar.</param>
         /// <param name="clientid">Id del cliente que contiene la interacción.</param>
-        public void AddNotes(string interactionid, string note,string clientid)
+        public void AddNotes(string interactionid, string note, string clientid)
         {
             Client client = this.SearchClientById(clientid);
             foreach (Interaction i in client.Interactions)

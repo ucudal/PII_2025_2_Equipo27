@@ -96,7 +96,7 @@ namespace Library
             {
                 if (tag.TagName == tagName)
                 {
-                    throw new InvalidOperationException("Ya existe un tag con ese nombre");
+                    throw new InvalidOperationException("Ya existe un tag con ese nombre.");
                 }
             }
             Tag newTag = new Tag(this.NextId,tagName);

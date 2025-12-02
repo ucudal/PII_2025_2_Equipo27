@@ -39,7 +39,6 @@ public class ClientTests
     [Test]
     public void AddTagAddsATag()
     {
-
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
         RepoTags repoTags = RepoTags.Instance;
@@ -70,7 +69,6 @@ public class ClientTests
     [Test]
     public void AddTagThrowsIfIsAlreadyAdded()
     {
-
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
         RepoTags repoTags = RepoTags.Instance;
