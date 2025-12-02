@@ -28,7 +28,9 @@ namespace Library
 
         private List<Interaction> interactions = new List<Interaction>();
         
-        private int NextId = 1;
+        private int nextInteractionId = 1;
+
+        private int nextOpportunityId = 1;
 
         /// <summary>
         /// Se crean tags privado y el IReadOnlyList Tags para mejorar la encapsulación de las listas.
@@ -182,7 +184,13 @@ namespace Library
         {
             Opportunity opportunity = new Opportunity(product, price, states, client, date);
             this.opportunities.Add(opportunity);
+            nextOpportunityId += 1;
             return opportunity;
+        }
+
+        public void ChangeOpportunityState(int opportunityId, Opportunity.States state)
+        {
+            
         }
         
         /// <summary>
@@ -235,8 +243,8 @@ namespace Library
                 throw new InvalidOperationException("Esta interacción ya está añadida");
             }
 
-            interaction.Id = NextId;
-            NextId += 1;
+            interaction.Id = nextInteractionId;
+            nextInteractionId += 1;
             this.interactions.Add(interaction);
         }
         /// <summary>

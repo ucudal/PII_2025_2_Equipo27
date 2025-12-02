@@ -214,6 +214,10 @@ namespace Library
         public Opportunity CreateOpportunity(string product, string price, string state, string clientid)
         {
             Client client = this.SearchClientById(clientid);
+            if (client == null)
+            {
+                throw new ArgumentException("No existe un cliente con le ID ingresado.");
+            }
             Opportunity.States states = 0;
             if (state == Opportunity.States.Canceled.ToString())
             {
@@ -231,6 +235,7 @@ namespace Library
             {
                 throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
             }
+            
 
             return client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
         }
