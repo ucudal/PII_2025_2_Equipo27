@@ -25,17 +25,20 @@ https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=shari
 ---
 
 ## Para iniciar el proyecto debe hacerlo con: 
-# !init
+# !initadmin
+En caso de querer iniciar como Admin
+# !initseller
+En caso de querer iniciar como Seller
  <br>
 
-| Historia                                   | Comandos                                                     | Ejemplo                                                                                                                                                                     |
-|--------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Crear cliente                              | !newclient                                                   | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1                                                                                 |
-| Modificar cliente                          | !editclient                                                  | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !editclient 0, Name, luis                                                  |
-| Eliminar cliente                           | !deleteclient                                                | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !deleteclient 0                                                            |
-| Buscar cliente                             | !searchclient                                                | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !searchclient Name, luis                                                   |
-| Ver lista de clientes                      | !getclients                                                  | !init <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !newclient diego, lugano, dlugano@gmail.com, 099020202, 1 <br> !getclients | 
-| Registrar llamadas                         | !newcall                                                     |                                                                                                                                                                             |
+| Historia                                   | Comandos                                                     | Ejemplo                                                                                                                                                                          |
+|--------------------------------------------|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Crear cliente                              | !newclient                                                   | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1                                                                                 |
+| Modificar cliente                          | !editclient                                                  | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !editclient 0, Name, luis                                                  |
+| Eliminar cliente                           | !deleteclient                                                | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !deleteclient 0                                                            |
+| Buscar cliente                             | !searchclient                                                | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !searchclient Name, luis                                                   |
+| Ver lista de clientes                      | !getclients                                                  | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !newclient diego, lugano, dlugano@gmail.com, 099020202, 1 <br> !getclients | 
+| Registrar llamadas                         | !newcall                                                     |                                                                                                                                                                                  |
 | Registrar reuniones                        | !newmeeting                                                  |
 | Registrar mensajes                         | !newmessage                                                  |
 | Registrar emails                           | !newemail                                                    |
