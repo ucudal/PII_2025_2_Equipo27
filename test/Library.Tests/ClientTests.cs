@@ -33,6 +33,7 @@ public class ClientTests
         Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
         client.AddInteraction(message);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
+        Assert.That(client.Waiting,Is.EqualTo(true));
     }
     
     [Test]
