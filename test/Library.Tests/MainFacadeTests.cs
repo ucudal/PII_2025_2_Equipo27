@@ -144,7 +144,7 @@ public class MainFacadeTests
         // Act
         List<Client> actual = mainFacade.SearchClient("Name","Mario");
         // Assert
-        Assert.That(actual[0].Name, Is.EqualTo("mario"));
+        Assert.That(actual[0].Name, Is.EqualTo("Mario"));
     }
     
     [Test]
@@ -158,7 +158,7 @@ public class MainFacadeTests
         // Act
         List<Client> actual = mainFacade.SearchClient("LastName","Dominguez");
         // Assert
-        Assert.That(actual[0].LastName, Is.EqualTo("dominguez"));
+        Assert.That(actual[0].LastName, Is.EqualTo("Dominguez"));
     }
     
     [Test]

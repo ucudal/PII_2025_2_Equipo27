@@ -25,7 +25,7 @@ public class UserStoriesTests
 
         Assert.That(client, Is.Not.Null);
         Assert.That(client.Name, Is.EqualTo("pedro"));
-        Assert.That(client.LastName, Is.EqualTo("sanchez"));
+        Assert.That(client.LastName, Is.EqualTo("Sanchez"));
         Assert.That(client.Email, Is.EqualTo("pedro@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("099000111"));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));

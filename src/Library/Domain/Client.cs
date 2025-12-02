@@ -384,12 +384,12 @@ namespace Library
         public bool IsTheSearchedClient(RepoClients.TypeOfData typeofdata, string modification)
         {
             bool IsTheClient = false;
-            if (typeofdata == RepoClients.TypeOfData.Name && modification.Trim().ToLower() == this.Name)
+            if (typeofdata == RepoClients.TypeOfData.Name && modification.Trim().ToLower() == this.Name.ToLower())
             {
                 IsTheClient = true;
 
             }
-            else if (typeofdata == RepoClients.TypeOfData.LastName&& modification.Trim().ToLower() == this.LastName)
+            else if (typeofdata == RepoClients.TypeOfData.LastName&& modification.Trim().ToLower() == this.LastName.ToLower())
             {
                 IsTheClient = true;
             }
