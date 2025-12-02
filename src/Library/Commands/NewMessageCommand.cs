@@ -11,21 +11,19 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Command("newmessage")]
         [Summary("Registra un mensage para un cliente.")]
         public async Task RegisterMessageAsync([Remainder]
-            [Summary("Crea un cliente con todos sus datos")]
+            [Summary("Crea un mensaje con todos sus datos")]
             string input)
         {
             string[] parameters = input.Split(",");
-            string clientId;
-            string content;
-            string sender;
-            string channel;
-            string notes;
+            string clientId, content, sender, channel, notes;
+            
             if (parameters.Length != 5)
             {
                 await ReplyAsync(
                     "Debe ingresar los parámetros necesarios.\n Ejemplo: !newmessage 2, Hola, Sent, Whatsapp, llamada al vendedor por whatsapp");
                 return;
             }
+            
             clientId = parameters[0].Trim();
             content = parameters[1];
             sender = parameters[2].Trim();
