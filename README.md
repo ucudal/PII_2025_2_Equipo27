@@ -24,32 +24,32 @@ https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=shari
 
 ---
 
-| Historia                                   | Comandos                                                     |
-|--------------------------------------------|--------------------------------------------------------------|
-| Crear cliente                              | !newclient nombre                                            |
-| Modificar cliente                          | !editclient                                                  |
-| Eliminar cliente                           | !deleteclient                                                |
-| Buscar cliente                             | !searchclient                                                |
-| Ver lista de clientes                      | !getclients                                                  |
-| Registrar llamadas                         | !newcall                                                     |
-| Registrar reuniones                        | !newmeeting                                                  |
-| Registrar mensajes                         | !newmessage                                                  |
-| Registrar emails                           | !newemail                                                    |
-| Registrar otros datos                      | !addclientdata                                               |
-| Definir etiquetas                          | !addtag tagname                                              |
-| Agregar etiqueta a cliente                 | !assigntag client tagname                                    |
-| Registrar venta                            | !closeopportunity product price client                       |
-| Registrar cotizaciones enviadas            | !newopportunity product price oppstate client                |
-| Ver todas las interacciones con un cliente | !getinteractions client filter(optional)                     |
-| Clientes hace tiempo no hay interacción    | !getinactiveclients                                          |
-| Alternar cliente entre Inactivo y Activo | !switchclientinactivity clientid
-| Clientes esperando respuesta               | !getwaitingclients                                           |
-| Crear, suspender o eliminar usuarios       | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
-| Asignar otro vendedor a cliente            | !assignseller                                                |
-| Saber total de ventas en periodo           | !getsales                                                    |
-| Ver panel                                  | !getpanel                                                    |
-| Mostrar comandos                           | !help                                                        |
-| Mostrar Usuario                            | !who                                                         |
+| Historia                                   | Comandos                                                     | Ejemplos                                                                                                                                           |
+|--------------------------------------------|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Crear cliente                              | !newclient nombre                                            |                                                                                                                                                    |
+| Modificar cliente                          | !editclient                                                  |                                                                                                                                                    |
+| Eliminar cliente                           | !deleteclient                                                |                                                                                                                                                    |
+| Buscar cliente                             | !searchclient                                                |                                                                                                                                                    |
+| Ver lista de clientes                      | !getclients                                                  |                                                                                                                                                    |
+| Registrar llamadas                         | !newcall                                                     |                                                                                                                                                    |
+| Registrar reuniones                        | !newmeeting                                                  |                                                                                                                                                    |
+| Registrar mensajes                         | !newmessage                                                  |                                                                                                                                                    |
+| Registrar emails                           | !newemail                                                    |                                                                                                                                                    |
+| Registrar otros datos                      | !addnewdata ClientId, TypeOfData, Data                       | !newseller Mario<br/>!newclient Marcelo, Pereira, ejemplo@gmail.com, 099123654, 0 <br/>!getclients<br/>!addnewdata 0, gender, male<br/>!getclients |
+| Definir etiquetas                          | !addtag TagName                                              | !newtag Compra televisores                                                                                                                         |
+| Agregar etiqueta a cliente                 | !assigntag ClientId, TagName                                 | !newseller Mario<br/>!newclient Marcelo, Pereira, ejemplo@gmail.com, 099123654, 0<br/>!newtag Compra televisores !assigntag 0, Compra televisores  |
+| Registrar venta                            | !closeopportunity product price client                       |                                                                                                                                                    |
+| Registrar cotizaciones enviadas            | !newopportunity Product Price OppState ClientId              | !newseller Mario<br/>!newclient Marcelo, Pereira, ejemplo@gmail.com, 099123654, 0<br/>!newopportunity Chocolate, 149.99, Closed, 0                 |
+| Ver todas las interacciones con un cliente | !getinteractions client filter(optional)                     | !newseller Mario<br/>!newclient Marcelo, Pereira, ejemplo@gmail.com, 099123654, 0<br/>!getinteractions 0,                                          |
+| Clientes hace tiempo no hay interacción    | !getinactiveclients                                          |                                                                                                                                                    |
+| Clientes esperando respuesta               | !getwaitingclients                                           |                                                                                                                                                    |
+| Crear, suspender o eliminar usuarios       | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |                                                                                                                                                    |
+| Asignar otro vendedor a cliente            | !assignseller                                                |                                                                                                                                                    |
+| Saber total de ventas en periodo           | !getsales                                                    |                                                                                                                                                    |
+| Ver panel                                  | !getpanel                                                    |                                                                                                                                                    |
+| Mostrar comandos                           | !help                                                        |                                                                                                                                                    |
+| Mostrar Usuario                            | !who                                                         |                                                                                                                                                    |
+>>>>>>> Branch-Matteo
 
 
 
