@@ -28,7 +28,9 @@ namespace Library
 
         private List<Interaction> interactions = new List<Interaction>();
         
-        private int NextId = 1;
+        private int nextInteractionId = 1;
+
+        private int nextOpportunityId = 1;
 
         /// <summary>
         /// Se crean tags privado y el IReadOnlyList Tags para mejorar la encapsulación de las listas.
@@ -74,22 +76,23 @@ namespace Library
                 throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
             }
             this.Id = id;
-            this.Name = name.Trim().ToLower();
-            this.LastName = lastName.Trim().ToLower();
+            this.Name = name.Trim();
+            this.LastName = lastName.Trim();
             this.Email = email.Trim().ToLower();
             this.Phone = phone;
             this.Inactive = false;
             this.Waiting = false;
             this.AsignedSeller = seller;
+            this.Gender = GenderType.Empty;
+            this.BirthDate = "Empty";
         }
 
         public Seller AsignedSeller { get; set; }
-
         public int Id { get; set; }
         private string name;
-        public string Name { get{return name;} set{name= value.Trim().ToLower();} }
+        public string Name { get{return name;} set{name= value.Trim();} }
         private string lastName;
-        public string LastName { get{return lastName;} set{lastName= value.Trim().ToLower();} }
+        public string LastName { get{return lastName;} set{lastName= value.Trim();} }
         private string email;
         public string Email { get{return email;} set{email= value.Trim().ToLower();} }
         public string Phone { get; set; }
@@ -101,7 +104,8 @@ namespace Library
         public enum GenderType
         {
             Male,
-            Female
+            Female,
+            Empty
         }
 
         /// <summary>
@@ -138,15 +142,22 @@ namespace Library
 
         public void AddData(RepoClients.TypeOfData typeOfData, string newData)
         {
+            string male = "male";
+            string female = "female";
+            
             if (typeOfData == RepoClients.TypeOfData.Gender)
             {
-                if (newData == GenderType.Male.ToString())
+                if (newData.ToLower() == male)
                 {
                     this.Gender = GenderType.Male;
                 }
-                else if (newData == GenderType.Female.ToString())
+                else if (newData.ToLower() == female)
                 {
                     this.Gender = GenderType.Female;
+                }
+                else
+                {
+                    throw new ArgumentException("El género debe ser 'Male' o 'Female'.", nameof(newData));
                 }
             }
             else if (typeOfData == RepoClients.TypeOfData.BirthDate)
@@ -172,7 +183,13 @@ namespace Library
         {
             Opportunity opportunity = new Opportunity(product, price, states, client, date);
             this.opportunities.Add(opportunity);
+            nextOpportunityId += 1;
             return opportunity;
+        }
+
+        public void ChangeOpportunityState(int opportunityId, Opportunity.States state)
+        {
+            
         }
         
         /// <summary>
@@ -207,6 +224,8 @@ namespace Library
 
         /// <summary>
         /// Agrega una nueva interacción, pudiendo ser mensaje, email, llamada o reunión.
+        /// Si la interacción es recibida Waiting se cambia a false y si es enviada por el cliente se cambia a true,
+        /// para marcar que el cliente espera respuesta.
         /// Aplicación de los patrones y principios:
         /// - Expert: Client gestiona la colección y sabe determinar si la interacción es válida.
         /// - LCHC: La lógica está centrada en la clase responsable.
@@ -227,9 +246,44 @@ namespace Library
                     throw new InvalidOperationException("Esta interacción ya está añadida");
                 }
             }
-
-            interaction.Id = NextId;
-            NextId += 1;
+            if (interaction is Message)
+            {
+                Message message = interaction as Message;
+                if (message.Sender == InteractionOrigin.Origin.Received)
+                {
+                    this.Waiting = false;
+                }
+                else if (message.Sender == InteractionOrigin.Origin.Sent)
+                {
+                    this.Waiting = true;
+                }
+            }
+            else if(interaction is Email)
+            {
+                Email email = interaction as Email;
+                if (email.Sender == InteractionOrigin.Origin.Received)
+                {
+                    this.Waiting = false;
+                }
+                else if (email.Sender == InteractionOrigin.Origin.Sent)
+                {
+                    this.Waiting = true;
+                }
+            }
+            else if (interaction is Call)
+            {
+                Call call = interaction as Call;
+                if (call.Sender == InteractionOrigin.Origin.Sent)
+                {
+                    this.Waiting = true;
+                }
+                else if (call.Sender == InteractionOrigin.Origin.Received)
+                {
+                    this.Waiting = false;
+                }
+            }
+            interaction.Id = nextInteractionId;
+            nextInteractionId += 1;
             this.interactions.Add(interaction);
         }
         /// <summary>
@@ -283,7 +337,6 @@ namespace Library
                 {
                     futureMeetings += 1;
                 }
-                
             }
 
             return (futureMeetings);
@@ -330,12 +383,12 @@ namespace Library
         public bool IsTheSearchedClient(RepoClients.TypeOfData typeofdata, string modification)
         {
             bool IsTheClient = false;
-            if (typeofdata == RepoClients.TypeOfData.Name && modification.Trim().ToLower() == this.Name)
+            if (typeofdata == RepoClients.TypeOfData.Name && modification.Trim().ToLower() == this.Name.ToLower())
             {
                 IsTheClient = true;
 
             }
-            else if (typeofdata == RepoClients.TypeOfData.LastName&& modification.Trim().ToLower() == this.LastName)
+            else if (typeofdata == RepoClients.TypeOfData.LastName&& modification.Trim().ToLower() == this.LastName.ToLower())
             {
                 IsTheClient = true;
             }

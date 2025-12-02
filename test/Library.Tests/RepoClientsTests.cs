@@ -61,7 +61,7 @@ public class RepoClientsTests
             // Act
             List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.Name, "Mario");
             // Assert
-            Assert.That(actual[0].Name, Is.EqualTo("mario"));
+            Assert.That(actual[0].Name, Is.EqualTo("Mario"));
     }
     
     [Test]
@@ -76,7 +76,7 @@ public class RepoClientsTests
         // Act
         List<Client> actual = repoClients.SearchClient(RepoClients.TypeOfData.LastName,"Dominguez");
         // Assert
-        Assert.That(actual[0].LastName, Is.EqualTo("dominguez"));
+        Assert.That(actual[0].LastName, Is.EqualTo("Dominguez"));
     }
     
     [Test]
@@ -155,10 +155,12 @@ public class RepoClientsTests
     [Test]
     public void GetPanel()
     {
+        Seller seller = new Seller("Kiki", 0);
         RepoClients repo = RepoClients.Instance;
-        Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
-        Client client2 = repo.CreateClient( "Lucía", "García", "lucia@example.com", "098888888",  null);
-        client1.AddInteraction(new Call("Llamada 1", "Notas 1", DateTime.Now.AddDays(-1)));
+
+        Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  seller);
+        Client client2 = repo.CreateClient( "Lucía", "García", "lucia@example.com", "098888888",  seller);
+        client1.AddInteraction(new Call("Llamada 1", "Notas 1",InteractionOrigin.Origin.Sent ,DateTime.Now.AddDays(-1)));
         client1.AddInteraction(new Meeting("Reunión 1", "Notas 2", "Sala A", Meeting.MeetingState.Programmed, DateTime.Now.AddDays(2))); 
         client2.AddInteraction(new Email("Email 1", InteractionOrigin.Origin.Sent, "Notas", DateTime.Now.AddDays(-1)));
         
@@ -175,8 +177,9 @@ public class RepoClientsTests
     [Test]
     public void GetTotalSales()
     {
+        Seller seller = new Seller("Kiki", 0);
         RepoClients repo = RepoClients.Instance;
-        Client client = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
+        Client client = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  seller);
 
         client.CreateOpportunity("Azúcar",60,Opportunity.States.Open,client, new DateTime(2025,10,20));
         client.CreateOpportunity("Arroz",60,Opportunity.States.Open,client, new DateTime(2025,10,20));

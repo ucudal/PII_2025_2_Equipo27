@@ -198,6 +198,32 @@ public class RepoUsersTest
         Assert.That(user, Is.EqualTo(seller));
     }
 
+    [Test]
+    public void IsAdmin()
+    {
+        User user1 = RepoUsers.Instance.CreateAdmin("Martín");
+        User user2 = RepoUsers.Instance.CreateSeller("Sandra");
+
+        bool isAdminTrue = RepoUsers.Instance.IsAdmin(user1);
+        bool isAdminFalse = RepoUsers.Instance.IsAdmin(user2);
+        
+        Assert.That(isAdminTrue, Is.True);
+        Assert.That(isAdminFalse, Is.False);
+    }
+    
+    [Test]
+    public void IsSeller()
+    {
+        User user1 = RepoUsers.Instance.CreateAdmin("Martín");
+        User user2 = RepoUsers.Instance.CreateSeller("Sandra");
+
+        bool isAdminTrue = RepoUsers.Instance.IsSeller(user2);
+        bool isAdminFalse = RepoUsers.Instance.IsSeller(user1);
+        
+        Assert.That(isAdminTrue, Is.True);
+        Assert.That(isAdminFalse, Is.False);
+    }
+
     /// <summary>
     /// Verifica que un usuario sea eliminado
     /// </summary>

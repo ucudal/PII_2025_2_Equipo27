@@ -12,11 +12,11 @@ namespace Ucu.Poo.DiscordBot.Commands
     {
         [Command("newcall")]
         [Summary("Registra una llamada para un cliente.")]
-        public async Task RegisterCallAsync(string clientId, string content,[Remainder]  string notes)
+        public async Task RegisterCallAsync(string clientId, string content, string sender, [Remainder]  string notes)
         {
             try
             {
-                AdminFacade.Instance.RegisterCall(content,notes,clientId);
+                AdminFacade.Instance.RegisterCall(content,sender, notes,clientId);
                 await ReplyAsync("Nueva llamada registrada.");
                 await ReplyAsync($"Contenido: {content}\nNota: {notes}\nFecha: {DateTime.Now}");
             }

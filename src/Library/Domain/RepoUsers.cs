@@ -174,6 +174,29 @@ namespace Library
             throw new InvalidCastException($"El usuario con la id {id} no es del tipo {typeof(T).Name}.");
         }
 
+        public bool IsAdmin(User user)
+        {
+            if (user.GetType() == typeof(Admin))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsSeller(User user) 
+        {
+            if (user.GetType() == typeof(Seller))
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Crea una lista con todos los usuarios suspendidos.
         /// /// Principios aplicados:

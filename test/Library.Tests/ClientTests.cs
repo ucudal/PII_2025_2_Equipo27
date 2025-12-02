@@ -17,8 +17,8 @@ public class ClientTests
         Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com",  "099888222", seller);
         Assert.That(client.Id, Is.EqualTo(0));
-        Assert.That(client.Name, Is.EqualTo("juan"));
-        Assert.That(client.LastName, Is.EqualTo("perez"));
+        Assert.That(client.Name, Is.EqualTo("Juan"));
+        Assert.That(client.LastName, Is.EqualTo("Perez"));
         Assert.That(client.Email, Is.EqualTo("juanperez@gmail.com"));
         Assert.That(client.Phone, Is.EqualTo("099888222"));
         Assert.That(client.AsignedSeller, Is.EqualTo(seller));
@@ -33,12 +33,12 @@ public class ClientTests
         Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
         client.AddInteraction(message);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
+        Assert.That(client.Waiting,Is.EqualTo(true));
     }
     
     [Test]
     public void AddTagAddsATag()
     {
-
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
         RepoTags repoTags = RepoTags.Instance;
@@ -69,7 +69,6 @@ public class ClientTests
     [Test]
     public void AddTagThrowsIfIsAlreadyAdded()
     {
-
         Seller seller = new Seller("Seller", 0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
         RepoTags repoTags = RepoTags.Instance;

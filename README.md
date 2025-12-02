@@ -42,6 +42,7 @@ En caso de querer iniciar como Seller
 | Registrar reuniones                        | !newmeeting                                                  |
 | Registrar mensajes                         | !newmessage                                                  |
 | Registrar emails                           | !newemail                                                    |
+| Registrar otros datos                      | !addclientdata                                               |
 | Agregar una nota                           | !addnote                                                     |
 | Registrar otros datos                      | !addclientdata                                               |
 | Definir etiquetas                          | !addtag tagname                                              |
@@ -50,6 +51,7 @@ En caso de querer iniciar como Seller
 | Registrar cotizaciones enviadas            | !newopportunity                                              |
 | Ver todas las interacciones con un cliente | !getinteractions                                             |
 | Clientes hace tiempo no hay interacción    | !getinactiveclients                                          |
+| Alternar cliente entre Inactivo y Activo | !switchclientinactivity clientid
 | Clientes esperando respuesta               | !getwaitingclients                                           |
 | Crear, suspender o eliminar usuarios       | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
 | Asignar otro vendedor a cliente            | !assignseller                                                |
