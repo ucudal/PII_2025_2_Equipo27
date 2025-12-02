@@ -316,7 +316,7 @@ namespace Library
         public void RegisterCall(string content, string notes, string clientid)
         {
             Client client = this.SearchClientById(clientid);
-            Call call = new Call(content, notes, DateTime.Now);
+            Call call = new Call(content, notes,InteractionOrigin.Origin.Sent ,DateTime.Now);
             client.AddInteraction(call);
         }
 

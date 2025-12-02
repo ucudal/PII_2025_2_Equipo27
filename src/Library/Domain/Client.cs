@@ -208,6 +208,8 @@ namespace Library
 
         /// <summary>
         /// Agrega una nueva interacción, pudiendo ser mensaje, email, llamada o reunión.
+        /// Si la interacción es recibida Waiting se cambia a false y si es enviada por el cliente se cambia a true,
+        /// para marcar que el cliente espera respuesta.
         /// Aplicación de los patrones y principios:
         /// - Expert: Client gestiona la colección y sabe determinar si la interacción es válida.
         /// - LCHC: La lógica está centrada en la clase responsable.
@@ -253,6 +255,18 @@ namespace Library
                 else if (email.Sender == InteractionOrigin.Origin.Sent)
                 {
                     this.Waiting = true;
+                }
+            }
+            else if (interaction is Call)
+            {
+                Call call = interaction as Call;
+                if (call.Sender == InteractionOrigin.Origin.Sent)
+                {
+                    this.Waiting = true;
+                }
+                else if (call.Sender == InteractionOrigin.Origin.Received)
+                {
+                    this.Waiting = false;
                 }
             }
             this.interactions.Add(interaction);

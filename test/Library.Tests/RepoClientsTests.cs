@@ -158,7 +158,7 @@ public class RepoClientsTests
         RepoClients repo = RepoClients.Instance;
         Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  null);
         Client client2 = repo.CreateClient( "Lucía", "García", "lucia@example.com", "098888888",  null);
-        client1.AddInteraction(new Call("Llamada 1", "Notas 1", DateTime.Now.AddDays(-1)));
+        client1.AddInteraction(new Call("Llamada 1", "Notas 1",InteractionOrigin.Origin.Sent ,DateTime.Now.AddDays(-1)));
         client1.AddInteraction(new Meeting("Reunión 1", "Notas 2", "Sala A", Meeting.MeetingState.Programmed, DateTime.Now.AddDays(2))); 
         client2.AddInteraction(new Email("Email 1", InteractionOrigin.Origin.Sent, "Notas", DateTime.Now.AddDays(-1)));
         
