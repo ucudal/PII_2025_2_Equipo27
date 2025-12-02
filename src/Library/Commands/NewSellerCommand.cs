@@ -13,15 +13,14 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite al admin crear un nuevo seller.")]
         public async Task CreateNewSeller(string name)
         {
-
             try
             {
                 var newSeller = admin.CreateSeller(name);
-                ReplyAsync("Nuevo seller creado: " + newSeller.UserName + ", con el id: " + newSeller.Id);
+                await ReplyAsync("Nuevo seller creado: " + newSeller.UserName + ", con el id: " + newSeller.Id);
             }
-            catch (InvalidOperationException e)
+            catch (Exception e)
             {
-                await ReplyAsync(e.Message);
+                await ReplyAsync("Hubo un error al crear el nuevo vendedor: " + e.Message);
             }
         }
     }
