@@ -155,12 +155,12 @@ public class UserStoriesTests
 
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
 
-        AdminFacade.Instance.RegisterMessage("Mensaje","nota", "Received", "Whatsapp", client.Id.ToString());
-        AdminFacade.Instance.RegisterMessage("Mensaje","nota", "Sent", "Whatsapp", client.Id.ToString());
+        AdminFacade.Instance.RegisterMessage("Mensaje","nota1", "Received", "Whatsapp", client.Id.ToString());
+        AdminFacade.Instance.RegisterMessage("Mensaje","nota2", "Sent", "Whatsapp", client.Id.ToString());
         
         Assert.That(client.Interactions.Count, Is.EqualTo(2));
         Assert.That(client.Interactions[0].Content, Is.EqualTo("Mensaje"));
-        Assert.That(client.Interactions[1].Notes, Is.EqualTo("nota"));
+        Assert.That(client.Interactions[1].Notes, Is.EqualTo("nota2"));
         
     }
     
@@ -172,12 +172,12 @@ public class UserStoriesTests
 
         Client client = AdminFacade.Instance.CreateClient( "Elías", "Núñez", "elias@gmail.com", "555555555",  "0");
 
-        AdminFacade.Instance.RegisterEmail("Correo electrónico", "Received", "notas", client.Id.ToString());
-        AdminFacade.Instance.RegisterEmail("Correo electrónico", "Sent", "notas", client.Id.ToString());
+        AdminFacade.Instance.RegisterEmail("Correo electrónico", "Received", "notas1", client.Id.ToString());
+        AdminFacade.Instance.RegisterEmail("Correo electrónico", "Sent", "notas2", client.Id.ToString());
         
         Assert.That(client.Interactions.Count, Is.EqualTo(2));
         Assert.That(client.Interactions[0].Content, Is.EqualTo("Correo electrónico"));
-        Assert.That(client.Interactions[1].Notes, Is.EqualTo("notas"));
+        Assert.That(client.Interactions[1].Notes, Is.EqualTo("notas2"));
     }
     
     [Test]

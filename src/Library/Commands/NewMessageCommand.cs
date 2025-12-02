@@ -21,7 +21,10 @@ namespace Ucu.Poo.DiscordBot.Commands
             {
                 await ReplyAsync(e.Message);
             }
-            
+            catch (InvalidOperationException e)
+            {
+                await ReplyAsync(e.Message);
+            }
         }
     }
 }
