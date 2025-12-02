@@ -42,6 +42,7 @@ https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=shari
 | Registrar cotizaciones enviadas            | !newopportunity product price oppstate client                |
 | Ver todas las interacciones con un cliente | !getinteractions client filter(optional)                     |
 | Clientes hace tiempo no hay interacción    | !getinactiveclients                                          |
+| Alternar cliente entre Inactivo y Activo | !switchclientinactivity clientid
 | Clientes esperando respuesta               | !getwaitingclients                                           |
 | Crear, suspender o eliminar usuarios       | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
 | Asignar otro vendedor a cliente            | !assignseller                                                |

@@ -445,6 +445,10 @@ namespace Library
 
         public void SwitchClientActivity(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentException("Debe ingresar un id válido",nameof(id));
+            }
             foreach (Client client in repoClients.GetAll())
             {
                 if (client.Id.ToString() == id)

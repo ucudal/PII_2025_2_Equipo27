@@ -75,8 +75,8 @@ namespace Library
                 throw new ArgumentException("El cliente debe tener un número de teléfono", nameof(phone));
             }
             this.Id = id;
-            this.Name = name.Trim().ToLower();
-            this.LastName = lastName.Trim().ToLower();
+            this.Name = name.Trim();
+            this.LastName = lastName.Trim();
             this.Email = email.Trim().ToLower();
             this.Phone = phone;
             this.Inactive = false;
