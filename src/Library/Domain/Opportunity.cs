@@ -13,6 +13,7 @@ namespace Library
         public string Product { get; set; }
         public DateTime Date { get; set; }
         public double Price { get; set; }
+        public int Id { get; set; }
 
         public enum States
         {
@@ -62,6 +63,12 @@ namespace Library
             if (this.State == States.Close)
                 throw new InvalidOperationException("La oportunidad ya está cerrada.");
             this.State = States.Close;
+        }
+        public void Cancel()
+        {
+            if (this.State == States.Canceled)
+                throw new InvalidOperationException("La oportunidad ya está cancelada.");
+            this.State = States.Canceled;
         }
     }
 }

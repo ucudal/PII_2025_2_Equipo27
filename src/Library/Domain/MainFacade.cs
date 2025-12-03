@@ -12,8 +12,16 @@ namespace Library
         protected RepoClients repoClients = RepoClients.Instance;
         private RepoTags repoTag = RepoTags.Instance;
         protected RepoUsers RepoUsers = RepoUsers.Instance;
-        
-        
+
+        private List<Opportunity> closedOpportunities = new List<Opportunity>();
+
+        public IReadOnlyList<Opportunity> ClosedOpportunities
+        {
+            get
+            {
+                return ClosedOpportunities;
+            }
+        }
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio a partir de los datos proporcionados por el bot.
         /// MainFacade funciona como fachada hacia RepoClients, delegando la creación al experto en clientes.
@@ -622,6 +630,60 @@ namespace Library
                 }
                 
 
+            }
+        }
+        /// <summary>
+        /// Busca una oportunidad específica asociada a un cliente según su Id.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: La búsqueda se realiza dentro de las oportunidades del Client, que es el experto en sus propias oportunidades.
+        /// - SRP: La responsabilidad de este método es localizar y devolver la oportunidad cuyo Id coincida con el indicado para el cliente dado, o notificar si no existe.
+        /// </summary>
+        /// <param name="opportunityId">Id de la oportunidad a buscar.</param>
+        /// <param name="clientId">Id del cliente propietario de la oportunidad.</param>
+        /// <returns>Oportunidad encontrada para el cliente indicado.</returns>
+
+        public Opportunity SearchOpportunity(string opportunityId, string clientId)
+        {
+            Opportunity opportunityresult = null;
+            Client client = SearchClientById(clientId);
+            foreach (Opportunity opportunity in client.Opportunities)
+            {
+                if (opportunityId == opportunity.Id.ToString())
+                {
+                    opportunityresult = opportunity;
+                }
+                else
+                {
+                    throw new ArgumentException("No existe la oportunidad buscada");
+                }
+            }
+            return opportunityresult;
+        }
+        /// <summary>
+        /// Cambia el estado de una oportunidad específica de un cliente.
+        /// Aplicación de los patrones y principios:
+        /// - Expert: El cambio de estado se delega a Client, que es el experto en gestionar sus propias oportunidades.
+        /// - SRP: La responsabilidad de este método es interpretar el nuevo estado recibido como texto y pedir al cliente que actualice la oportunidad indicada.
+        /// </summary>
+        /// <param name="opportunityId">Id de la oportunidad cuyo estado se va a cambiar.</param>
+        /// <param name="clientId">Id del cliente dueño de la oportunidad.</param>
+        /// <param name="state">Nuevo estado de la oportunidad: Close o Canceled.</param>
+        public void ChangeOpportunityState(string opportunityId, string clientId, string state)
+        {
+            Client client = SearchClientById(clientId);
+            Opportunity opportunity = SearchOpportunity(opportunityId, clientId);
+            if (state == Opportunity.States.Canceled.ToString())
+            {
+                client.ChangeOpportunityState(int.Parse(opportunityId),Opportunity.States.Canceled);
+            }
+            else if (state == Opportunity.States.Close.ToString())
+            {
+                client.ChangeOpportunityState(int.Parse(opportunityId),Opportunity.States.Close);
+                this.closedOpportunities.Add(opportunity);
+            }
+            else
+            {
+                throw new ArgumentException("El nuevo estado de la oportunidad debe ser o 'Close' o 'Canceled'");
             }
         }
     }
