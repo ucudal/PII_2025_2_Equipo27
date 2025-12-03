@@ -22,6 +22,7 @@ namespace Library
                 return ClosedOpportunities;
             }
         }
+
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio a partir de los datos proporcionados por el bot.
         /// MainFacade funciona como fachada hacia RepoClients, delegando la creación al experto en clientes.
@@ -88,6 +89,7 @@ namespace Library
             {
                 throw new ArgumentException("Cliente no encontrado.");
             }
+
             if (typeOfData.ToLower() == birthDate)
             {
                 datatype = RepoClients.TypeOfData.BirthDate;
@@ -228,11 +230,11 @@ namespace Library
             Client client = repoClients.GetById(int.Parse(id));
             if (modified == RepoClients.TypeOfData.Name.ToString())
             {
-                client.ModifyClient(RepoClients.TypeOfData.Name,modification);
+                client.ModifyClient(RepoClients.TypeOfData.Name, modification);
             }
             else if (modified == RepoClients.TypeOfData.LastName.ToString())
             {
-                client.ModifyClient(RepoClients.TypeOfData.LastName,modification);
+                client.ModifyClient(RepoClients.TypeOfData.LastName, modification);
             }
             else if (modified == RepoClients.TypeOfData.Email.ToString())
             {
@@ -270,6 +272,7 @@ namespace Library
             {
                 throw new ArgumentException("No existe un cliente con le ID ingresado.");
             }
+
             Opportunity.States states = 0;
             if (state == Opportunity.States.Canceled.ToString())
             {
@@ -287,7 +290,7 @@ namespace Library
             {
                 throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
             }
-            
+
             return client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
         }
 
@@ -323,6 +326,7 @@ namespace Library
             {
                 tag = repoTag.CreateTag(tagName);
             }
+
             client.AddTag(tag);
         }
 
@@ -338,7 +342,7 @@ namespace Library
         {
             return repoTag.GetAll();
         }
-        
+
         /// <summary>
         /// Retorna una lista con los tags asignados a un cliente específico.
         ///  /// Aplicación de los patrones y principios:
@@ -355,7 +359,7 @@ namespace Library
             {
                 throw new ArgumentException("Id de client no válida.");
             }
-            
+
             Client client = SearchClientById(clientId);
             if (client == null)
             {
@@ -381,7 +385,7 @@ namespace Library
             {
                 throw new ArgumentException("Id de client no válida.");
             }
-            
+
             Client client = SearchClientById(clientId);
             if (client == null)
             {
@@ -390,7 +394,7 @@ namespace Library
 
             return client.Interactions;
         }
-        
+
         /// <summary>
         /// Registra una llamada realizada a un cliente y la asocia como interacción.
         /// Aplicación de los patrones y principios:
@@ -407,12 +411,12 @@ namespace Library
             Client client = this.SearchClientById(clientid);
             if (sender == InteractionOrigin.Origin.Received.ToString())
             {
-                Call call = new Call(content, notes,InteractionOrigin.Origin.Received,  DateTime.Now);
+                Call call = new Call(content, notes, InteractionOrigin.Origin.Received, DateTime.Now);
                 client.AddInteraction(call);
             }
             else if (sender == InteractionOrigin.Origin.Sent.ToString())
             {
-                Call call = new Call(content, notes,InteractionOrigin.Origin.Sent,  DateTime.Now);
+                Call call = new Call(content, notes, InteractionOrigin.Origin.Sent, DateTime.Now);
                 client.AddInteraction(call);
             }
             else
@@ -549,8 +553,9 @@ namespace Library
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Debe ingresar un id válido",nameof(id));
+                throw new ArgumentException("Debe ingresar un id válido", nameof(id));
             }
+
             foreach (Client client in repoClients.GetAll())
             {
                 if (client.Id.ToString() == id)
@@ -566,7 +571,7 @@ namespace Library
                 }
             }
         }
-        
+
         public void SwitchClientWaiting(string id)
         {
             foreach (Client client in repoClients.GetAll())
@@ -585,7 +590,7 @@ namespace Library
             }
         }
 
-        
+
         /// <summary>
         /// Agrega o actualiza las notas de una interacción específica de un cliente.
         /// Aplicación de los patrones y principios:
@@ -598,7 +603,8 @@ namespace Library
         public void AddNotes(string interactionid, string note, string clientid)
         {
             Client client = this.SearchClientById(clientid);
-            if (client.Interactions.Count == 0 )
+
+            if (client.Interactions.Count == 0)
             {
                 throw new ArgumentException("El cliente no tiene interacciones");
             }
@@ -609,27 +615,26 @@ namespace Library
             }
 
             bool exists = false;
+
             foreach (Interaction i in client.Interactions)
             {
                 if (i.Id.ToString() == interactionid)
                 {
                     exists = true;
-                    
+
                     if (i.Notes == note)
                     {
-                        throw new ArgumentException("La interaccion ya tiene esa nota");
+                        throw new ArgumentException("La interacción ya tiene esa nota");
                     }
 
                     i.Notes = note;
-                    break;
+                    return;
                 }
-
-                if (!exists)
-                {
-                    throw new KeyNotFoundException($"La interacción con Id {interactionid} no existe");
-                }
-                
-
+            }
+            
+            if (!exists)
+            {
+                throw new KeyNotFoundException($"La interacción con Id {interactionid} no existe");
             }
         }
         /// <summary>
@@ -688,4 +693,3 @@ namespace Library
         }
     }
 }
-

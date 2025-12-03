@@ -1,3 +1,4 @@
+using System;
 using Discord.Commands;
 using Library;
 using System.Linq;
@@ -29,6 +30,34 @@ namespace Program.Commands
             var user = admin.GetUsers()
                 .FirstOrDefault(u => u.UserName == Context.User.Username.ToLower());
             return user?.Id.ToString(); 
+        }
+
+        protected bool Auth(string rol)
+        {
+            string discordUserName = Context.User.Username.ToLower();
+            
+            var usuario = admin.GetUsers().FirstOrDefault(u => u.UserName == discordUserName);
+            
+
+            if (usuario == null )
+            {
+                ReplyAsync("No estás registrado en el sistema. Puedes iniciar con !initadmin o !initseller.");
+                return false;
+            }
+
+            var userRol = usuario.GetType().Name;
+            if ( rol == "All")
+            {
+                return true;
+            }
+
+            if (rol == userRol)
+            {
+                return true;
+            }
+            
+            ReplyAsync($"⛔ Acceso denegado: Este comando requiere rol de: " + rol + ". Tu rol es " + userRol);
+            return false;
         }
     }
 }

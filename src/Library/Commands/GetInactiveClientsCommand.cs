@@ -12,6 +12,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite al user ver los clientes inactivos en un período de tiempo.")]
         public async Task GetInactiveClients()
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
             var result = new StringBuilder();
             if (facade.InactiveClients().Count != 0)
             {

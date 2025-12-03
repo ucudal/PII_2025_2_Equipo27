@@ -13,6 +13,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
                 string miNombreDiscord = Context.User.Username;
                 var listaUsuarios = admin.GetUsers();
                 string nombresUsuarios = string.Join(", ", listaUsuarios.Select(u => u.UserName));

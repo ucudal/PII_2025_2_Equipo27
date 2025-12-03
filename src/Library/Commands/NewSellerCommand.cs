@@ -16,6 +16,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                if (Auth("Admin") == false)
+                {
+                    return;
+                }
                 var newSeller = admin.CreateSeller(name);
                 await ReplyAsync("Nuevo seller creado: " + newSeller.UserName + ", con el id: " + newSeller.Id);
             }

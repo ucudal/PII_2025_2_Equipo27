@@ -2,10 +2,11 @@ using System;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
+using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class NewTagCommand : ModuleBase<SocketCommandContext>
+    public class NewTagCommand : BotModuleBase
     {
         [Command("newtag")]
         [Summary(("Crea un nuevo tag"))]
@@ -15,6 +16,10 @@ namespace Ucu.Poo.DiscordBot.Commands
             [Summary("Crea un tag con el nombre ingresado si no exsiste uno con el mismo nombre")]
             string input)
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
             string[] parameters = input.Split(",");
             string tagName;
             if (parameters.Length != 1)

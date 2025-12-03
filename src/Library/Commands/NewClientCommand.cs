@@ -28,27 +28,31 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Crea un cliente con todos sus datos")]
         string input)
         {
-            string[] parameters = input.Split(",");
-            string name;
-            string lastName;
-            string email;
-            string phone;
-            string sellerId;
-            if (parameters.Length != 5)
-            {
-                await ReplyAsync(
-                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !newclient Marcelo, Rodriguez, email@example, 099123123, SellerId");
-                return;
-            }
-
-            name = parameters[0];
-            lastName = parameters[1];
-            email = parameters[2];
-            phone = parameters[3];
-            sellerId = parameters[4];
-
             try
             {
+                if (Auth("Admin") == false)
+                {
+                    return;
+                }
+                string[] parameters = input.Split(",");
+                string name;
+                string lastName;
+                string email;
+                string phone;
+                string sellerId;
+                if (parameters.Length != 5)
+                {
+                    await ReplyAsync(
+                        "Debe ingresar los parámetros necesarios.\n Ejemplo: !newclient Marcelo, Rodriguez, email@example, 099123123, SellerId");
+                    return;
+                }
+
+                name = parameters[0];
+                lastName = parameters[1];
+                email = parameters[2];
+                phone = parameters[3];
+                sellerId = parameters[4];
+                
                 Client client = facade.CreateClient(name, lastName, email, phone, sellerId);
 
                 await ReplyAsync($"Cliente creado correctamente. {name} con id: {client.Id} ");
