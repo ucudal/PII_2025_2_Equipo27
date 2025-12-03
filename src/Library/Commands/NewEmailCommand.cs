@@ -18,7 +18,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             if (parameters.Length != 4)
             {
                 await ReplyAsync(
-                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !newemail 1, Hola, Sent, mando un nuevo email");
+                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !newemail clientId, contenido, Sent, Nota del email");
                 return;
             }
 

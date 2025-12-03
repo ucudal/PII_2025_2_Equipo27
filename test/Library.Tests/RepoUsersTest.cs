@@ -198,6 +198,9 @@ public class RepoUsersTest
         Assert.That(user, Is.EqualTo(seller));
     }
 
+    /// <summary>
+    /// Verifica que si se ingresa un admin devuelva True y si se ingresa un seller devuelva False.
+    /// </summary>
     [Test]
     public void IsAdmin()
     {
@@ -211,6 +214,9 @@ public class RepoUsersTest
         Assert.That(isAdminFalse, Is.False);
     }
     
+    /// <summary>
+    /// Verifica que si se ingresa un seller devuelva True y si se ingresa un admin devuelva False.
+    /// </summary>
     [Test]
     public void IsSeller()
     {

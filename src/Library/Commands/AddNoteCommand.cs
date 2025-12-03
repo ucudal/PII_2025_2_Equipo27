@@ -18,7 +18,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             if (parameters.Length != 3)
             {
                 await ReplyAsync(
-                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !addnote 2, 1, Agrego esta nota");
+                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !addnote clientId, interactionId, Nueva nota");
                 return;
             }
 

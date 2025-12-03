@@ -174,6 +174,15 @@ namespace Library
             throw new InvalidCastException($"El usuario con la id {id} no es del tipo {typeof(T).Name}.");
         }
 
+        /// <summary>
+        /// Verifica que el usuario ingresado sea un admin.
+        /// Principios aplicados:
+        /// Expert: AdminFacade es quien gestiona el tipo de usuario.
+        /// SRP: El método solo avisa si es un admin.
+        /// Polymorphism: El método trabaja con subtipos de User.
+        /// </summary>
+        /// <param name="user">Usuario a identificar</param>
+        /// <returns>True si es admin o False si no es admin</returns>
         public bool IsAdmin(User user)
         {
             if (user.GetType() == typeof(Admin))
@@ -185,6 +194,16 @@ namespace Library
                 return false;
             }
         }
+        
+        /// <summary>
+        /// Verifica que el usuario ingresado sea un seller.
+        /// Principios aplicados:
+        /// Expert: AdminFacade es quien gestiona el tipo de usuario.
+        /// SRP: El método solo avisa si es un seller.
+        /// Polymorphism: El método trabaja con subtipos de User.
+        /// </summary>
+        /// <param name="user">Usuario a identificar</param>
+        /// <returns>True si es seller o False si no es seller</returns>
         public bool IsSeller(User user) 
         {
             if (user.GetType() == typeof(Seller))

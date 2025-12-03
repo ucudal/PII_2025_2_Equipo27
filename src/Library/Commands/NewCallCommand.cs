@@ -20,7 +20,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             if (parameters.Length != 4)
             {
                 await ReplyAsync(
-                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !newcall 3, Hola, Sent, Nueva llamada");
+                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !newcall clientId, contenido, Sent, Nota de la llamada");
                 return;
             }
 
