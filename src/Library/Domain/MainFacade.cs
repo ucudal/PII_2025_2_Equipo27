@@ -23,6 +23,8 @@ namespace Library
             }
         }
 
+        private List<Opportunity> _opportunities = new List<Opportunity>();
+
         /// <summary>
         /// Crea un nuevo cliente y lo agrega al repositorio a partir de los datos proporcionados por el bot.
         /// MainFacade funciona como fachada hacia RepoClients, delegando la creación al experto en clientes.
@@ -290,8 +292,9 @@ namespace Library
             {
                 throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
             }
-
-            return client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
+            Opportunity opportunity = client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
+            _opportunities.Add(opportunity);
+            return opportunity;
         }
 
 
