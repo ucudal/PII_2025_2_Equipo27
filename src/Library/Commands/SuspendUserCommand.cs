@@ -14,6 +14,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
                 Seller seller = admin.SearchUser<Seller>(sellerid);
                 admin.SuspendUser(sellerid);
                 await ReplyAsync($"El usuario {seller.UserName} fue suspendido");

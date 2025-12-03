@@ -12,6 +12,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite a un vendedor asignarle un cliente a otro vendedor")]
         public async Task AssignSeller([Remainder] [Summary("Asigna un vendedor a otro")] string input)
         {
+            if (Auth("Seller") == false)
+            {
+                return;
+            }
             string[] parameters = input.Split(",");
             string seller1Id;
             string seller2Id;
