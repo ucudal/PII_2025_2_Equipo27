@@ -12,6 +12,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         public async Task changeopportunitystate(
             [Remainder] [Summary("Cambia el estado de una oportunidad")] string input)
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
             string[] parameters = input.Split(",");
             string opportunityId;
             string clientId;

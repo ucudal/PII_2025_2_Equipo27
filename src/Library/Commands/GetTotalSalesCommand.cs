@@ -12,6 +12,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite ver el total de ventas")]
         public async Task GetTotalSales()
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
             var result = new StringBuilder();
             if (facade.ClosedOpportunities.Count != 0)
             {

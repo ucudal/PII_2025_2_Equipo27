@@ -10,6 +10,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("permite ver un panel con clientes e interacciones")]
         public async Task GetPanel()
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
             await ReplyAsync(facade.GetPanel());
         }
     }

@@ -14,6 +14,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                    if (Auth("Admin") == false)
+                    {
+                        return;
+                    }
                     Seller seller = admin.SearchUser<Seller>(sellerid);
                     admin.DeleteUser(sellerid);
                     await ReplyAsync($"El usuario {seller.UserName} fue eliminado");
