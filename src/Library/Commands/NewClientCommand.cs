@@ -53,8 +53,9 @@ namespace Ucu.Poo.DiscordBot.Commands
                 phone = parameters[3];
                 sellerId = parameters[4];
                 
-                SellerFacade.Instance.CreateClient(name, lastName, email, phone, sellerId);
-                await ReplyAsync("Cliente creado correctamente.");
+                Client client = facade.CreateClient(name, lastName, email, phone, sellerId);
+
+                await ReplyAsync($"Cliente creado correctamente. {name} con id: {client.Id} ");
             }
             catch (ArgumentException e)
             {

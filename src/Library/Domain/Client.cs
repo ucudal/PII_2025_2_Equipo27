@@ -16,8 +16,9 @@ namespace Library
         {
             get { return this.opportunities; }
         }
+
         private List<Opportunity> opportunities = new List<Opportunity>();
-        
+
         /// <summary>
         /// Se crean interactions privado y el IReadOnlyList Interactions para mejorar la encapsulación de las listas.
         /// </summary>
@@ -27,8 +28,9 @@ namespace Library
         }
 
         private List<Interaction> interactions = new List<Interaction>();
-        
+
         private int nextInteractionId = 1;
+    
 
         private int nextOpportunityId = 1;
 

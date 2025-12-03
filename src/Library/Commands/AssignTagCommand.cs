@@ -6,12 +6,12 @@ using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class AddTagCommand : BotModuleBase
+    public class AssignTagCommand : BotModuleBase
     {
-        [Command("addtag")]
+        [Command("assigntag")]
         [Summary("Comando para agregar un tag a un cliente")]
 
-        public async Task AddNewData(
+        public async Task AssignTag(
             [Remainder] 
             [Summary("Agrega tag a un cliente indicado")]
             string input)
