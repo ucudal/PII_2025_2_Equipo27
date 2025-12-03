@@ -15,22 +15,23 @@ namespace Ucu.Poo.DiscordBot.Commands
             [Summary("Permite encontrar un cliente.")]
             string input)
         {
-            if (Auth("All") == false)
-            {
-                return;
-            }
-            string[] parameters = input.Split(",");
-            string dataSearched; string text;
-            if (parameters.Length != 2)
-            {
-                await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: !searchclient Nmae, Luis");
-                return;
-            }
-
-            dataSearched = parameters[0];
-            text = parameters[1];
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
+                string[] parameters = input.Split(",");
+                string dataSearched; string text;
+                if (parameters.Length != 2)
+                {
+                    await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: !searchclient Nmae, Luis");
+                    return;
+                }
+
+                dataSearched = parameters[0];
+                text = parameters[1];
+            
                 var clients = facade.SearchClient(dataSearched, text);
                 var result = new StringBuilder();
                 if (facade.SearchClient(dataSearched, text) != null)
