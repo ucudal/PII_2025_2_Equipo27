@@ -15,7 +15,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             string clientId, content, location, type, date, notes;
             if (parameters.Length != 6)
             {
-                await ReplyAsync("Debe ingresar los parámetros necesarios.\n Ejemplo: !newmeeting 2, Hola, Maldonado, 15/12/2025, Nos reunimos ese dia de noche");
+                await ReplyAsync("Debe ingresar los parámetros necesarios.\n Ejemplo: !newmeeting 2, Hola, Maldonado, Programmed, 15/12/2025, Nos reunimos ese dia de noche");
                 return;
             }
 
