@@ -23,7 +23,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             string dataSearched; string text;
             if (parameters.Length != 2)
             {
-                await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: !searchclient Nmae, Luis");
+                await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: !searchclient Name, Luis");
                 return;
             }
 
