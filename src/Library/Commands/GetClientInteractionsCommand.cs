@@ -18,6 +18,10 @@ namespace Ucu.Poo.DiscordBot.Commands
             [Summary("Retorna todas las intercciones de un cliente")]
             string input)
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
             string[] parameters = input.Split(",");
             string clientId;
             var result = new StringBuilder();
