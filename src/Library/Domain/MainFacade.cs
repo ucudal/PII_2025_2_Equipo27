@@ -656,14 +656,15 @@ namespace Library
             Client client = SearchClientById(clientId);
             foreach (Opportunity opportunity in client.Opportunities)
             {
-                if (opportunityId == opportunity.Id.ToString())
+                if (opportunityId.Trim() == opportunity.Id.ToString().Trim())
                 {
                     opportunityresult = opportunity;
                 }
-                else
-                {
-                    throw new ArgumentException("No existe la oportunidad buscada");
-                }
+            }
+
+            if (opportunityresult==null)
+            {
+                throw new ArgumentException("No existe la oportunidad buscada");
             }
             return opportunityresult;
         }

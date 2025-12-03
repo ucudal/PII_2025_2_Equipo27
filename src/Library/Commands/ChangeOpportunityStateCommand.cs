@@ -27,7 +27,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             newState = parameters[2];
             try
             {
-                facade.ChangeOpportunityState(opportunityId,clientId,newState);
+                seller.ChangeOpportunityState(opportunityId,clientId,newState);
                 await ReplyAsync($"El estado de la oportunidad se ha cambiado a '{newState}'");
             }
             catch (ArgumentException e)

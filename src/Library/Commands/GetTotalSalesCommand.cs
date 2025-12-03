@@ -15,14 +15,14 @@ namespace Ucu.Poo.DiscordBot.Commands
             var result = new StringBuilder();
             if (facade.ClosedOpportunities.Count != 0)
             {
-                foreach (var opportunity in facade.ClosedOpportunities)
+                foreach (Opportunity opportunity in facade.ClosedOpportunities)
                 {
                     result.Append(
                         $"Id de la oportunidad: {opportunity.Id}\n"+
                         $"Cliente asignado: {opportunity.Client.Name} con Id: {opportunity.Client.Id}\n" +
                         $"Producto: {opportunity.Product}\n" +
                         $"Precio: {opportunity.Price}\n" +
-                        $"Fecha: {opportunity.Date}\n" +
+                        $"Fecha: {opportunity.Date.ToString()}\n" +
                         $"Vendedor asignado: {opportunity.Client.AsignedSeller.UserName}\n" +
                         $"{new string('-', 40)}\n");
                 }
