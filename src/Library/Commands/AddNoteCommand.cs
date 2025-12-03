@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
+using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class AddNoteCommand : ModuleBase<SocketCommandContext>
+    public class AddNoteCommand : BotModuleBase
     {
         [Command("addnote")]
         [Summary("Añade una nueva nota a una interacción de un cliente.")]
@@ -14,7 +15,11 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
-                AdminFacade.Instance.AddNotes(interactionId, note, clientId);
+                if (Auth("All") == false)
+                {
+                    return;
+                }
+                facade.AddNotes(interactionId, note, clientId);
                 await ReplyAsync("La nota se ha agregado correctamente");
             }
             catch (ArgumentException e)

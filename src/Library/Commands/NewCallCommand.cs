@@ -16,6 +16,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
                 AdminFacade.Instance.RegisterCall(content,sender, notes,clientId);
                 await ReplyAsync("Nueva llamada registrada.");
                 await ReplyAsync($"Contenido: {content}\nNota: {notes}\nFecha: {DateTime.Now}");

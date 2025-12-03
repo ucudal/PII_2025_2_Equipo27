@@ -18,6 +18,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
                 var clients = facade.GetClients();
                 var result = new StringBuilder();
                 if (clients.Count != 0)

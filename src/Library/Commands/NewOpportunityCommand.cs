@@ -2,10 +2,11 @@ using System;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
+using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class NewOpportunityCommand : ModuleBase<SocketCommandContext>
+    public class NewOpportunityCommand : BotModuleBase
     {
         [Command("newopportunity")]
         [Summary("Comando para registrar una oportunidad)")]
@@ -15,6 +16,10 @@ namespace Ucu.Poo.DiscordBot.Commands
             [Summary("Crea un una oportuidad asignada a un cliente dado")]
             string input)
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
             string[] parameters = input.Split(",");
             if (parameters.Length != 4)
             {

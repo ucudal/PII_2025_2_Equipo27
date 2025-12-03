@@ -1,10 +1,12 @@
+using System;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
+using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class AddTagCommand : ModuleBase<SocketCommandContext>
+    public class AddTagCommand : BotModuleBase
     {
         [Command("addtag")]
         [Summary("Comando para agregar un tag a un cliente")]
@@ -14,20 +16,31 @@ namespace Ucu.Poo.DiscordBot.Commands
             [Summary("Agrega tag a un cliente indicado")]
             string input)
         {
-            string[] parameters = input.Split(",");
-            string clientId; string tagName;
-            if (parameters.Length != 2)
+            try
             {
-                await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: !addtag clientId, tagName");
-                return;
+                if (Auth("All") == false)
+                {
+                    return;
+                }
+                string[] parameters = input.Split(",");
+                string clientId; string tagName;
+                if (parameters.Length != 2)
+                {
+                    await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: ////");
+                    return;
+                }
+
+                clientId = parameters[0];
+                tagName = parameters[1];
+                
+                facade.AddTag(clientId, tagName);
+
+                await ReplyAsync("Tag agregado correctamente.");
             }
-
-            clientId = parameters[0];
-            tagName = parameters[1];
-            
-            SellerFacade.Instance.AddTag(clientId, tagName);
-
-            await ReplyAsync("Tag agregado correctamente.");
+            catch (Exception e)
+            {
+                await ReplyAsync("Hubo un error al agregar el tag: " + e.Message);
+            }
         }
 
 
