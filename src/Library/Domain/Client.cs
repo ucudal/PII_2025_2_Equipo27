@@ -185,13 +185,27 @@ namespace Library
         {
             Opportunity opportunity = new Opportunity(product, price, states, client, date);
             this.opportunities.Add(opportunity);
+            opportunity.Id = nextOpportunityId;
             nextOpportunityId += 1;
             return opportunity;
         }
 
         public void ChangeOpportunityState(int opportunityId, Opportunity.States state)
         {
-            
+            foreach (Opportunity opportunity in this.opportunities)
+            {
+                if (opportunity.Id == opportunityId)
+                {
+                    if (state == Opportunity.States.Close)
+                    {
+                        opportunity.Sell();
+                    }
+                    else if (state == Opportunity.States.Canceled)
+                    {
+                        opportunity.Cancel();
+                    }
+                }
+            }
         }
         
         /// <summary>

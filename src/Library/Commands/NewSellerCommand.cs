@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Discord.Commands;
+using Library;
 using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
