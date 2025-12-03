@@ -11,7 +11,7 @@ https://docs.google.com/spreadsheets/d/15p3wYOSRSRUC9iok9xvCvyx8-Ff6VaGeWw-tMUHl
 ---
 ## Diagrama UML
 
-<img width="2470" height="3697" alt="CRM_prog2 drawio" src="https://github.com/user-attachments/assets/973b6e25-5367-4604-be34-0a00bd250102" />
+<img width="2470" height="3697" alt="CRM_prog2 drawio (1)" src="https://github.com/user-attachments/assets/1bbc58c2-38b2-4e7b-921f-4769c3174c07" />
 
 
 https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=sharing
