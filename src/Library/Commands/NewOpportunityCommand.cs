@@ -24,7 +24,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             if (parameters.Length != 4)
             {
                 await ReplyAsync("Debe ingresar exactamente cuatro parámetros.\n" +
-                                 "Ejemplo: !registeropportunity product, price, state, clientId");
+                                 "Ejemplo: !newopportunity product, price, state, clientId");
                 return;
             }
             string product = parameters[0]; string price = parameters[1]; 

@@ -26,7 +26,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                 string clientId; string tagName;
                 if (parameters.Length != 2)
                 {
-                    await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: ////");
+                    await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: !assigntag 0, Compra monitores");
                     return;
                 }
 
