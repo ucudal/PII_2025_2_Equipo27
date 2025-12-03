@@ -21,6 +21,10 @@ namespace Ucu.Poo.DiscordBot.Commands
             string clientId;
             string newState;
             if (parameters.Length != 3)
+                if (Auth("All") == false)
+                {
+                    return;
+                }
             {
                 await ReplyAsync(
                     "Debe ingresar los parámetros necesarios.\n Ejemplo: !changeopportunitystate 1,3,Close");

@@ -12,6 +12,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite eliminar un usuario siendo administrador")]
         public async Task DeleteUser([Remainder] [Summary("Permite eliminar usuarios")] string sellerid)
         {
+            if (Auth("Admin") == false)
+            {
+                return;
+            }
             try
             {
                     if (Auth("Admin") == false)

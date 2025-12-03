@@ -21,6 +21,10 @@ namespace Ucu.Poo.DiscordBot.Commands
             string seller2Id;
             string clientId;
             if (parameters.Length != 3)
+                if (Auth("Seller") == false)
+                {
+                    return;
+                }
             {
                 await ReplyAsync(
                     "Debe ingresar los parámetros necesarios.\n Ejemplo: !assignseller 1, 2, 4");

@@ -12,6 +12,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite suspender un usuario siendo administrador")]
         public async Task SuspendUser([Remainder] [Summary("Permite suspender usuarios")] string sellerid)
         {
+            if (Auth("Admin") == false)
+            {
+                return;
+            }
             try
             {
                 if (Auth("All") == false)
