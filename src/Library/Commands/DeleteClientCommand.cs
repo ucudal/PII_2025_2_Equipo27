@@ -13,6 +13,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
                 facade.DeleteClient(id);
                 await ReplyAsync("Cliente eliminado correctamente.");
 

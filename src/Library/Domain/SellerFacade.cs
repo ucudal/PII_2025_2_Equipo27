@@ -45,6 +45,11 @@ namespace Library
         /// <returns>Mensaje con resultado de la operación</returns>
         public void AssignClient(string sellerIdMy, string sellerIdOther, string clientId)
         {
+            if (string.IsNullOrEmpty(sellerIdMy) || string.IsNullOrEmpty(sellerIdOther) ||
+                string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException("Debe ingresar Ids validos");
+            }
             Seller seller1 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdMy));
             Seller seller2 = RepoUsers.SearchUser<Seller>(int.Parse(sellerIdOther));
             Client client = repoClients.GetById(int.Parse(clientId));
@@ -53,6 +58,11 @@ namespace Library
             {
                 seller1.AsignClient(seller2, client);
             }
+            
+        }
+
+        public void Sell()
+        {
             
         }
     }

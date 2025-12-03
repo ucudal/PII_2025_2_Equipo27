@@ -6,19 +6,18 @@ using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class InitCommand: BotModuleBase
+    public class InitSellerCommand: BotModuleBase
     {
         
-
-        [Command("init")]
-        [Summary("Inicia el crm creando el primer user admin a nombre del usuario.")]
-        public async Task CreateFirstAdmin()
+        [Command("initseller")]
+        [Summary("Inicia el crm creando el primer user seller a nombre del usuario.")]
+        public async Task CreateFirstSeller()
         {
             try
             {   
                 string miNombreDiscord = Context.User.Username;
-                admin.CreateAdmin(miNombreDiscord);
-                await ReplyAsync("Primer admin creado: " + miNombreDiscord);
+                admin.CreateSeller(miNombreDiscord);
+                await ReplyAsync("Primer seller creado: " + miNombreDiscord);
             }
             catch (Exception e)
             {   

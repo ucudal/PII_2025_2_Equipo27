@@ -201,11 +201,16 @@ public class UserStoriesTests
     // para realizar campañas y saludarlos en sus cumpleaños.
     {
         // Arrange
+        // !newseller Kiki ==> SellerId: 0
         Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
+        // !newclient Antonie, Griezmann, Griezmann7@gmail.com, 123456789, 0 ==> ClientId: 0
         SellerFacade.Instance.CreateClient("Antonie", "Griezmann", "Griezmann7@gmail.com", "123456789",  "0"); 
+        // !getclients
         IReadOnlyList<Client> clients = SellerFacade.Instance.GetClients();
         // Act
+        // !addnewdata 0, Gender, Male
         SellerFacade.Instance.AddData("0", "Gender", "Male");
+        // !addnewdata 0, BirthDate, 21/03/1991
         SellerFacade.Instance.AddData("0", "BirthDate", "21/03/1991");
         string actualClientBirthDate = clients[0].BirthDate;
         Client.GenderType actualClientGender = clients[0].Gender;
@@ -218,8 +223,11 @@ public class UserStoriesTests
     public void UserStory12Test()
     // Como usuario quiero poder definir etiquetas para poder organizar y segmentar a mis clientes.
     {
+        // !newtag Compra milanesa
         Tag tag1 = SellerFacade.Instance.CreateTag("Compra milanesas");
+        // !newtag Compra merengue
         Tag tag2 = SellerFacade.Instance.CreateTag("Compra merengue");
+        // !newtag Compra botines
         Tag tag3 = SellerFacade.Instance.CreateTag("Compra botines");
         
         Assert.That(SellerFacade.Instance.GetTags(), Does.Contain(tag1));
@@ -233,21 +241,31 @@ public class UserStoriesTests
     public void UserStory13Test()
     {
         // Arrange
+        // !newseller Kiki ==> SellerId: 0
         Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
         string tagName1 = "Compra milanesas";
         string tagName2 = "Compra merengue";
         string tagName3 = "Compra botines";
-        SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789",  "0"); 
+        // !newclient Luka, Modrić, Modrić14@gmail.com, 123456789, 0 ==> ClientId: 0
+        SellerFacade.Instance.CreateClient("Luka", "Modrić", "Modrić14@gmail.com", "123456789",  "0");
+        // !newclient Federico, Valverde, Fede8@gmail.com, 214365879, 0 ==> ClientId: 1
         SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879",  "0");
+        // !newtag Compra milanesa
         Tag tag1 = SellerFacade.Instance.CreateTag(tagName1);
+        // !newtag Compra merengue
         Tag tag2 = SellerFacade.Instance.CreateTag(tagName2);
+        // !newtag Compra botines
         Tag tag3 = SellerFacade.Instance.CreateTag(tagName3);
         Client client1 = SellerFacade.Instance.SearchClientById("0");
         Client client2 = SellerFacade.Instance.SearchClientById("1");
         // Act
+        // !assigntag 0, Compra merengue
         SellerFacade.Instance.AddTag(client1.Id.ToString(), tagName2);
+        // !assigntag 0, Compra botines
         SellerFacade.Instance.AddTag(client1.Id.ToString(), tagName3);
+        // !assigntag 1, Compra milanesa
         SellerFacade.Instance.AddTag(client2.Id.ToString(), tagName1);
+        // !assigntag 1, Compra merengue
         SellerFacade.Instance.AddTag(client2.Id.ToString(), tagName2);
         // Assert
         Assert.That(client1.Tags, Does.Contain(tag2));
@@ -262,9 +280,12 @@ public class UserStoriesTests
     public void UserStory14Test()
     {
         // Arrange
+        // !newseller Kiki ==> SellerId: 0
         Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
+        // !newclient Edinson, Cavani, Edi21@gmail.com, 099123456,  0
         Client elEdi = SellerFacade.Instance.CreateClient("Edinson", "Cavani", "Edi21@gmail.com", "099123456",  "0");
         // Act
+        // !
         Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Mate", "450", "Close", elEdi.Id.ToString());
         // Assert
         Assert.That(elEdi.Opportunities, Does.Contain(opportunity));
@@ -276,9 +297,12 @@ public class UserStoriesTests
     public void UserStory15Test()
     {
         // Arrange
+        // !newseller Kiki ==> SellerId: 0
         Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
+        // !newclient Virgil, van Dijk, Virg5@gmail.com, 099123556, 0 ==> ClientId: 0
         Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556",  "0");
-        // Act
+        // Act 
+        // !newopportunity Pelota, 200, Open, 0
         Opportunity opportunity = SellerFacade.Instance.CreateOpportunity("Pelota", "200", "Open", virgil.Id.ToString());
         // Assert
         Assert.That(virgil.Opportunities, Does.Contain(opportunity));
@@ -291,13 +315,18 @@ public class UserStoriesTests
     public void UserStory16Test()
     {
         // Arrange
+        // !newseller Kiki ==> SellerId: 0
         Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
+        // !newclient Harry, Kane, Kane9@gmail.com, 099999999, 0 ==> ClientId: 0
         Client harry = SellerFacade.Instance.CreateClient("Harry", "Kane", "Kane9@gmail.com", "099999999",  "0");
 
-
+        // !newcall 0, Compra de botines, Sent, Quiere comprar 3 pares
         SellerFacade.Instance.RegisterCall("Compra de botines", "Sent","Quiere comprar 3 pares", harry.Id.ToString());
+        // !newemail 0, Organizando una llamada para hacer una compra, Received, Ninguna nota
         SellerFacade.Instance.RegisterEmail("Organizando una llamada para hacer una compra", "Received", "Ninguna nota", harry.Id.ToString());
-        SellerFacade.Instance.RegisterMeeting("-", "Proximamente", "Munich", "Programmed", harry.Id.ToString(), DateTime.Today.ToString());
+        // !newmeeting 0, ---, Munich, Programmed, 10/12/2025, Proximamente
+        SellerFacade.Instance.RegisterMeeting("-", "Proximamente", "Munich", "Programmed", harry.Id.ToString(), "10/12/2025");
+        // !newmessage 0, Saludo confirmando la reunion, Sent, Discord, Ninguna
         SellerFacade.Instance.RegisterMessage("Saludo confirmando la reunion", "Ninguna", "Sent", "Discord", harry.Id.ToString());
         // Act
         IReadOnlyList<Interaction> interactions = harry.Interactions;

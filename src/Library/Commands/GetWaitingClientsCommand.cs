@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -12,18 +13,31 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite al user ver los clientes esperando una respuesta.")]
         public async Task GetWaitingClients()
         {
-            var result = new StringBuilder();
-            if (facade.WaitingClients().Count != 0)
+            try
             {
-                foreach (Client client in facade.WaitingClients())
+                if (Auth("All") == false)
                 {
-                    result.Append(
-                        $"{client.Name}, Id: {client.Id}\n"
-                    );
+                    return;
                 }
-            }
 
-            await ReplyAsync("Los clientes esperando respuesta son: \n" + result);
+                var result = new StringBuilder();
+                if (facade.WaitingClients().Count != 0)
+                {
+                    foreach (Client client in facade.WaitingClients())
+                    {
+                        result.Append(
+                            $"{client.Name}, Id: {client.Id}\n"
+                        );
+                    }
+                }
+
+                await ReplyAsync("Los clientes esperando respuesta son: \n" + result);
+            }
+            catch (Exception e)
+            {   
+                await ReplyAsync("Hubo un error al llamar la lista de espera: " + e.Message);
+                
+            }
         }
     }
 }

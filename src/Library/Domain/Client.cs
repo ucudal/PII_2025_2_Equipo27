@@ -57,7 +57,6 @@ namespace Library
         /// <param name="seller"></param>
         /// <exception cref="ArgumentException"></exception>
         public Client(int id, string name, string lastName, string email, string phone, Seller seller)
-
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -186,13 +185,27 @@ namespace Library
         {
             Opportunity opportunity = new Opportunity(product, price, states, client, date);
             this.opportunities.Add(opportunity);
+            opportunity.Id = nextOpportunityId;
             nextOpportunityId += 1;
             return opportunity;
         }
 
         public void ChangeOpportunityState(int opportunityId, Opportunity.States state)
         {
-            
+            foreach (Opportunity opportunity in this.opportunities)
+            {
+                if (opportunity.Id == opportunityId)
+                {
+                    if (state == Opportunity.States.Close)
+                    {
+                        opportunity.Sell();
+                    }
+                    else if (state == Opportunity.States.Canceled)
+                    {
+                        opportunity.Cancel();
+                    }
+                }
+            }
         }
         
         /// <summary>
