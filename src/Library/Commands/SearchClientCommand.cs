@@ -10,8 +10,25 @@ namespace Ucu.Poo.DiscordBot.Commands
     {
         [Command("searchclient")]
         [Summary("Permite encontrar un cliente.")]
-        public async Task SearchClient(string dataSearched, string text)
+        public async Task SearchClient(
+            [Remainder] 
+            [Summary("Permite encontrar un cliente.")]
+            string input)
         {
+            if (Auth("All") == false)
+            {
+                return;
+            }
+            string[] parameters = input.Split(",");
+            string dataSearched; string text;
+            if (parameters.Length != 2)
+            {
+                await ReplyAsync("Debe ingresar exactamene dos parámetros.\nEjemplo: !searchclient Nmae, Luis");
+                return;
+            }
+
+            dataSearched = parameters[0];
+            text = parameters[1];
             try
             {
                 var clients = facade.SearchClient(dataSearched, text);

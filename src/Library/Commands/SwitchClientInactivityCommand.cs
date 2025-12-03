@@ -15,6 +15,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
                 string state = "";
                 facade.SwitchClientActivity(clientid);
                 if (facade.SearchClientById(clientid).Inactive)

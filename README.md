@@ -24,6 +24,41 @@ https://drive.google.com/file/d/15GUD0jKnMR2Fe74zgRuUmBELfKcHVC2D/view?usp=shari
 
 ---
 
+## Para iniciar el proyecto debe hacerlo con: 
+# !initadmin
+En caso de querer iniciar como Admin
+# !initseller
+En caso de querer iniciar como Seller
+ <br>
+
+| Historia                                   | Comandos                                                     | Ejemplo                                                                                                                                                                          |
+|--------------------------------------------|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Crear cliente                              | !newclient                                                   | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1                                                                                 |
+| Modificar cliente                          | !editclient                                                  | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !editclient 0, Name, luis                                                  |
+| Eliminar cliente                           | !deleteclient                                                | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !deleteclient 0                                                            |
+| Buscar cliente                             | !searchclient                                                | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !searchclient Name, luis                                                   |
+| Ver lista de clientes                      | !getclients                                                  | !initadmin <br> !newseller juan <br> !newclient luis, suarez, luissuares@gmail.com, 099554466, 1 <br> !newclient diego, lugano, dlugano@gmail.com, 099020202, 1 <br> !getclients | 
+| Registrar llamadas                         | !newcall                                                     |                                                                                                                                                                                  |
+| Registrar reuniones                        | !newmeeting                                                  |
+| Registrar mensajes                         | !newmessage                                                  |
+| Registrar emails                           | !newemail                                                    |
+| Registrar otros datos                      | !addclientdata                                               |
+| Agregar una nota                           | !addnote                                                     |
+| Registrar otros datos                      | !addclientdata                                               |
+| Definir etiquetas                          | !addtag tagname                                              |
+| Agregar etiqueta a cliente                 | !assigntag                                                   |
+| Registrar venta                            | !closeopportunity                                            |
+| Registrar cotizaciones enviadas            | !newopportunity                                              |
+| Ver todas las interacciones con un cliente | !getinteractions                                             |
+| Clientes hace tiempo no hay interacción    | !getinactiveclients                                          |
+| Alternar cliente entre Inactivo y Activo | !switchclientinactivity clientid
+| Clientes esperando respuesta               | !getwaitingclients                                           |
+| Crear, suspender o eliminar usuarios       | !newuser <br> !suspenduser <br> !activeuser <br> !deleteuser |
+| Asignar otro vendedor a cliente            | !assignseller                                                |
+| Saber total de ventas en periodo           | !getsales                                                    |
+| Ver panel                                  | !getpanel                                                    |
+| Mostrar comandos                           | !help                                                        |
+| Mostrar Usuario                            | !who                                                         |
 | Historia                                   | Comandos                                                     | Ejemplos                                                                                                                                           |
 |--------------------------------------------|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | Crear cliente                              | !newclient nombre                                            |                                                                                                                                                    |

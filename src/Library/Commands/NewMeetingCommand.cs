@@ -2,10 +2,11 @@ using System;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Library;
+using Program.Commands;
 
 namespace Ucu.Poo.DiscordBot.Commands
 {
-    public class NewMeetingCommand : ModuleBase<SocketCommandContext>
+    public class NewMeetingCommand : BotModuleBase
     {
         [Command("newmeeting")]
         [Summary("Registra una reunion para un cliente.")]
@@ -28,6 +29,10 @@ namespace Ucu.Poo.DiscordBot.Commands
             
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
                 AdminFacade.Instance.RegisterMeeting(content,notes,location,type,clientId,date);
                 await ReplyAsync("Nueva reunión registrada");
                 await ReplyAsync(

@@ -57,7 +57,6 @@ namespace Library
         /// <param name="seller"></param>
         /// <exception cref="ArgumentException"></exception>
         public Client(int id, string name, string lastName, string email, string phone, Seller seller)
-
         {
             if (string.IsNullOrEmpty(name))
             {

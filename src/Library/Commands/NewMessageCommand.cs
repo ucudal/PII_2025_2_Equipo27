@@ -14,35 +14,36 @@ namespace Ucu.Poo.DiscordBot.Commands
             [Summary("Crea un mensaje con todos sus datos")]
             string input)
         {
-            string[] parameters = input.Split(",");
-            string clientId, content, sender, channel, notes;
-            
-            if (parameters.Length != 5)
-            {
-                await ReplyAsync(
-                    "Debe ingresar los parámetros necesarios.\n Ejemplo: !newmessage 2, Hola, Sent, Whatsapp, llamada al vendedor por whatsapp");
-                return;
-            }
-            
-            clientId = parameters[0].Trim();
-            content = parameters[1];
-            sender = parameters[2].Trim();
-            channel = parameters[3];
-            notes = parameters[4];
-            
             try
             {
+                if (Auth("All") == false)
+                {
+                    return;
+                }
+                string[] parameters = input.Split(",");
+                string clientId, content, sender, channel, notes;
+                
+                if (parameters.Length != 5)
+                {
+                    await ReplyAsync(
+                        "Debe ingresar los parámetros necesarios.\n Ejemplo: !newmessage 2, Hola, Sent, Whatsapp, llamada al vendedor por whatsapp");
+                    return;
+                }
+            
+                clientId = parameters[0].Trim();
+                content = parameters[1];
+                sender = parameters[2].Trim();
+                channel = parameters[3];
+                notes = parameters[4];
+            
+
                 facade.RegisterMessage(content,notes,sender,channel,clientId);
                 await ReplyAsync("Nuevo mensaje registrado");
                 await ReplyAsync($"Contenido: {content}\nNotas: {notes}\nCanal: {channel}\nFecha: {DateTime.Now}");
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                await ReplyAsync(e.Message);
-            }
-            catch (InvalidOperationException e)
-            {
-                await ReplyAsync(e.Message);
+                await ReplyAsync("Error al crear nueva " + e.Message);
             }
         }
     }
