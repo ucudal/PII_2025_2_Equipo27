@@ -9,6 +9,7 @@ namespace Library
     /// </summary>
     public class MainFacade
     {
+        
         protected RepoClients repoClients = RepoClients.Instance;
         private RepoTags repoTag = RepoTags.Instance;
         protected RepoUsers RepoUsers = RepoUsers.Instance;
@@ -19,7 +20,7 @@ namespace Library
         {
             get
             {
-                return ClosedOpportunities;
+                return closedOpportunities;
             }
         }
 

@@ -12,6 +12,10 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Summary("Permite activar un usuario suspendido siendo administrador")]
         public async Task ActiveUser([Remainder] [Summary("Permite activar usuarios")] string sellerid)
         {
+            if (Auth("Admin") == false)
+            {
+                return;
+            }
             try
             {
                 Seller seller = admin.SearchUser<Seller>(sellerid);
