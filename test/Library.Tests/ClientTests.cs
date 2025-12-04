@@ -30,7 +30,7 @@ public class ClientTests
         Seller seller = new Seller("Seller",0);
         Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "09/10/08", seller);
 
-        Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Sent, "Whatsapp", DateTime.Now);
+        Interaction message = new Message("Hola", "nota", InteractionOrigin.Origin.Received, "Whatsapp", DateTime.Now);
         client.AddInteraction(message);
         Assert.That(client.Interactions.Count,Is.EqualTo(1));
         Assert.That(client.Waiting,Is.EqualTo(true));
