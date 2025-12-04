@@ -297,6 +297,10 @@ namespace Library
                 }
                 Opportunity opportunity = client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
                 _opportunities.Add(opportunity);
+                if (states == Opportunity.States.Close)
+                {
+                    closedOpportunities.Add(opportunity);
+                }
                 return opportunity;
             }
             catch (Exception e)
