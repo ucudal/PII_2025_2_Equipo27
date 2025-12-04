@@ -21,10 +21,6 @@ namespace Ucu.Poo.DiscordBot.Commands
             string clientId;
             string newState;
             if (parameters.Length != 3)
-                if (Auth("All") == false)
-                {
-                    return;
-                }
             {
                 await ReplyAsync(
                     "Debe ingresar los parámetros necesarios.\n Ejemplo: !changeopportunitystate 1,3,Close");
@@ -32,16 +28,15 @@ namespace Ucu.Poo.DiscordBot.Commands
             }
             opportunityId = parameters[0];
             clientId = parameters[1];
-            newState = parameters[2];
+            newState = parameters[2].Trim();
             try
             {
                 seller.ChangeOpportunityState(opportunityId,clientId,newState);
                 await ReplyAsync($"El estado de la oportunidad se ha cambiado a '{newState}'");
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 await ReplyAsync(e.Message);
-                throw;
             }
         }
     }
