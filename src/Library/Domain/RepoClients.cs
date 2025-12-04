@@ -320,5 +320,57 @@ namespace Library
             }
             return $"Cantidad de ventas dentro del período: {totalSales}";
         }
+
+        /// <summary>
+        /// Crea una lista con los clientes que su monto de ventas sea mayor al ingresado.
+        /// Principios aplicados:
+        /// Expert: RepoClient es quien gestiona a los clientes.
+        /// SRP: El metodo solo identifica quienes son los clientes que tienen un monto total mayor al ingresado.
+        /// </summary>
+        /// <param name="monto">Mayor a este monto</param>
+        /// <returns>La lista con los clientes</returns>
+        public IReadOnlyList<Client> ObtenerClientesVentasMayores(double monto)
+        {
+            if (clients.Count == 0)
+            {
+                throw new ArgumentException("No se ha creado ningún cliente");
+            }
+            List<Client> clientesConVentas = new List<Client>();
+            foreach (Client client in clients)
+            {
+                if (client.MontoTotal() > monto)
+                {
+                    clientesConVentas.Add(client);
+                }
+            }
+
+            return clientesConVentas;
+        }
+        
+        /// <summary>
+        /// Crea una lista con los clientes que su monto de ventas sea menor al ingresado.
+        /// Principios aplicados:
+        /// Expert: RepoClient es quien gestiona a los clientes.
+        /// SRP: El metodo solo identifica quienes son los clientes que tienen un monto total menor al ingresado.
+        /// </summary>
+        /// <param name="monto">Menor a este monto</param>
+        /// <returns>La lista con los clientes</returns>
+        public IReadOnlyList<Client> ObtenerClientesVentasMenores(double precio)
+        {
+            if (clients.Count == 0)
+            {
+                throw new ArgumentException("No se ha creado ningún cliente");
+            }
+            List<Client> clientesConVentas = new List<Client>();
+            foreach (Client client in clients)
+            {
+                if (client.MontoTotal() < precio)
+                {
+                    clientesConVentas.Add(client);
+                }
+            }
+
+            return clientesConVentas;
+        }
     }
 }

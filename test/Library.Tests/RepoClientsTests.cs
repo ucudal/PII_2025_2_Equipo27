@@ -193,4 +193,72 @@ public class RepoClientsTests
         
         Assert.That(panel, Is.EqualTo(exepted));
     }
+    
+    /// <summary>
+    /// Verifica que la lista contenga la cantidad correcta de clientes con total de ventas mayor al monto.
+    /// </summary>
+    [Test]
+    public void ClientesConOpirtunidadesMayores()
+    {
+        Seller seller = new Seller("Kiki", 0);
+        RepoClients repo = RepoClients.Instance;
+        Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  seller);
+        Client client2 = repo.CreateClient( "Facundo", "Gallinal", "fac@example.com", "099999909",  seller);
+        Client client3 = repo.CreateClient( "Matteo", "Cianelli", "mat@example.com", "099889999",  seller);
+        Client client4 = repo.CreateClient( "Peter", "Wallace", "pet@example.com", "099929999",  seller);
+        client1.CreateOpportunity("Azúcar", 60, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+        client2.CreateOpportunity("Harina", 50, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+        client3.CreateOpportunity("Arroz", 40, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+        client4.CreateOpportunity("Sal", 30, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+
+        IReadOnlyList<Client> clientes = RepoClients.Instance.ObtenerClientesVentasMayores(45.5);
+        
+        Assert.That(clientes.Count, Is.EqualTo(2));
+    }
+    
+    /// <summary>
+    /// Verifica que la lista contenga la cantidad correcta de clientes con total de ventas menor al monto.
+    /// </summary>
+    [Test]
+    public void ClientesConOpirtunidadesMenores()
+    {
+        Seller seller = new Seller("Kiki", 0);
+        RepoClients repo = RepoClients.Instance;
+        Client client1 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  seller);
+        Client client2 = repo.CreateClient( "Facundo", "Gallinal", "fac@example.com", "099999909",  seller);
+        Client client3 = repo.CreateClient( "Matteo", "Cianelli", "mat@example.com", "099889999",  seller);
+        Client client4 = repo.CreateClient( "Peter", "Wallace", "pet@example.com", "099929999",  seller);
+        client1.CreateOpportunity("Azúcar", 60, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+        client2.CreateOpportunity("Harina", 50, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+        client3.CreateOpportunity("Arroz", 40, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+        client4.CreateOpportunity("Sal", 30, Opportunity.States.Open, client1, new DateTime(2025, 10, 20));
+
+        IReadOnlyList<Client> clientes = RepoClients.Instance.ObtenerClientesVentasMenores(45.5);
+        
+        Assert.That(clientes.Count, Is.EqualTo(2));
+    }
+    
+    /// <summary>
+    /// Verifica que se lanze una excepción si no hay clientes.
+    /// </summary>
+    [Test]
+    public void ClientesConOpirtunidadesMayores_Excepcion()
+    {
+        RepoClients repo = RepoClients.Instance;
+        
+        Assert.Throws<ArgumentException>(() => RepoClients.Instance.ObtenerClientesVentasMayores(50.5));
+    }
+    
+    /// <summary>
+    /// Verifica que se lanze una excepción si no hay clientes.
+    /// </summary>
+    [Test]
+    public void ClientesConOpirtunidadesMenores_Excepcion()
+    {
+        
+        RepoClients repo = RepoClients.Instance;
+        
+        Assert.Throws<ArgumentException>(() => RepoClients.Instance.ObtenerClientesVentasMenores(50.5));
+    }
+    
 } 

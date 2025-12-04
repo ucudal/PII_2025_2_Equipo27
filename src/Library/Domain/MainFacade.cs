@@ -707,5 +707,31 @@ namespace Library
                 throw new ArgumentException("El nuevo estado de la oportunidad debe ser o 'Close' o 'Canceled'");
             }
         }
+        
+        /// <summary>
+        /// Crea una lista con todos los clientes que la suma total de las ventas sea mayor al monto.
+        /// Expert: RepoClients es el que gestiona a los clientes.
+        /// SRP: El metodo solo busca quienes son los clientes que tienen un total menor al monto.
+        /// </summary>
+        /// </summary>
+        /// <param name="monto">Mayor a ese monto.</param>
+        /// <returns>La lista con los clientes que tienen un total mayor al monto.</returns>
+        public IReadOnlyList<Client> ClientesOportunidadesMayores(string monto)
+        {
+            return RepoClients.Instance.ObtenerClientesVentasMayores(double.Parse(monto));
+        }
+        
+        /// <summary>
+        /// Crea una lista con todos los clientes que la suma total de las ventas sea menor al monto.
+        /// Principios aplicados:
+        /// Expert: RepoClients es el que gestiona a los clientes.
+        /// SRP: El metodo solo busca quienes son los clientes que tienen un total menor al monto.
+        /// </summary>
+        /// <param name="monto">Menor a ese monto.</param>
+        /// <returns>La lista con los clientes que tienen un total menor al monto.</returns>
+        public IReadOnlyList<Client> ClientesOportunidadesMenores(string monto)
+        {
+            return RepoClients.Instance.ObtenerClientesVentasMenores(double.Parse(monto));
+        }
     }
 }

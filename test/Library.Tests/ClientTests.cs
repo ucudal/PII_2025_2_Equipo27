@@ -102,5 +102,31 @@ public class ClientTests
         Assert.That(actualClientBirthDate, Is.EqualTo("21/03/1991"));
         Assert.That(actualClientGender, Is.EqualTo(Client.GenderType.Male));
     }
+
+    /// <summary>
+    /// Verifica que se calcule correctamente el monto total.
+    /// </summary>
+    [Test]
+    public void MontoTotal()
+    {
+        Seller seller = new Seller("Juan", 0);
+        Client client = new Client(0, "Martín", "Suárez", "marsuarez@", "555555", seller);
+        client.CreateOpportunity("Madera", 50, Opportunity.States.Open, client, DateTime.Now);
+        client.CreateOpportunity("Comida", 25, Opportunity.States.Open, client, DateTime.Now);
+        client.CreateOpportunity("Mesa", 70, Opportunity.States.Open, client, DateTime.Now);
+
+        double monto = client.MontoTotal();
+        
+        Assert.That(monto, Is.EqualTo(145.0));
+    }
+    
+    [Test]
+    public void MontoTotal_Excepcion()
+    {
+        Seller seller = new Seller("Juan", 0);
+        Client client = new Client(0, "Martín", "Suárez", "marsuarez@", "555555", seller);
+
+        Assert.Throws<ArgumentException>(() => client.MontoTotal());
+    }
 }
 

@@ -419,5 +419,28 @@ namespace Library
 
             return IsTheClient;
         }
+
+        /// <summary>
+        /// Calcula el monto total de las oportunidades del cliente.
+        /// Principios aplicados:
+        /// Expert: Client es quien tiene la lista de sus oportunidades.
+        /// SRP: El metodo solo calcula el monto total.
+        /// </summary>
+        /// <returns>El monto total.</returns>
+        public double MontoTotal()
+        {
+            if (opportunities.Count == 0)
+            {
+                throw new ArgumentException("El cliente no tiene oportunidades");
+            }
+            double total = 0;
+            foreach (Opportunity opportunity in Opportunities)
+            {
+                total += opportunity.Price;
+            }
+
+            return total;
+        }
+        
     }
 }

@@ -206,5 +206,49 @@ public class MainFacadeTests
         Assert.That(actualClientBirthDate, Is.EqualTo("21/03/1991"));
         Assert.That(actualClientGender, Is.EqualTo(Client.GenderType.Male));
     }
+    
+    /// <summary>
+    /// Verifica que la lista tenga la cantidad de clientes que sus ventas sean mayor al monto.
+    /// </summary>
+    [Test]
+    public void ClientesConOpirtunidadesMayores()
+    {
+        Seller seller = AdminFacade.Instance.CreateSeller("Juan");
+        AdminFacade.Instance.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  "0");
+        AdminFacade.Instance.CreateClient( "Facundo", "Gallinal", "fac@example.com", "099999909",  "0");
+        AdminFacade.Instance.CreateClient( "Matteo", "Cianelli", "mat@example.com", "099889999",  "0");
+        AdminFacade.Instance.CreateClient( "Peter", "Wallace", "pet@example.com", "099929999",  "0");
+        AdminFacade.Instance.CreateOpportunity("Azúcar", "75", "Open","0");
+        AdminFacade.Instance.CreateOpportunity("Harina", "80", "Open","1");
+        AdminFacade.Instance.CreateOpportunity("Arroz", "30", "Open","2");
+        AdminFacade.Instance.CreateOpportunity("Sal", "100", "Open","3");
+
+
+        IReadOnlyList<Client> clientes = AdminFacade.Instance.ClientesOportunidadesMayores("50,5");
+        
+        Assert.That(clientes.Count, Is.EqualTo(3));
+    }
+
+    /// <summary>
+    /// Verifica que la lista tenga la cantidad de clientes que sus ventas sean menor al monto.
+    /// </summary>
+    [Test]
+    public void ClientesConOpirtunidadesMenores()
+    {
+        Seller seller = AdminFacade.Instance.CreateSeller("Juan");
+        AdminFacade.Instance.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999", "0");
+        AdminFacade.Instance.CreateClient("Facundo", "Gallinal", "fac@example.com", "099999909", "0");
+        AdminFacade.Instance.CreateClient("Matteo", "Cianelli", "mat@example.com", "099889999", "0");
+        AdminFacade.Instance.CreateClient("Peter", "Wallace", "pet@example.com", "099929999", "0");
+        AdminFacade.Instance.CreateOpportunity("Azúcar", "75", "Open", "0");
+        AdminFacade.Instance.CreateOpportunity("Harina", "80", "Open", "1");
+        AdminFacade.Instance.CreateOpportunity("Arroz", "30", "Open", "2");
+        AdminFacade.Instance.CreateOpportunity("Sal", "100", "Open", "3");
+
+
+        IReadOnlyList<Client> clientes = AdminFacade.Instance.ClientesOportunidadesMenores("50,6");
+
+        Assert.That(clientes.Count, Is.EqualTo(1));
+}
 }
 

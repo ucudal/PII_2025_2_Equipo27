@@ -425,4 +425,28 @@ public class UserStoriesTests
         string actual = facade.GetPanel();
         Assert.That(actual,Is.EqualTo(expected));
     }
+
+    [Test]
+    public void Defensa()
+    /// Como usuario quiero ver los clientes con ventas mayores o menores a cierto monto.
+    {
+        AdminFacade facade = AdminFacade.Instance;
+        facade.CreateSeller("Lucas");
+        facade.CreateClient("Ezequiel", "Pastorino", "eze@example.com", "099999999",  "0");
+        facade.CreateClient("Lucía", "García", "lucia@example.com", "098888888",  "0");
+        facade.CreateClient("Juan", "Mendez", "eze@example.com", "099999999",  "0");
+        facade.CreateClient("Monica", "García", "lucia@example.com", "098888888",  "0");
+        facade.CreateClient("Pablo", "Suárez", "eze@example.com", "099999999",  "0");
+        facade.CreateOpportunity("Azúcar", "75", "Open", "0");
+        facade.CreateOpportunity("Harina", "80", "Open", "1");
+        facade.CreateOpportunity("Arroz", "30", "Open", "2");
+        facade.CreateOpportunity("Sal", "100", "Open", "3");
+        facade.CreateOpportunity("Orégano", "95", "Open", "4");
+
+        IReadOnlyList<Client> mayor = facade.ClientesOportunidadesMayores("60");
+        IReadOnlyList<Client> menor = facade.ClientesOportunidadesMenores("60");
+        
+        Assert.That(mayor.Count, Is.EqualTo(4));
+        Assert.That(menor.Count, Is.EqualTo(1));
+    }
 }
