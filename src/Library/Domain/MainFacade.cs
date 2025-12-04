@@ -270,32 +270,43 @@ namespace Library
 
         public Opportunity CreateOpportunity(string product, string price, string state, string clientid)
         {
-            Client client = this.SearchClientById(clientid);
-            if (client == null)
+            try
             {
-                throw new ArgumentException("No existe un cliente con le ID ingresado.");
-            }
+                Client client = this.SearchClientById(clientid);
+                if (client == null)
+                {
+                    throw new ArgumentException("No existe un cliente con le ID ingresado.");
+                }
 
-            Opportunity.States states = 0;
-            if (state == Opportunity.States.Canceled.ToString())
-            {
-                states = Opportunity.States.Canceled;
+                Opportunity.States states = 0;
+                if (state == Opportunity.States.Canceled.ToString())
+                {
+                    states = Opportunity.States.Canceled;
+                }
+                else if (state == Opportunity.States.Open.ToString())
+                {
+                    states = Opportunity.States.Open;
+                }
+                else if (state == Opportunity.States.Close.ToString())
+                {
+                    states = Opportunity.States.Close;
+                }
+                else
+                {
+                    throw new ArgumentException("El estado de la oportunidad debe ser o 'Close' o 'Canceled' o 'Open'");
+                }
+                Opportunity opportunity = client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
+                _opportunities.Add(opportunity);
+                if (states == Opportunity.States.Close)
+                {
+                    closedOpportunities.Add(opportunity);
+                }
+                return opportunity;
             }
-            else if (state == Opportunity.States.Open.ToString())
+            catch (Exception e)
             {
-                states = Opportunity.States.Open;
+                throw new ArgumentException("Error al crear la opportunity: " + e.Message);
             }
-            else if (state == Opportunity.States.Close.ToString())
-            {
-                states = Opportunity.States.Close;
-            }
-            else
-            {
-                throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
-            }
-            Opportunity opportunity = client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
-            _opportunities.Add(opportunity);
-            return opportunity;
         }
 
 

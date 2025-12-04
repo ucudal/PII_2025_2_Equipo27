@@ -265,11 +265,11 @@ namespace Library
             if (interaction is Message)
             {
                 Message message = interaction as Message;
-                if (message.Sender == InteractionOrigin.Origin.Received)
+                if (message.Sender == InteractionOrigin.Origin.Sent)
                 {
                     this.Waiting = false;
                 }
-                else if (message.Sender == InteractionOrigin.Origin.Sent)
+                else if (message.Sender == InteractionOrigin.Origin.Received)
                 {
                     this.Waiting = true;
                 }
@@ -277,11 +277,11 @@ namespace Library
             else if(interaction is Email)
             {
                 Email email = interaction as Email;
-                if (email.Sender == InteractionOrigin.Origin.Received)
+                if (email.Sender == InteractionOrigin.Origin.Sent)
                 {
                     this.Waiting = false;
                 }
-                else if (email.Sender == InteractionOrigin.Origin.Sent)
+                else if (email.Sender == InteractionOrigin.Origin.Received)
                 {
                     this.Waiting = true;
                 }
@@ -289,11 +289,11 @@ namespace Library
             else if (interaction is Call)
             {
                 Call call = interaction as Call;
-                if (call.Sender == InteractionOrigin.Origin.Sent)
+                if (call.Sender == InteractionOrigin.Origin.Received)
                 {
                     this.Waiting = true;
                 }
-                else if (call.Sender == InteractionOrigin.Origin.Received)
+                else if (call.Sender == InteractionOrigin.Origin.Sent)
                 {
                     this.Waiting = false;
                 }

@@ -162,16 +162,22 @@ namespace Library
         /// <returns>Mensaje de resultado (éxito o error)</returns>
         public void DeleteUser(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                throw new ArgumentException("Debe ingresar un id válido",nameof(id));
+                if (string.IsNullOrEmpty(id))
+                {
+                    throw new ArgumentException("Debe ingresar un id válido",nameof(id));
+                }
+                User user = this.SearchUser<User>(id);
+                if (user != null)
+                {
+                    RepoUsers.Remove(user.Id);
+                }
             }
-            User user = this.SearchUser<User>(id);
-            if (user != null)
+            catch (Exception e)
             {
-                RepoUsers.Remove(user.Id);
+                throw new Exception("No se pudo eliminar el user: " + e.Message);
             }
-            
         }
 
     }
