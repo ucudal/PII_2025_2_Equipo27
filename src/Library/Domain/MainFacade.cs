@@ -731,21 +731,13 @@ namespace Library
 
             foreach (var client in repoClients.GetAll())
             {
-                double monto = 0;
-                foreach (Opportunity opportunity in client.Opportunities)
-                {
-                    if (opportunity.State == Opportunity.States.Close)
-                    {
-                        monto += opportunity.Price;
-                    }
-                }
-
-                if (monto >= int.Parse(minParameter) && monto <= int.Parse(maxParameter))
+                if (client.IsClientBetween(minParameter,maxParameter))
                 {
                     resultClients.Add(client);
                 }
-            }
 
+                
+            }
             if (resultClients.Count == 0)
             {
                 throw new ArgumentException("No existe hay clientes en ese rango");

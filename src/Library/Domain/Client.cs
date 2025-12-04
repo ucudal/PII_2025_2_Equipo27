@@ -419,5 +419,42 @@ namespace Library
 
             return IsTheClient;
         }
+        
+        /// <summary>
+        /// Busca si el cliente ha registrado ventas (oportunidades cerradas) que se encuentren dentro de un rango de precios.
+        /// Aplicación de los patrones y principios:
+        /// - SRP: La responsabilidad de este método es localizar y devolver si el cliente tiene oportunidades cerradas (ventas) cuyos montos se encuentren dentro del rango deseado, o false si no existe.
+        /// - Expert: Client tiene acceso directo y completo a sus datos, siendo el lugar adecuado para validar la coincidencia.
+        /// </summary>
+        /// <param name="minParameter">Precio minimo dentro del rango.</param>
+        /// <param name="maxParameter">Precio maximo dentro del rango.</param>
+        /// <returns>True si es verdadero o false si es falso.</returns>
+        public bool IsClientBetween(string minParameter, string maxParameter)
+        {
+
+
+            if (int.Parse(minParameter) > int.Parse(maxParameter))
+            {
+                throw new ArgumentException("El valor minimo no puede ser superior al valor maximo.");
+            }
+            double monto = 0;
+            foreach (Opportunity opportunity in this.Opportunities)
+            {
+                if (opportunity.State == Opportunity.States.Close)
+                {
+                    monto += opportunity.Price;
+                }
+            }
+
+            if (monto >= int.Parse(minParameter) && monto <= int.Parse(maxParameter))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
     }
 }
