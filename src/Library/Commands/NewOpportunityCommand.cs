@@ -28,7 +28,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                 return;
             }
             string product = parameters[0]; string price = parameters[1]; 
-            string state = parameters[2]; string clientId = parameters[3];
+            string state = parameters[2].Trim(); string clientId = parameters[3];
 
             try
             {

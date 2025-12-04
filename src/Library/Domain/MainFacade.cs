@@ -293,7 +293,7 @@ namespace Library
                 }
                 else
                 {
-                    throw new ArgumentException("El estado de la oportunidad debe ser o 'Closed' o 'Canceled' o 'Open'");
+                    throw new ArgumentException("El estado de la oportunidad debe ser o 'Close' o 'Canceled' o 'Open'");
                 }
                 Opportunity opportunity = client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
                 _opportunities.Add(opportunity);
@@ -301,7 +301,7 @@ namespace Library
             }
             catch (Exception e)
             {
-                throw new ArgumentException("Error al crear la opportunity: " + e);
+                throw new ArgumentException("Error al crear la opportunity: " + e.Message);
             }
         }
 
