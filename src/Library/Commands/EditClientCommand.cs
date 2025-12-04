@@ -22,14 +22,14 @@ namespace Ucu.Poo.DiscordBot.Commands
                 }
                 string[] parameters = input.Split(",");
                 string id; string modified; string modification;
-                if (parameters.Length != 2)
+                if (parameters.Length != 3)
                 {
-                    await ReplyAsync("Debe ingresar exactamene tres parámetros.\nEjemplo: !editclient clientId, tagName");
+                    await ReplyAsync("Debe ingresar exactamene tres parámetros.\nEjemplo: !editclient clientId, modified, modification");
                     return;
                 }
 
                 id = parameters[0];
-                modified = parameters[1];
+                modified = parameters[1].Trim();
                 modification = parameters[2];
                 
                 facade.ModifyClient(id,modified,modification);
