@@ -61,5 +61,11 @@ En caso de querer iniciar como Seller
 | Mostrar Usuario                                    | !who                                                                           |   
 | Cambiar de tipo de usuario                         | !ChangeMyUserType                                                              |
 
+  Defensa:
+  Como usuario quiero ver los clientes con ventas mayores o menores a cierto monto.
 
+| Historia                                           | Comandos                                                                       | Ejemplo                                                                                                                                                                                                                                                                                 |
+|----------------------------------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mostrar clientes con ventas mayor al monto         | !obtenerclientesmontomayor                                                     | !initadmin!newseller Mario<br/>!newclient Marcelo, Pereira, ejemplo@gmail.com, 099123654, 1<br/>!newclient Luis, Perez, ejemplo@, 09999999, 1<br/>!newopportunity Chocolate, 130, Open, 0<br/>!newopportunity Carne, 150, Open, 1<br/>! obtenerclientesmontomayor 140                   |
+| Mostrar clientes con ventas menor al monto         | !obtenerclientesmontomenor                                                     | !initadmin!newseller Mario<br/>!newclient Marcelo, Pereira, ejemplo@gmail.com, 099123654, 1<br/>!newclient Luis, Perez, ejemplo@, 09999999, 1<br/>!newopportunity Chocolate, 150, Open, 0<br/>!newopportunity Carne, 150, Open, 1<br/>! obtenerclientesmontomenor 140                   |
 

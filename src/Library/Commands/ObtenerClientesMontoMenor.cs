@@ -15,7 +15,7 @@ namespace Ucu.Poo.DiscordBot.Commands
         [Command("obtenerclientesmontomenor")]
         [Summary("Muestra todos los clientes con el monto menor.")]
         public async Task ObtenerClientesMontoMayor(
-            [Remainder] [Summary("Retorma todos los clientes con el monto menor al ingresado")] string input)
+            [Remainder] [Summary("Retorma todos los clientes con el monto menor al ingresado")] string monto)
         {
             try
             {
@@ -24,16 +24,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                     return;
                 }
 
-                string[] parameters = input.Split(",");
-                string monto;
                 var result = new StringBuilder();
-                if (parameters.Length < 1)
-                {
-                    await ReplyAsync("Debe ingresar al menos 1 parámetro.\nEjemplo: !obtenerclientesmontomayor 50,");
-                    return;
-                }
-
-                monto = parameters[0];
 
                 if (facade.ClientesOportunidadesMenores(monto).Count != 0)
                 {
