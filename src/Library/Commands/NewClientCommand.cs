@@ -30,7 +30,7 @@ namespace Ucu.Poo.DiscordBot.Commands
         {
             try
             {
-                if (Auth("Admin") == false)
+                if (Auth("All") == false)
                 {
                     return;
                 }
