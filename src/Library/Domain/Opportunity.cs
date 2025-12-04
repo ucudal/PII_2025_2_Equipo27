@@ -70,5 +70,48 @@ namespace Library
                 throw new InvalidOperationException("La oportunidad ya está cancelada.");
             this.State = States.Canceled;
         }
+
+        
+        /// <summary>
+        /// Metodo creado para la defensa del proyecto
+        /// Devuelve true si la oportunidad está cerrada.
+        /// Este método devuelve true si la oportunidad está cerrada (vendida) y false en cualquier otro caso.
+        /// Expert: Opportunity es el experto de su propia información, entonces es la clase encargada de verificar sus datos.
+        /// SRP: El método solo tiene una responsabilidad, devolver si el producto es el correcto, por lo que tiene razón de cambio única.
+        /// Demeter: Para "no hablar con extraños", todas las acciones se delegan al experto en cada cosa.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsClosed()
+        {
+            if (this.State == States.Close)
+            {
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// Metodo creado para la defensa del proyecto
+        /// Devuelve true si el producto es el buscado.
+        /// Este método devuelve true si el producto es correcto y false en cualquier otro caso.
+        /// Patrones y principios:
+        /// Expert: Opportunity es el experto de su propia información, entonces es la clase encargada de verificar sus datos.
+        /// SRP: El método solo tiene una responsabilidad, devolver si el producto es el correcto, por lo que tiene razón de cambio única.
+        /// Demeter: Para "no hablar con extraños", todas las acciones se delegan al experto en cada cosa.
+        /// </summary>
+        /// <param name="product">producto a verificar</param>
+        /// <returns></returns>
+        public bool IsTheProduct(string product)
+        {
+            if (string.IsNullOrEmpty(product))
+            {
+                throw new ArgumentException("Debe ingresar un producto válido", nameof(product));
+            }
+            if (this.Product == product)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

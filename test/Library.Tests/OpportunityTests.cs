@@ -40,4 +40,32 @@ public class OpportunityTests
         Assert.Throws<InvalidOperationException>(() => opportunity.Sell());
     }
 
+    [Test]
+    public void IsClosed_ReturnsTrueIfOpportunityIsClosed()
+    {
+        //Arrange
+        Seller seller = new Seller("Pepe",0);
+        Client client = new Client(0,"Juan", "Perez", "juan@gmail.com", "099999099", seller);
+        Opportunity opportunity = new Opportunity("product", 4, Opportunity.States.Close,client);
+        //Act
+        bool actual = opportunity.IsClosed();
+        bool expected = true;
+        //Assert
+        Assert.That(actual,Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void IsTheProduct_ReturnsTrueIfTheProductIsCorrect()
+    {
+        //Arrange
+        Seller seller = new Seller("Pepe",0);
+        Client client = new Client(0,"Juan", "Perez", "juan@gmail.com", "099999099", seller);
+        Opportunity opportunity = new Opportunity("product", 4, Opportunity.States.Close,client);
+        //Act
+        bool actual = opportunity.IsTheProduct("product");
+        bool expected = true;
+        //Assert
+        Assert.That(actual,Is.EqualTo(expected));
+    }
+
 }

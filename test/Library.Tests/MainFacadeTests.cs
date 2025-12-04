@@ -1,3 +1,4 @@
+using System.Xml;
 using Discord;
 using Library.interactions; 
 namespace Library.Tests;
@@ -205,6 +206,28 @@ public class MainFacadeTests
         // Assert
         Assert.That(actualClientBirthDate, Is.EqualTo("21/03/1991"));
         Assert.That(actualClientGender, Is.EqualTo(Client.GenderType.Male));
+    }
+
+    [Test]
+    public void ClientsThatBoughtAProduct_ReturnsTheCorrectList()
+    {
+        //Arrange
+        string product = "ps5";
+        List<Client> expected = new List<Client>();
+        AdminFacade facade = AdminFacade.Instance;
+        facade.CreateSeller("pepe");
+        Client client1 =facade.CreateClient("juan", "perez", "juan@gmail.com", "098090999", "0");
+        Client client2 =facade.CreateClient("joao", "perez", "joao@gmail.com", "098090799", "0");
+        Client client3 =facade.CreateClient("pedro", "perez", "pedro@gmail.com", "098080999", "0");
+        facade.CreateOpportunity(product, "500", "Close", "0");
+        facade.CreateOpportunity("product", "500", "Close", "1");
+        facade.CreateOpportunity(product, "500", "Close", "2");
+        //Act
+        List<Client> actual = facade.ClientsThatBoughtAProduct(product);
+        expected.Add(client1);
+        expected.Add(client3);
+        //Assert
+        Assert.That(actual,Is.EqualTo(expected));
     }
 }
 

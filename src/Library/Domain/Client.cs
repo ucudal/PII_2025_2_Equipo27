@@ -419,5 +419,31 @@ namespace Library
 
             return IsTheClient;
         }
+        /// <summary>
+        /// Método creado para la defensa por Facundo Gallinal
+        /// Devuelve si el cliente tiene ventas en cierto producto o servicio.
+        /// Guías y principios:
+        /// Expert: El cliente es el experto en saber que oportunidades tiene, luego le pasa la información a opportunity para que compare su propia información
+        /// SRP: La única responsabilidad es devolver si el cliente compró el producto.
+        /// Demeter: Para "no hablar con extraños", todas las acciones se delegan al experto en cada cosa.
+        /// </summary>
+        /// <param name="product">Producto a buscar.</param>
+        /// <returns></returns>
+        public bool GetIfClientBought(string product)
+        {
+            if (string.IsNullOrEmpty(product))
+            {
+                throw new ArgumentException("Debe ingresar un producto válido", nameof(product));
+            }
+            bool bought = false;
+            foreach (Opportunity opportunity in this.opportunities)
+            {
+                if (opportunity.IsClosed() && opportunity.IsTheProduct(product))
+                {
+                    bought = true;
+                }
+            }
+            return bought;
+        }
     }
 }

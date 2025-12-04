@@ -193,4 +193,26 @@ public class RepoClientsTests
         
         Assert.That(panel, Is.EqualTo(exepted));
     }
+
+    [Test]
+    public void GetClientsThatBoughtAProduct_ReturnsTheRightList()
+    {
+        //Arrange
+        List<Client> expected = new List<Client>();
+        Seller seller = new Seller("kiki", 0);
+        RepoClients repo = RepoClients.Instance;
+        Client client1 = repo.CreateClient( "Eze", "Pasto", "eze@exaple.com", "099999099",  seller);
+        Client client2 = repo.CreateClient( "Ezequiel", "Pastorino", "eze@example.com", "099999999",  seller);
+        Client client3 = repo.CreateClient( "Matte", "C", "matte@example.com", "092999999",  seller);
+        Opportunity opportunity1 = client1.CreateOpportunity("Azúcar",60,Opportunity.States.Close,client1, new DateTime(2025,10,20));
+        Opportunity opportunity2 =client2.CreateOpportunity("Arroz",60,Opportunity.States.Close,client2, new DateTime(2025,10,20));
+        Opportunity opportunity3 =client3.CreateOpportunity("Azúcar",60,Opportunity.States.Close,client3, new DateTime(2025,10,20));
+        //Act
+        List<Client> actual = repo.GetClientsThatBoughtAProduct("Azúcar");
+        expected.Add(client1);
+        expected.Add(client3);
+        //Assert
+        Assert.That(actual,Is.EqualTo(expected));
+        
+    }
 } 

@@ -102,5 +102,22 @@ public class ClientTests
         Assert.That(actualClientBirthDate, Is.EqualTo("21/03/1991"));
         Assert.That(actualClientGender, Is.EqualTo(Client.GenderType.Male));
     }
+
+    [Test]
+    public void GetIfClientBought_ReturnsTrueIfTheClientBoughtThat()
+    {
+        //Arrange
+        Seller seller = new Seller("pip",0);
+        Client client = new Client(0, "Julian", "Rod", "jaujad@", "099", seller);
+        string product = "ps5";
+        client.CreateOpportunity(product, 500, Opportunity.States.Close, client, DateTime.Now);
+
+        //Act
+        bool actual = client.GetIfClientBought(product);
+        bool expected = true;
+        
+        //Assert
+        Assert.That(actual,Is.EqualTo(expected));
+    }
 }
 

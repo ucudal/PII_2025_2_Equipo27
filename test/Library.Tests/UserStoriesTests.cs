@@ -425,4 +425,28 @@ public class UserStoriesTests
         string actual = facade.GetPanel();
         Assert.That(actual,Is.EqualTo(expected));
     }
+
+    [Test]
+    public void UserStory_ProjectDefense3()
+    {
+        // Como usuario quiero ver los clientes con ventas de cierto producto o servicio
+        //Arrange
+        AdminFacade facade = AdminFacade.Instance;
+        Seller seller =facade.CreateSeller("Pipe");
+        Client client1 =facade.CreateClient("Juan", "Perez", "juan@gmail.com", "090009999", seller.Id.ToString());
+        Client client2 =facade.CreateClient("Pedro", "Perez", "juan@gmail.com", "090009999", seller.Id.ToString());
+        Client client3 =facade.CreateClient("Joao", "Perez", "juan@gmail.com", "090009999", seller.Id.ToString());
+        string product = "computadora";
+        facade.CreateOpportunity(product, "500", "Close", "0");
+        facade.CreateOpportunity(product, "500", "Close", "1");
+        facade.CreateOpportunity("Heladera", "300", "Close", "2");
+        string actual = "";
+        string expected = "";
+        //Act
+        List<Client> result = facade.ClientsThatBoughtAProduct(product);
+        expected = $"Clientes que compraron el producto {product}: \n {client1.Name} con id: {client1.Id} \n {client2.Name} con id: {client2.Id}";
+        actual = $"Clientes que compraron el producto {product}: \n {result[0].Name} con id: {result[0].Id} \n {result[1].Name} con id: {result[1].Id}";
+        //Assert
+        Assert.That(actual,Is.EqualTo(expected));
+    }
 }

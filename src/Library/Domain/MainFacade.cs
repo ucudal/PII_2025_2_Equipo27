@@ -707,5 +707,23 @@ namespace Library
                 throw new ArgumentException("El nuevo estado de la oportunidad debe ser o 'Close' o 'Canceled'");
             }
         }
+
+        /// <summary>
+        /// Devuelve una lista con clientes que compraron un producto específico.
+        /// Patrones y principios:
+        /// Expert: MainFacade delega la búsqueda de los clientes a RepoClients, Contenedor de los clientes.
+        /// SRP: La única responsabilidad es devolver la lista de clientes.
+        /// Demeter: Para "no hablar con extraños", todas las acciones se delegan al experto en cada cosa.
+        /// </summary>
+        /// <param name="product">Producto a buscar</param>
+        /// <returns></returns>
+        public List<Client> ClientsThatBoughtAProduct(string product)
+        {
+            if (string.IsNullOrEmpty(product))
+            {
+                throw new ArgumentException("Debe ingresar un producto válido", nameof(product));
+            }
+            return repoClients.GetClientsThatBoughtAProduct(product);
+        }
     }
 }

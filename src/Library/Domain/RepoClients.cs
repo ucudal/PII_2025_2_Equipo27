@@ -320,5 +320,32 @@ namespace Library
             }
             return $"Cantidad de ventas dentro del período: {totalSales}";
         }
+
+        /// <summary>
+        /// Método creado para la defensa del proyecto.
+        /// Devuelve una lista con los clientes que compraron un producto.
+        /// Patrones y principios:
+        /// Expert: RepoClients delega la responsabilidad a los clientes de verificar las oportunidades.
+        /// SRP: La única responsabilidad es devolver la lista de clientes.
+        /// Demeter: Para "no hablar con extraños", todas las acciones se delegan al experto en cada cosa.
+        /// </summary>
+        /// <param name="product">Producto a buscar.</param>
+        /// <returns></returns>
+        public List<Client> GetClientsThatBoughtAProduct(string product)
+        {
+            if (string.IsNullOrEmpty(product))
+            {
+                throw new ArgumentException("Debe ingresar un producto válido", nameof(product));
+            }
+            List<Client> clientsThatBought = new List<Client>();
+            foreach (Client client in this.clients)
+            {
+                if (client.GetIfClientBought(product))
+                {
+                    clientsThatBought.Add(client);
+                }
+            }
+            return clientsThatBought;
+        }
     }
 }
