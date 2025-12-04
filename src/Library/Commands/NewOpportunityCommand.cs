@@ -33,7 +33,7 @@ namespace Ucu.Poo.DiscordBot.Commands
             try
             {
                 seller.CreateOpportunity(product, price, state, clientId);
-                await ReplyAsync("Opportunidad creada correctamente. Ventas realizadas: " + seller.ClosedOpportunities.Count);
+                await ReplyAsync("Opportunidad creada correctamente.");
             }
             catch (Exception e)
             {

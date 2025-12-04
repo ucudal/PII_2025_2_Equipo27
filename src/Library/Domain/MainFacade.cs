@@ -9,7 +9,7 @@ namespace Library
     /// </summary>
     public class MainFacade
     {
-        
+
         protected RepoClients repoClients = RepoClients.Instance;
         private RepoTags repoTag = RepoTags.Instance;
         protected RepoUsers RepoUsers = RepoUsers.Instance;
@@ -18,10 +18,7 @@ namespace Library
 
         public IReadOnlyList<Opportunity> ClosedOpportunities
         {
-            get
-            {
-                return closedOpportunities;
-            }
+            get { return closedOpportunities; }
         }
 
         private List<Opportunity> _opportunities = new List<Opportunity>();
@@ -295,12 +292,15 @@ namespace Library
                 {
                     throw new ArgumentException("El estado de la oportunidad debe ser o 'Close' o 'Canceled' o 'Open'");
                 }
-                Opportunity opportunity = client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
+
+                Opportunity opportunity =
+                    client.CreateOpportunity(product, int.Parse(price), states, client, DateTime.Now);
                 _opportunities.Add(opportunity);
                 if (states == Opportunity.States.Close)
                 {
                     closedOpportunities.Add(opportunity);
                 }
+
                 return opportunity;
             }
             catch (Exception e)
@@ -308,7 +308,6 @@ namespace Library
                 throw new ArgumentException("Error al crear la opportunity: " + e.Message);
             }
         }
-
 
 
         /// <summary>
@@ -646,12 +645,13 @@ namespace Library
                     return;
                 }
             }
-            
+
             if (!exists)
             {
                 throw new KeyNotFoundException($"La interacción con Id {interactionid} no existe");
             }
         }
+
         /// <summary>
         /// Busca una oportunidad específica asociada a un cliente según su Id.
         /// Aplicación de los patrones y principios:
@@ -674,12 +674,14 @@ namespace Library
                 }
             }
 
-            if (opportunityresult==null)
+            if (opportunityresult == null)
             {
                 throw new ArgumentException("No existe la oportunidad buscada");
             }
+
             return opportunityresult;
         }
+
         /// <summary>
         /// Cambia el estado de una oportunidad específica de un cliente.
         /// Aplicación de los patrones y principios:
@@ -695,11 +697,11 @@ namespace Library
             Opportunity opportunity = SearchOpportunity(opportunityId, clientId);
             if (state == Opportunity.States.Canceled.ToString())
             {
-                client.ChangeOpportunityState(int.Parse(opportunityId),Opportunity.States.Canceled);
+                client.ChangeOpportunityState(int.Parse(opportunityId), Opportunity.States.Canceled);
             }
             else if (state == Opportunity.States.Close.ToString())
             {
-                client.ChangeOpportunityState(int.Parse(opportunityId),Opportunity.States.Close);
+                client.ChangeOpportunityState(int.Parse(opportunityId), Opportunity.States.Close);
                 this.closedOpportunities.Add(opportunity);
             }
             else
@@ -707,5 +709,51 @@ namespace Library
                 throw new ArgumentException("El nuevo estado de la oportunidad debe ser o 'Close' o 'Canceled'");
             }
         }
+
+
+        /// <summary>
+        /// Busca a los clientes a los que se le hayan registrado ventas (oportunidades cerradas) que se encuentren dentro de un rango de precios.
+        /// Aplicación de los patrones y principios:
+        /// - SRP: La responsabilidad de este método es localizar y devolver los clientes con oportunidades cerradas (ventas) cuyos montos se encuentren dentro del rango deseado, o notificar si no existe.
+        /// </summary>
+        /// <param name="minParameter">Precio minimo dentro del rango.</param>
+        /// <param name="maxParameter">Precio maximo dentro del rango.</param>
+        /// <returns>Lista de clientes con ventas que esten dentro del rango.</returns>
+        public IReadOnlyList<Client> SearchClientsWithSalesBetweenParameters(string minParameter, string maxParameter)
+        {
+
+            List<Client> resultClients = new List<Client>();
+
+            if (int.Parse(minParameter) > int.Parse(maxParameter))
+            {
+                throw new ArgumentException("El valor minimo no puede ser superior al valor maximo.");
+            }
+
+            foreach (var client in repoClients.GetAll())
+            {
+                double monto = 0;
+                foreach (Opportunity opportunity in client.Opportunities)
+                {
+                    if (opportunity.State == Opportunity.States.Close)
+                    {
+                        monto += opportunity.Price;
+                    }
+                }
+
+                if (monto >= int.Parse(minParameter) && monto <= int.Parse(maxParameter))
+                {
+                    resultClients.Add(client);
+                }
+            }
+
+            if (resultClients.Count == 0)
+            {
+                throw new ArgumentException("No existe hay clientes en ese rango");
+            }
+
+            return resultClients;
+
+        }
     }
 }
+
