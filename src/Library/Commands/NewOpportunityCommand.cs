@@ -35,7 +35,7 @@ namespace Ucu.Poo.DiscordBot.Commands
                 SellerFacade.Instance.CreateOpportunity(product, price, state, clientId);
                 await ReplyAsync("Opportunidad creada correctamente.");
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 await ReplyAsync($"Error: {e.Message}");
             }
