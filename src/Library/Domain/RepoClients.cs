@@ -308,9 +308,6 @@ namespace Library
         /// <param name="startdate">Fecha inicial del período.</param>
         /// <param name="finishdate">Fecha final del período.</param>
         /// <returns>Un mensaje con la cantidad de ventas.</returns>
-
-
-
         public string GetTotalSales(DateTime startdate, DateTime finishdate)
         {
             int totalSales = 0;
@@ -319,6 +316,29 @@ namespace Library
                 totalSales += client.GetTotalSales(startdate,finishdate);
             }
             return $"Cantidad de ventas dentro del período: {totalSales}";
+        }
+
+        /// <summary>
+        /// Defensa Historia 1
+        /// Retorna una lista con los clientes buscados
+        /// Aplicación de los patrones:
+        /// - Expert: Conoce a todos los clientes
+        /// - Demeter: Aplica el metodo HigherThanSell para ingresar a las opportunities de los clientes
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public List<Client> HigherThanSell(double amount)
+        {
+            List<Client> result = new List<Client>();
+            foreach (var client in clients)
+            {
+                if (client.HigherThanSell(amount))
+                {
+                    result.Add(client);
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -70,5 +70,20 @@ namespace Library
                 throw new InvalidOperationException("La oportunidad ya está cancelada.");
             this.State = States.Canceled;
         }
+
+        /// <summary>
+        /// Defensa Historia 1
+        /// Restorna true si es una venta cerrada y el precio es mayor al amount
+        /// Aplicación de los patrones:
+        /// - Expert: La oportunidad es la experta en su estado y su precio
+        /// - Demeter: Evita que client acceda al State y el Price
+        /// - SRP: Responsabilidad única, ver si la venta fue con un precio mayor al ingresado
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public bool HigherThanSell(double amount)
+        {
+            return State == States.Close && Price >= amount;
+        }
     }
 }

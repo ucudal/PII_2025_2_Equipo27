@@ -193,4 +193,40 @@ public class RepoClientsTests
         
         Assert.That(panel, Is.EqualTo(exepted));
     }
+    
+    // Tests Desfensa Historia 1
+    
+    [Test]
+    public void HigherThanSell_ReturnsListWithClient1()
+    {
+        // Arrange
+        double amount = 600;
+        Seller seller = new Seller("Kiki",0);
+        RepoClients repo = RepoClients.Instance;
+        Client client1 = repo.CreateClient("Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321",  seller);
+        Client client2 = repo.CreateClient("Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+        client1.CreateOpportunity("Mate", 25, Opportunity.States.Close, client1, DateTime.Now);
+        client1.CreateOpportunity("Moto", 750, Opportunity.States.Close, client1, DateTime.Now);
+        // Act
+        List<Client> result = repo.HigherThanSell(amount);
+        // Assert
+        Assert.That(result, Does.Contain(client1));
+    }
+    
+    [Test]
+    public void HigherThanSell_ReturnsEmptyList()
+    {
+        // Arrange
+        double amount = 5;
+        Seller seller = new Seller("Kiki",0);
+        RepoClients repo = RepoClients.Instance;
+        Client client1 = repo.CreateClient("Pedro", "Sanchez", "pedrosanchez@gmail.com", "099999321",  seller);
+        Client client2 = repo.CreateClient("Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+        client1.CreateOpportunity("Mate", 25, Opportunity.States.Open, client1, DateTime.Now);
+        client1.CreateOpportunity("Moto", 750, Opportunity.States.Open, client1, DateTime.Now);
+        // Act
+        List<Client> result = repo.HigherThanSell(amount);
+        // Assert
+        Assert.That(result, Is.Empty);
+    }
 } 

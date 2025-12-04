@@ -707,5 +707,26 @@ namespace Library
                 throw new ArgumentException("El nuevo estado de la oportunidad debe ser o 'Close' o 'Canceled'");
             }
         }
+
+
+        /// <summary>
+        /// Defensa Historia 1
+        /// Retorna una lista de clientes con ventas mayores a un monto ingresado 
+        /// Aplicación de patrones:
+        /// - SRP: Unica responsabilidad, retornar la lista de clientes buscados.
+        /// - Demeter: Aplica el metodo HigherThanSell, sin ingresar a los clientes y sus opportunities
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<Client> GetClientsHigherThanSell(string amount)
+        {
+            double doubleAmount;
+            if (!double.TryParse(amount, out doubleAmount))
+            {
+                throw new ArgumentException("El monto ingresado debe ser un número.");
+            }
+            return repoClients.HigherThanSell(doubleAmount);
+        }
     }
 }

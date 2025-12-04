@@ -425,4 +425,27 @@ public class UserStoriesTests
         string actual = facade.GetPanel();
         Assert.That(actual,Is.EqualTo(expected));
     }
+    
+    // Defensa Historia 1
+    [Test]
+    public void DefensaHistoria1()
+    {
+        // Arrange
+        string amount = "500";
+        // !newseller Kiki ==> SellerId: 0
+        Seller seller = AdminFacade.Instance.CreateSeller("Kiki");
+        // !newclient Virgil, van Dijk, Virg5@gmail.com, 099123556, 0 ==> ClientId: 0
+        Client virgil = SellerFacade.Instance.CreateClient("Virgil", "van Dijk", "Virg5@gmail.com", "099123556",  "0");
+        // !newclient Federico, Valverde, Fede8@gmail.com, 214365879, 0 ==> ClientId: 1
+        Client valverde = SellerFacade.Instance.CreateClient("Federico", "Valverde", "Fede8@gmail.com", "214365879",  "0");
+        // !newopportunity Pelota, 200, Open, 0
+        Opportunity opportunity1 = SellerFacade.Instance.CreateOpportunity("Pelota", "200", "Close", "0");
+        // !newopportunity Pelota, 200, Open, 0
+        Opportunity opportunity2 = SellerFacade.Instance.CreateOpportunity("Televisor", "700", "Close", "1");
+        // Act
+        // !getclientswithhighersels 500
+        List<Client> result = SellerFacade.Instance.GetClientsHigherThanSell(amount);
+        // Assert
+        Assert.That(result, Does.Contain(valverde));
+    }
 }

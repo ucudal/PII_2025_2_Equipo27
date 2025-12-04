@@ -207,6 +207,30 @@ namespace Library
                 }
             }
         }
+
+        /// <summary>
+        /// Defensa Historia 1
+        /// Retorna true si el cliente tiene una venta mayor/igual al monto ingresado
+        /// Aplicación de los patrones y principios:
+        /// - Expert: El cliente es el experto en sus ventas.
+        /// - Demeter(Dont´t Talk to Strangers): Utiliza el método HigerThanSell para no acceder directamente
+        ///   a State y Price de opportunity.
+        /// - SRP: Responsabilidad única de aplicar el método en cada Opportunity del cliente
+        /// </summary>
+        /// <param name="amount">El monto ingresado por el usuario</param>
+        /// <returns></returns>
+        public bool HigherThanSell(double amount)
+        {
+            foreach (var sell in opportunities)
+            {
+                if (sell.HigherThanSell(amount))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         
         /// <summary>
         /// Permite modificar uno de los atributos del cliente según el tipo de dato especificado.
@@ -216,8 +240,6 @@ namespace Library
         /// </summary>
         /// <param name="modified">Tipo de dato a modificar (Nombre, Apellido, Email, Teléfono).</param>
         /// <param name="modification">Nuevo valor para el campo indicado.</param>
-
-        
         public void ModifyClient(RepoClients.TypeOfData modified, string modification)
         {
             if (modified == RepoClients.TypeOfData.Name)

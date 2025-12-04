@@ -102,5 +102,69 @@ public class ClientTests
         Assert.That(actualClientBirthDate, Is.EqualTo("21/03/1991"));
         Assert.That(actualClientGender, Is.EqualTo(Client.GenderType.Male));
     }
+    
+    // Tests Desfensa Historia 1
+
+    [Test]
+    public void HigherThanSell_ReturnsTrue()
+    {
+        // Arrange
+        Seller seller = new Seller("Seller",0);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+        client.CreateOpportunity("Mate", 25, Opportunity.States.Close, client, DateTime.Now);
+        client.CreateOpportunity("Moto", 750, Opportunity.States.Close, client, DateTime.Now);
+        double amount = 100;
+        bool expected = true;
+        // Act
+        bool actual = client.HigherThanSell(amount);
+        // Assert
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void HigherThanSell_ReturnsFalse_WhenOpportunitiesIsEmpty()
+    {
+        // Arrange
+        Seller seller = new Seller("Seller",0);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+        double amount = 100;
+        bool expected = false;
+        // Act
+        bool actual = client.HigherThanSell(amount);
+        // Assert
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void HigherThanSell_ReturnsFalse_WhenAmountIsHigher()
+    {
+        // Arrange
+        Seller seller = new Seller("Seller",0);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+        client.CreateOpportunity("Mate", 25, Opportunity.States.Close, client, DateTime.Now);
+        client.CreateOpportunity("Moto", 750, Opportunity.States.Close, client, DateTime.Now);
+        double amount = 1000;
+        bool expected = false;
+        // Act
+        bool actual = client.HigherThanSell(amount);
+        // Assert
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void HigherThanSell_ReturnsFalse_WhenStateIsNotClose()
+    {
+        // Arrange
+        Seller seller = new Seller("Seller",0);
+        Client client = new Client(0, "Juan", "Perez", "juanperez@gmail.com", "099888222",  seller);
+        client.CreateOpportunity("Mate", 25, Opportunity.States.Open, client, DateTime.Now);
+        client.CreateOpportunity("Moto", 750, Opportunity.States.Canceled, client, DateTime.Now);
+        double amount = 5;
+        bool expected = false;
+        // Act
+        bool actual = client.HigherThanSell(amount);
+        // Assert
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 }
 
